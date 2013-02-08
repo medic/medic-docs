@@ -51,19 +51,6 @@ function($, _, handlebars, couchr, garden, marked){
         return html;
     };
 
-    exports.renderDoc = function() {
-        console.log('renderDoc',arguments);
-        var args = Array.prototype.slice.call(arguments, 0);
-        var path = args.length > 0 ? prefix+'/'+args.join('/') : 'md/index.md';
-        couchr.get(path, function (err, resp) {
-            if (err) return $('#content').html('<p>Not Found: '+err+'</p>');
-            var html = updateImages(path, marked(resp));
-            html = updateLinks(path, html);
-            $('#content').html(html);
-        });
-        // emit doc-changed event
-    }
-
     //setup title
     //var title = $('#docs-body h1:first-child').text();
 
@@ -168,7 +155,50 @@ function($, _, handlebars, couchr, garden, marked){
             });
         }
     }
-    $('#createuser').submit(userDocOnSubmit);
+    $(document).on('submit', '#createuser', userDocOnSubmit);
+
+    var renderFormExamples = function(err, callback) {
+
+        callback = callback || err;
+
+        var req = {},
+            // annoying https://github.com/akdubya/dustjs/issues/9
+            context = {
+              iter: function(chk, ctx, bodies) {
+                  var obj = ctx.current();
+                  for (var k in obj) {
+                    chk = chk.render(bodies.block, ctx.push({key: k, value: obj[k]}));
+                  }
+                  return chk;
+              },
+              forms: {}
+            };
+
+        // massage context a bit
+        _.each(jsonforms , function(form, key) {
+            var reporting_rates = [];
+            for (var k in form.fields) {
+                if (k === 'week' || k === 'week_number')
+                    reporting_rates.push('weekly');
+                if (k === 'month' || k === 'month_number')
+                    reporting_rates.push('monthly');
+            };
+            context.forms[key] = {
+                title: utils.localizedString(form.meta.label),
+                examples: form.examples,
+                use_sentinel: form.use_sentinel,
+                messages_task: form.messages_task,
+                facility_reference: form.facility_reference,
+                validations: form.validations && Object.keys(form.validations).join(', '),
+                reporting_rates: reporting_rates,
+                autoreply: form.autoreply
+            };
+        });
+        $('#supportedforms + p').after(
+            templates.render('docs/example_messages.html', req, context)
+        );
+        callback();
+    }
 
     if ($('#supportedforms').get(0)) {
         renderFormExamples(function() {
@@ -180,6 +210,19 @@ function($, _, handlebars, couchr, garden, marked){
         });
     } else {
         $(document).trigger('docsPageLoaded');
+    }
+
+    exports.renderDoc = function() {
+        console.log('renderDoc',arguments);
+        var args = Array.prototype.slice.call(arguments, 0);
+        var path = args.length > 0 ? prefix+'/'+args.join('/') : 'md/index.md';
+        couchr.get(path, function (err, resp) {
+            if (err) return $('#content').html('<p>Not Found: '+err+'</p>');
+            var html = updateImages(path, marked(resp));
+            html = updateLinks(path, html);
+            $('#content').html(html);
+        });
+        // emit doc-changed event
     }
 
     exports.routes = function() {
