@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" manifest="application.appcache">
+  <head>
+    <meta charset="utf-8">
+    <title>Baseline Garden App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="/dashboard/_design/dashboard/_rewrite/_topbar.css" rel="stylesheet">
+    <link href="css/app.css" rel="stylesheet">
+    <link rel="shortcut icon" href="img/favicon.ico">
+
+  </head>
+
+  <body data-spy="scroll" data-target=".subnav" data-offset="50">
+    <div class="page-header navbar-fixed-top">
+      <div class="container">
+        <h1 class="pull-left" id="page-title">Documentation</h1>
+        <div class="controls hide" style="display: none;">
+        </div>
+      </div>
+    </div>
+    <div id="docs-body">
+        <div class="container">
+            <div class="row">
+                <div class="span8 content">
+                    <div id="content">Loading...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="jam/require.js"></script>
+    <script>
+      require(['js/app', 'domReady', 'jquery'], function (app, domReady) {
+        // the topbar needed jquery to be loaded.
+        require(['/dashboard/_design/dashboard/_rewrite/static/js/topbar.js'], function(){});
+        app.init();
+        domReady(app.on_dom_ready);
+      });
+    </script>
+  </body>
+</html>

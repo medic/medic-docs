@@ -1,0 +1,34 @@
+{
+    "name": "couchr",
+    "description": "Lightweight XHR wrapper for CouchDB requests",
+    "version": "0.0.7",
+    "categories": ["AJAX & Websockets", "API Clients"],
+    "jam": {
+        "main": "couchr-browser.js",
+        "include": ["couchr-browser.js", "README.md"],
+        "dependencies": {
+            "jquery": null,
+            "events": null
+        }
+    },
+    "main": "couchr-node.js",
+    "dependencies": {
+        "follow": "0.8.0"
+    },
+    "github": "https://github.com/caolan/couchr",
+    "bugs": {
+        "web": "https://github.com/caolan/couchr/issues"
+    },
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/caolan/couchr.git"
+        }
+    ],
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "http://www.opensource.org/licenses/mit-license.php"
+        }
+    ]
+}

@@ -1,0 +1,37 @@
+{
+    "name": "hbt",
+    "version": "0.0.3",
+    "description": "An AMD loader plugin for Handlebars templates",
+    "keywords": ["handlebars", "template"],
+
+    "maintainers": [
+        {
+            "name": "Scott Nelson",
+            "email": "scottbnel@gmail.com",
+            "web": "http://scttnlsn.com" 
+        }
+    ],
+    
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "http://www.opensource.org/licenses/mit-license.php"
+        }
+    ],
+    
+    "repositories": [
+        {
+            "type": "git", 
+            "url": "http://github.com/scttnlsn/require-hbt.git"
+        }
+    ],
+    
+    "github": "http://github.com/scttnlsn/require-hbt",
+    
+    "main": "hbt.js",
+
+    "dependencies": {
+       "handlebars": ">= 1.0.0-beta.6.jam.1",
+       "text": ">= 2.0.0-jam.1"
+    }
+}

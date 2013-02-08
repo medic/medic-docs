@@ -1,0 +1,8 @@
+{
+    "name": "cache-manifest-timestamp",
+    "version": "0.0.1",
+    "description": "Adds a modified time comment to cache manifest files forcing the browser to update cached resources after a 'kanso push'",
+    "preprocessors": {
+        "update": "build/update"
+    }
+}

@@ -1,0 +1,43 @@
+{
+    "name": "kujua-docs",
+    "version": "0.0.1",
+    "description": "Kujua Documentation",
+    "long_description": "Install, setup and documentation for Kujua implementers.",
+    "url": "https://github.com/garden20/baseline-garden-app",
+    "categories": ["sms","health"],
+    "attachments": ["md", "css", "img", "jam", "js", "index.html", "application.appcache", "templates"],
+    "modules": "couch",
+    "load": "couch/ddoc",
+    "icons": {
+        "16": "img/promo/icon_16.png",
+        "48": "img/promo/icon_48.png",
+        "96": "img/promo/icon_96.png",
+        "128": "img/promo/icon_128.png"
+    },
+    "promo_images": {
+        "small": "img/promo/promo_small.png"
+    },
+    "screenshots": [
+        "img/promo/screenshot1.png",
+        "img/promo/screenshot2.png"
+    ],
+    "less": {
+        "compile": [ "css/app.less" ]
+    },
+    "cache_manifests": [
+            "application.appcache"
+    ],
+    "jam" : {
+        "include" : ["js/app", "js/docs", "domReady"]
+    },
+    "dependencies": {
+        "modules": null,
+        "attachments": null,
+        "properties": null,
+        "underscore": null,
+        "less-precompiler": "1.3.0-kanso.7",
+        "cache-manifest-timestamp": null,
+        "git-info" : null,
+        "kanso-jam" : null
+    }
+}

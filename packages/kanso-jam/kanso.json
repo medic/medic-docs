@@ -1,0 +1,13 @@
+{
+    "name": "kanso-jam",
+    "version": "0.0.1",
+    "categories": ["build-tools"],
+    "description": "Runs jam compile, and replaces jam/require.js  Requires jam to be installed",
+    "url": "https://github.com/kanso/kanso-jam",
+    "preprocessors": {
+        "compile": "build/compile"
+    },
+    "postprocessors": {
+        "cleanup": "build/cleanup"
+    }
+}
