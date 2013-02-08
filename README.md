@@ -10,6 +10,6 @@ This site was created using the [Garden Baseline
 App](http://garden20.com/baseline-garden-app/) as a starting point and is
 deployed to the [Medic Garden](https://medic-dev.iriscouch.com).
 
-### Install
+## Install
 
 A `git clone` and `kanso push` should be all that is needed to start developing.
