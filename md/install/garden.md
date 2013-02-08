@@ -1,4 +1,4 @@
-# OHW Nepal Bootstrap
+# Garden Setup
 
 This document describes the steps needed to setup and install Kujua and the
 Garden. This document will get phased soon once the process is more
@@ -9,7 +9,7 @@ streamlined.
 * You have a freshly installed Medic Mobile Virtual Appliance running and know the IP address
 * You have the CouchDB Admin password
 
-## Configure CouchDB
+## Configure
 
 * Navigate your browser to Futon by appending `:5984/_utils` to the IP address.
 * Choose Login in the bottom right corner and enter the username `admin` and
