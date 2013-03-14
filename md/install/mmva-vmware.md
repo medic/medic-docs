@@ -5,7 +5,7 @@ the Medic Mobile Virtual Appliance.
 
 ## Download the ISO
 
-* Download the [latest bootable ISO image](https://medic.s3.amazonaws.com/downloads/iso/20130126.iso).
+* Download the [latest bootable ISO image](https://medic.s3.amazonaws.com/downloads/iso/mmva-image-20130207.iso).
 
 * Move it out of the downloads folder, give it a permanent home in your file
   structure.  The virtual machine will need to reference it on boot.
@@ -33,7 +33,7 @@ the Medic Mobile Virtual Appliance.
 ![Select Linux](img/vm/select_other_linux.png)
 
 ### Change VM Name
-
+ 
 ![Select Linux](img/vm/change_vm_name.png)
 
 ### Specify 64G of maximum disk capacity
