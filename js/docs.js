@@ -244,6 +244,7 @@ function($, _, handlebars, couchr, garden, marked){
         });
 
         getSettings(function(err, data) {
+            if (err) return alert('Failed to retrieve settings.\n'+err);
             $('#page-title').append('<small>v'+data.config.version+'</small>');
         });
     }
