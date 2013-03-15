@@ -7,11 +7,11 @@
 
 ## Garden
 
-* [Garden Install](install/garden.md)
+* [Garden Setup](install/garden.md)
 
 ## Kujua
 
-* [Kujua Install](install/kujua.md)
+* [Kujua Install](install/garden.md)
 * [Release Notes](dev/release_notes.md)
 
 ## Dev
