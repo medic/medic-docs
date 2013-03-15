@@ -1,11 +1,25 @@
 # Index
 
-* Virtual Appliance Install
-	* [VMWare Player](install/mmva-vmware.md)
-	* [Virtual Box](install/mmva-vbox.md)
+## Virtual Appliance
+
+* [VMWare Player](install/mmva-vmware.md)
+* [Virtual Box](install/mmva-vbox.md)
+
+## Garden
+
 * [Garden Install](install/garden.md)
+
+## Kujua
+
 * [Kujua Install](install/kujua.md)
-* [Quick Install Kujua 0.1](install/quick.md)
 * [Release Notes](dev/release_notes.md)
+
+## Dev
+
+* [Virtual Appliance Build Environment](dev/mmva_build.md)
+
+## Old
+
+* [Quick Install Kujua 0.1](install/quick.md)
 * [Gateway Testing](testing.md)
-* [Old Kujua Install](install/old.md)
+* [Kujua Install](install/old.md)

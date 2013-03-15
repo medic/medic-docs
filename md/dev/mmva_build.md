@@ -1,4 +1,4 @@
-# Medic Mobile Virtual Appliance Build Environment
+# Virtual Appliance Build Environment
 
 ## Intro
 
@@ -14,12 +14,12 @@ Node.js, OpenSSH, etc are all downloaded and compiled.
 Download and untar the build VM.
 
 ```
-curl -O https://scri.pt/get/medic-vm-builder-20121221.tar.xz
-tar xvJf medic-vm-builder-20121221.tar.xz
+curl -O https://scri.pt/get/medic-vm-builder-20130308.tar.xz
+tar xvJf medic-vm-builder-20130308.tar.xz
 ```
 *Note: Keep the `.tar.xz` file around so that later you can apply patches to it.*
 
-These commands will create a directory like `medic-vm-builder-20121221.vmwarevm` that contains the VMWare Virtual Machine.  
+These commands will create a directory like `medic-vm-builder-20130308.vmwarevm` that contains the VMWare Virtual Machine.  
 
 
 ## Build
@@ -33,7 +33,7 @@ Boot the build environment:
 
 Once booted, login on the console as `root` with password `vm-build` and run `make`.
 
-![Build VM Login](http://f.cl.ly/items/0M2N3j2u2C0v3z2z050S/login-build-vm.png)
+![Build VM Login](img/login-build-vm.png)
 
 When the build completes the bootable ISO is saved in
 `/root/vm-toaster/output/image.iso`.  Copy this file to the host system with
@@ -58,7 +58,7 @@ Use VMWare to boot the freshly built ISO image:
 
 Once finished booting you should see a status screen similar to this:
 
-![Medic Mobile Virtual Appliance](http://f.cl.ly/items/232O3M350z0W2y2J2D0T/mmvm-status.png)
+![Medic Mobile Virtual Appliance](img/mmvm-status.png)
 
 ## Setup
 
@@ -68,21 +68,27 @@ The final step is to set a password for the system:
 * Enter a password and optionally public SSH key.
 * Click Save
 
-This sets the password (and optionally authorized ssh key) for a `tc` Unix
-account and for a CouchDB admin account with username `admin`.  SSH and CouchDB
-are available on ports 33696 and 5984 respecitvely.  The default configuration
-disables ssh access and a login shell for the root account, but the `tc`
-account does have access to the `sudo` command.
+This sets the password (and optionally authorized ssh key) for a `vm` Unix
+account and creates an admin user for CouchDB with username `admin`.  
+
+The `root` user login is disabled by default, but the `vm` account has root
+access via the `sudo` command.  SSH is available on port `33696`. You can ssh
+in similar to below:
 
 ```
-$ curl http://192.168.213.129:5984
+$ ssh -p 33696 vm@192.168.213.129
+vm@192.168.213.129's password: 
+vm@toaster:~$ 
+```
+
+CouchDB is listening on port `5984` and only accessible with authentication,
+the username is `admin` and uses the same password as the `vm` user. Test your
+access:
+
+```
+$ curl -u admin http://192.168.213.129:5984/
+Enter host password for user 'admin':
 {"couchdb":"Welcome","version":"1.2.0"}
-```
-
-```
-$ ssh -p 33696 tc@192.168.213.129
-tc@192.168.213.129's password: 
-tc@toaster:~$ 
 ```
 
 Enjoy!
