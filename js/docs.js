@@ -9,25 +9,17 @@ define('js/docs',[
 function($, _, handlebars, couchr, garden, marked){
 
     var exports = {},
-        prefix = 'md';
+        prefix = 'md',
+        settings = null;
 
-    exports.init = function() {
-        marked.setOptions({
-          gfm: true,
-          tables: true,
-          breaks: false,
-          pedantic: false,
-          sanitize: true,
-          smartLists: true,
-          langPrefix: 'language-',
-          highlight: function(code, lang) {
-            if (lang === 'js') {
-              return highlighter.javascript(code);
-            }
-            return code;
-          }
+    var getSettings = function(cb) {
+        if (settings) return cb(null, settings);
+        couchr.get('_db/_design/kujua-docs', function (err, resp) {
+            if (err) return cb(err);
+            settings = resp.kanso;
+            cb(null, settings);
         });
-    }
+    };
 
     // avoid using DOM so browser does not fetch resources and display 404
     // errors
@@ -155,6 +147,7 @@ function($, _, handlebars, couchr, garden, marked){
             });
         }
     }
+
     $(document).on('submit', '#createuser', userDocOnSubmit);
 
     var renderFormExamples = function(err, callback) {
@@ -213,7 +206,6 @@ function($, _, handlebars, couchr, garden, marked){
     }
 
     exports.renderDoc = function() {
-        console.log('renderDoc',arguments);
         var args = Array.prototype.slice.call(arguments, 0);
         var path = args.length > 0 ? prefix+'/'+args.join('/') : 'md/index.md';
         couchr.get(path, function (err, resp) {
@@ -232,6 +224,28 @@ function($, _, handlebars, couchr, garden, marked){
            '/([\\w\\-\\._]+)/([\\w\\-\\._]+)': exports.renderDoc,
            '/([\\w\\-\\._]+)/([\\w\\-\\._]+)/([\\w\\-\\._]+)': exports.renderDoc
         }
+    }
+
+    exports.init = function(options) {
+        marked.setOptions({
+          gfm: true,
+          tables: true,
+          breaks: false,
+          pedantic: false,
+          sanitize: true,
+          smartLists: true,
+          langPrefix: 'language-',
+          highlight: function(code, lang) {
+            if (lang === 'js') {
+              return highlighter.javascript(code);
+            }
+            return code;
+          }
+        });
+
+        getSettings(function(err, data) {
+            $('#page-title').append('<small>v'+data.config.version+'</small>');
+        });
     }
 
     return exports;
