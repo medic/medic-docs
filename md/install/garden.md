@@ -43,12 +43,12 @@ Now do the same thing for user data:
 
 * Choose Remote
 * Paste in seed URL: <br/>
-  `http://admin:4b20ab@mandric.iriscouch.com/ohw-nepal-users-seed`
-* Enter `_users` into Local DB name
+  `http://admin:4b20ab@mandric.iriscouch.com/ohw-nepal-seed`
+* Enter `kujua-base` into Local DB name
 * Click Replicate and wait or spinner to complete
 * Verify 2 documents were written
 
-![Replicate Users](img/garden/replicate_user_seed.png)
+![Replicate Users](img/garden/replicate_ohw_seed.png)
 
 ## Install Kujua via Garden Dashboard
 
