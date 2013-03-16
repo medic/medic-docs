@@ -14,6 +14,12 @@ function($, _, handlebars, couchr, director, events, garden, docs) {
         emitter = new events.EventEmitter(),
         routes = _.extend({}, docs.routes());
 
+    var config = {
+        notfound: function() {
+            alert('Document not found.');
+        }
+    };
+
     /**
      * This is where you will put things you can do before the dom is loaded.
      */
@@ -27,12 +33,14 @@ function($, _, handlebars, couchr, director, events, garden, docs) {
      * This that occur after the dom has loaded.
      */
     exports.on_dom_ready = function(){
-        console.log('on dom ready fired');
         garden.get_garden_ctx(function(err, garden_ctx){
             //$('.main').append(index_t(garden_ctx));
-            router = director.Router(routes);
+            router = director.Router(routes).configure(config);
             router.init('/');
         });
+
+        var opts = {};
+        _.invoke([docs], 'onDOMReady', opts);
 
         /*
         couchr.get('_db/_all_docs', function (err, resp) {

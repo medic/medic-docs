@@ -36,8 +36,12 @@ function($, _, handlebars, couchr, garden, marked){
     function updateLinks(path, html) {
         // update relative links to include hash mark
         var re = /\s*href\s*=\s*["']([^"']+)/g;
+        //html.replace(/\s*href\s*=\s*["']([^"']+)/g, ' href="#/$1"')
         while ((match = re.exec(html)) !== null) {
+            console.log('match', match);
+            //debugger;
             if (match[1].match(/^\s*http/)) continue;
+            if (match[1].match(/^\s*#/)) continue;
             html = html.replace(match[1], '#/'+match[1]);
         }
         return html;
@@ -49,7 +53,7 @@ function($, _, handlebars, couchr, garden, marked){
     // setup controls
     //$('.page-header .controls').hide();
 
-    function renderTOC(html) {
+    function renderTOC() {
         // render TOC unless no sub headers
         if ($('#docs-body h2').get(0)) {
           var ul = $('<ul/>');
@@ -67,13 +71,14 @@ function($, _, handlebars, couchr, garden, marked){
                   $('<a/>').attr('href', '#'+id).text(title)));
             }
           });
-          $('.sections').append(ul);
-          $('.sections').show();
+          $('#sections').html(ul);
+          $('#sections').show();
         } else {
-          $('.sections').hide();
+          $('#sections').hide();
         }
     };
 
+    var content_width = 620;
     function makeImagesZoomable() {
         // make large images zoomable
         $('#docs-body img').each(function(idx, el) {
@@ -85,7 +90,7 @@ function($, _, handlebars, couchr, garden, marked){
                 width = this.width;
                 height = this.height;
                 $(el).parent().addClass('images');
-                if (width > 960) {
+                if (width > content_width) {
                   $(el).parent().addClass('zoom');
                   $(el).parent().bind('click', function() {
                     var p = $(this);
@@ -148,7 +153,6 @@ function($, _, handlebars, couchr, garden, marked){
         }
     }
 
-    $(document).on('submit', '#createuser', userDocOnSubmit);
 
     var renderFormExamples = function(err, callback) {
 
@@ -193,28 +197,18 @@ function($, _, handlebars, couchr, garden, marked){
         callback();
     }
 
-    if ($('#supportedforms').get(0)) {
-        renderFormExamples(function() {
-            if ($('#smsresponses').get(0)) {
-                renderSMSResponses(function() {
-                    $(document).trigger('docsPageLoaded');
-                });
-            }
-        });
-    } else {
-        $(document).trigger('docsPageLoaded');
-    }
 
     exports.renderDoc = function() {
         var args = Array.prototype.slice.call(arguments, 0);
+        console.log('renderDoc args',args);
         var path = args.length > 0 ? prefix+'/'+args.join('/') : 'md/index.md';
         couchr.get(path, function (err, resp) {
             if (err) return $('#content').html('<p>Not Found: '+err+'</p>');
             var html = updateImages(path, marked(resp));
             html = updateLinks(path, html);
             $('#content').html(html);
+            $(document).trigger('docRendered');
         });
-        // emit doc-changed event
     }
 
     exports.routes = function() {
@@ -226,7 +220,35 @@ function($, _, handlebars, couchr, garden, marked){
         }
     }
 
+    var onDocRendered = function(ev) {
+        renderTOC();
+        makeImagesZoomable();
+        if ($('#supportedforms').get(0)) {
+            renderFormExamples(function() {
+                if ($('#smsresponses').get(0)) {
+                    renderSMSResponses(function() {
+                        $(document).trigger('docsPageLoaded');
+                    });
+                }
+            });
+        }
+    };
+
+    var setupListeners = function() {
+        $(document).on('docRendered', onDocRendered);
+        $(document).on('submit', '#createuser', userDocOnSubmit);
+    };
+
+    exports.onDOMReady = function(options)  {
+        getSettings(function(err, data) {
+            if (err) return alert('Failed to retrieve settings.\n'+err);
+            // include version number in heading
+            $('#page-title').append('<small>v'+data.config.version+'</small>');
+        });
+    };
+
     exports.init = function(options) {
+        console.log('init called');
         marked.setOptions({
           gfm: true,
           tables: true,
@@ -242,11 +264,7 @@ function($, _, handlebars, couchr, garden, marked){
             return code;
           }
         });
-
-        getSettings(function(err, data) {
-            if (err) return alert('Failed to retrieve settings.\n'+err);
-            $('#page-title').append('<small>v'+data.config.version+'</small>');
-        });
+        setupListeners();
     }
 
     return exports;
