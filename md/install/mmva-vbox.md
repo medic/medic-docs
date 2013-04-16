@@ -14,7 +14,7 @@ the Medic Mobile Virtual Appliance.
 
 ### Download 
 
-1. Go to the [VirtualBox Downloads page](https://www.virtualbox.org/wiki/Downloads) page.
+1. Go to the [VirtualBox Downloads page](https://www.virtualbox.org/wiki/Downloads).
 2. Download and install the latest version for your operating system.
 
 ## Create New Virtual Machine
