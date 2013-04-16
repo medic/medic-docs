@@ -1,25 +1,28 @@
-# Index
 
 ## Virtual Appliance
 
 * [VMWare Player](install/mmva-vmware.md)
 * [Virtual Box](install/mmva-vbox.md)
 
-## Garden
+## Apps
 
-* [Garden Setup](install/garden.md)
+* [Installing Apps](install/garden.md)
 
-## Kujua
+## Configuration
 
-* [Kujua Install](install/garden.md)
-* [Release Notes](dev/release_notes.md)
+* [Replicating with Futon](config/replicate.md)
 
-## Dev
+## Release Notes
+
+* [Release Notes v0.2](dev/release_notes/kujua02.md)
+
+## Development
 
 * [Virtual Appliance Build Environment](dev/mmva_build.md)
 
-## Old
+## Archive
 
 * [Quick Install Kujua 0.1](install/quick.md)
+* [Release Notes v0.1](dev/release_notes/kujua01.md)
 * [Gateway Testing](testing.md)
 * [Kujua Install](install/old.md)

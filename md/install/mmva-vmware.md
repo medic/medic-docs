@@ -1,11 +1,11 @@
-# Virtual Appliance Install
+# Virtual Appliance Install with VMWare Player
 
 This document will take you through the recommended steps to install the 
 the Medic Mobile Virtual Appliance.
 
 ## Download the ISO
 
-* Download the [latest bootable ISO image](https://medic.s3.amazonaws.com/downloads/iso/mmva-image-20130207.iso).
+* Download the [latest bootable ISO image](https://medic.s3.amazonaws.com/downloads/iso/mmva-image-20130405.iso).
 
 * Move it out of the downloads folder, give it a permanent home in your file
   structure.  The virtual machine will need to reference it on boot.
@@ -26,6 +26,8 @@ the Medic Mobile Virtual Appliance.
 
 ### Select Bootable ISO file
 
+* Select the ISO file.  Note: your filename might be different, this is just an example.
+
 ![Select ISO](img/vm/select_iso.png)
 
 ### Select Linux OS
@@ -34,11 +36,16 @@ the Medic Mobile Virtual Appliance.
 
 ### Change VM Name
  
+* Create a name.  Note: You can create any name you want here, this is just an
+example. Typically you name the VM to match the date of the ISO file.
+
 ![Select Linux](img/vm/change_vm_name.png)
 
 ### Specify 64G of maximum disk capacity
 
-The VM will only use as much space as it needs, but 64G is the maximum.
+The VM will only use as much space as it needs, and if it uses the limit you
+can easily adjust it.  You should create a maximum so the host operating system
+is not affected if the VM fills up.
 
 ![Specify 64](img/vm/64G_of_disk.png)
 
@@ -48,13 +55,16 @@ The VM will only use as much space as it needs, but 64G is the maximum.
 
 ### Change memory setting
 
-Allocate a minimum of 512MB of RAM for the VM.
+We recommend a minimum of 512MB of RAM for the VM. The VM will only use what it
+needs, but having a limit keeps the the host operating system performance from
+degrading.
 
 ![Use 512M of RAM](img/vm/512M_of_ram.png)
 
 ### Use Bridged Networking
 
-This allows the local network to access the VM.
+This allows the local network to access the VM. In our typical setup we want to
+connect to the IP with SMSSync.
 
 ![Use Bridged Networking](img/vm/bridged_networking.png)
 
@@ -88,4 +98,6 @@ Navigate to the IP address in your browser and enter a password twice into the f
 
 Copy the password down somewhere safe so you don't lose or forget it.
 
-Congrats, you have completed the VM setup! (Onward... more to come.)
+Great, your VM is running! 
+
+Next: [Install some apps](install/garden.md)

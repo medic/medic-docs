@@ -1,82 +1,108 @@
-# Virtual Appliance Install
+# Virtual Appliance Install with Virtual Box
 
 This document will take you through the recommended steps to install the 
 the Medic Mobile Virtual Appliance.
 
 ## Download the ISO
 
-* Download the [latest bootable ISO image](https://medic.s3.amazonaws.com/downloads/iso/20130126.iso).
+* Download the [latest bootable ISO image](https://medic.s3.amazonaws.com/downloads/iso/mmva-image-20130405.iso).
 
 * Move it out of the downloads folder, give it a permanent home in your file
   structure.  The virtual machine will need to reference it on boot.
 
-## Install VMWare Player
+## Install Virtual Box
 
 ### Download 
 
-1. Go to the [VMWare Player Products](http://www.vmware.com/products/player/) page.
+1. Go to the [VirtualBox Downloads page](https://www.virtualbox.org/wiki/Downloads) page.
 2. Download and install the latest version for your operating system.
 
 ## Create New Virtual Machine
 
-* Once installed, launch VMWare Player
-* On the launch screen choose Create New Virtual Machine
+* Once installed, launch VirtualBox
+* On the launch screen choose New button Virtual Machine
 
-![Create New VM](img/vm/create_new_vm.png)
+![Create New](img/vbox/create_new.png)
 
-### Select Bootable ISO file
+### Set Name and OS
 
-![Select ISO](img/vm/select_iso.png)
+The name used here is a convention you can name it anything you want.  
 
-### Select Linux OS
+* Choose Linux for Type
+* Choose Linux 2.6 for Version
+* Choose Next
 
-![Select Linux](img/vm/select_other_linux.png)
+![Name and operating system](img/vbox/name_and_os.png)
 
-### Change VM Name
+### Set Memory Size
 
-![Select Linux](img/vm/change_vm_name.png)
+We recommend reserving at least 512M of memory for the virtual machine.
 
-### Specify 64G of maximum disk capacity
+![Memory Size](img/vbox/set_memory_size.png)
 
-The VM will only use as much space as it needs, but 64G is the maximum.
+### Create Virtual Hard Drive
 
-![Specify 64](img/vm/64G_of_disk.png)
+* Choose Create a virtual hard drive now (default)
+* Choose Create
 
-### Choose Customize Hardware
+![Hard drive](img/vbox/create_hard_drive.png)
 
-![Customize HW](img/vm/customize_hw.png)
+* Choose VDI (default)
+* Choose Create
 
-### Change memory setting
+![Hard drive file type](img/vbox/file_type.png)
 
-Allocate a minimum of 512MB of RAM for the VM.
+* Choose dynamically allocated (default)
+* Choose Next
 
-![Use 512M of RAM](img/vm/512M_of_ram.png)
+![Storage on phsycial hard drive](img/vbox/dynamically_allocated.png)
 
-### Use Bridged Networking
+* Set file size to at least 64 GB
+* Choose Create
 
-This allows the local network to access the VM.
+![File location and size](img/vbox/file_size_64G.png)
 
-![Use Bridged Networking](img/vm/bridged_networking.png)
+### Bridged Networking
 
-### Finish
+To allow external devices to access the VM from the host's network use bridged network mode.  This will allow the same network address used on the host system to be uesd on the virtual machine.
 
-Verify your settings are correct and click Finish.
+* Select the VM instance in the right column
+* Choose Settings icon at the top
 
-![Finish](img/vm/finish.png)
+![File location and size](img/vbox/choose_settings.png)
 
-## Setup Medic VM
+* Select Network in right column
+* Select Bridged Adapter in Attached to dropdown
+* Select OK
 
-### Click Play
+![File location and size](img/vbox/choose_bridged_adapter1.png)
 
-![Play](img/vm/play.png)
+The following step is **optional**.  Change the adapter type to the network adapter you want the VM to use.  For example if you have two network adapters, one for wired and one for wireless, you might need to change this option to have the VM use the right network.
 
-On first run the VM will do some software copy and setup.  You should see progress messages changing.
+* Choose Advanced
+* Choose correct adapter
 
-![Setting Up](img/vm/setting_up_software.png)
+![Choose Adapter](img/vbox/choose_adapter_type.png)
 
-When the VM is up and running normally you will see this screen.
+### Start
 
-![Up and running](img/vm/up_and_running.png)
+Once the VM is configured the configuration screen should look something like this.
+
+* Choose Start
+
+![Config](img/vbox/ready.png)
+
+Now choose the startup disk, here we use the ISO file you downloaded earlier.
+
+* Choose the folder icon next to the dropdown
+* Navigate to the ISO file
+* Click Start to launch the new VM
+
+![Select Disk](img/vbox/select_disk.png)
+
+The VM should take a few seconds (30-60) to start the first time since it needs to do some setup.  Once it's done you should see a screen similiar to below.
+
+![Success](img/vbox/success.png)
 
 ### Set a password to secure the virtual machine.
 
@@ -88,4 +114,6 @@ Navigate to the IP address in your browser and enter a password twice into the f
 
 Copy the password down somewhere safe so you don't lose or forget it.
 
-Congrats, you have completed the VM setup! (Onward... more to come.)
+Great, your VM is running! 
+
+Next: [Install some apps](install/garden.md)
