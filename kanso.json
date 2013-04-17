@@ -3,7 +3,7 @@
     "version": "0.0.1",
     "description": "Kujua Documentation",
     "long_description": "Install, setup and documentation for Kujua implementers.",
-    "url": "https://github.com/garden20/baseline-garden-app",
+    "url": "https://github.com/medic/kujua-docs",
     "categories": ["sms","health"],
     "attachments": ["md", "css", "img", "jam", "js", "index.html", "application.appcache", "templates"],
     "modules": "couch",
