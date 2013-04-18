@@ -18,8 +18,7 @@
         "small": "img/promo/promo_small.png"
     },
     "screenshots": [
-        "img/promo/screenshot1.png",
-        "img/promo/screenshot2.png"
+        "img/promo/screenshot1.png"
     ],
     "less": {
         "compile": [ "css/app.less" ]
