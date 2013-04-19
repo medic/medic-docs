@@ -38,7 +38,6 @@ function($, _, handlebars, couchr, garden, marked){
         var re = /\s*href\s*=\s*["']([^"']+)/g;
         //html.replace(/\s*href\s*=\s*["']([^"']+)/g, ' href="#/$1"')
         while ((match = re.exec(html)) !== null) {
-            console.log('match', match);
             //debugger;
             if (match[1].match(/^\s*http/)) continue;
             if (match[1].match(/^\s*#/)) continue;
@@ -200,7 +199,6 @@ function($, _, handlebars, couchr, garden, marked){
 
     exports.renderDoc = function() {
         var args = Array.prototype.slice.call(arguments, 0);
-        console.log('renderDoc args',args);
         var path = args.length > 0 ? prefix+'/'+args.join('/') : 'md/index.md';
         couchr.get(path, function (err, resp) {
             if (err) return $('#content').html('<p>Not Found: '+err+'</p>');
@@ -248,7 +246,6 @@ function($, _, handlebars, couchr, garden, marked){
     };
 
     exports.init = function(options) {
-        console.log('init called');
         marked.setOptions({
           gfm: true,
           tables: true,
