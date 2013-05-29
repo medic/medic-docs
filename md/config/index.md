@@ -1,5 +1,6 @@
 
 Configuration
 
-* [Replicating with Futon](config/replicate.md)
+* [Garden](garden.md)
+* [Replicating with Futon](replicate.md)
 
