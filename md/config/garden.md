@@ -1,4 +1,4 @@
-Gardn
+Garden
 ======================================
 
 After installing an instance of Kujua-Lite, it is fairly easy to administer
