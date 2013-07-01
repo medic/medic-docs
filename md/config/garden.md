@@ -1,7 +1,7 @@
 Garden
 ======================================
 
-After installing an instance of Kujua-Lite, it is fairly easy to administer
+After installing an instance of Kujua Lite, it is fairly easy to administer
 access to it. This document will explain how.
 
 Goal

@@ -100,4 +100,4 @@ Copy the password down somewhere safe so you don't lose or forget it.
 
 Great, your VM is running! 
 
-Next: [Install some apps](install/garden.md)
+Next: [Install some apps](garden.md)

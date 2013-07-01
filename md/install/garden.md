@@ -8,7 +8,7 @@ the Garden Dashboard.
 * You have a freshly installed Medic Mobile Virtual Appliance running and know the IP address
 * You have the admin password
 
-## Install Kujua-Lite
+## Install Kujua Lite
 
 * Navigate your browser to the dashboard URL by appending this to your IP
 address: `:5984/dashboard/_design/dashboard/_rewrite/`
