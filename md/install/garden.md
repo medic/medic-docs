@@ -1,6 +1,6 @@
 # Installing Apps
 
-This document guides you through setup and install of Kujua and Muvuku using
+This document guides you through setup and install of Kujua Lite and Muvuku using
 the Garden Dashboard. 
 
 ## Prerequisites
@@ -14,19 +14,19 @@ the Garden Dashboard.
 address: `:5984/dashboard/_design/dashboard/_rewrite/`
 * Then Click Install
 
-![Install Kujua](img/garden/install_garden_app.png)
+![Install Kujua Lite](img/garden/install_garden_app.png)
 
 * Choose Medic Market
 
 ![Choose Medic Market](img/garden/choose_medic_market.png)
 
-* Choose Kujua
+* Choose Kujua Lite
 
-![Install Kujua](img/garden/choose_kujua_app.png)
+![Install Kujua Lite](img/garden/choose_kujua_app.png)
 
 * Choose Install 
 
-![Install Kujua](img/garden/install_kujua.png)
+![Install Kujua Lite](img/garden/install_kujua.png)
 
 * Confirm
 

@@ -22,7 +22,7 @@
 
 ## Archive
 
-* [Quick Install Kujua 0.1](install/quick.md)
+* [Quick Install Kujua Lite 0.1](install/quick.md)
 * [Release Notes v0.1](dev/release_notes/kujua01.md)
 * [Gateway Testing](testing.md)
-* [Kujua Install](install/old.md)
+* [Kujua Lite Install](install/old.md)

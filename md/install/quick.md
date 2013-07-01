@@ -1,6 +1,6 @@
 # Quick Install 
 
-This document should help you quickly get Kujua software components installed,
+This document should help you quickly get Kujua Lite software components installed,
 including SMSSync, over a local wifi network.
 
 ## Download CouchDB
@@ -30,7 +30,7 @@ Click the "Fix This" link in the bottom right.  And create a user:
 * Click the `false` value in the **couch\_httpd\_auth** section.  
 * Replace the `false` text with `true` and press the enter key to save the config.
 
-## Replicate Kujua (dev):
+## Replicate Kujua Lite (dev):
 
 * Navigate to the Replicator screen in Futon 
 * **Remote**: http://medic.iriscouch.com/kujua-base
@@ -56,5 +56,5 @@ for the gateway so your root password is not compromised.
 
 ## Send a test SMS to the Gateway
 
-* Use some of the examples in the [gateway testing doc](../testing) to verify messages are being displayed and parsed correctly in Kujua.
+* Use some of the examples in the [gateway testing doc](../testing) to verify messages are being displayed and parsed correctly in Kujua Lite.
 

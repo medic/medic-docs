@@ -1,6 +1,6 @@
 ## Replicating with Futon
 
-Typically when creating  a new instance of Kujua, one of the first configuration steps is 
+Typically when creating  a new instance of Kujua Lite, one of the first configuration steps is 
 to copy some data that is shared amongst all instances.
 
 You will have your own unique seed data URL, this is an example.

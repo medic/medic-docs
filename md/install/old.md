@@ -2,15 +2,15 @@
 
 ## Intro
 
-This guide should help you install two main parts of the Medic toolset: Kujua
+This guide should help you install two main parts of the Medic toolset: Kujua Lite
 and SMSSync.  SMSSync is an Android application that receives SMS data and
-sends it to a web service via HTTP.  Kujua provides the web service as well as
+sends it to a web service via HTTP.  Kujua Lite provides the web service as well as
 a web interface to manage your data.  This setup typically used to in
 combination with unstructured or structured SMS messages to collect data.
 
 ## Install CouchDB
 
-Kujua requires **CouchDB version 1.2**.
+Kujua Lite requires **CouchDB version 1.2**.
 
 ### Step 1: Download 
 
@@ -64,9 +64,9 @@ it.
 
 *Note* remember to keep your account usernames and passwords stored somewhere safe.
 
-## Install Kujua
+## Install Kujua Lite
 
-Since Kujua is just a CouchApp the easiest way to install is by replicating
+Since Kujua Lite is just a CouchApp the easiest way to install is by replicating
 from another instance of CouchDB.
 
 ### Step 1: Replicate 
@@ -88,7 +88,7 @@ On the Replicator screen complete the following fields and their corresponding v
 * Verify you can navigate to the home screen:
 <http://127.0.0.1:5984/kujua/_design/kujua-base/_rewrite/>, you should see the following:
 
-![Kujua](img/kujua_base_localhost.png)
+![Kujua Lite](img/kujua_base_localhost.png)
 
 ## Verify Network Configuration
 
@@ -137,16 +137,16 @@ browser.
 
 ![CouchDB heartbeat](img/test_network_address.png)
 
-### Step 4: Verify Kujua is listening
+### Step 4: Verify Kujua Lite is listening
 
 * Now append the following path to it:
   ```/kujua/_design/kujua-base/_rewrite/```.<br /> In this example we use 
   ```http://10.10.20.105:5984/kujua/_design/kujua-base/_rewrite/```.
-* Verify that Kujua responds with a similiar screen (there will be some difference between versions) to the one below.
+* Verify that Kujua Lite responds with a similiar screen (there will be some difference between versions) to the one below.
 * Now **copy and paste your local network URL somewhere**, possibly in the
 clipboard or notepad.  You will need it when you configure the Gateway Sync URL soon.
 
-![Verify Kujua](img/verify_kujua.png)
+![Verify Kujua Lite](img/verify_kujua.png)
 
 
 ## Install SMSSync
@@ -233,12 +233,12 @@ Now configure SMSSync with the URL to our Export application:
 
 #### Language/Locale parameter
 
-The gateway processes responses from Kujua so it is important that these
+The gateway processes responses from Kujua Lite so it is important that these
 responses are in the correct language and locale.  If you want to specify your
 locale, you can append the `locale` query parameter to the sync URL above.  The
 default locale is english or `en` and we also support `fr` at the moment.  
 
-For example, to get responses from Kujua in french use
+For example, to get responses from Kujua Lite in french use
 `http://gateway:secret@10.10.20.105:5984/kujua/_design/kujua-base/_rewrite/add?locale=fr`.
 
 ## Test the Pipes
