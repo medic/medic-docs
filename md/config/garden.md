@@ -48,3 +48,11 @@ Add a user to the new organiztion
   - In the groups field, make sure 'organizationX' is added
   - Click on one of the add options.
 
+Add the needed roles in the user editor
+
+  - Go to `http://dev.medicmobile.org:5984/dashboard/_design/dashboard/_rewrite/settings#/users`
+  - Click the edit button for the user.
+  - Add the roles `kujua-user', and optionally 'district_admin' or 'national_admin'.
+  - In the kujua-base section, add a district id. 
+  - Click Save
+
