@@ -73,14 +73,17 @@ typically once or twice a week.
 
 ### Release Steps
 
-1. Tweak version string.
+1. Tweak version string, commit, merge and tag.
 
-    Edit kanso.json with new version string
+   Edit kanso.json with new version string
+   git ci -am 'x.x.x' && git checkout master && git merge develop && git tag x.x.x && git push
 
 2. Include new feature descriptions in release notes.
 
-    Edit docs/dev/release_notes.md
+   Edit docs/dev/release_notes.md
+   git ci -am 'updated release notes' && git push
 
-3. Push to production URL with Kanso.
+3. Push to market.
 
-    kanso push https://medic.iriscouch.com/kujua-base
+   kanso push http://medic-dev.iriscouch.com/market/upload
+
