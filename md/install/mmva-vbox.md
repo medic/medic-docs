@@ -5,7 +5,7 @@ the Medic Mobile Virtual Appliance.
 
 ## Download the ISO
 
-* Download the [latest bootable ISO image](https://medic.s3.amazonaws.com/downloads/iso/mmva-image-20130417.iso).
+* Download the [latest bootable ISO image](http://dev.medicmobile.org/mmva/mmva-x86-current.iso).
 
 * Move it out of the downloads folder, give it a permanent home in your file
   structure.  The virtual machine will need to reference it on boot.
