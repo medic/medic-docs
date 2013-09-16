@@ -15,7 +15,7 @@ the Medic Mobile Virtual Appliance.
 ### Download 
 
 1. Go to the [VMWare Player Products](http://www.vmware.com/products/player/) page.
-2. Download and install the latest version for your operating system.
+2. Download and install the latest version for your operating system. Look for the free version available for personal and non-commercial use.
 
 ## Create New Virtual Machine
 
