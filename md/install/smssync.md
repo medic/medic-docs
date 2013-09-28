@@ -13,8 +13,7 @@ complete the install.
 
 ## Configure Wi-Fi Sleep Settings
 
-Set the Wi-Fi sleep setting to `Never`, so your device always checks/polls Kujua
-for outgoing messages.
+Set the Wi-Fi sleep setting to `Never` so SMSSync will continuously process messages.
 
 Navigate your device:
 
