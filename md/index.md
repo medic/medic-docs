@@ -1,16 +1,10 @@
 
-## Virtual Appliance
+## Setup
 
 * [VMWare Player](install/mmva-vmware.md)
 * [Virtual Box](install/mmva-vbox.md)
-
-## Apps
-
 * [Installing Apps](install/garden.md)
-
-## Configuration
-
-* [Replicating with Futon](config/replicate.md)
+* [SMSSync Setup](install/smssync.md)
 
 ## Release Notes
 
@@ -26,3 +20,5 @@
 * [Release Notes v0.1](dev/release_notes/kujua01.md)
 * [Gateway Testing](testing.md)
 * [Kujua Lite Install](install/old.md)
+* [Replicating with Futon](config/replicate.md)
+
