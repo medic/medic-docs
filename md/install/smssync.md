@@ -101,9 +101,14 @@ To edit a SyncURL tap and hold the entry you want then choose Edit in the drop d
 
 ## Enable Task Checking
 
-Assuming incoming messages are functioning correctly, to send outgoing/pending messages you need to enable task checking in SMSSync.  This will poll Kujua every minute for outgoing/pending messages. 
+Assuming incoming messages are functioning correctly, to send outgoing/pending
+messages you need to enable task checking in SMSSync.  This will poll Kujua
+every minute for outgoing/pending messages. 
 
-**Warning** if you have been testing Kujua without the gateway you might have *many* pending messages.  Enabling this feature could potentially spend your mobile provider credit.  Delete records in Kujua, start with a fresh install.
+**Warning** if you have been testing Kujua without the gateway you might have
+*many* pending messages.  Enabling this feature could potentially spend your
+mobile provider credit.  Consider deleting records in Kujua, starting with a
+fresh Kujua install or initially removing your SIM card from the gateway.
 
 * Choose the menu button on your device to get the settings menu
 * Check Enable Task Checking
