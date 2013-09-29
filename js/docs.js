@@ -70,19 +70,17 @@ function($, _, handlebars, couchr, garden, marked){
                 id = header.attr('id'),
                 slug = slugify(title);
             header.attr('name', id || slug);
+            var a = $('<a/>').attr(
+                'href', path.replace('md', '#') + '?' + (id || slug)
+            ).text(title).on('click', function(ev) {
+                ev.preventDefault();
+                var name = $(this).attr('href').split('?')[1];
+                scrollTo('[name=' + name + ']');
+            });
             if (el.tagName === 'H2') {
-              var a = $('<a/>').attr(
-                  'href', path.replace('md', '#') + '?' + (id || slug)
-              ).text(title).on('click', function(ev) {
-                  ev.preventDefault();
-                  var name = $(this).attr('href').split('?')[1];
-                  scrollTo('[name=' + name + ']');
-              });
               ul.append($('<li/>').append(a));
             } else {
-              ul.append(
-                $('<li class="subhead"/>').append(
-                  $('<a/>').attr('href', '?'+id).text(title)));
+              ul.append($('<li class="subhead"/>').append(a));
             }
           });
           $('#sections').html(ul);
