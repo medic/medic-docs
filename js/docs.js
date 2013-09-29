@@ -37,9 +37,7 @@ function($, _, handlebars, couchr, garden, marked){
     function updateLinks(path, html) {
         // update relative links to include hash mark
         var re = /\s*href\s*=\s*["']([^"']+)/g;
-        //html.replace(/\s*href\s*=\s*["']([^"']+)/g, ' href="#/$1"')
         while ((match = re.exec(html)) !== null) {
-            //debugger;
             if (match[1].match(/^\s*http/)) continue;
             if (match[1].match(/^\s*#/)) continue;
             html = html.replace(match[1], '#/'+match[1]);
@@ -53,12 +51,6 @@ function($, _, handlebars, couchr, garden, marked){
             .replace(/ /g,'-')
             .replace(/[^\w-]+/g,'');
     }
-
-    //setup title
-    //var title = $('#docs-body h1:first-child').text();
-
-    // setup controls
-    //$('.page-header .controls').hide();
 
     function renderTOC(path) {
         // render TOC unless no sub headers
@@ -90,14 +82,14 @@ function($, _, handlebars, couchr, garden, marked){
         }
     };
 
-    // TODO refactor this with other image calibration
-    function makeImagesZoomable() {
-        var content_width = 620;
-        // make large images zoomable
-        if (query) {
-            console.log("$('[name='" + args.query.replace('?','') +").offset().top + 80");
-            console.log($('[name=' + args.query.replace('?','')).offset().top + 80);
-            scrollTo('[name=' + args.query.replace('?', '') + ']');
+    // preload images so scrollTo height computation is correct, then trigger
+    // docRendered event.  also make large images zoomable.
+    function processImages(callback) {
+        var imgs = $('#docs-body').find('img'),
+            count = imgs.length,
+            content_width = 620;
+        if (count === 0) {
+            return callback();
         }
         $('#docs-body img').each(function(idx, el) {
             var t =  $("<img/>"),
@@ -105,6 +97,7 @@ function($, _, handlebars, couchr, garden, marked){
                 height = 0;
             t.attr("src", $(el).attr("src"));
             t.load(function() {
+                --count;
                 width = this.width;
                 height = this.height;
                 $(el).parent().addClass('images');
@@ -118,6 +111,9 @@ function($, _, handlebars, couchr, garden, marked){
                       p.css({'width': width});
                     }
                   });
+                }
+                if (count == 0) {
+                    callback();
                 }
             });
         });
@@ -234,25 +230,14 @@ function($, _, handlebars, couchr, garden, marked){
             if (err) return $('#content').html('<p>Not Found: '+err+'</p>');
             var html = updateImages(path, marked(resp));
             html = updateLinks(path, html);
-            // set image height so scrollTo computation is correct
             var imgs = $('#content').html(html).find('img');
-            var count = imgs.length;
-            imgs.each(function(idx, el) {
-                var i = new Image();
-                i.onload = function() {
-                    //$(el).attr('height', this.height);
-                    //$(el).attr('width', this.width);
-                    //console.log('this.height '+ this.height);
-                    //console.log('this.width' + this.width);
-                    //console.log('$(el).attr(height) ' + $(el).attr('height'));
-                    //console.log('$(el).attr(width) '+ $(el).attr('width'));
-                    --count;
-                    if (count == 0) {
-                        $(document).trigger('docRendered', {path: path, query: query});
-                    }
-                };
-                i.src = $(el).attr('src');
-            });
+            if (imgs.length > 0) {
+                processImages(function() {
+                    $(document).trigger('docRendered', {path: path, query: query});
+                });
+            } else {
+                $(document).trigger('docRendered', {path: path, query: query});
+            }
         });
     }
 
@@ -269,13 +254,12 @@ function($, _, handlebars, couchr, garden, marked){
 
     var scrollTo = function(sel) {
         $('html, body').animate({
-            scrollTop: $(sel).offset().top - 60
+            scrollTop: $(sel).offset().top - 75
         }, 2000);
     }
 
     var onDocRendered = function(ev, args) {
         renderTOC(args.path);
-        makeImagesZoomable();
         if ($('#supportedforms').get(0)) {
             renderFormExamples(function() {
                 if ($('#smsresponses').get(0)) {
