@@ -10,7 +10,8 @@ function($, _, handlebars, couchr, garden, marked){
 
     var exports = {},
         prefix = 'md',
-        settings = null;
+        settings = null,
+        cache = {};
 
     var getSettings = function(cb) {
         if (settings) return cb(null, settings);
@@ -46,28 +47,42 @@ function($, _, handlebars, couchr, garden, marked){
         return html;
     };
 
+    function slugify(str) {
+        return str
+            .toLowerCase()
+            .replace(/ /g,'-')
+            .replace(/[^\w-]+/g,'');
+    }
+
     //setup title
     //var title = $('#docs-body h1:first-child').text();
 
     // setup controls
     //$('.page-header .controls').hide();
 
-    function renderTOC() {
+    function renderTOC(path) {
         // render TOC unless no sub headers
         if ($('#docs-body h2').get(0)) {
           var ul = $('<ul/>');
           $('#docs-body h2, #docs-body h3').each(function(idx, el) {
             var header = $(el),
                 title = header.text(),
-                id = header.attr('id');
+                id = header.attr('id'),
+                slug = slugify(title);
+            header.attr('name', id || slug);
             if (el.tagName === 'H2') {
-              ul.append(
-                $('<li/>').append(
-                  $('<a/>').attr('href', '#'+id).text(title)));
+              var a = $('<a/>').attr(
+                  'href', path.replace('md', '#') + '?' + (id || slug)
+              ).text(title).on('click', function(ev) {
+                  ev.preventDefault();
+                  var name = $(this).attr('href').split('?')[1];
+                  scrollTo('[name=' + name + ']');
+              });
+              ul.append($('<li/>').append(a));
             } else {
               ul.append(
                 $('<li class="subhead"/>').append(
-                  $('<a/>').attr('href', '#'+id).text(title)));
+                  $('<a/>').attr('href', '?'+id).text(title)));
             }
           });
           $('#sections').html(ul);
@@ -77,9 +92,14 @@ function($, _, handlebars, couchr, garden, marked){
         }
     };
 
-    var content_width = 620;
-    function makeImagesZoomable() {
+    function makeImagesZoomable(query) {
+        var content_width = 620;
         // make large images zoomable
+        if (query) {
+            console.log("$('[name='" + args.query.replace('?','') +").offset().top + 80");
+            console.log($('[name=' + args.query.replace('?','')).offset().top + 80);
+            scrollTo('[name=' + args.query.replace('?', '') + ']');
+        }
         $('#docs-body img').each(function(idx, el) {
             var t =  $("<img/>"),
                 width = 0,
@@ -198,14 +218,42 @@ function($, _, handlebars, couchr, garden, marked){
 
 
     exports.renderDoc = function() {
-        var args = Array.prototype.slice.call(arguments, 0);
-        var path = args.length > 0 ? prefix+'/'+args.join('/') : 'md/index.md';
+        var args = Array.prototype.slice.call(arguments, 0),
+            query = /^\?/.test(_.last(args)) ? _.last(args) : null,
+            path = 'md/index.md';
+        if (query) {
+            args = _.without(args, query);
+        }
+        if (args.length > 0) {
+            path = prefix+'/'+args.join('/');
+        }
+        if (query && cache.lastRendered && cache.lastRendered.path === path) {
+            // just scroll if we already loaded this path
+            return scrollTo('[name=' + query.replace('?', '') + ']');
+        }
         couchr.get(path, function (err, resp) {
             if (err) return $('#content').html('<p>Not Found: '+err+'</p>');
             var html = updateImages(path, marked(resp));
             html = updateLinks(path, html);
-            $('#content').html(html);
-            $(document).trigger('docRendered');
+            // set image height so scrollTo computation is correct
+            var imgs = $('#content').html(html).find('img');
+            var count = imgs.length;
+            imgs.each(function(idx, el) {
+                var i = new Image();
+                i.onload = function() {
+                    //$(el).attr('height', this.height);
+                    //$(el).attr('width', this.width);
+                    //console.log('this.height '+ this.height);
+                    //console.log('this.width' + this.width);
+                    //console.log('$(el).attr(height) ' + $(el).attr('height'));
+                    //console.log('$(el).attr(width) '+ $(el).attr('width'));
+                    --count;
+                    if (count == 0) {
+                        $(document).trigger('docRendered', {path: path, query: query});
+                    }
+                };
+                i.src = $(el).attr('src');
+            });
         });
     }
 
@@ -214,13 +262,21 @@ function($, _, handlebars, couchr, garden, marked){
            '/' : exports.renderDoc,
            '/([\\w\\-\\._]+)': exports.renderDoc,
            '/([\\w\\-\\._]+)/([\\w\\-\\._]+)': exports.renderDoc,
-           '/([\\w\\-\\._]+)/([\\w\\-\\._]+)/([\\w\\-\\._]+)': exports.renderDoc
+           '/([\\w\\-\\._]+)/([\\w\\-\\._]+)(\\?[\\w\\-\\._]+)': exports.renderDoc,
+           '/([\\w\\-\\._]+)/([\\w\\-\\._]+)/([\\w\\-\\._]+)': exports.renderDoc,
+           '/([\\w\\-\\._]+)/([\\w\\-\\._]+)/([\\w\\-\\._]+)(\\?[\\w\\-\\._]+)': exports.renderDoc
         }
     }
 
-    var onDocRendered = function(ev) {
-        renderTOC();
-        makeImagesZoomable();
+    var scrollTo = function(sel) {
+        $('html, body').animate({
+            scrollTop: $(sel).offset().top - 60
+        }, 2000);
+    }
+
+    var onDocRendered = function(ev, args) {
+        renderTOC(args.path);
+        makeImagesZoomable(args.query);
         if ($('#supportedforms').get(0)) {
             renderFormExamples(function() {
                 if ($('#smsresponses').get(0)) {
@@ -230,11 +286,13 @@ function($, _, handlebars, couchr, garden, marked){
                 }
             });
         }
+        cache.lastRendered = args;
     };
 
     var setupListeners = function() {
         $(document).on('docRendered', onDocRendered);
         $(document).on('submit', '#createuser', userDocOnSubmit);
+        $(window).load(function() { console.log('window loaded') });
     };
 
     exports.onDOMReady = function(options)  {
