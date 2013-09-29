@@ -90,7 +90,8 @@ function($, _, handlebars, couchr, garden, marked){
         }
     };
 
-    function makeImagesZoomable(query) {
+    // TODO refactor this with other image calibration
+    function makeImagesZoomable() {
         var content_width = 620;
         // make large images zoomable
         if (query) {
@@ -274,7 +275,7 @@ function($, _, handlebars, couchr, garden, marked){
 
     var onDocRendered = function(ev, args) {
         renderTOC(args.path);
-        makeImagesZoomable(args.query);
+        makeImagesZoomable();
         if ($('#supportedforms').get(0)) {
             renderFormExamples(function() {
                 if ($('#smsresponses').get(0)) {
