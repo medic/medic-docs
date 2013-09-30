@@ -64,11 +64,7 @@ function($, _, handlebars, couchr, garden, marked){
             header.attr('name', id || slug);
             var a = $('<a/>').attr(
                 'href', path.replace('md', '#') + '?' + (id || slug)
-            ).text(title).on('click', function(ev) {
-                ev.preventDefault();
-                var name = $(this).attr('href').split('?')[1];
-                scrollTo('[name=' + name + ']');
-            });
+            ).text(title);
             if (el.tagName === 'H2') {
               ul.append($('<li/>').append(a));
             } else {
@@ -269,13 +265,15 @@ function($, _, handlebars, couchr, garden, marked){
                 }
             });
         }
+        if (args.query) {
+            scrollTo('[name=' + args.query.replace('?', '') + ']');
+        }
         cache.lastRendered = args;
     };
 
     var setupListeners = function() {
         $(document).on('docRendered', onDocRendered);
         $(document).on('submit', '#createuser', userDocOnSubmit);
-        $(window).load(function() { console.log('window loaded') });
     };
 
     exports.onDOMReady = function(options)  {
