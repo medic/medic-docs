@@ -220,7 +220,7 @@ function($, _, handlebars, couchr, garden, marked){
         }
         if (query && cache.lastRendered && cache.lastRendered.path === path) {
             // just scroll if we already loaded this path
-            return scrollTo('[name=' + query.replace('?', '') + ']');
+            return scrollToSection(query.replace('?', ''));
         }
         couchr.get(path, function (err, resp) {
             if (err) return $('#content').html('<p>Not Found: '+err+'</p>');
@@ -248,6 +248,10 @@ function($, _, handlebars, couchr, garden, marked){
         }
     }
 
+    var scrollToSection = function(name) {
+        scrollTo('[name=' + name + ']');
+    };
+
     var scrollTo = function(sel) {
         $('html, body').animate({
             scrollTop: $(sel).offset().top - 75
@@ -266,7 +270,7 @@ function($, _, handlebars, couchr, garden, marked){
             });
         }
         if (args.query) {
-            scrollTo('[name=' + args.query.replace('?', '') + ']');
+            scrollToSection(args.query.replace('?', ''));
         }
         cache.lastRendered = args;
     };
