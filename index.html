@@ -14,27 +14,34 @@
 
   </head>
 
-  <body data-spy="scroll" data-target=".subnav" data-offset="50">
-    <div class="page-header navbar-fixed-top">
-      <div class="container">
-        <h1 class="pull-left" id="page-title"><a href="#/">Documentation</a></h1>
-        <div class="controls hide" style="display: none;">
+  <body>
+   <div id="masthead" class="page-header navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="row-fluid">
+          <div class="span2"></div>
+          <div class="span8">
+            <h1 class="pull-left"><a class="brand" href="#/">Documentation</a><small id="version"></small></h1>
+              <ul id="sections-menu" class="nav pull-right">
+                <li class="dropdown">
+                  <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Sections <b class="caret"></b></a>
+                  <ul id="sections" class="dropdown-menu pull-right" role="menu" />
+                </li>
+              </ul>
+          </div>
         </div>
       </div>
     </div>
-    <div id="docs-body">
-        <div class="container">
-            <div class="row">
-                <div class="span8 content">
-                    <div id="content">Loading...</div>
-                </div>
-                <div class="span4">
-                    <div id="sections"></div>
-                </div>
-            </div>
-        </div>
-    </div>
 
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span2"></div>
+        <div class="span8">
+          <div id="docs-body">
+            <div id="content">Loading...</div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Le javascript
     ================================================== -->

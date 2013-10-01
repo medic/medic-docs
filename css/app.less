@@ -1,6 +1,6 @@
 @import "jam/bootstrap/less/bootstrap.less";
 @aqua: #1A8FB2;
-@lightaqua: #EFF9FA;
+@lightaqua: rgb(239, 249, 250);
 
 /* Custom app styles here  */
 .hide {
@@ -8,11 +8,8 @@
 }
 .page-header {
   top: 7px;
-  padding: 10px;
+  padding: 10px 0 10px 0;
   background-color: #fff;
-}
-#docs-body > .container {
-  margin-top: 80px;
 }
 
 #dashboard-topbar {
@@ -20,13 +17,14 @@
   top: 0;
 }
 
-#page-title small {
+#version {
   padding-left: 5px;
   font-size: 12px;
   color: #ddd;
 }
 
 #content {
+  margin-top: 70px;
   h1 {
     padding: 20px 0 10px 0;
   }
@@ -41,15 +39,11 @@
   }
 }
 
+#sections-menu {
+  margin: 8px 10px 0 0;
+}
+
 #sections {
-  position: fixed;
-  top: 80px;
-  width: 200px;
-  display: none;
-  border-top: solid 2px @aqua;
-  background-color: @lightaqua;
-  padding: 10px;
-  margin: 20px;
   ul {
     padding: 0;
     margin: 0;

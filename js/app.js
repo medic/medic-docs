@@ -6,7 +6,8 @@ define('js/app',[
     'director',
     'events',
     'garden-app-support',
-    'js/docs'
+    'js/docs',
+    'jam/bootstrap/js/bootstrap-dropdown.js'
 ],
 function($, _, handlebars, couchr, director, events, garden, docs) {
 

@@ -55,7 +55,7 @@ function($, _, handlebars, couchr, garden, marked){
     function renderTOC(path) {
         // render TOC unless no sub headers
         if ($('#docs-body h2').get(0)) {
-          var ul = $('<ul/>');
+          var ul = $('#sections').empty();
           $('#docs-body h2, #docs-body h3').each(function(idx, el) {
             var header = $(el),
                 title = header.text(),
@@ -71,10 +71,6 @@ function($, _, handlebars, couchr, garden, marked){
               ul.append($('<li class="subhead"/>').append(a));
             }
           });
-          $('#sections').html(ul);
-          $('#sections').show();
-        } else {
-          $('#sections').hide();
         }
     };
 
@@ -284,7 +280,7 @@ function($, _, handlebars, couchr, garden, marked){
         getSettings(function(err, data) {
             if (err) return alert('Failed to retrieve settings.\n'+err);
             // include version number in heading
-            $('#page-title').append('<small>v'+data.config.version+'</small>');
+            $('#version').text('v'+data.config.version);
         });
     };
 
