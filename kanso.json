@@ -1,6 +1,6 @@
 {
     "name": "kujua-docs",
-    "version": "0.0.8",
+    "version": "0.0.9",
     "description": "Kujua Documentation",
     "long_description": "Install, setup and documentation for Kujua implementers.",
     "url": "https://github.com/medic/kujua-docs",
