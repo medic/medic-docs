@@ -34,13 +34,24 @@ function($, _, handlebars, couchr, garden, marked){
         return html;
     };
 
+    // given th path of the current doc and a relative href like
+    // href="garden.md", construct a hashed href that is routed correctly.
+    function getHashedPath(path, match) {
+        var href = match[0],
+            val = match[1];
+        return href.replace(
+            val,
+            path.replace(path.substr(path.lastIndexOf('/') + 1), val)
+        ).replace('md/','#/');
+    }
+
     function updateLinks(path, html) {
         // update relative links to include hash mark
         var re = /\s*href\s*=\s*["']([^"']+)/g;
         while ((match = re.exec(html)) !== null) {
             if (match[1].match(/^\s*http/)) continue;
             if (match[1].match(/^\s*#/)) continue;
-            html = html.replace(match[1], '#/'+match[1]);
+            html = html.replace(match[0], getHashedPath(path, match));
         }
         return html;
     };
