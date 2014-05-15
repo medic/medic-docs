@@ -32,8 +32,8 @@ this an Android device acting as a gateway and a laptop that is running Kujua.
 Lets confirm the network is setup right and the devices can connect to each
 other.  
 
-* Launch the device and browse to the IP address where Kujua is running, including
-the port number of CouchDB `5984`.  For example: `http://192.168.213.165:5984/`
+* Launch the device and browse to the IP address where Kujua is running.
+For example: `http://192.168.213.165/`
 
 * Do the same thing on the laptop confirming that both devices can connect to
 the same IP address.
@@ -53,11 +53,11 @@ To determine your SyncURL you will need 3 things:
 `/kujua-lite/_design/kujua-lite/_rewrite/add` 
 
 Combine the above and you have your complete SyncURL. For example:
-`http://gateway:123qwe@192.168.213.165:5984/kujua-lite/_design/kujua-lite/_rewrite/add?locale=en`
+`http://gateway:123qwe@192.168.213.165/kujua-lite/_design/kujua-lite/_rewrite/add?locale=en`
 
 *Note* the colon `:` character separates the username and password and the `@` symbol
 separates the IP address from the password.  We recommend having a gateway user
-assigned the `kujua_gateway` role but you can use any user that has create
+assigned the `gateway` role but you can use any user that has create
 privileges.
 
 The following `locale` options are supported: 
@@ -118,4 +118,17 @@ fresh Kujua install or initially removing your SIM card from the gateway.
 ![Enable Task Checking](img/smssync/enable-task-checking.png)
 ![Set 1 minute frequency](img/smssync/freq-1minute.png)
 
+
+## Enable Auto Sync
+
+When new SMS messages arrive to SMSSync it will immediately sync them.  In some cases though, the connection between server and gateway is unstable so they cannot be synced immediately.  In this case they will remain in the pending box of SMSSync until you manually sync them.  With Auto Sync enabled they will get synced automatically on an interval.  
+
+* Choose the menu button on your device to get the settings menu
+* Check Enable Auto Sync
+* Set Frequency to 1 Minute
+
+
+![Settings](img/smssync/settings-fromsyncurl.png)
+![Enable Task Checking](img/smssync/enable-autosync.png)
+![Set 1 minute frequency](img/smssync/enable-autosync-freq1min.png)
 
