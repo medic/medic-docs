@@ -11,7 +11,7 @@ the Garden Dashboard.
 ## Install Kujua Lite
 
 * Navigate your browser to the dashboard URL by appending this to your IP
-address: `:5984/dashboard/_design/dashboard/_rewrite/`
+address: `/dashboard/_design/dashboard/_rewrite/`
 * Then Click Install
 
 ![Install Kujua Lite](img/garden/install_garden_app.png)
