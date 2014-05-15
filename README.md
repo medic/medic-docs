@@ -8,8 +8,7 @@ need to increase the build and replication time of Kujua by weighing it down
 with media files.
 
 This site was created using the [Garden Baseline
-App](http://garden20.com/baseline-garden-app/) as a starting point and is
-deployed to the [Medic Garden](https://medic-dev.iriscouch.com).
+App](http://garden20.com/baseline-garden-app/) as a starting point.
 
 ## Install
 
