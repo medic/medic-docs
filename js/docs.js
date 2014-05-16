@@ -88,13 +88,13 @@ function($, _, handlebars, couchr, garden, marked){
     // preload images so scrollTo height computation is correct, then trigger
     // docRendered event.  also make large images zoomable.
     function processImages(callback) {
-        var imgs = $('#docs-body').find('img'),
-            count = imgs.length,
+        var $imgs = $('#docs-body').find('img'),
+            count = $imgs.length,
             content_width = 620;
         if (count === 0) {
             return callback();
         }
-        $('#docs-body img').each(function(idx, el) {
+        $imgs.each(function(idx, el) {
             var t =  $("<img/>"),
                 width = 0,
                 height = 0;
