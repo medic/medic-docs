@@ -1,7 +1,7 @@
-# Kujua Docs
+# Medic Mobile Documentation
 
-This is a separate app from Kujua because of its size, since we don't need to
-increase the build and replication time of Kujua by weighing it down with media
+This is a separate app because of its size, since we don't need to increase the
+build and replication time of the main app by weighing it down with media
 files.
 
 This site was created using the [Garden Baseline
