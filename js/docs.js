@@ -15,7 +15,7 @@ function($, _, handlebars, couchr, garden, marked){
 
     var getSettings = function(cb) {
         if (settings) return cb(null, settings);
-        couchr.get('_db/_design/kujua-docs', function (err, resp) {
+        couchr.get('_db/_design/medic-docs', function (err, resp) {
             if (err) return cb(err);
             settings = resp.kanso;
             cb(null, settings);

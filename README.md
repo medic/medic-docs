@@ -25,5 +25,5 @@ Requires [CouchDB](http://couchdb.apache.org/), [NodeJS](http://nodejs.org/)
 and [Kanso](http://kan.so/). Then:
 
 * `git clone`
-* `kanso push http://localhost:5984/kujua-docs`
+* `kanso push http://localhost:5984/medic-docs`
 
