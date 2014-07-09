@@ -128,7 +128,7 @@ When new SMS messages arrive to SMSSync it will immediately sync them.  In some 
 * Set Frequency to 1 Minute
 
 
-![Settings](img/smssync/settings-fromsyncurl.png)
+![Settings](img/smssync/settings-fromsyncurl-2.png)
 ![Enable Task Checking](img/smssync/enable-autosync.png)
 ![Set 1 minute frequency](img/smssync/enable-autosync-freq1min.png)
 
