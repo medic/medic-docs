@@ -1,7 +1,7 @@
 # SMSSync Setup
 
 This document guides you through SMSSync configuration to get SMS 
-messages in and out of Kujua Lite.
+messages in and out of Medic Mobile.
 
 ## Download
 
@@ -28,12 +28,12 @@ Navigate your device:
 ## Confirm Connectivity
 
 In this tutorial we assume there are two devices on a Wi-Fi network, typically
-this an Android device acting as a gateway and a laptop that is running Kujua.
+this an Android device acting as a gateway and a laptop that is running Medic Mobile.
 Lets confirm the network is setup right and the devices can connect to each
 other.  
 
-* Launch the device and browse to the IP address where Kujua is running.
-For example: `http://192.168.213.165/`
+* Launch the device and browse to the IP address where Medic Mobile is running.
+For example: `http://192.168.213.165/`.
 
 * Do the same thing on the laptop confirming that both devices can connect to
 the same IP address.
@@ -47,13 +47,13 @@ we work on automating this process.
 
 To determine your SyncURL you will need 3 things:
 
-* The IP address of Kujua (see previous step)
+* The IP address of Medic Mobile (see previous step)
 * Your gateway authentication credentials
-* The Kujua web service endpoint, typically this is:
-`/kujua-lite/_design/kujua-lite/_rewrite/add` 
+* The Medic Mobile web service endpoint, typically this is:
+`/medic/_design/medic/_rewrite/add` 
 
 Combine the above and you have your complete SyncURL. For example:
-`http://gateway:123qwe@192.168.213.165/kujua-lite/_design/kujua-lite/_rewrite/add?locale=en`
+`http://gateway:123qwe@192.168.213.165/medic/_design/medic/_rewrite/add?locale=en`
 
 *Note* the colon `:` character separates the username and password and the `@` symbol
 separates the IP address from the password.  We recommend having a gateway user
@@ -81,9 +81,9 @@ Now add this new SyncURL to SMSSync:
 ![SyncURL Details](img/smssync/syncurl-details.png)
 ![Enable SyncURL](img/smssync/enable-syncurl.png)
 
-At this point you should be able to send an SMS message into Kujua via the gateway.  Test it out! 
+At this point you should be able to send an SMS message into Medic Mobile via the gateway.  Test it out! 
 
-Messages should immediately be forwarded to Kujua and moved to the Sent queue.  Take a look at the Pending and Sent queues.  If messages are in the Pending view then they could not get forwarded automatically and there is likely a problem connecting to Kujua.
+Messages should immediately be forwarded to Medic Mobile and moved to the Sent queue.  Take a look at the Pending and Sent queues.  If messages are in the Pending view then they could not get forwarded automatically and there is likely a problem connecting to Medic Mobile.
 
 ![SMSSync Menu](img/smssync/menu-insyncurl.png)
 ![Pending](img/smssync/menu-pending.png)
@@ -102,13 +102,13 @@ To edit a SyncURL tap and hold the entry you want then choose Edit in the drop d
 ## Enable Task Checking
 
 Assuming incoming messages are functioning correctly, to send outgoing/pending
-messages you need to enable task checking in SMSSync.  This will poll Kujua
+messages you need to enable task checking in SMSSync.  This will poll Medic Mobile
 every minute for outgoing/pending messages. 
 
-**Warning** if you have been testing Kujua without the gateway you might have
+**Warning** if you have been testing Medic Mobile without the gateway you might have
 *many* pending messages.  Enabling this feature could potentially spend your
-mobile provider credit.  Consider deleting records in Kujua, starting with a
-fresh Kujua install or initially removing your SIM card from the gateway.
+mobile provider credit.  Consider deleting records in Medic Mobile, starting with a
+fresh Medic Mobile install or initially removing your SIM card from the gateway.
 
 * Choose the menu button on your device to get the settings menu
 * Check Enable Task Checking
