@@ -1,11 +1,18 @@
 #!/bin/bash -x
 
-STAGING_DB='http://travis-ci:a5nghmongP!@staging.dev.medicmobile.org/medic-docs'
-MARKET='http://travis-ci:a5nghmongP!@staging.dev.medicmobile.org/markets-release/upload'
+if [ -z "$UPLOAD_MARKET" ]; then
+    echo 'Define UPLOAD_MARKET in your environment.'
+    exit 1
+fi
+
+if [ -z "$UPLOAD_STAGING_DB" ]; then
+    echo 'Define UPLOAD_STAGING_DB in your environment.'
+    exit 1
+fi
 
 if [ "$TRAVIS_BRANCH" == "master" ]; then
-    kanso push "$MARKET" || exit "$?"
-    kanso push "$STAGING_DB" || exit "$?"
+    kanso push "$UPLOAD_MARKET" || exit "$?"
+    kanso push "$UPLOAD_STAGING_DB" || exit "$?"
 fi
 
 exit "$?"
