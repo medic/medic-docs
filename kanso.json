@@ -1,6 +1,6 @@
 {
     "name": "medic-docs",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "Medic Mobile Documentation",
     "long_description": "Install, setup and documentation for Medic Mobile implementers.",
     "url": "https://github.com/medic/medic-docs",
