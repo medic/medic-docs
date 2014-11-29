@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 if [ -z "$UPLOAD_MARKET" ]; then
     echo 'Define UPLOAD_MARKET in your environment.'
