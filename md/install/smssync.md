@@ -132,3 +132,10 @@ When new SMS messages arrive to SMSSync it will immediately sync them.  In some 
 ![Enable Task Checking](img/smssync/enable-autosync.png)
 ![Set 1 minute frequency](img/smssync/enable-autosync-freq1min.png)
 
+## Final Steps
+
+Reboot the device to make sure the SMSSync service starts up automatically.
+Send some test messages through with another phone, and verify both incoming 
+and outgoing work.  If possible leave the gateway plugged into a power source 
+and with a decent data connection, preferrably Wifi.  It should manage the 
+incoming and outgoing message queues automatically.
