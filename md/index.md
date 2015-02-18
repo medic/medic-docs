@@ -8,8 +8,8 @@
 
 ## Release Notes
 
-* [Release](https://github.com/medic/kujua-lite/blob/master/Changes.md)
-* [Beta](https://github.com/medic/kujua-lite/blob/testing/Changes.md)
+* [Release](https://github.com/medic/medic-webapp/blob/master/Changes.md)
+* [Beta](https://github.com/medic/medic-webapp/blob/testing/Changes.md)
 * [v0.2](dev/release_notes/kujua02.md)
 
 ## Development
