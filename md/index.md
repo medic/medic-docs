@@ -8,12 +8,14 @@
 
 ## Release Notes
 
-* [Latest](https://github.com/medic/kujua-lite/blob/master/Changes.md)
+* [Release](https://github.com/medic/kujua-lite/blob/master/Changes.md)
+* [Beta](https://github.com/medic/kujua-lite/blob/testing/Changes.md)
 * [v0.2](dev/release_notes/kujua02.md)
 
 ## Development
 
 * [Virtual Appliance Build Environment](dev/mmva_build.md)
+* [How to Migrate Dashboard to SSL](dev/dashboard-to-ssl.md)
 
 ## Archive
 
