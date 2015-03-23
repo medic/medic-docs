@@ -4,8 +4,6 @@ Prepared September, 2013 by [Marc Abbyad](mailto:marc@medicmobile.org)
 
 Updated March, 2015 by Henok and Marc
 
-[[TOC]]
-
 ## Requirements
 
 * VMplayer - download & install [VMware Player and VMware Player Plus for Windows](https://my.vmware.com/web/vmware/free#desktop_end_user_computing/vmware_player/6_0)
