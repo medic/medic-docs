@@ -42,13 +42,13 @@ Note: if you click into the virtual machine you will lose your mouse cursor. To 
 
 * Option 2 if you **do not have **the .trb file on your computer: Use PuTTY  to log into Medic OS and get file from internet using: 
 
-wget http://dev.medicmobile.org/downloads/medic-simapp/medic-simapp-20130919.trb
+`wget http://dev.medicmobile.org/downloads/medic-simapp/medic-simapp-20130919.trb`
 
 or to put it in persistent storage:
 
-cd /srv
+`cd /srv`
 
-sudo wget http://dev.medicmobile.org/downloads/medic-simapp/medic-simapp-20130919.trb
+`sudo wget http://dev.medicmobile.org/downloads/medic-simapp/medic-simapp-20130919.trb`
 
 ## Load Medic SIM app over SSH
 
@@ -66,7 +66,7 @@ Option 3: open Session in PuTTY:
 
 Before connecting the device you must run this command In PuTTY: 
 
-sudo svc-down medic-core gammu-monitor
+`sudo svc-down medic-core gammu-monitor`
 
 ![svc-down](img/medic-simapp/svc-down.png)
 
@@ -78,7 +78,7 @@ Put the SIM and Turbo SIM together in the SIM holder. Hold the SIM down with a c
 
 ### Ensure that the Turbo SIM is running the right firmware version
 
-cemu -d /dev/ttyUSB0 --info
+`cemu -d /dev/ttyUSB0 --info`
 
 Make sure that the firmware version is 1.5.24 or 1.5.26 (if not do steps at end of doc)
 
@@ -86,15 +86,15 @@ Make sure that the firmware version is 1.5.24 or 1.5.26 (if not do steps at end 
 
 ### Remove all previous installed applications
 
-cemu -d /dev/ttyUSB0 --reset
+`cemu -d /dev/ttyUSB0 --reset`
 
 ![TSIM --reset](img/medic-simapp/tsim-reset.png)
 
 ### Install Medic SIM app
 
-cemu -d /dev/ttyUSB0 --app medic-simapp.trb
+`cemu -d /dev/ttyUSB0 --app medic-simapp.trb`
 
-cemu -d /dev/ttyUSB0 --app medic-simapp-20130919.trb
+`cemu -d /dev/ttyUSB0 --app medic-simapp-20130919.trb`
 
 ![TSIM --app](img/medic-simapp/tsim-loading.png)
 
@@ -106,19 +106,19 @@ cemu -d /dev/ttyUSB0 --app medic-simapp-20130919.trb
 
 You can check the turbo sim firmware version with the following command
 
-cemu -d /dev/ttyUSB0 --info
+`cemu -d /dev/ttyUSB0 --info`
 
 If it is below 1.5.24 then you must flash the Turbo SIM firmware to the newer version.
 
 To do so you must first obtain the file *kernel-TSIM-1.5.24.bin* from the kernels directory of the medic/bladox-macosx GitHub project. ([direct link](https://github.com/medic/bladox-macosx/blob/master/kernels/kernel-TSIM-1.5.24.bin)) Put it in the /srv directory to ensure that it is there after you reboot the virtual machine.
 
-cd /srv
+`cd /srv`
 
-sudo wget https://github.com/medic/bladox-macosx/blob/master/kernels/kernel-TSIM-1.5.24.bin
+`sudo wget https://github.com/medic/bladox-macosx/blob/master/kernels/kernel-TSIM-1.5.24.bin`
 
 Once you have the first you can then load it onto the Turbo SIMs with the following command:
 
-btldr -d /dev/ttyUSB0 -s /srv/kernel-TSIM-1.5.24.bin
+`btldr -d /dev/ttyUSB0 -s /srv/kernel-TSIM-1.5.24.bin`
 
 Wait until the flashing is complete before removing the Turbo SIM. This process can take over four minutes, during which the LED may light up, but may also stay off for up to 50 seconds.
 
@@ -128,13 +128,13 @@ Wait until the flashing is complete before removing the Turbo SIM. This process 
 
 **Before connecting programmer board:**
 
-sudo svc-down medic-core gammu-monitor
+`sudo svc-down medic-core gammu-monitor`
 
 **Obtain the medic-simapp-XXXXXXXX.trb ****file:**
 
-cd /srv
+`cd /srv`
 
-sudo wget http://dev.medicmobile.org/downloads/medic-simapp/medic-simapp-20130919.trb (broken example link)
+`sudo wget http://dev.medicmobile.org/downloads/medic-simapp/medic-simapp-20130919.trb`
 
 **For each Turbo SIM load as follows: **
 
@@ -142,25 +142,24 @@ sudo wget http://dev.medicmobile.org/downloads/medic-simapp/medic-simapp-2013091
 
 - paste the three lines together into PuTTY:
 
-cemu -d /dev/ttyUSB0 --info
+`cemu -d /dev/ttyUSB0 --info`
 
-cemu -d /dev/ttyUSB0 --reset
+`cemu -d /dev/ttyUSB0 --reset`
 
-cemu -d /dev/ttyUSB0 --app /srv/medic-simapp-20130919.trb
+`cemu -d /dev/ttyUSB0 --app /srv/medic-simapp-20130919.trb`
 
 **If the version is less than 1.5.24, upgrade the Turbo SIM, then load app again:**
 
-cd /srv
+`cd /srv`
 
-sudo wget https://github.com/medic/bladox-macosx/blob/master/kernels/kernel-TSIM-1.5.24.bin
+`sudo wget https://github.com/medic/bladox-macosx/blob/master/kernels/kernel-TSIM-1.5.24.bin`
 
-btldr -d /dev/ttyUSB0 -s /srv/kernel-TSIM-1.5.24.bin
+`btldr -d /dev/ttyUSB0 -s /srv/kernel-TSIM-1.5.24.bin`
 
 **Change directory to /srv**
 
-cd /srv
+`cd /srv`
 
 **See files in a directory**
 
-ls -l
-
+`ls -l`
