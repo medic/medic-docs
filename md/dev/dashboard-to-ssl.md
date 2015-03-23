@@ -7,7 +7,17 @@ change so we just migrated all the production instances manually to use SSL.
 
 But if you have a local development or testing install, or a DIY install then
 you won't get this change.  But updating the dashboard install and market
-documents is quite simple using Futon.
+documents is fairly simple.
+
+## Shell Script
+
+If you are running Linux or OSX download and execute the [update_markets.sh ](https://raw.githubusercontent.com/medic/medic-data/master/scripts/update_markets.sh) shell script.
+
+```
+sh update_markets.sh
+```
+
+## Manually
 
 Navigate to your installation to the get_markets view, .e.g:
 
