@@ -5,7 +5,7 @@ build and replication time of the main app by weighing it down with media
 files.
 
 This site was created using the [Garden Baseline
-App](http://garden20.com/baseline-garden-app/) as a starting point.
+App](https://github.com/garden20/baseline-garden-app/) as a starting point.
 
 ## Editing
 
