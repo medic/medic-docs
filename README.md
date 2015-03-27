@@ -10,7 +10,7 @@ App](http://garden20.com/baseline-garden-app/) as a starting point.
 ## Editing
 
 Documentation lives in `md` directory and should be editable locally, so links
-should be relative and allow for use of a a Markdown tool like
+should be relative and allow for use of a Markdown tool like
 [Mou](http://mouapp.com/) or [MarkdownPad](http://markdownpad.com/).
 
 All the links within the documetnation should be relative.  So you can start by
