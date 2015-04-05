@@ -26,4 +26,5 @@ This section contains old or outdated material that is retained for occasional u
 * [Gateway Testing](testing.md)
 * [Kujua Install](install/old.md)
 * [Replicating with Futon](config/replicate.md)
+* [Upgrading 0.3 to 0.4](config/upgrade-0.3-to-0.4.md)
 
