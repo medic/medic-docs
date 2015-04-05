@@ -19,6 +19,9 @@ sh update_markets.sh
 
 ## Manually
 
+If the shell script is broken or you can't run it, these instructions are
+equivalent using Futon.
+
 Navigate to your installation to the get_markets view, .e.g:
 
 ```
