@@ -19,7 +19,7 @@ Then:
 
 * Click the Settings button for Kujua Lite 
 * Choose the App Settings Tab
-* Then the Export button
+* Then the Backup button
 
 The browser should download a JSON file, save this settings file for later.
 
