@@ -1,4 +1,4 @@
-# How to Migrate Dashboard to a Different Market
+# How To Migrate Dashboard To a Different Market
 
 Sometimes you want to update the market that your installation is pointing to.
 For example if you installed the stable or beta release and want to switch to
