@@ -74,7 +74,7 @@ SSH to new instance and:
 sudo /boot/svc-down medic-core
 sudo cp kujua-lite.couch /srv/storage/medic-core/couchdb/data/medic.couch
 sudo cp couchmark.couch /srv/storage/medic-core/couchdb/data/couchmark.couch
-sudo cp couchmark.couch /srv/storage/medic-core/couchdb/data/_users.couch
+sudo cp _users.couch /srv/storage/medic-core/couchdb/data/_users.couch
 sudo chown root:root /srv/storage/medic-core/couchdb/data/*.couch
 ```
 
