@@ -43,9 +43,9 @@ To update the markets to use SSL edit and replace instances of 'http' with 'http
 
 To modify the market your dashboard is subscribed to you will need to modify any URLs to reference your desired market.  The following is how are releases are mapped to URLs:
 
-    Release: market/_db, market-release
-    Beta: market_1/_db, market-beta
-    Alpha: market_2/_db, market-alpha
+    Release: market/_db, markets-release
+    Beta: market_1/_db, markets-beta
+    Alpha: market_2/_db, markets-alpha
 
 After you're done editing don't forget to Save Document in the top menu bar.
 
