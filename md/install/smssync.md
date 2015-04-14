@@ -137,6 +137,7 @@ When new SMS messages arrive to SMSSync it will immediately sync them.  In some 
 * Reboot the device to make sure the SMSSync service starts up automatically.
 * Send some test messages through with another phone, and verify both incoming 
   and outgoing work.  
+* Confirm that a message syncs instantly when received by the gateway without any interaction on the device.
 * If possible leave the gateway plugged into a power source and with a decent
   data connection, preferrably Wifi.  It should manage the incoming and
   outgoing message queues automatically.
