@@ -21,8 +21,8 @@ becomes:
    ...
 ```
 
+Note that `FORM_CODE` should be replaced with the form code as defined in the json-forms version of the form.
 
 XForms
 ----
 If using a [XLSForm](http://xlsform.org/) you can use Medic's [pyxforms](https://github.com/medic/pyxform) converter to make these changes automatically. The resulting XML file is ready to use in Medic Collect. You can override the default prefix and separator by declaring `sms_keyword` and `sms_seperator` respectively in the Settings tab.
-
