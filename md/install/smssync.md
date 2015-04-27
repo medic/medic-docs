@@ -27,16 +27,19 @@ Navigate your device:
 
 ## Confirm Connectivity
 
-In this tutorial we assume there are two devices on a Wi-Fi network, typically
-this an Android device acting as a gateway and a laptop that is running Medic Mobile.
-Lets confirm the network is setup right and the devices can connect to each
+A typical setup involves an Android device acting as a gateway and a server (maybe even a laptop) that is 
+running Medic Mobile.
+
+Lets confirm the network is setup right and the gateway and server can connect to each
 other.  
 
-* Launch the device and browse to the IP address where Medic Mobile is running.
-For example: `http://192.168.213.165/`.
+* Launch a browser on the gateway device and browse to the URL where Medic Mobile is running.
 
-* Do the same thing on the laptop confirming that both devices can connect to
-the same IP address.
+  For example if the instance is running on your local network the URL might look 
+  like: `http://192.168.213.165` if you have a hosted server somewhere then you
+  can use the domain name like `http://myproject.app.medicmobile.org`.
+
+* Confirm you receive a response for authentication from the server.
 
 ![Confirm Network IP](img/smssync/confirm-network.png)
 
@@ -47,13 +50,13 @@ we work on automating this process.
 
 To determine your SyncURL you will need 3 things:
 
-* The IP address of Medic Mobile (see previous step)
+* The URL of Medic Mobile (see previous step)
 * Your gateway authentication credentials
 * The Medic Mobile web service endpoint, typically this is:
 `/medic/_design/medic/_rewrite/add` 
 
 Combine the above and you have your complete SyncURL. For example:
-`http://gateway:123qwe@192.168.213.165/medic/_design/medic/_rewrite/add?locale=en`
+`http://gateway:secret@192.168.213.165/medic/_design/medic/_rewrite/add?locale=en`
 
 *Note* the colon `:` character separates the username and password and the `@` symbol
 separates the IP address from the password.  We recommend having a gateway user
