@@ -42,10 +42,7 @@ Download and create a virtual machine instance using the latest Medic-OS bootabl
 
 Our OS is typically bundled with alpha and beta releases of our application.  If you are running this instance in production you should subscribe to the release channel because it is the most stable.
 
-Run this script to set your dashboard/app manager to subscribe to the release channel:
-
-[https://github.com/medic/medic-data/blob/master/scripts/update_markets.sh](
-https://github.com/medic/medic-data/blob/master/scripts/update_markets.sh)
+See [How To Migrate Dashboard To a Different Market](https://github.com/medic/medic-docs/blob/master/md/dev/update-markets.md) to set your dashboard/app manager to subscribe to the release channel.
 
 ## Migrate Data
 
