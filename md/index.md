@@ -15,7 +15,7 @@
 ## Development
 
 * [Virtual Appliance Build Environment](dev/mmva_build.md)
-* [How to Migrate Dashboard to SSL](dev/dashboard-to-ssl.md)
+* [How to Migrate Dashboard to SSL](dev/update-markets.md)
 
 ## Archive
 
