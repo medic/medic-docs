@@ -14,7 +14,7 @@ should be relative and allow for use of a Markdown tool like
 [Mou](http://mouapp.com/) or [MarkdownPad](http://markdownpad.com/).
 
 All the links within the documetnation should be relative.  So you can start by
-opening `md/index.md` and go from there. Each section should have a directory
+opening [md/index.md](md/index.html) and go from there. Each section should have a directory
 and corresponding `img` directory for images.
 
 You can also edit the files directly in Github, assuming you have privileges.
