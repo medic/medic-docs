@@ -41,5 +41,5 @@ another developer's progress.
 
 Format your commit messages according to Git standards.  First line should be a
 short title/summary (50 characters or so) with more details in a separate
-paragraph, respecting 79 character line widths. Using `git -av` is recommended
+paragraph, respecting 79 character line widths. Using `git commit -v` is recommended
 to review your diff while you write your commit message.
