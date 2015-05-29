@@ -72,7 +72,7 @@ sudo /boot/svc-down medic-core
 sudo mv kujua-lite.couch /srv/storage/medic-core/couchdb/data/medic.couch
 sudo mv couchmark.couch /srv/storage/medic-core/couchdb/data/couchmark.couch
 sudo mv _users.couch /srv/storage/medic-core/couchdb/data/_users.couch
-sudo chown root:root /srv/storage/medic-core/couchdb/data/*.couch
+sudo chown couchdb:couchdb /srv/storage/medic-core/couchdb/data/*.couch
 ```
 
 ### Rename design doc
