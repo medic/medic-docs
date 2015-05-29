@@ -42,7 +42,7 @@ Download and create a virtual machine instance using the latest Medic-OS bootabl
 
 Our OS is typically bundled with alpha and beta releases of our application.  If you are running this instance in production you should subscribe to the release channel because it is the most stable.
 
-See [Update Market doc](../dev/update-markets.md) to set your dashboard/app manager to subscribe to the release channel and use SSL.  App updates will fail if the markets are not using SSL.
+See [Update Markets doc](../dev/update-markets.md) to set your dashboard/app manager to subscribe to the release channel and use SSL.  App updates will fail if the markets are not using SSL.
 
 ## Migrate Data
 
