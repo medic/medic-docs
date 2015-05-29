@@ -94,7 +94,7 @@ curl -H "Destination: _design/medic" -XCOPY http://admin:secret@localhost:5984/m
 Delete the kujua-lite design doc, first get the design doc revision like:
 
 ```
-curl -sfI -XHEAD http://admin:secret$@localhost/medic/_design/kujua-lite 
+curl -sfI -XHEAD http://admin:secret@localhost:5984/medic/_design/kujua-lite 
 
 HTTP/1.1 200 OK
 Server: nginx/1.5.2
