@@ -42,10 +42,7 @@ Download and create a virtual machine instance using the latest Medic-OS bootabl
 
 Our OS is typically bundled with alpha and beta releases of our application.  If you are running this instance in production you should subscribe to the release channel because it is the most stable.
 
-Run this script to set your dashboard/app manager to subscribe to the release channel:
-
-[https://github.com/medic/medic-data/blob/master/scripts/update_markets.sh](
-https://github.com/medic/medic-data/blob/master/scripts/update_markets.sh)
+See [Update Markets doc](../dev/update-markets.md) to set your dashboard/app manager to subscribe to the release channel and use SSL.  App updates will fail if the markets are not using SSL.
 
 ## Migrate Data
 
@@ -72,10 +69,10 @@ SSH to new instance and:
 
 ```
 sudo /boot/svc-down medic-core
-sudo cp kujua-lite.couch /srv/storage/medic-core/couchdb/data/medic.couch
-sudo cp couchmark.couch /srv/storage/medic-core/couchdb/data/couchmark.couch
-sudo cp _users.couch /srv/storage/medic-core/couchdb/data/_users.couch
-sudo chown root:root /srv/storage/medic-core/couchdb/data/*.couch
+sudo mv kujua-lite.couch /srv/storage/medic-core/couchdb/data/medic.couch
+sudo mv couchmark.couch /srv/storage/medic-core/couchdb/data/couchmark.couch
+sudo mv _users.couch /srv/storage/medic-core/couchdb/data/_users.couch
+sudo chown couchdb:couchdb /srv/storage/medic-core/couchdb/data/*.couch
 ```
 
 ### Rename design doc
@@ -97,7 +94,7 @@ curl -H "Destination: _design/medic" -XCOPY http://admin:secret@localhost:5984/m
 Delete the kujua-lite design doc, first get the design doc revision like:
 
 ```
-curl -sfI -XHEAD http://admin:secret$@localhost/medic/_design/kujua-lite 
+curl -sfI -XHEAD http://admin:secret@localhost:5984/medic/_design/kujua-lite 
 
 HTTP/1.1 200 OK
 Server: nginx/1.5.2

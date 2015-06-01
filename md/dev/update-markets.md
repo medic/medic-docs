@@ -1,4 +1,4 @@
-# How to Migrate Dashboard to a Different Market
+# How To Migrate Dashboard To a Different Market
 
 Sometimes you want to update the market that your installation is pointing to.
 For example if you installed the stable or beta release and want to switch to
@@ -43,9 +43,9 @@ To update the markets to use SSL edit and replace instances of 'http' with 'http
 
 To modify the market your dashboard is subscribed to you will need to modify any URLs to reference your desired market.  The following is how are releases are mapped to URLs:
 
-    Release: market/_db, market-release
-    Beta: market_1/_db, market-beta
-    Alpha: market_2/_db, market-alpha
+    Release: market/_db, markets-release
+    Beta: market_1/_db, markets-beta
+    Alpha: market_2/_db, markets-alpha
 
 After you're done editing don't forget to Save Document in the top menu bar.
 
