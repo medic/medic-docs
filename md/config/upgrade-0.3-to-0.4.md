@@ -111,7 +111,7 @@ cache-control: must-revalidate
 Use the etag/revision value in a `rev` query parameter to delete the old couchapp:
 
 ```
-curl -XDELETE http://admin:secret@localhost/medic/_design/kujua-lite?rev=4-50a1732a52333d3b86163750895bf4b4
+curl -XDELETE http://admin:secret@localhost:5984/medic/_design/kujua-lite?rev=4-50a1732a52333d3b86163750895bf4b4
 
 {"ok":true,"id":"_design/kujua-lite","rev":"5-27fd5bec722e98b9ca543c5376cb85be"}
 ```
