@@ -43,3 +43,16 @@ Format your commit messages according to Git standards.  First line should be a
 short title/summary (50 characters or so) with more details in a separate
 paragraph, respecting 79 character line widths. Using `git -av` is recommended
 to review your diff while you write your commit message.
+
+## Releasing
+
+Release process checklist for medic-webapp:
+
+* Update changes log (Changes.md), include descriptions of bug fixes, features
+  and breaking changes or workarounds.  Include link to issues or further documentation 
+  where applicable.
+* Bump version numbers in kanso.json and package.json according to semver.
+* Tag release in git using Github releases manager.
+* Optionally merge with major version branch, e.g. v0.4, v1.
+* Push build to release market or confirm this happened automatically by CI.
+
