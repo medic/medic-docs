@@ -75,6 +75,23 @@ sudo mv _users.couch /srv/storage/medic-core/couchdb/data/_users.couch
 sudo chown couchdb:couchdb /srv/storage/medic-core/couchdb/data/*.couch
 ```
 
+Remove any existing views for these databases:
+
+```
+sudo rm -rf /srv/storage/medic-core/couchdb/data/.medic_design/mrview/*
+sudo rm -rf /srv/storage/medic-core/couchdb/data/.couchmark_design/mrview/*
+sudo rm -rf /srv/storage/medic-core/couchdb/data/._users_design/mrview/*
+```
+
+TODO add instructions for updating couchmark database, updating each document like:
+
+```
+if (doc.forDb === 'kujua-lite') {
+  doc.forDb = 'medic';
+}
+```
+
+
 ### Rename design doc
 
 Start up couchdb:
