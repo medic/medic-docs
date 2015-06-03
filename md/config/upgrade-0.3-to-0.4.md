@@ -46,9 +46,17 @@ See [Update Markets doc](../dev/update-markets.md) to set your dashboard/app man
 
 ## Migrate Data
 
+First disable the old couchdb instance so data is not changed while we do the
+migration.  This command should stop the CouchDB service and also prevent it
+from starting on boot.
+
+```
+sudo /boot/svc-disable medic-core couchdb
+```
+
 Copy your data to the new instance.
 
-First copy the `.couch` files to your local desktop.
+First copy the `.couch` files to your local desktop or a backup location.
 
 ```
 scp -P33696 vm@192.168.21.4/srv/storage/medic-core/couchdb/data/kujua-lite.couch Desktop/
@@ -56,7 +64,7 @@ scp -P33696 vm@192.168.21.4/srv/storage/medic-core/couchdb/data/couchmark.couch 
 scp -P33696 vm@192.168.21.4/srv/storage/medic-core/couchdb/data/_users.couch Desktop/
 ```
 
-Copy them to the new instance:
+Then copy them to the new instance:
 
 ```
 scp -P33696 Desktop/*.couch vm@192.168.21.4:
