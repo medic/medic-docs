@@ -24,7 +24,7 @@ New languages must be added and configured in several places:
 ## Adding new keys
 New labels (key and translation) should only be added to the English properties file in GitHub ([messages-en.properties](https://github.com/medic/medic-api/blob/develop/translations/messages-en.properties))
 
-These should trigger the webhook to import the terms and translations to POEditor, but NOT overwrite existing translations. The webhook url is: `https://poeditor.com/api/webhooks/github?api_token=0b15994ba973ebe6dac5477e6f3bdbcf&id_project=33025&language=en&operation=import_terms_and_translations`
+These should trigger a [webhook](https://github.com/medic/medic-api/settings/hooks) to import the terms and translations to POEditor, but NOT overwrite existing translations. The webhook url is: `https://poeditor.com/api/webhooks/github?api_token=0b15994ba973ebe6dac5477e6f3bdbcf&id_project=33025&language=en&operation=import_terms_and_translations`
 
 New terms can also be manually imported using "Get terms" or "Import translations from Github" [here](https://poeditor.com/github/projects). Using the manual approach some POEditor translations may be overwritten, so it is better to use the webhook that only imports new terms and translations.
 
