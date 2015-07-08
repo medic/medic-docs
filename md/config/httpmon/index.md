@@ -1,5 +1,5 @@
 Instructions for using httpmon (
-[google play](), 
+[google play](https://play.google.com/store/apps/details?id=org.jtb.httpmon), 
 [medic mobile](http://dev.medicmobile.org/downloads/monitoring/ManageMonitorsActivity-debug.apk),
 [source code](https://code.google.com/p/httpmon/)
 ) for monitoring the connection of a Medic Mobile instance.
