@@ -56,3 +56,13 @@ Release process checklist for medic-webapp:
 * Optionally merge with major version branch, e.g. v0.4, v1.
 * Push build to release market or confirm this happened automatically by CI.
 
+Publishing medic-collect to the Google Play Store:
+
+* Connect to the Medic Mobile build server using Remote Desktop Connection.
+* Go to the [medic-collect Jenkins project](http://localhost:8080/job/medic-collect/), and Build with Parameters:
+  * `VERSION_TO_BUILD` = Complete version number in `a.b.c.d` format. Eg `1.4.5.1100` where `1.4.5` is the base Collect version and `1100` is the build number.
+* Go to the [medic-collect-publish Jenkins project](http://localhost:8080/job/medic-collect-publish/), and Build with Parameters:
+  * `VERSION_TO_PUBLISH` = Use the same medic-collect version that was just built.
+  * `RELEASE_TRACK` = Select `alpha`, `beta`, or `production` as needed.
+  * `BRANDING` = Choose the "product flavor" to publish.
+* Check the Google Play Store developer console to make sure that the version matches the updated app's build number.
