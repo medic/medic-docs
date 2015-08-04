@@ -94,9 +94,12 @@ Messages should immediately be forwarded to Medic Mobile and moved to the Sent q
 
 ## Troubleshooting
 
-If you are still having problems the best troubleshooting tactic is to use the browser of the device to confirm the SyncURL is correct.  If the browser fails to load the SyncURL then there is likely a connectivity issue.
+If you are still having problems the best troubleshooting tactic is to use the
+browser of the device to confirm the SyncURL is correct.  If the browser fails
+to load the SyncURL then there is likely a connectivity issue.
 
-In the Sync URL configuration the keyword and secret fields should be left blank to avoid any potential bugs processing those fields.
+In the Sync URL configuration the keyword and secret fields should be left
+blank to avoid any potential bugs processing those fields.
 
 ## Editing SyncURL
 
