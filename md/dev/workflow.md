@@ -48,9 +48,10 @@ If you decide no Pull Request is required then changes are to be committed direc
 
 If you decide to create a Pull Request then create one feature branch in each of the repositories you update. The name of the feature branch should be in the form `{issue-number}-{readable-name}`, for example `1104-inclusive-export`. Once you're satisfied with your changes:
 
-1. submit a Pull Request for each of the branches
-2. link from the original Issue to the PRs
-3. assign the issue to another developer for review
+1. Submit a PR for each of the branches.
+2. Link from the PR to the original issue or vice versa.
+3. Assign the original issue to another developer for review, the PR can be
+left unassigned since it's linked on the original issue.
 
 When reviewing PRs:
 
