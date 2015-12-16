@@ -42,7 +42,7 @@ In development and being worked on. Issues in this state must be assigned to a d
 
 ##### Without Pull Request
 
-If you decide no Pull Request is required then changes are to be committed directly into the branch (usually the `develop` branch). Once you're satisfied with your changes apply the Acceptance Testing tag and close the issue.
+If you decide no Pull Request is required then changes are to be committed directly into the branch (usually the `develop` branch). Once you're satisfied with your changes apply the Code Review tag and assign to another developer.
 
 ##### With Pull Request
 
@@ -53,21 +53,28 @@ If you decide to create a Pull Request then create one feature branch in each of
 3. Assign the original issue to another developer for review, the PR can be
 left unassigned since it's linked on the original issue.
 
-When reviewing PRs:
+#### 3 - Code Review
 
-1. Add comments and questions to suggest improvements
-2. Once you're happy with the code merge the PRs and delete the branches
-3. Close the issue and apply the "Acceptance Testing" tag
+All non-trivial commits should be reviewed by another developer. Reviews should focus on code readability, test quality, and looking for obvious bugs.
 
-#### 3 - Acceptance Testing
+If the code fails review then comment on the issue, apply the Active Work tag, and assign back to the original developer.
+
+Once the code passes review:
+
+1. merge the Pull Request (if applicable)
+2. apply the Acceptance Testing tag
+3. close the issue
+4. clear your assignment
+
+#### 4 - Acceptance Testing
 
 Ready to be user acceptance tested. If the issue passes acceptance testing then apply the Ready state tag. However if the issue fails it must be reopened, and the Active Work and Returned tags applied, and assigned back to the closing developer.
 
-#### 4 - Ready
+#### 5 - Ready
 
 Passed acceptance testing and ready for release.
 
-#### 5 - Released
+#### 6 - Released
 
 The code to resolve the issue has been released to the market.
 
