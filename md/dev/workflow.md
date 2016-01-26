@@ -2,7 +2,7 @@
 
 ## Daily Stand
 
-Each day we post our objectives in the #stand Slack channel for the previous and current day and discuss any potential blockers. If a issue will not be completed within an interation time frame, that should be discussed.
+Each day we post our objectives in the #dailies Slack channel for the previous and current day and discuss any potential blockers. If a issue will not be completed within an interation time frame, that should be discussed.
 
 ## Weekly Stand
 
