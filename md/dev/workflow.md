@@ -2,11 +2,11 @@
 
 ## Daily Stand
 
-Each day we post our objectives in the #dailies Slack channel for the previous and current day and discuss any potential blockers. If a issue will not be completed within an interation time frame, that should be discussed.
+Each day developers post our objectives in the #dailies Slack channel for the previous and current day and discuss any potential blockers. If a issue will not be completed within an interation time frame that should be discussed.
 
 ## Weekly Stand
 
-Each week we post out objectives and accomplishments in the #weeklies Slack channel to keep the wider organisation up to date on development progress.
+Each week developers post out objectives and accomplishments in the #weeklies Slack channel to keep the wider organisation up to date on development progress.
 
 ## Fortnightly Iterations
 
@@ -14,13 +14,31 @@ We strive to do fortnightly iterations with feature reviews and deployment to ou
 
 At the end of each iteration we have a meeting where working code is demonstrated and acceptance by stake holders is confirmed. Issues are closed or moved to a ready or released state and new issues are potentially opened if unfinished work or new issues are discovered.
 
-## Commits, Branching and Code Review
+## Coding
+
+### Writing
+
+Aim for self-documenting code. Where code cannot be made self-documenting add commenting. Unnecessary comments and hard to read code fail a code review.
+
+### Testing
+
+All features and bug fixes must have at least one unit test. All features must have at least one end-to-end test.
+
+### Migrating
+
+When the schema is changed you must also provide a migration so when instances are upgraded existing data is compatible with the new code.
+
+## Commits
 
 We typically share one branch 'develop' where new code is developed, merged and reviewed. Use your discretion or discuss with the team whether to start a separate feature branch or not. It is recommended if the commit is large or has a good chance of breaking something. Branches and pull requests are easier to review.
 
 Include an issue number with every commit. Every commit should be related to an issue, in some cases you might create an issue for the commit before you push it. Commit and push, early and often, but don't introduce breaking changes if the branch is shared. In the case you want to commit and push out a feature for feedback, you can put breaking commits in a switch so they don't impede another developer's progress.
 
 Format your commit messages according to Git standards. First line should be a short title/summary (50 characters or so) with more details in a separate paragraph, respecting 79 character line widths. Using `git commit -v` is recommended to review your diff while you write your commit message.
+
+Never force push remote. Prefer rebasing over merging as it makes for a cleaner history.
+
+Commit reformats and refactors separately from actual code changes to make reviewing easier.
 
 ## Issues
 
@@ -55,7 +73,7 @@ left unassigned since it's linked on the original issue.
 
 #### 3 - Code Review
 
-All non-trivial commits should be reviewed by another developer. Reviews should focus on code readability, test quality, and looking for obvious bugs.
+All non-trivial commits should be reviewed by another developer. Reviews should focus on code readability, test quality and coverage, and looking for obvious bugs.
 
 If the code fails review then comment on the issue, apply the Active Work tag, and assign back to the original developer.
 
