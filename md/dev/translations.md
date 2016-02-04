@@ -14,7 +14,7 @@ New languages must be added and configured in several places:
 - *In GitHub*
   - Create a new [medic-api/translations/messages-XX.properties](https://github.com/medic/medic-api/blob/develop/translations/) file, replacing XX with the 2 or 3 letter language code.
   - Add language to the default languages in [medic-webapp/kanso.json](https://github.com/medic/medic-webapp/blob/develop/kanso.json) (eg Hindi [added here](https://github.com/medic/medic-webapp/commit/2addeef48db0e949988bddbfdb006c319d5771e2))
-  - Add language to the default app settings (eg for ANC, add it to locales [here](https://github.com/medic/medic-data/blob/master/data/generic-anc/diy/app-settings.json))
+  - Add language to the default app settings (eg for ANC, add it to locales [here](https://github.com/medic/medic-data/blob/master/data/generic-anc/base/app-settings.json))
 - *In POEditor*
   - In the [Medic Mobile project](https://poeditor.com/projects/view?id=33025), add the language
   - In the [GitHub integration page](https://poeditor.com/github/projects), link that language to the GitHub file
