@@ -30,7 +30,7 @@ All text in the app is internationalised.
 - Pick a key.
   - First check if an appropriate key already exists in [messages-en.properties](https://github.com/medic/medic-api/blob/develop/translations/messages-en.properties).
   - Otherwise create a new key and default English value. Keys must be all lower case, dot separated, and descriptive but not verbose. The values should include as much text as possible (eg: trailing punctuation), and must not contain any markup. Don't add any values for other languages as this will be done later in the POEditor app.
-- Use the translation. In angular this is done using angular-translate, and ideally using the [translate directive](http://angular-translate.github.io/docs/#/guide/05_using-translate-directive) to reduce the number of watchers.
+- Use the translation. In angular this is done using angular-translate, and ideally using the [translate directive](http://angular-translate.github.io/docs/#/guide/05_using-translate-directive) to reduce the number of watchers, eg: `<h3 translate>date.incorrect.title</h3>`.
 
 Changes will trigger a [webhook](https://github.com/medic/medic-api/settings/hooks) to import the terms and translations to POEditor, but NOT overwrite existing translations. The webhook url is: `https://poeditor.com/api/webhooks/github?api_token=$api_token&id_project=33025&language=en&operation=import_terms_and_translations`. Replace `$api_token` with the API token you've been given. If you don't have an API token, please contact a Medic Mobile developer, product manager, or CTO. Please do not disclose this API token to anyone else.
 
@@ -38,7 +38,7 @@ New terms can also be manually imported using "Get terms" or "Import translation
 
 ### Translating help pages
 
-This is done by providing md documents for each language, which isn't yet up and running. Ask for help.
+Because help pages are too large to manage easily through the standard translation mechanism, and we want to include lots of markup, help pages are translated by providing md documents for each language. This isn't yet up and running so ask for help.
 
 ### Translating configurations
 
