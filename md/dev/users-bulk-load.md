@@ -4,9 +4,14 @@ First create the place/facility structure you need in the webapp UI.
 
 - Typically one top level place and several children. 
 - Save the top level ID for later.
-- Save the IDs of the children places since that will be used to create the contact for the new user.
+- Save the IDs of the children places since that will be used to create the
+  contact for the new user.
 
-Then use curl against the users API to create the user and contact. In this example the place and contact.parent are the same so we're creating `demo*` users that can manage records associated to a specific place and an `admin1` user that can manage them all because that place is a parent in the hierarchy we created.
+Then use curl against the users API to create the user and contact. In this
+example the place and contact.parent are the same so we're creating `demo*`
+users that can manage records associated to a specific place and an `admin1`
+user that can manage them all because that place is a parent in the hierarchy
+we created.
 
 Create a whitespace separated data file like /tmp/data:
 
