@@ -6,7 +6,7 @@ messages in and out of Medic Mobile.
 ## Download
 
 Launch the browser on your device and download the latest SMSSync build here: 
-[http://dev.medicmobile.org/downloads/gateways/](http://dev.medicmobile.org/downloads/gateways/)
+[https://dev.medicmobile.org/downloads/gateways/](https://dev.medicmobile.org/downloads/gateways/)
 
 You will be prompted to install the `.apk` file. Follow the instructions and
 complete the install.
@@ -36,8 +36,8 @@ other.
 * Launch a browser on the gateway device and browse to the URL where Medic Mobile is running.
 
   For example if the instance is running on your local network the URL might look 
-  like: `http://192.168.213.165` if you have a hosted server somewhere then you
-  can use the domain name like `http://myproject.app.medicmobile.org`.
+  like: `https://192.168.213.165` if you have a hosted server somewhere then you
+  can use the domain name like `https://myproject.app.medicmobile.org`.
 
 * Confirm you receive a response for authentication from the server.
 
@@ -56,7 +56,7 @@ To determine your SyncURL you will need 3 things:
 `/medic/_design/medic/_rewrite/add` 
 
 Combine the above and you have your complete SyncURL. For example:
-`http://gateway:secret@192.168.213.165/medic/_design/medic/_rewrite/add?locale=en`
+`https://gateway:secret@192.168.213.165/medic/_design/medic/_rewrite/add?locale=en`
 
 *Note* the colon `:` character separates the username and password and the `@` symbol
 separates the IP address from the password.  We recommend having a gateway user
