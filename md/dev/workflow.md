@@ -100,13 +100,13 @@ The code to resolve the issue has been released to the market.
 
 Release process checklist for medic-webapp:
 
-* Update changes log (Changes.md), include descriptions of bug fixes, features
+1. Update changes log (Changes.md), include descriptions of bug fixes, features
   and breaking changes or workarounds. Include link to issues or further documentation 
   where applicable.
-* Bump version numbers in kanso.json and package.json according to semver.
-* Tag release in git using Github releases manager.
-* Optionally merge with major version branch, e.g. v0.4, v1, testing, develop.
-* Push build to release market or confirm this happened automatically by CI.
+2. Bump version numbers in kanso.json and package.json according to semver.
+3. Optionally merge with major version branch, e.g. v0.4, v1, testing, develop.
+4. Tag release in git using Github releases manager.
+5. Push build to release market or confirm this happened automatically by CI.
 
 Publishing the Android apps for **Medic Mobile** (`medic-android`) and **Collect** (`medic-collect`) to the Google Play Store:
 
