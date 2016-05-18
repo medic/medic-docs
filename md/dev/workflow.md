@@ -36,6 +36,10 @@ Include an issue number with every commit. Every commit should be related to an 
 
 Format your commit messages according to Git standards. First line should be a short title/summary (50 characters or so) with more details in a separate paragraph, respecting 79 character line widths. Using `git commit -v` is recommended to review your diff while you write your commit message.
 
+Every good commit message should be able to complete the following sentence:
+
+  When applied, this commit will: {{YOUR COMMIT MESSAGE}}
+
 Never force push remote. Prefer rebasing over merging as it makes for a cleaner history.
 
 Commit reformats and refactors separately from actual code changes to make reviewing easier.
