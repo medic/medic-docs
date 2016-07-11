@@ -33,7 +33,7 @@ Note : this was tested for MedicOS 64-bit version only (file names containing x6
 
 ### Select Bootable ISO file
 
-* Click Use another disc or image, and select your ISO file.
+* Click Use another disc or image, and select your ISO file. Or use an existing one if you've done this procedure before.
 
 ![Use another disc or image](img/vm-fusion/select_image.png)
 
@@ -50,6 +50,8 @@ Note : this was tested for MedicOS 64-bit version only (file names containing x6
 ![Customize settings](img/vm-fusion/customize_settings.png)
 
 * You are now in Settings. You can also reach this page from the top-bar Apple menu, at Virtual Machine > Settings...
+
+We'll be editing 3 settings.
 
 ![Settings](img/vm-fusion/settings.png)
 
