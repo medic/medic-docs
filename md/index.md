@@ -1,10 +1,19 @@
 
-## Setup
+## Setup Medic OS
+
+Pick your VM software:
 
 * [VMWare Player](install/mmva-vmware.md)
 * [Virtual Box](install/mmva-vbox.md)
+* [VMWare Fusion](install/mmva-vmware-fusion.md)
+
+Then if needed, install apps:
+
 * [Installing Apps](install/garden.md)
+
+## Setup SMS gateway
 * [SMSSync Setup](install/smssync.md)
+* TODO Medic Gateway setup
 
 ## Release Notes
 
