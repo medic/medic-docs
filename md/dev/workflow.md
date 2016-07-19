@@ -104,13 +104,11 @@ The code to resolve the issue has been released to the market.
 
 Release process checklist for medic-webapp:
 
-1. Update changes log (Changes.md), include descriptions of bug fixes, features
-  and breaking changes or workarounds. Include link to issues or further documentation 
-  where applicable.
-2. Bump version numbers in kanso.json and package.json according to semver.
-3. Optionally merge with major version branch, e.g. v0.4, v1, testing, develop.
-4. Tag release in git using Github releases manager.
-5. Push build to release market or confirm this happened automatically by CI.
+1. If releasing a new major or minor version create a new release branch from master named "<major>.<minor>.x". If releasing a patch version then merge or cherry pick the necessary commits from master into the relevant release branches.
+2. Update changes log (Changes.md), include descriptions of bug fixes, features, breaking changes, known issues, and workarounds. Include link to issues or further documentation where applicable.
+3. Bump version numbers in kanso.json, package.json, and npm-shrinkwrap.json according to semver.
+4. Tag release in git using Github releases manager. If releasing a final then name the tag "<major>.<minor>.<patch>". If releasing a release candidate then name the tag "<major>.<minor>.<patch>-rc.<rc-number>". CI will publish to the correct market depending on the name of the tag.
+5. Confirm the release build completes successfully and the new release is available on the correct market.
 
 Publishing the Android apps for **Medic Mobile** (`medic-android`) and **Collect** (`medic-collect`) to the Google Play Store:
 

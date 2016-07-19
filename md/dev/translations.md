@@ -12,8 +12,7 @@ Note that "keys" in .properties files are referred to as `terms` in POEditor.
 ## Adding new languages
 New languages must be added and configured in several places:
 - *In GitHub*
-  - Create a new [medic-api/translations/messages-XX.properties](https://github.com/medic/medic-api/blob/develop/translations/) file, replacing XX with the 2 or 3 letter language code.
-  - Add language to the default languages in [medic-webapp/kanso.json](https://github.com/medic/medic-webapp/blob/develop/kanso.json) (eg Hindi [added here](https://github.com/medic/medic-webapp/commit/2addeef48db0e949988bddbfdb006c319d5771e2))
+  - Create a new [medic-webapp/translations/messages-XX.properties](https://github.com/medic/medic-webapp/blob/master/translations/) file, replacing XX with the 2 or 3 letter language code.
   - Add language to the default app settings (eg for ANC, add it to locales [here](https://github.com/medic/medic-data/blob/master/data/generic-anc/base/app-settings.json))
 - *In POEditor*
   - In the [Medic Mobile project](https://poeditor.com/projects/view?id=33025), add the language
@@ -28,7 +27,7 @@ New languages must be added and configured in several places:
 All text in the app is internationalised.
 
 - Pick a key.
-  - First check if an appropriate key already exists in [messages-en.properties](https://github.com/medic/medic-api/blob/develop/translations/messages-en.properties).
+  - First check if an appropriate key already exists in [messages-en.properties](https://github.com/medic/medic-webapp/blob/master/translations/messages-en.properties).
   - Otherwise create a new key and default English value. Keys must be all lower case, dot separated, and descriptive but not verbose. The values should include as much text as possible (eg: trailing punctuation), and must not contain any markup. Don't add any values for other languages as this will be done later in the POEditor app.
 - Use the translation. In angular this is done using angular-translate, and ideally using the [translate directive](http://angular-translate.github.io/docs/#/guide/05_using-translate-directive) to reduce the number of watchers, eg: `<h3 translate>date.incorrect.title</h3>`.
 
@@ -52,5 +51,5 @@ To be done *only* in [POEditor's terms page](https://poeditor.com/projects/view_
 
 ## Exporting changes from POEditor to GitHub
 Export "Translated" from POEditor to GitHub [here](https://poeditor.com/github/projects).
-Do this for all languages that have been modified, then verify the [commits in GitHub](https://github.com/medic/medic-api/commits/develop?author=medic-translators
+Do this for all languages that have been modified, then verify the [commits in GitHub](https://github.com/medic/medic-api/commits/master?author=medic-translators
 ) to make sure only expected changes were made.
