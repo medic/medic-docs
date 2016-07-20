@@ -2,11 +2,11 @@
 
 ## Daily Stand
 
-Each day developers post our objectives in the #dailies Slack channel for the previous and current day and discuss any potential blockers. If a issue will not be completed within an interation time frame that should be discussed.
+Each day developers post our objectives in the #dailies Slack channel for the previous and current day and discuss any potential blockers. If a issue will not be completed within an iteration time frame that should be discussed.
 
-## Weekly Stand
+## Weekly Call
 
-Each week developers post out objectives and accomplishments in the #weeklies Slack channel to keep the wider organisation up to date on development progress.
+Each week the team meets on a call to discuss progress and plans for the next week. Someone reports back to #weeklies to update the wider team.
 
 ## Fortnightly Iterations
 
@@ -43,6 +43,12 @@ Every good commit message should be able to complete the following sentence:
 Never force push remote. Prefer rebasing over merging as it makes for a cleaner history.
 
 Commit reformats and refactors separately from actual code changes to make reviewing easier.
+
+## Branches
+
+- The main branch is `master` and is the github default branch and contains the latest code.
+- Release branches have the form `<major>.<minor>.x` and should be stable.
+- Feature branches have the form `<issue-number>-<issue-description>` and are work in progress.
 
 ## Issues
 
@@ -107,9 +113,11 @@ Release process checklist for medic-webapp:
 1. If releasing a new major or minor version create a new release branch from master named "<major>.<minor>.x". If releasing a patch version then merge or cherry pick the necessary commits from master into the relevant release branches.
 2. Update changes log (Changes.md), include descriptions of bug fixes, features, breaking changes, known issues, and workarounds. Include link to issues or further documentation where applicable.
 3. Bump version numbers in kanso.json, package.json, and npm-shrinkwrap.json according to semver.
-4. Tag release in git using Github releases manager. If releasing a final then name the tag "<major>.<minor>.<patch>". If releasing a release candidate then name the tag "<major>.<minor>.<patch>-rc.<rc-number>". CI will publish to the correct market depending on the name of the tag.
-5. If releasing a final, tag submodules (api and sentinel) in git using Github releases manager with the version as above so we can easily find the version of the dependencies and branch for a patch if required.
-6. Confirm the release build completes successfully and the new release is available on the correct market.
+4. Tag release in git using Github releases manager. CI will publish to the correct market depending on the name of the tag.
+  - If releasing a final then name the tag "<major>.<minor>.<patch>"
+  - If releasing a release candidate then name the tag "<major>.<minor>.<patch>-rc.<rc-number>"
+  - If releasing a beta then name the tag "<major>.<minor>.<patch>-beta.<beta-number>"
+5. Confirm the release build completes successfully and the new release is available on the correct market.
 
 Publishing the Android apps for **Medic Mobile** (`medic-android`) and **Collect** (`medic-collect`) to the Google Play Store:
 
