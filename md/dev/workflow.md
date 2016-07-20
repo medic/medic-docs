@@ -30,7 +30,7 @@ When the schema is changed you must also provide a migration so when instances a
 
 ## Commits
 
-We typically share one branch 'develop' where new code is developed, merged and reviewed. Use your discretion or discuss with the team whether to start a separate feature branch or not. It is recommended if the commit is large or has a good chance of breaking something. Branches and pull requests are easier to review.
+We typically share one branch 'master' where new code is developed, merged and reviewed. Use your discretion or discuss with the team whether to start a separate feature branch or not. It is recommended if the commit is large or has a good chance of breaking something. Branches and pull requests are easier to review.
 
 Include an issue number with every commit. Every commit should be related to an issue, in some cases you might create an issue for the commit before you push it. Commit and push, early and often, but don't introduce breaking changes if the branch is shared. In the case you want to commit and push out a feature for feedback, you can put breaking commits in a switch so they don't impede another developer's progress.
 
@@ -70,11 +70,11 @@ In development and being worked on. Issues in this state must be assigned to a d
 
 ##### Without Pull Request
 
-If you decide no Pull Request is required then changes are to be committed directly into the branch (usually the `develop` branch). Once you're satisfied with your changes apply the Code Review tag and assign to another developer.
+If you decide no Pull Request is required then changes are to be committed directly into the branch (usually the `master` branch). Once you're satisfied with your changes apply the Code Review tag and assign to another developer.
 
 ##### With Pull Request
 
-If you decide to create a Pull Request then create one feature branch in each of the repositories you update. The name of the feature branch should be in the form `{issue-number}-{readable-name}`, for example `1104-inclusive-export`. Once you're satisfied with your changes:
+If you decide to create a Pull Request then create one feature branch in each of the repositories you update. The name of the feature branch should be in the form `<issue-number>-<readable-name>`, for example `1104-inclusive-export`. Once you're satisfied with your changes:
 
 1. Submit a PR for each of the branches.
 2. Link from the PR to the original issue or vice versa.
@@ -108,6 +108,8 @@ The code to resolve the issue has been released to the market.
 
 ## Releasing
 
+### Webapp
+
 Release process checklist for medic-webapp:
 
 1. If releasing a new major or minor version create a new release branch from master named `<major>.<minor>.x`. If releasing a patch version then merge or cherry pick the necessary commits from master into the relevant release branches.
@@ -118,6 +120,8 @@ Release process checklist for medic-webapp:
   - If releasing a release candidate then name the tag `<major>.<minor>.<patch>-rc.<rc-number>`
   - If releasing a beta then name the tag `<major>.<minor>.<patch>-beta.<beta-number>`
 5. Confirm the release build completes successfully and the new release is available on the correct market.
+
+### Android apps
 
 Publishing the Android apps for **Medic Mobile** (`medic-android`) and **Collect** (`medic-collect`) to the Google Play Store:
 
