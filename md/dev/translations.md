@@ -50,6 +50,6 @@ To be done *only* in [POEditor](https://poeditor.com/projects/po_edit?id_languag
 To be done *only* in [POEditor's terms page](https://poeditor.com/projects/view_terms?id=33025), followed by an export when ready.
 
 ## Exporting changes from POEditor to GitHub
-Export "Translated" from POEditor to GitHub [here](https://poeditor.com/github/projects).
+Export "Translated" from POEditor to GitHub [here](https://poeditor.com/github/projects). You'll need to be logged in to GitHub as `medic-translators` which is the user which has given POE OAuth access to push on its behalf.
 Do this for all languages that have been modified, then verify the [commits in GitHub](https://github.com/medic/medic-api/commits/master?author=medic-translators
 ) to make sure only expected changes were made.
