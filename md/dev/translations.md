@@ -50,6 +50,7 @@ To be done *only* in [POEditor](https://poeditor.com/projects/po_edit?id_languag
 To be done *only* in [POEditor's terms page](https://poeditor.com/projects/view_terms?id=33025), followed by an export when ready.
 
 ## Exporting changes from POEditor to GitHub
-Export "Translated" from POEditor to GitHub [here](https://poeditor.com/github/projects). You'll need to be logged in to GitHub as `medic-translators` which is the user which has given POE OAuth access to push on its behalf.
-Do this for all languages that have been modified, then verify the [commits in GitHub](https://github.com/medic/medic-api/commits/master?author=medic-translators
+Exporting from POEditor to GitHub can be done via https://poeditor.com/github/projects, but it is simpler to trigger the webhook for the language you wish to export. For example, the webhook for English labels is: `https://poeditor.com/api/webhooks/github?api_token=$api_token&id_project=33025&language=en&operation=export_terms_and_translations`.  Replace `$api_token` with the API token you've been given. If you don't have an API token, please contact a Medic Mobile developer, product manager, or CTO. Please do not disclose this API token to anyone else. Note that [according to POEditor](https://poeditor.com/help/how_to_use_the_github_webhook) the webhook *cannot* be triggered from within GitHub.
+
+To export another language replace the value for `language` to the corresponding 2-letter language code and trigger the webhook. Do this for all languages that have been modified, then verify the [commits in GitHub](https://github.com/medic/medic-api/commits/master?author=medic-translators
 ) to make sure only expected changes were made.
