@@ -115,13 +115,14 @@ Release process checklist for medic-webapp:
 1. If releasing a new major or minor version create a new release branch from master named `<major>.<minor>.x`. If releasing a patch version then merge or cherry pick the necessary commits from master into the relevant release branches.
 2. Update changes log (Changes.md), include descriptions of bug fixes, features, breaking changes, known issues, and workarounds. Include link to issues or further documentation where applicable.
 3. Bump version numbers in kanso.json, package.json, and npm-shrinkwrap.json according to semver.
-4. Create a tag in the submodule repositories (api and sentinel) called the app version.
-4. Tag release in git using Github releases manager. CI will publish to the correct market depending on the name of the tag.
+4. Tag release in git. CI will publish to the correct market depending on the name of the tag.
   - If releasing a final then name the tag `<major>.<minor>.<patch>`
-  - If releasing a release candidate then name the tag `<major>.<minor>.<patch>-rc.<rc-number>`
   - If releasing a beta then name the tag `<major>.<minor>.<patch>-beta.<beta-number>`
-5. Confirm the release build completes successfully and the new release is available on the correct market.
-6. Announce the release in the #general slack channel.
+5. If the release is a final release also create a tag in each submodule repository (api and sentinel), mirroring with that version.
+6. Confirm the release build completes successfully and the new release is available on the correct market.
+7. If the release is final announce the release in the #general slack channel.
+
+Generally from master we create beta releases, and once QA passes beta releases get "promoted" to final by retagging the successful beta as final.
 
 ### Android apps
 
