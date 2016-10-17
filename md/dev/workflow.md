@@ -68,13 +68,7 @@ Ready for development to begin. Scheduled issues must also be assigned to a mile
 
 In development and being worked on. Issues in this state must be assigned to a developer.
 
-##### Without Pull Request
-
-If you decide no Pull Request is required then changes are to be committed directly into the branch (usually the `master` branch). Once you're satisfied with your changes apply the Code Review tag and assign to another developer.
-
-##### With Pull Request
-
-If you decide to create a Pull Request then create one feature branch in each of the repositories you update. The name of the feature branch should be in the form `<issue-number>-<readable-name>`, for example `1104-inclusive-export`. Once you're satisfied with your changes:
+Create one feature branch in each of the repositories you update. The name of the feature branch should be in the form `<issue-number>-<readable-name>`, for example `1104-inclusive-export`. Once you're satisfied with your changes:
 
 1. Submit a PR for each of the branches.
 2. Link from the PR to the original issue or vice versa.
