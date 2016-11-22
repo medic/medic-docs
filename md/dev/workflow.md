@@ -104,6 +104,13 @@ The code to resolve the issue has been released to the market.
 
 ### Webapp
 
+We release betas at the end of every sprint. These are cut directly from master:
+
+1. Pull master to make sure you have everything
+2. `git tag x.y.0-beta.z`, e.g. `get tag 2.9.0-beta.4`. This version should be the next logical version that is not yet released.
+3. `git push --tags`
+4. As long as the build passes Travis will take care of the rest
+
 Release process checklist for medic-webapp:
 
 1. If releasing a new major or minor version create a new release branch from master named `<major>.<minor>.x`. If releasing a patch version then merge or cherry pick the necessary commits from master into the relevant release branches.
