@@ -30,9 +30,7 @@ When the schema is changed you must also provide a migration so when instances a
 
 ## Commits
 
-We typically share one branch 'master' where new code is developed, merged and reviewed. Use your discretion or discuss with the team whether to start a separate feature branch or not. It is recommended if the commit is large or has a good chance of breaking something. Branches and pull requests are easier to review.
-
-Include an issue number with every commit. Every commit should be related to an issue, in some cases you might create an issue for the commit before you push it. Commit and push, early and often, but don't introduce breaking changes if the branch is shared. In the case you want to commit and push out a feature for feedback, you can put breaking commits in a switch so they don't impede another developer's progress.
+The main branch is `master` which must be kept stable so as not to impact other developers and so we can take a release branch as needed. To achieve this we do (almost) all development in a branch and submit a PR for code review. This means the CI runs and another developer has signed off on the change before it hits the `master` branch.
 
 Format your commit messages according to Git standards. First line should be a short title/summary (50 characters or so) with more details in a separate paragraph, respecting 79 character line widths. Using `git commit -v` is recommended to review your diff while you write your commit message.
 
