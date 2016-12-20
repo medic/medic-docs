@@ -54,24 +54,27 @@ Issues are managed in Github. When creating issues assign a status value by choo
 
 ### States
 
+#### Nothing
+
+If an issue has no status label at all then it needs to be triaged to work out the scheduled and priority.
+
 #### 0 - Backlog
 
 Proposed but not approved for development yet. This issue may be closed as unrequired, moved into scheduled, or linger in purgatory forever more.
 
 #### 1 - Scheduled
 
-Ready for development to begin. Scheduled issues must also be assigned to a milestone.
+We have all the design and detail we need to begin development. Once issues are in this state they can be selected for inclusion in a milestone and can be assigned to a developer for Active Work.
 
 #### 2 - Active Work
 
-In development and being worked on. Issues in this state must be assigned to a developer.
+In development and being worked on. Issues in this state must be assigned to a developer and be in the current milestone.
 
 Create one feature branch in each of the repositories you update. The name of the feature branch should be in the form `<issue-number>-<readable-name>`, for example `1104-inclusive-export`. Once you're satisfied with your changes:
 
 1. Submit a PR for each of the branches.
 2. Link from the PR to the original issue or vice versa.
-3. Assign the original issue to another developer for review, the PR can be
-left unassigned since it's linked on the original issue.
+3. Assign the original issue to another developer for review, the PR can be left unassigned since it's linked on the original issue.
 
 #### 3 - Code Review
 
