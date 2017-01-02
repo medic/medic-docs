@@ -4,6 +4,8 @@
 
 Each day developers post our objectives in the #dailies Slack channel for the previous and current day and discuss any potential blockers. If a issue will not be completed within an iteration time frame that should be discussed.
 
+There are optional daily standup meetings, at 9am UTC (10am CEST) and 8pm UTC (9am NZST). Show up if you want, it's a good place to check in and discuss issues.
+
 ## Weekly Call
 
 Each week the team meets on a call to discuss progress and plans for the next week. Someone reports back to #weeklies to update the wider team.
