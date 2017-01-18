@@ -103,6 +103,26 @@ Passed acceptance testing and ready for release.
 
 The code to resolve the issue has been released to the market.
 
+## Triaging old issues
+
+There is a [script](https://github.com/SCdF/github-issue-roulette) that can be configured to run against medic-webapp.
+
+This script is meant to randomly assign old untriaged issues to devs in the sprint.
+
+At the time of writing it will be run once every sprint, and will assign 2 issues per developer.
+
+### What do I do with one of these tickets?
+
+We are trying to cut down on a giant unmanagable backlog of possibly irrelevant tickets.
+
+Before the end of the sprint, you must, for each ticket assigned to you, work out if that ticket should scheduled or closed. You may need to ask other relevant people about it, so you probably won't want to leave it until the last day.
+
+If you decide to schedule it, you are saying that it is currently relevant and should be done as soon as time and priorities allow.
+
+If it is not that relevant, or might be interesting deep in the future, or is interesting but maybe not a big deal: **just close it**! If it's really that important it will come up again.
+
+Regardless of what you do with the ticket, please document the reasoning. This will help reduce mistakes, as the reasoning will be available for everyone to read, and any mistakes there can be rectified.
+
 ## Releasing
 
 ### Webapp
