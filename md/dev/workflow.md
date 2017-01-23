@@ -93,7 +93,7 @@ Once the code passes review:
 
 #### 4 - Acceptance Testing
 
-Ready to be user acceptance tested. If the issue passes acceptance testing then apply the Ready state tag. However if the issue fails it must be reopened, and the Active Work and Returned tags applied, and assigned back to the closing developer.
+Ready to be user acceptance tested. If the issue passes acceptance testing then apply the Ready state tag. However if the issue fails then: reopened it, add the Active Work and Returned tags, assigned back to the developer who worked on it, and move it to the current milestone.
 
 #### 5 - Ready
 
