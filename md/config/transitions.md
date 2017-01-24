@@ -4,19 +4,20 @@ When sentinel detects a document has changed it runs transitions against the doc
 
 ## Configuration
 
-By default all transitions are disabled. They can be enabled by setting the `transitions` property, eg:
+By default all transitions are disabled. They can be enabled by configuring the `transitions` property to have a key with the transitions name and a `truthy` value, eg:
 
 ```json
 {
   "transitions": {
     "a": { },
-    "b": { "disable": false },
-    "c": { "disable": true }
+    "b": true,
+    "c": { "disable": false },
+    "d": { "disable": true }
   }
 }
 ```
 
-In this example the `c` transition will not be applied, but the other two will be.
+In this example the `d` transition will not be applied, but the other three will be.
 
 ### Available transitions
 
