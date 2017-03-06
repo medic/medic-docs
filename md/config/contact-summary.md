@@ -40,7 +40,7 @@ Each field is an object with the following properties:
 - `width` is how wide out of 12 the field should be shown. Common values are 12 for full width, 6 for half width, or 3 for quarter width.
 - `translate` (defaults to false) is whether or not to translate the value, eg: `{ label: "contact.sex", value: "label.male", translate: true }`
 - `context` (optional) is for providing translation context for complex values.
-- `filter` (optional) is the name of the display filter to apply to the value, eg: `{ value: '2005-10-09', filter: 'age' }` will render as "11 years". Common filters are: `age`, `phone`, `weeksPregnant`, `relativeDate`, `relativeDay`, `fullDate`, `simpleDate`, `simpleDateTime`, `clinic`
+- `filter` (optional) is the name of the display filter to apply to the value, eg: `{ value: '2005-10-09', filter: 'age' }` will render as "11 years". Common filters are: `age`, `phone`, `weeksPregnant`, `relativeDate`, `relativeDay`, `fullDate`, `simpleDate`, `simpleDateTime`, `clinic`, `resourceIcon`
 
 To return the result you need to declare the object on the last line of the script, as in the following example.
 
