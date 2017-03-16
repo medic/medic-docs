@@ -140,8 +140,8 @@ Release process checklist for medic-webapp:
 2. Update changes log (Changes.md), include descriptions of bug fixes, features, breaking changes, known issues, and workarounds. Include link to issues or further documentation where applicable.
 3. Bump version numbers in kanso.json, package.json, and npm-shrinkwrap.json according to semver.
 4. Tag the release in git. CI will publish to the correct market depending on the name of the tag.
-  1. If releasing a beta then create a tag named `<major>.<minor>.<patch>-beta.<beta-number>`
-  2. If releasing a final create a release in GitHub so it shows up under the [Releases tab](https://github.com/medic/medic-webapp/releases). Use the naming convention `<major>.<minor>.<patch>`. This will create the git tag automatically. Copy the entry from the changes log as the release description. Also create a tag in each submodule repository (api and sentinel) with the same tag name.
+  - If releasing a beta then create a tag named `<major>.<minor>.<patch>-beta.<beta-number>`
+  - If releasing a final create a release in GitHub so it shows up under the [Releases tab](https://github.com/medic/medic-webapp/releases). Use the naming convention `<major>.<minor>.<patch>`. This will create the git tag automatically. Copy the entry from the changes log as the release description. Also create a tag in each submodule repository (api and sentinel) with the same tag name.
 5. Confirm the release build completes successfully and the new release is available on the correct market.
 6. If the release is final let the product manager (Sharon) know to announce the release.
 
