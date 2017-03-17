@@ -13,7 +13,7 @@ function compileLess(doc, project_path, f, compress, callback) {
      * doesn't exist, so check early for that and report something
      * sensible
      */
-    path.exists(f, function (exists) {
+    fs.exists(f, function (exists) {
         if (!exists) {
             return callback(new Error('File does not exist: ' + f));
         }
