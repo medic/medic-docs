@@ -75,6 +75,13 @@ If you are providing the patient id instead of having Sentinel generate you one,
 In this example the provided id would be in `fields.external_id` on the registration document.
 
 **NB:** this field must not be called `patient_id`.
+**NB:** the JSON passed in `"params"`` is still a string, wraped in double quotes and escaped. The following would not be valid:
+```json
+{
+    "params": {"patient_id_field": "external_id"},
+}
+```
+
 
 ###### Alternative Name Location
 
@@ -88,6 +95,17 @@ To provide an alternative location for the patient name, either provide a `patie
 ```json
 {
     "params": "full_name",
+}
+```
+
+The first format is required if you wish to also provide an exteral patient id:
+
+```json
+{
+    "params": "{
+        \"patient_name_field\": \"full_name\",
+        \"patient_id_field\": \"external_id\"
+    }",
 }
 ```
 
