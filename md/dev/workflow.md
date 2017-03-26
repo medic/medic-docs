@@ -142,7 +142,7 @@ Release process checklist for medic-webapp:
 4. Tag the release in git. CI will publish to the correct market depending on the name of the tag.
   - If releasing a beta then create a tag named `<major>.<minor>.<patch>-beta.<beta-number>`
   - If releasing a final create a release in GitHub so it shows up under the [Releases tab](https://github.com/medic/medic-webapp/releases). Use the naming convention `<major>.<minor>.<patch>`. This will create the git tag automatically. Copy the entry from the changes log as the release description. Also create a tag in each submodule repository (api and sentinel) with the same tag name.
-5. Confirm the release build completes successfully and the new release is available on the correct market.
+5. Confirm the release build completes successfully and the new release is available on the correct [market](https://staging.dev.medicmobile.org).
 6. If the release is final let the product manager (Sharon) know to announce the release.
 
 Generally from master we create beta releases, and once QA passes beta releases get "promoted" to final by retagging the successful beta as final.
