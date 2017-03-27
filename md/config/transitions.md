@@ -39,8 +39,6 @@ In this example the `d` transition will not be applied, but the other three will
 
 Guides for how to setup specific transitions.
 
-TODO: Fill this out for every transition, even if there is no configuration possible
-
 ### Registration
 
 Configuration is held at `app_settings.registrations`, as a list of objects connecting forms to validations, events and messages. Its structure is described in kanso.json.
