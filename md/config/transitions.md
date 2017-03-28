@@ -73,7 +73,7 @@ If you are providing the patient id instead of having Sentinel generate you one,
 In this example the provided id would be in `fields.external_id` on the registration document.
 
 **NB:** this field must not be called `patient_id`.
-**NB:** the JSON passed in `"params"`` is still a string, wraped in double quotes and escaped. The following would not be valid:
+**NB:** the JSON passed in `"params"`` should still be a string. Support for raw JSON as shown below exists, but is in beta and may not always work correctly in all situations, because kanso.json does not support it:
 ```json
 {
     "params": {"patient_id_field": "external_id"},
