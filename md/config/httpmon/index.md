@@ -4,6 +4,10 @@ Instructions for using httpmon (
 [source code](https://code.google.com/p/httpmon/)
 ) for monitoring the connection of a Medic Mobile instance.
 
+This monitors two things:
+- the internet connection of the gateway to the instance
+- the instance is responding to http requests
+
 We will configure httpmon to check the HTTP response code on a specific URL
 every 60 seconds and send an SMS to a configured phone number if that test
 fails.
