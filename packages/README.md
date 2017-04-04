@@ -1,1 +1,0 @@
-Please dont alter any files or folders in this directory as it is managed by kanso.

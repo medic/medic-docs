@@ -1,29 +1,34 @@
-# Medic Mobile Documentation
+## Setup Medic OS
 
-This is a separate app because of its size, since we don't need to increase the
-build and replication time of the main app by weighing it down with media
-files.
+Pick your VM software:
 
-This site was created using the [Garden Baseline
-App](https://github.com/garden20/baseline-garden-app/) as a starting point.
+* [VMWare Player](installation/mmva-vmware.md)
+* [Virtual Box](installation/mmva-vbox.md)
+* [VMWare Fusion](installation/mmva-vmware-fusion.md)
 
-## Editing
+Then if needed, install apps:
 
-Documentation lives in `md` directory and should be editable locally, so links
-should be relative and allow for use of a Markdown tool like
-[Mou](http://mouapp.com/) or [MarkdownPad](http://markdownpad.com/).
+* [Installing Apps](installation/garden.md)
 
-All the links within the documetnation should be relative.  So you can start by
-opening [md/index.md](md/index.md) and go from there. Each section should have a directory
-and corresponding `img` directory for images.
+## Setup SMS gateway
+* [SMSSync Setup](installation/smssync.md)
 
-You can also edit the files directly in Github, assuming you have privileges.
+## Release Notes
 
-## Deploy
+* [Changes.md](https://github.com/medic/medic-webapp/blob/master/Changes.md)
 
-Requires [CouchDB](http://couchdb.apache.org/), [NodeJS](http://nodejs.org/)
-and [Kanso](http://kan.so/). Then:
+## Development
 
-* `git clone`
-* `kanso push http://localhost:5984/medic-docs`
+* [Virtual Appliance Build Environment](development/mmva_build.md)
+* [How to Migrate Dashboard to SSL](development/update-markets.md)
 
+## Archive
+
+This section contains old or outdated material that is retained for occasional use.
+
+* [Quick Install Kujua Lite 0.1](installation/quick.md)
+* [Release Notes v0.1](development/release_notes/kujua01.md)
+* [Gateway Testing](development/testing.md)
+* [Kujua Install](installation/old.md)
+* [Replicating with Futon](configuration/replicate.md)
+* [Upgrading 0.3 to 0.4](configuration/upgrade-0.3-to-0.4.md)
