@@ -1,34 +1,48 @@
-## Setup Medic OS
+# Documentation
 
-Pick your VM software:
+## Installation
 
-* [VMWare Player](installation/mmva-vmware.md)
-* [Virtual Box](installation/mmva-vbox.md)
-* [VMWare Fusion](installation/mmva-vmware-fusion.md)
-
-Then if needed, install apps:
-
-* [Installing Apps](installation/garden.md)
-
-## Setup SMS gateway
-* [SMSSync Setup](installation/smssync.md)
-
-## Release Notes
+### Release Notes
 
 * [Changes.md](https://github.com/medic/medic-webapp/blob/master/Changes.md)
 
+### Setup Medic OS
+
+Pick your VM software:
+
+* [VMWare player](installation/mmva-vmware.md)
+* [Virtual box](installation/mmva-vbox.md)
+* [VMWare fusion](installation/mmva-vmware-fusion.md)
+
+Then if needed, install apps:
+
+* [Installing apps](installation/garden.md)
+
+### Setup SMS gateway
+
+* [SMSSync setup](installation/smssync.md)
+
+## Configuration
+
+* [Contact summary cards](configuration/contact-summary.md)
+* [Sentinel transitions](configuration/transitions.md)
+
 ## Development
 
-* [Virtual Appliance Build Environment](development/mmva_build.md)
-* [How to Migrate Dashboard to SSL](development/update-markets.md)
+### Code
 
-## Archive
+* [Developer environment setup](https://github.com/medic/medic-webapp/blob/master/README.md)
+* [Style guide](development/style-guide.md)
+* [Updating translations](development/translations.md)
+* [Our workflow](development/workflow.md)
+* [Releasing our app](development/releasing.md)
+* [Virtual appliance build environment](development/mmva_build.md)
+* [How to migrate dashboard to SSL](development/update-markets.md)
 
-This section contains old or outdated material that is retained for occasional use.
+### Culture
 
-* [Quick Install Kujua Lite 0.1](installation/quick.md)
-* [Release Notes v0.1](development/release_notes/kujua01.md)
-* [Gateway Testing](development/testing.md)
-* [Kujua Install](installation/old.md)
-* [Replicating with Futon](configuration/replicate.md)
-* [Upgrading 0.3 to 0.4](configuration/upgrade-0.3-to-0.4.md)
+* [Culture](development/culture.md)
+
+## User
+
+* [Message states](user/message-states.md)
