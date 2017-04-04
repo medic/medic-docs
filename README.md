@@ -4,7 +4,8 @@
 
 ### Release Notes
 
-* [Changes.md](https://github.com/medic/medic-webapp/blob/master/Changes.md)
+* [Changelog](https://github.com/medic/medic-webapp/blob/master/Changes.md)
+* [Supported software](installation/supported-software.md)
 
 ### Setup Medic OS
 
