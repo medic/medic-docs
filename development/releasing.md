@@ -2,25 +2,25 @@
 
 ## Webapp
 
-We release betas at the end of every sprint. These are cut directly from master:
+When all the required issues are fixed in master it's time to put together a release.
 
-1. Pull master to make sure you have everything
-2. `git tag x.y.0-beta.z`, e.g. `get tag 2.9.0-beta.4`. This version should be the next logical version that is not yet released.
-3. `git push --tags`
-4. As long as the build passes Travis will take care of the rest
-
-Release process checklist for medic-webapp:
-
-1. If releasing a new major or minor version create a new release branch from master named `<major>.<minor>.x`. If releasing a patch version then merge or cherry pick the necessary commits from master into the relevant release branches.
-2. Update changes log (Changes.md), include descriptions of bug fixes, features, breaking changes, known issues, and workarounds. Include link to issues or further documentation where applicable.
-3. Bump version numbers in kanso.json, package.json, and npm-shrinkwrap.json according to semver.
-4. Tag the release in git. CI will publish to the correct market depending on the name of the tag.
-  - If releasing a beta then create a tag named `<major>.<minor>.<patch>-beta.<beta-number>`
-  - If releasing a final create a release in GitHub so it shows up under the [Releases tab](https://github.com/medic/medic-webapp/releases). Use the naming convention `<major>.<minor>.<patch>`. This will create the git tag automatically. Copy the entry from the changes log as the release description. Also create a tag in each submodule repository (api and sentinel) with the same tag name.
-5. Confirm the release build completes successfully and the new release is available on the correct [market](https://staging.dev.medicmobile.org).
-6. If the release is final let the product manager (Sharon) know to announce the release.
-
-Generally from master we create beta releases, and once QA passes beta releases get "promoted" to final by retagging the successful beta as final.
+1. Pick a version number. We use [semver](http://semver.org) so if there are breaking changes increment the major, otherwise if there are new features increment the minor, otherwise increment the service pack.
+2. If releasing a new major or minor...
+  - Update [google-libphonenumber](https://www.npmjs.com/package/google-libphonenumber) to the latest version and commit to `master` and push. This ensures we're up to date with the latest in phone number validation.
+  - Update the git submodules (api and sentinel) to the latest and commit to `master` and push.
+  - [Export the translations](translations.md) for all languages from POE which pushes directly to `master` so pull these changes locally.
+  - Create a new release branch from `master` named `<major>.<minor>.x` in medic-webapp, medic-sentinel, and medic-api.
+3. Set the version number from step 1 in medic-webapp kanso.json, package.json, and npm-shrinkwrap.json.
+4. If releasing a service pack use `git cherry-pick` to merge the relevant commits into the release branch.
+5. Update the [changelog](https://github.com/medic/medic-webapp/blob/master/Changes.md) include descriptions of bug fixes, features, breaking changes, known issues, and workarounds. Include link to issues or further documentation where applicable. You may find [this script](https://github.com/medic/medic-webapp/blob/master/scripts/changelog-generator.js) useful to find issues closed since the previous release.
+6. Commit and push the above changes.
+7. Release a beta for the new version by tagging the release branch, ie: `git tag <version>-beta.<beta-number> && git push --tags`
+8. Wait for the build to succeed then notify developers, testers, and product managers to begin release testing. Until release testing passes, fix the issues in `master`, and go back to step 4.
+9. Create a release in GitHub so it shows up under the [Releases tab](https://github.com/medic/medic-webapp/releases) with the naming convention `<major>.<minor>.<patch>`. This will create the git tag automatically. Copy the entry from the changes log as the release description. Also create a tag in medic-api and medic-sentinel with the same tag name.
+10. Confirm the release build completes successfully and the new release is available on the correct [market](https://staging.dev.medicmobile.org).
+11. Copy the changelog for the release from the release branch into `master`
+12. Let the product manager (Sharon) know to announce the release.
+13. :beer:
 
 ## Android apps
 
