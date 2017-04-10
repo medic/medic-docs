@@ -33,5 +33,7 @@ To figure that out, check out for instance the [`places_by_type_parent_id_name` 
 To see examples, check out the [`contacts_by_type` view on `medic-client` design doc in couch](http://localhost:5984/_utils/#/database/medic/_design/medic-client/_view/contacts_by_type). 
 
  - form fields : sentinel also exposes the [`fields` property of the reports doc](https://github.com/medic/medic-sentinel/blob/master/lib/messages.js#L84), e.g. `patient_name` and `patient_id`. That depends on what fields are in the corresponding form. To see reports in your DB and check out what's in `fields`, look at the [`reports_by_date` view on `medic-client` ddoc](http://localhost:5984/_couch/_utils/database.html?medic/_design/medic-client/_view/reports_by_date) for instance. 
+ 
+ - fields added by [registration transition triggers](https://github.com/medic/medic-sentinel/blob/master/transitions/registration.js#L285), like `patient_id` field added by `add_patient_id` trigger, `expected_date` field added by `add_expected_date` trigger, `birth_date` field added by `add_birth_date` trigger.
 
-TODO : What's `chw_sms`? `expected_date`? Syntax is weird
+TODO : What's `chw_sms`? 
