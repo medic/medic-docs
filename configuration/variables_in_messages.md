@@ -24,13 +24,14 @@ Displays dates according to the [`reported_date_format` specified in app_setting
 ## Variables you can use (TODO)
 You can insert special variables relating to the patient and/or the CHW in the messages.
 
-TODO : Where can you see a list of these, somewhere in code? 
+Sentinel [exposes values from the `report` doc](https://github.com/medic/medic-sentinel/blob/master/lib/messages.js#L74).
 
-`contact.name`, `contact.phone`
-TODO : What's in `contact`?
+ - `clinic` is the nearest `clinic` parent. Typically  `clinic` type docs are CHW areas. 
+To figure that out, check out for instance the [`places_by_type_parent_id_name` view on `medic-client` design doc in couch](http://localhost:5984/_utils/#/database/medic/_design/medic/_view/places_by_type_parent_id_name). 
 
-`patient_name`
+ - `contact` is the Primary Contact attached to the `clinic`. 
+To see examples, check out the [`contacts_by_type` view on `medic-client` design doc in couch](http://localhost:5984/_utils/#/database/medic/_design/medic-client/_view/contacts_by_type). 
 
-`patient_id`
+ - form fields : sentinel also exposes the [`fields` property of the reports doc](https://github.com/medic/medic-sentinel/blob/master/lib/messages.js#L84), e.g. `patient_name` and `patient_id`. That depends on what fields are in the corresponding form. To see reports in your DB and check out what's in `fields`, look at the [`reports_by_date` view on `medic-client` ddoc](http://localhost:5984/_couch/_utils/database.html?medic/_design/medic-client/_view/reports_by_date) for instance. 
 
-What's `chw_sms`? `expected_date`? Syntax is weird
+TODO : What's `chw_sms`? `expected_date`? Syntax is weird
