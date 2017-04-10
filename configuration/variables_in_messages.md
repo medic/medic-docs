@@ -1,4 +1,4 @@
-#Variables in outgoing SMS
+# Variables in outgoing SMS
 
 Outgoing messages can use Mustache templating to insert certain variables and use certain data formats.
 
