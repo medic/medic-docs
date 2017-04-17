@@ -27,6 +27,7 @@ Then if needed, install apps:
 
 * [Contact summary cards](configuration/contact-summary.md)
 * [Sentinel transitions](configuration/transitions.md)
+* [CouchDB authentication](configuration/couchdb-authentication.md)
 
 ## Development
 
