@@ -269,7 +269,7 @@ exports.updates = require('./updates');
 ### .app-settings.shows
 
 
-```
+```javascript
 /**
  * @private
  * @param {Object} obj
@@ -313,10 +313,8 @@ exports.app_settings = function(ddoc, req) {
 ```
 
 ### .app-settings.updates
-```
-$  jq -r '.["app-settings"].updates' medic-5-formatted.json 
-```
-```
+
+```javascript
 /**
  * Update the app_setings of the ddoc with the body of the req. Recursively
  * merge object properties. Where the property value is an array the
@@ -502,7 +500,7 @@ The [kanso events module](https://github.com/kanso/events) is a browser port of 
 
 Does the app expect `baseURL` to have a trailing slash only in the html element?
 
-```
+```html
 <!DOCTYPE html>
 
 <html data-base-url="<%= baseURL %>" manifest="static/dist/manifest.appcache">
@@ -580,7 +578,7 @@ exports.shows = require('./shows');
 ### .kujua-sms.lists
 
 
-```
+```javascript
 var _ = require('underscore'),
     utils = require('./utils'),
     kutils = require('kujua-utils'),
@@ -776,7 +774,7 @@ exports.duplicate_individual_form_submissions = function (head, req) {
 
 One of the uglier modules.
 
-```
+```javascript
 /**
  * Update functions to be exported from the design doc.
  */
@@ -1166,7 +1164,7 @@ exports.test_sms_forms = function (doc, req) {
 
 ### .kujua-sms.rewrites
 
-```
+```javascript
 exports.rules = [
     /*
      * A rewrite entry is needed for the POST and the GET because in SMSSync
@@ -1229,7 +1227,7 @@ exports.rules = [
 
 ### .kujua-sms.utils
 
-```
+```javascript
 /*
  * Utility functions for Medic Mobile
  */
@@ -1773,7 +1771,7 @@ exports.info = {
 
 ### .kujua-sms.validate
 
-```
+```javascript
 var _ = require('underscore')._,
     logger = require('kujua-utils').logger;
 
@@ -1842,7 +1840,7 @@ exports.validate = function(def, form_data) {
 ```
 ## .kujua-utils
 
-```
+```javascript
 var _ = require('underscore');
 
 exports.logger = {
@@ -2020,7 +2018,7 @@ module.exports = _.union(rewrites, [
 
 ### .lib.validate\_doc\_update
 
-```
+```javascript
 /*
   SERVER DOCUMENT VALIDATION
 
@@ -2163,7 +2161,7 @@ $ jq  '.libphonenumber.libphonenumber | length'
 
 ### .libphonenumber.utils
 
-```
+```javascript
 /**
 * Our wrapper around google's libphonenumber.
 */
@@ -2269,7 +2267,7 @@ Remove most these or migrate to medic-api.  They are mostly cosmetic (provide so
 
 The single page app initialization, or inbox template, should also get served from medi-api under `/` rather than serving directly from couchdb on `/medic/_design/medic/_rewrite/`.  Anything the client side app needs should be available on the medic-client ddoc or through medic-api.
 
-```
+```javascript
 [
   {
     "from": "/modules.js",
@@ -2550,7 +2548,7 @@ Required by:
   - .kujua-sms.lists
   - .kujua-sms.updates
   
-```
+```javascript
 /**
  * This has to run in the shows/list/update context for 'this' to work
  * Specifically, needs patched duality/core.js to have correct context
