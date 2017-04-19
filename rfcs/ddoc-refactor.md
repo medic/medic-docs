@@ -75,13 +75,13 @@ Goals:
 
 Longer term goals:
   
-Move complexity from CouchDB to medic-api (node process), and make the app more modular, easier to understand and develop on.  Parsing messages into records should be done in medic-api, a separate process that has more flexibility, rather than inside CouchDB.  
+Reduce the amount of code that lives in CouchDB to only what is necessary.  Move complexity from CouchDB to medic-api (backend node process).  For example, creating records involves combining form definitions, settings and parsing message data, this should be done in medic-api (node), rather than inside CouchDB.
 
-Have a decent way to build design docs that also keeps separate components modular and testable. Separate ddoc harnesses from functions.  See example: medic-smsparser
+Come up with some decent patterns to build design docs that also keeps separate components modular and testable. Separate ddoc harnesses from functions, maybe even ddoc harnesses from modules.  See example: medic-smsparser
 
 More:
 
-  - build and push two ddocs in `medic-webapp`: `medic-client` and `medic`
+  - support multiple ddocs in `medic-webapp`: `medic-client` and `medic`
   - medic-api should have its own ddoc(s) for requirements that need couchdb
   - Refactor `kujua-*` kanso packages as npm modules and include in medic-api
   - Move any CouchDB function that requires/uses settings to medic-api
@@ -409,7 +409,11 @@ var _isObject = function (obj) {
 
 ## .app_settings
 
-This is where the settings data is currrently stored.  Move to a separate doc, maybe like `{"_id": "settings", ...}` that is handled through medic-api.  Medic API will fetch the doc as needed.  Any previous CouchDB function that required this data will now only be supported when called through medic-api.
+This is where the settings data is currrently stored.  Move to a separate doc,
+maybe like `{"_id": "settings", ...}` that is handled through medic-api.  Medic
+API will keep the latest settings in memory based on changes feed.  Any
+previous CouchDB function that required this data will now only be supported
+when called through medic-api.
 
 ```
 output too large
