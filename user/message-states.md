@@ -27,7 +27,7 @@ See [https://github.com/medic/medic-gateway#content](https://github.com/medic/me
 |------|------|
 | scheduled | Not yet due. Messages as part of a configured schedule start in this state and are changed to `pending` when due. |
 | pending | Due to be sent. The SMS gateway should pick this up for sending. Auto replies and instant messages start in this state. |
-| forwarded-to-gateway | Message has been send to gateway. |
+| forwarded-to-gateway | Message has been sent to gateway. |
 | received-by-gateway | Has been received by the gateway. |
 | forwarded-by-gateway | Gateway has tried sending the message. |
 | sent | Successfully delivered to the sms network. |
