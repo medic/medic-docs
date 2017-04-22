@@ -1,0 +1,74 @@
+
+Etiquette @medic
+
+Be kind to the plants and animals.  Guidelines to not being an asshole.
+
+Slack
+
+  1) Try to pay attention what channel you are writing in and keep noise
+     (tangential or unrelated discussion) to a minimum.  Use threads when
+     appropriate to keep tangential discussion contained and out of the main
+     channel.   Each channel should have a purpose with a description that
+     explains appropriate usage.
+
+  2) Never delete or edit someone else's content.  If you think something is
+     inappropriate then notify the person first and ask them politely to remove
+     it.
+
+  3) In general deleting something you already posted is poor etiquette.
+     Because it changes the context of the discussion.  If you have a problem
+     with something you wrote then just create a thread on it or just repost it
+     with your edits.
+
+
+Git
+
+ Commit Titles
+
+    The commit title is a short accurate summary about what code was changed.
+    Someone should be able to read the title of the commit message and have an
+    idea of what part of the code has changed and the impact it might have on
+    things. Use words like: "bugfix", "refactored", "updated" and "fixed" .
+    Use the past tense to signify that the change is done and not something
+    still happening currently or in the future.
+
+    Bad:
+      Fix Typo
+
+    Good: 
+      Fixed typo in xform upload script.
+
+ Commit Bodies
+
+     If it's worth a commit it's worth a commit body.  Encode and sharpen the
+     bit of wisdom you uncovered and improvement you labored for.  The commit
+     is the closest thing we have to a unit of truth.  Take a moment and have
+     enough respect for your own work and your collaborators to give it a
+     decent explanation. 
+
+     The commit body gives more details about the change, so someone later can
+     understand things like the context it was made in, the problems it solved
+     and related issues that might be affected.  
+
+     The product team benefits from this input by getting a preface of the
+     technical issues without having to read code.  The code review is easier
+     because some of the logic that might be hard  to distill from a code read
+     is stated in the commit body. 
+
+     Linking the GitHub issue is also good here but it does not replace the
+     commit body which is the final result from various discussion in various
+     channels (Slack/GitHub/Hangouts).  There is no guarantee that the issue
+     will exist in the future, explain the issue clearly, or even be readable.
+     The commit is closest to the code (written by the programmer) it cannot
+     be replaced by a link to the issue.  Feel free to copy relevant parts
+     from the issue into the commit body.
+
+ Branches
+
+    Consider putting new features in a new branch if they are anything more
+    than a few lines or touching more than a few files.  It's much easier to
+    review and continue to develop on based on review.  It's also a simple
+    gesture that you acknowledge you are collaborating on this code and not
+    the only person who cares about it or is working on it.  It promotes
+    knowledge sharing and helps developers collaborate.
+
