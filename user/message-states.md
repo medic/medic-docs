@@ -27,6 +27,7 @@ See [https://github.com/medic/medic-gateway#content](https://github.com/medic/me
 |------|------|
 | scheduled | Not yet due. Messages as part of a configured schedule start in this state and are changed to `pending` when due. |
 | pending | Due to be sent. The SMS gateway should pick this up for sending. Auto replies and instant messages start in this state. |
+| forwarded-to-gateway | Message has been send to gateway. |
 | received-by-gateway | Has been received by the gateway. |
 | forwarded-by-gateway | Gateway has tried sending the message. |
 | sent | Successfully delivered to the sms network. |
@@ -49,9 +50,9 @@ Note 3 : not all of the events below happen every time : this is assuming only o
 number | Event | webapp state | gateway status | gateway "Needs forwarding" flag
 -|------|---------------|---------------|-----
 1 | Due date to send the message passes | pending | ---
-2 | Gateway polls and gets a new WO message | pending | --- | ---
-3 | Gateway saves message in its DB | pending | UNSENT | false
-4 | Gateway polls and gets the WO message again| pending | UNSENT | true
+2 | Gateway polls and gets a new WO message | forwarded-to-gateway | --- | ---
+3 | Gateway saves message in its DB | forwarded-to-gateway | UNSENT | false
+4 | Gateway polls and gets the WO message again | forwarded-to-gateway | UNSENT | true
 5 | Gateway polls reports UNSENT status for the message | received-by-gateway | UNSENT | false
 6 | Gateway sends the message | received-by-gateway | PENDING | true
 7 | Gateway reports PENDING status for the message | forwarded-by-gateway | PENDING | false
