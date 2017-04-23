@@ -46,6 +46,8 @@ Never force push remote. Prefer rebasing over merging as it makes for a cleaner 
 
 Commit reformats and refactors separately from actual code changes to make reviewing easier.
 
+For more help with Git see: [Using Git](./using-git.md).
+
 ## Branches
 
 - The main branch is `master` and is the github default branch and contains the latest code.
