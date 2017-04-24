@@ -19,9 +19,10 @@ Then if needed, install apps:
 
 * [Installing apps](installation/garden.md)
 
-### Setup SMS gateway
+### Medic Gateway
 
-* [SMSSync setup](installation/smssync.md)
+* [Medic gateway configuration](configuration/gateway-config.md)
+* [Medic gateway recommended phones](configuration/gateway-phones.md)
 
 ## Configuration
 
