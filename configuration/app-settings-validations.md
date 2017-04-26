@@ -3,7 +3,8 @@
 From https://github.com/medic/medic-sentinel/blob/a44dba9705a7ed7928adfafa4101184edc297c08/lib/validation.js#L128
 
 Validation settings may consist of Pupil.js rules and custom rules.
-These cannot be combined as part of the same rule.
+These two types of rules cannot be combined as part of the same rule.
+
 Not OK:
 `rule: "regex(\d{5}) && unique('patient_id')"`
 
