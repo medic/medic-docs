@@ -27,8 +27,9 @@ See [https://github.com/medic/medic-gateway#content](https://github.com/medic/me
 |------|------|
 | scheduled | Not yet due. Messages as part of a configured schedule start in this state and are changed to `pending` when due. |
 | pending | Due to be sent. The SMS gateway should pick this up for sending. Auto replies and instant messages start in this state. |
-| forwarded-to-gateway | Has been sent to the gateway. |
+| forwarded-to-gateway | Message has been send to gateway. |
 | received-by-gateway | Has been received by the gateway. |
+| forwarded-by-gateway | Gateway has tried sending the message. |
 | sent | Successfully delivered to the sms network. |
 | delivered | Successfully received by the recipient's device. |
 | failed | The sending attempt failed. Sending will not be retried without user intervention. |
@@ -36,19 +37,27 @@ See [https://github.com/medic/medic-gateway#content](https://github.com/medic/me
 | cleared | This will not be sent as a report has triggered an event to stop it. This can happen if a patient visit has occurred before the visit reminder is sent. |
 | muted | This will not be sent as the task has been deliberately stopped. Messages in this state can be unmuted by user action. |
 
-## Timeline of the protocol
+## Timeline of the protocol, for Webapp-originating message
 
 Read the table below like a vertical timeline : each time an event happens, the states/statuses corresponding to the message get updated.
 
-Event | webapp state | gateway status
-------|---------------|---------------
-Report comes in | scheduled | ---
-Due date to send the message passes | pending | ---
-Gateway polls webapp and gets the message | forwarded-to-gateway | pending
-Gateway confirms it got the message from webapp | received-by-gateway | pending
-Gateway sends the message | received-by-gateway | unsent
-Gateway reports having sent the message | sent | sent
-Gateway gets report that message is received by recipient | sent | delivered
-Gateway reports to webapp that message is received by recipient | delivered | delivered
+Note 1 : Gateway only sends a status update for a message only if the "needs forwarding" flag for the message status is true, and then sets it back to false. So it only sends status updates once.
 
+Note 2 : If api sends the same WO message again, then gateway sets its needs forwarding flag to true, and so sends the status at the next poll.
+
+Note 3 : not all of the events below happen every time : this is assuming only one step of SMS-sending happens between each poll. If several steps happened, then some of the events below are skipped.
+
+number | Event | webapp state | gateway status | gateway "Needs forwarding" flag
+-|------|---------------|---------------|-----
+1 | Due date to send the message passes | pending | ---
+2 | Gateway polls and gets a new WO message | forwarded-to-gateway | --- | ---
+3 | Gateway saves message in its DB | forwarded-to-gateway | UNSENT | false
+4 | Gateway polls and gets the WO message again | forwarded-to-gateway | UNSENT | true
+5 | Gateway polls reports UNSENT status for the message | received-by-gateway | UNSENT | false
+6 | Gateway sends the message | received-by-gateway | PENDING | true
+7 | Gateway reports PENDING status for the message | forwarded-by-gateway | PENDING | false
+8 | Gateway gets confirmation the message left | forwarded-by-gateway | SENT | true
+9 | Gateway reports SENT status for the message | sent | SENT | false
+10 | Gateway gets confirmation the message arrived | sent | DELIVERED | true
+11 | Gateway reports DELIVERED status for the message | delivered | DELIVERED | false
 
