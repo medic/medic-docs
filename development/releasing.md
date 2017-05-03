@@ -6,7 +6,7 @@ When all the required issues are fixed in master it's time to put together a rel
 
 1. Pick a version number. We use [semver](http://semver.org) so if there are breaking changes increment the major, otherwise if there are new features increment the minor, otherwise increment the service pack. Breaking changes in our case relate to updated software requirements (egs: CouchDB, node, minimum browser versions) or broken backwards compatibility in an api.
 2. If releasing a new major or minor...
-  - Update [google-libphonenumber](https://www.npmjs.com/package/google-libphonenumber) to the latest version and commit to `master` and push. This ensures we're up to date with the latest in phone number validation.
+  - Update [google-libphonenumber](https://www.npmjs.com/package/google-libphonenumber) to the latest version in api, sentinel, and webapp and commit to `master` and push. This ensures we're up to date with the latest in phone number validation.
   - Update the git submodules (api and sentinel) to the latest and commit to `master` and push.
   - [Export the translations](translations.md) for all languages from POE which pushes directly to `master` so pull these changes locally.
   - Create a new release branch from `master` named `<major>.<minor>.x` in medic-webapp, medic-sentinel, and medic-api.
