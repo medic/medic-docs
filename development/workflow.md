@@ -90,10 +90,10 @@ If the code fails review then comment on the issue, apply the Active Work tag, a
 
 Once the code passes review:
 
-1. merge the Pull Request (if applicable)
-2. apply the Acceptance Testing tag
-3. close the issue
-4. clear your assignment
+1. Merge the Pull Request. Most of the time we use the Squash and Merge technique to make the git history as clean as possible.
+2. Apply the Acceptance Testing tag.
+3. Close the issue.
+4. Clear your assignment.
 
 #### 4 - Acceptance Testing
 
