@@ -32,7 +32,8 @@ var createTargetInstance = function(type, report, pass) {
 ```
 
 ### Emitting a Target
-```
+
+```javascript
 var emitTargetInstance = function(instance) {
   emit('target', instance);
 };
@@ -72,7 +73,7 @@ Each of your targets must be defined so that the app knows how to render it. You
 
 #### Example Target Definition - Count
 
-```
+```javascript
 {
   "type": "count",
   "id": "assessments-u1",
@@ -90,7 +91,7 @@ Each of your targets must be defined so that the app knows how to render it. You
 
 #### Example Target Definition - Percent
 
-```
+```javascript
 {
   "type": "percent",
   "id": "newborn-visit-48hr",
@@ -114,7 +115,7 @@ Each target must also be created and emitted, as discussed above. The creation a
 
 The most basic target is a simple count of a particular type of report. In this case, we are counting the number of pregnancy registrations.
 
-```
+```javascript
 if (c.contact != null) {
   if(c.contact.type === 'person'){
     c.reports.forEach(function(r) {
@@ -130,7 +131,7 @@ if (c.contact != null) {
 
 You may also want to count the number of households or people registered. This target counts up the number of `clinic`s, in this case households, that have been registered. Using this target will give you a count of families registered this month.
 
-```
+```javascript
 if (c.contact != null) {
   if(c.contact.type === 'clinic'){
     // Find all households
@@ -145,7 +146,7 @@ if (c.contact != null) {
 
 You may also want to count the total number of pregnancies registered over all time. The key to all time targets is adjusting the target date to sometime in the current month. The easiest way is to set the target's date to today.
 
-```
+```javascript
 if (c.contact != null && c.contact.type === 'person') {
   c.reports.forEach(function(r) {
     var today = new Date();
@@ -163,7 +164,7 @@ if (c.contact != null && c.contact.type === 'person') {
 
 You can do the same with all-time household registrations. Simply set the target's date to today's date to get an all-time count.
 
-```
+```javascript
 if (c.contact != null) {
   var today = new Date();
 
@@ -181,7 +182,7 @@ if (c.contact != null) {
 
 Sometimes you may want to count a subset of a particular type of form that meets certain conditions. This example looks for ICCM assessments where the diagnosis was malaria and will give us the total this month.
 
-```
+```javascript
 if (c.contact != null && c.contact.type === 'person') {
   c.reports.forEach(function(r) {
     // Find all assessment forms where the CHW was instructed to treat for malaria.
@@ -198,7 +199,7 @@ if (c.contact != null && c.contact.type === 'person') {
 
 If you want to count a subset of a particular form that meets certain conditions over all time, simply set the target's date to today's date, as shown above.
 
-```
+```javascript
 if (c.contact != null && c.contact.type === 'person') {
   c.reports.forEach(function(r) {
     var today = new Date();
@@ -220,7 +221,7 @@ if (c.contact != null && c.contact.type === 'person') {
 
 Percent targets always have a condition, so you will be emitting some targets that have `pass: true` and some that have `pass: false`. This is achieved by setting a variable, `pass`, equal to an expression that evaluates to either true or false. When calculating the percentage, it will be number of true targets divided by number of true targets plus number of false targets.
 
-```
+```javascript
 // % Newborn Care Visit within 48 hours
 if (c.contact != null && c.contact.type === 'person') {
   c.reports.forEach(function(r) {
@@ -245,15 +246,15 @@ if (c.contact != null && c.contact.type === 'person') {
 
 This target finds all delivery reports and checks to see if the delivery was at the health facility. It sets the target's date to today's date so that we can count over all time.
 
-```
+```javascript
 // % DELIVERIES AT HEALTH FACILITY ALL-TIME
 if (c.contact != null && c.contact.type === 'person') {
   var today = new Date();
   // Calculate most recent delivery timestamp for the current contact
   var newestDeliveryTimestamp = Math.max(
-		                                 Utils.getMostRecentTimestamp(c.reports, 'D'),
-		                                 Utils.getMostRecentTimestamp(c.reports, 'delivery')
-		                                 );
+            Utils.getMostRecentTimestamp(c.reports, 'D'),
+            Utils.getMostRecentTimestamp(c.reports, 'delivery')
+            );
 
   c.reports.forEach(function(r) {
     // Find all delivery reports
@@ -277,7 +278,7 @@ This section contains some other examples of more complex targets. For more exam
 
 In this case, we are emitting a false target for every household and then a true target for every household for which a survey was done. Because the true target will be emitted after the false target, it will overwrite the false target.
 
-```
+```javascript
 // Find all households
 if(c.contact.type === 'clinic'){
   var today = new Date();
@@ -306,7 +307,7 @@ if(c.contact.type === 'clinic'){
 
 #### Count Number of Households Visited by CHW - This Month
 
-```
+```javascript
 if (c.contact != null && c.contact.type === 'person') {
   // For each report about a family member
   c.reports.forEach(function(r) {
@@ -326,7 +327,7 @@ if (c.contact != null && c.contact.type === 'person') {
 
 This target is for a CHW manager. It calculates the percentage of the CHWs they manage that they have visited this month.
 
-```
+```javascript
 // health_center is a CHW area in this case
 if (c.contact != null && c.contact.type === 'health_center'){
   var newestCHWVisitTimestamp = Utils.getMostRecentTimestamp(c.reports, 'chw_visit');
@@ -358,7 +359,7 @@ if (c.contact != null && c.contact.type === 'health_center'){
 
 This target determines the % of PNC visits that occurred within 72 hours of birth. First, it looks at the PNC visits that were done to see if they were done on time. Second, it looks at all pregnancies registered with recent EDDs to see if a PNC visit was done. If not, it counts as a PNC visit that was not on-time.
 
-```
+```javascript
 if (c.contact != null && c.contact.type === 'person') {
   c.reports.forEach(function(r) {
     // For each PNC form, check to see if it's a delivery report and if it is more recent than the most recent pregnancy registration
