@@ -19,7 +19,7 @@ As you'll see in the `task-rules.js` files for existing project, in order to mak
 
 ### Creating a Target
 
-```
+```javascript
 var createTargetInstance = function(type, report, pass) {
   return new Target({
     _id: report._id + '-' + type,
