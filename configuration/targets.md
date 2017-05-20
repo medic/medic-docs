@@ -207,7 +207,7 @@ if (c.contact != null && c.contact.type === 'person') {
     dob_1yr.setFullYear(today.getFullYear()-1);
 
     // Find all assessment forms where a child under 1 year was assessed
-    if (r.form === 'assessment && dob_contact > dob_1yr) {
+    if (r.form === 'assessment' && dob_contact > dob_1yr) {
       var instance = createTargetInstance('assessments-u1', r, true);
       // Set the target's date to today's date
       instance.date = today.getTime();
