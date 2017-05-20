@@ -277,7 +277,7 @@ if (c.contact != null && c.contact.type === 'person') {
 
 ### More Target Examples
 
-This section contains some other examples of more complex targets. For more examples, review `task-rules.js` for [LG Kenya](https://github.com/medic/medic-projects/blob/master/lg-kenya/tasks/task-rules.jshttps://github.com/medic/medic-projects/blob/master/brac-uganda/tasks/task-rules.js).
+This section contains some other examples of more complex targets. For more examples, review `task-rules.js` for [LG Kenya](https://github.com/medic/medic-projects/blob/master/lg-kenya/tasks/task-rules.js).
 
 #### Calculate Percent of Households that were Surveyed - All-Time
 
