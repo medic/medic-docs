@@ -21,20 +21,20 @@ As you'll see in the `task-rules.js` files for existing project, in order to mak
 
 ```
 var createTargetInstance = function(type, report, pass) {
-	return new Target({
-	    _id: report._id + '-' + type,
-	    deleted: !!report.deleted,
-	    type: type,
-	    pass: pass,
-	    date: report.reported_date
-    });
+  return new Target({
+    _id: report._id + '-' + type,
+    deleted: !!report.deleted,
+    type: type,
+    pass: pass,
+    date: report.reported_date
+  });
 };
 ```
 
 ### Emitting a Target
 ```
 var emitTargetInstance = function(instance) {
-	emit('target', instance);
+  emit('target', instance);
 };
 ```
 ## Target Properties
@@ -116,15 +116,15 @@ The most basic target is a simple count of a particular type of report. In this 
 
 ```
 if (c.contact != null) {
-	if(c.contact.type === 'person'){
-		c.reports.forEach(function(r) {
-			if (r.form === 'pregnancy') {
-				// Finds instances of the pregnancy registration form. No conditions, just counts every pregnancy form submission.
-				var instance = createTargetInstance('pregnancy-registrations', r, true);
-				emitTargetInstance(instance);
-			}
-		});
-	}
+  if(c.contact.type === 'person'){
+    c.reports.forEach(function(r) {
+      if (r.form === 'pregnancy') {
+        // Finds instances of the pregnancy registration form. No conditions, just counts every pregnancy form submission.
+        var instance = createTargetInstance('pregnancy-registrations', r, true);
+        emitTargetInstance(instance);
+      }
+    });
+  }
 }
 ```
 
@@ -132,12 +132,12 @@ You may also want to count the number of households or people registered. This t
 
 ```
 if (c.contact != null) {
-	if(c.contact.type === 'clinic'){
-		// Find all households
-		// NO condition to check the form name since place forms are not submitted as reports
-		var instance = createTargetInstance('hh-registration', c.contact, true);
-		emitTargetInstance(instance);    
-	}
+  if(c.contact.type === 'clinic'){
+    // Find all households
+    // NO condition to check the form name since place forms are not submitted as reports
+    var instance = createTargetInstance('hh-registration', c.contact, true);
+    emitTargetInstance(instance);    
+  }
 }
 ```
 
@@ -146,20 +146,18 @@ if (c.contact != null) {
 You may also want to count the total number of pregnancies registered over all time. The key to all time targets is adjusting the target date to sometime in the current month. The easiest way is to set the target's date to today.
 
 ```
-if (c.contact != null) {
-	if (c.contact.type === 'person') {
-		c.reports.forEach(function(r) {
-			var today = new Date();
+if (c.contact != null && c.contact.type === 'person') {
+  c.reports.forEach(function(r) {
+    var today = new Date();
 
-			if (r.form === 'pregnancy') {
-				// Find instances of the pregnancy registration form.
-				var instance = createTargetInstance('pregnancy-registrations', r, true);
-				// Set the target's date to today's date
-				instance.date = now.getTime();
-				emitTargetInstance(instance);
-			}
-		});
-	}
+    if (r.form === 'pregnancy') {
+      // Find instances of the pregnancy registration form.
+      var instance = createTargetInstance('pregnancy-registrations', r, true);
+      // Set the target's date to today's date
+      instance.date = now.getTime();
+      emitTargetInstance(instance);
+    }
+  });
 }
 ```
 
@@ -167,15 +165,15 @@ You can do the same with all-time household registrations. Simply set the target
 
 ```
 if (c.contact != null) {
-	var today = new Date();
+  var today = new Date();
 
-	if(c.contact.type === 'clinic') {
-		// Find all households
-		var instance = createTargetInstance('hh-registration', c.contact, true);
-		// Set the target's date to today's date
-		instance.date = today.getTime();
-		emitTargetInstance(instance);
-	}
+  if(c.contact.type === 'clinic') {
+    // Find all households
+    var instance = createTargetInstance('hh-registration', c.contact, true);
+    // Set the target's date to today's date
+    instance.date = today.getTime();
+    emitTargetInstance(instance);
+  }
 }
 ```
 
@@ -184,17 +182,15 @@ if (c.contact != null) {
 Sometimes you may want to count a subset of a particular type of form that meets certain conditions. This example looks for ICCM assessments where the diagnosis was malaria and will give us the total this month.
 
 ```
-if (c.contact != null) {
-	if(c.contact.type === 'person'){
-		c.reports.forEach(function(r) {
-			// Find all assessment forms where the CHW was instructed to treat for malaria.
-			if (r.form === 'assessment' && r.fields.treat_for_malaria == 'true') {
-				// Create a target instance for each of these assessments where the CHW treated for malaria
-			    var instance = createTargetInstance('treatment-malaria', r, true);
-			    emitTargetInstance(instance);
-			}
-		});
-	}
+if (c.contact != null && c.contact.type === 'person') {
+  c.reports.forEach(function(r) {
+    // Find all assessment forms where the CHW was instructed to treat for malaria.
+    if (r.form === 'assessment' && r.fields.treat_for_malaria == 'true') {
+	  // Create a target instance for each of these assessments where the CHW treated for malaria
+      var instance = createTargetInstance('treatment-malaria', r, true);
+      emitTargetInstance(instance);
+    }
+  });
 }
 ```
 
@@ -203,22 +199,20 @@ if (c.contact != null) {
 If you want to count a subset of a particular form that meets certain conditions over all time, simply set the target's date to today's date, as shown above.
 
 ```
-if (c.contact != null) {
-	if(c.contact.type === 'person'){
-		c.reports.forEach(function(r) {
-			var today = new Date();
-			var dob_1yr = new Date();
-			dob_1yr.setFullYear(today.getFullYear()-1);
+if (c.contact != null && c.contact.type === 'person') {
+  c.reports.forEach(function(r) {
+    var today = new Date();
+    var dob_1yr = new Date();
+    dob_1yr.setFullYear(today.getFullYear()-1);
 
-			// Find all assessment forms where a child under 1 year was assessed
-			if (r.form === 'assessment && dob_contact > dob_1yr) {
-				var instance = createTargetInstance('assessments-u1', r, true);
-				// Set the target's date to today's date
-				instance.date = today.getTime();
-				emitTargetInstance(instance);
-			}
-		});
-	}
+    // Find all assessment forms where a child under 1 year was assessed
+    if (r.form === 'assessment && dob_contact > dob_1yr) {
+      var instance = createTargetInstance('assessments-u1', r, true);
+      // Set the target's date to today's date
+      instance.date = today.getTime();
+      emitTargetInstance(instance);
+    }
+  });
 }
 ```
 
@@ -228,24 +222,22 @@ Percent targets always have a condition, so you will be emitting some targets th
 
 ```
 // % Newborn Care Visit within 48 hours
-if (c.contact != null) {
-	if(c.contact.type === 'person'){
-		c.reports.forEach(function(r) {
-			var today = new Date();
-			// Find all delivery reports
-			if (r.form === 'postnatal_care' && r.fields.delivery_date != '') {
-				// Calculate the 48 hour cutoff
-				var followup_cutoff = new Date(r.fields.delivery_date);
-				followup_cutoff.setDate(followup_cutoff.getDate() + 2);
-				followup_cutoff.setHours(23, 59, 59);
-				// See if the date the delivery report was submitted is before the 48 hour cutoff
-				var pass = new Date(r.reported_date) <= followup_cutoff;
-				// Pass in the pass variable when creating the target instead of true or false
-				var instance = createTargetInstance('newborn-visit-48hr', r, pass);
-				emitTargetInstance(instance);
-			}
-		});
-	}
+if (c.contact != null && c.contact.type === 'person') {
+  c.reports.forEach(function(r) {
+    var today = new Date();
+    // Find all delivery reports
+    if (r.form === 'postnatal_care' && r.fields.delivery_date != '') {
+      // Calculate the 48 hour cutoff
+      var followup_cutoff = new Date(r.fields.delivery_date);
+      followup_cutoff.setDate(followup_cutoff.getDate() + 2);
+      followup_cutoff.setHours(23, 59, 59);
+      // See if the date the delivery report was submitted is before the 48 hour cutoff
+      var pass = new Date(r.reported_date) <= followup_cutoff;
+      // Pass in the pass variable when creating the target instead of true or false
+      var instance = createTargetInstance('newborn-visit-48hr', r, pass);
+      emitTargetInstance(instance);
+    }
+  });
 }
 ```
 
@@ -255,27 +247,25 @@ This target finds all delivery reports and checks to see if the delivery was at 
 
 ```
 // % DELIVERIES AT HEALTH FACILITY ALL-TIME
-if (c.contact != null) {
-	if(c.contact.type === 'person'){
-		var today = new Date();
-		// Calculate most recent delivery timestamp for the current contact
-		var newestDeliveryTimestamp = Math.max(
-		                                      Utils.getMostRecentTimestamp(c.reports, 'D'),
-		                                      Utils.getMostRecentTimestamp(c.reports, 'delivery')
-		                                    );
+if (c.contact != null && c.contact.type === 'person') {
+  var today = new Date();
+  // Calculate most recent delivery timestamp for the current contact
+  var newestDeliveryTimestamp = Math.max(
+		                                 Utils.getMostRecentTimestamp(c.reports, 'D'),
+		                                 Utils.getMostRecentTimestamp(c.reports, 'delivery')
+		                                 );
 
-		c.reports.forEach(function(r) {
-			// Find all delivery reports
-			if (r.reported_date === newestDeliveryTimestamp && (r.form === 'D' || r.form === 'delivery')) {
-				// If the delivery was in a facility, pass = true; if not, pass = false
-				var pass = r.fields.delivery_code && r.fields.delivery_code.toUpperCase() == 'F';
-				// Pass in the variable pass when creating the target
-				var instance = createTargetInstance('delivery-at-facility-total', r, pass);
-				instance.date = today.getTime();
-				emitTargetInstance(instance);
-			}
-		});
-	}
+  c.reports.forEach(function(r) {
+    // Find all delivery reports
+    if (r.reported_date === newestDeliveryTimestamp && (r.form === 'D' || r.form === 'delivery')) {
+      // If the delivery was in a facility, pass = true; if not, pass = false
+      var pass = r.fields.delivery_code && r.fields.delivery_code.toUpperCase() == 'F';
+      // Pass in the variable pass when creating the target
+      var instance = createTargetInstance('delivery-at-facility-total', r, pass);
+      instance.date = today.getTime();
+      emitTargetInstance(instance);
+    }
+  });
 }
 ```
 
@@ -290,27 +280,27 @@ In this case, we are emitting a false target for every household and then a true
 ```
 // Find all households
 if(c.contact.type === 'clinic'){
-	var today = new Date();
-	// Find the time of the most recent survey
-	var newestEquitySurveyTimestamp = Utils.getMostRecentTimestamp(c.reports, 'family_equity');
+  var today = new Date();
+  // Find the time of the most recent survey
+  var newestEquitySurveyTimestamp = Utils.getMostRecentTimestamp(c.reports, 'family_equity');
 
-	// Emit a false target for every household that has been registered to make sure that we capture every household
-	var instance = createTargetInstance('surveys-conducted', c.contact, false);
-	instance.date = today.getTime();
-	emitTargetInstance(instance);
+  // Emit a false target for every household that has been registered to make sure that we capture every household
+  var instance = createTargetInstance('surveys-conducted', c.contact, false);
+  instance.date = today.getTime();
+  emitTargetInstance(instance);
 
-	// Review all report for the current household
-	c.reports.forEach(function(r) {
-		// Find out if a survey form was completed for this household
-	    if (r.form === 'family_equity' && r.reported_date >= newestEquitySurveyTimestamp){
-	    	// If there is a survey, emit a true target for the household to replace the false target
-	    	// This will result in displaying the % of households registered that had a survey done
-			var instance = createTargetInstance('surveys-conducted', c.contact, true);
-			// Set the target's date to today to get an all-time count
-			instance.date = today.getTime();
-			emitTargetInstance(instance);
-	  	}
-	});
+  // Review all report for the current household
+  c.reports.forEach(function(r) {
+    // Find out if a survey form was completed for this household
+    if (r.form === 'family_equity' && r.reported_date >= newestEquitySurveyTimestamp){
+      // If there is a survey, emit a true target for the household to replace the false target
+      // This will result in displaying the % of households registered that had a survey done
+      var instance = createTargetInstance('surveys-conducted', c.contact, true);
+      // Set the target's date to today to get an all-time count
+      instance.date = today.getTime();
+      emitTargetInstance(instance);
+    }
+  });
 }
 ```
 
@@ -318,17 +308,17 @@ if(c.contact.type === 'clinic'){
 
 ```
 if (c.contact != null && c.contact.type === 'person') {
-	// For each report about a family member
-	c.reports.forEach(function(r) {
-		// Create a true target that refers to the household the person belongs to
-        var instance = createTargetInstance('hh-visits', c.contact.parent, true);
-        // Set the target date to the current report
-        instance.date = r.reported_date;
-        // If the current report was submitted this month, emit the target
-        if(r.reported_date >= month_start_date) {
-          emitTargetInstance(instance);
-        }
-	});
+  // For each report about a family member
+  c.reports.forEach(function(r) {
+    // Create a true target that refers to the household the person belongs to
+    var instance = createTargetInstance('hh-visits', c.contact.parent, true);
+    // Set the target date to the current report
+    instance.date = r.reported_date;
+    // If the current report was submitted this month, emit the target
+    if(r.reported_date >= month_start_date) {
+      emitTargetInstance(instance);
+    }
+  });
 }
 ```
 
@@ -339,28 +329,28 @@ This target is for a CHW manager. It calculates the percentage of the CHWs they 
 ```
 // health_center is a CHW area in this case
 if (c.contact != null && c.contact.type === 'health_center'){
-	var newestCHWVisitTimestamp = Utils.getMostRecentTimestamp(c.reports, 'chw_visit');
+  var newestCHWVisitTimestamp = Utils.getMostRecentTimestamp(c.reports, 'chw_visit');
 
-	// Look for all CHW areas for which you are the supervisor
-	if(c.contact.supervisor == user._id) {
-		// Create a false target for each CHW area
-		// Note that we are using the contact to create the target
-		var instance = createTargetInstance('chws-visited', c.contact, false);
-		// Set the target date to today so that we have a false target this month for every CHW area
-		instance.date = today.getTime();
-		emitTargetInstance(instance);
-	}
-	c.reports.forEach(function(r) { 
-		// Find all of the CHW visit forms that are the most recent and that are for CHWs you supervise
-		if(r.form == 'chw_visit' && r.reported_date >= newestCHWVisitTimestamp && c.contact.supervisor == user._id) {
-			// If a CHW visit was done, emit a true target
-			// Use the contact to create the target so that it matches the targets emitted above and will override them as needed
-			var instance = createTargetInstance('chws-visited', c.contact, true);
-			// Set the target date to the date of the CHW visit so that we only count visits done this month
-			instance.date = r.reported_date;
-			emitTargetInstance(instance);
-		}
-	});
+  // Look for all CHW areas for which you are the supervisor
+  if(c.contact.supervisor == user._id) {
+    // Create a false target for each CHW area
+    // Note that we are using the contact to create the target
+    var instance = createTargetInstance('chws-visited', c.contact, false);
+    // Set the target date to today so that we have a false target this month for every CHW area
+    instance.date = today.getTime();
+    emitTargetInstance(instance);
+  }
+  c.reports.forEach(function(r) { 
+    // Find all of the CHW visit forms that are the most recent and that are for CHWs you supervise
+    if(r.form == 'chw_visit' && r.reported_date >= newestCHWVisitTimestamp && c.contact.supervisor == user._id) {
+      // If a CHW visit was done, emit a true target
+      // Use the contact to create the target so that it matches the targets emitted above and will override them as needed
+      var instance = createTargetInstance('chws-visited', c.contact, true);
+      // Set the target date to the date of the CHW visit so that we only count visits done this month
+      instance.date = r.reported_date;
+      emitTargetInstance(instance);
+    }
+  });
 }
 ```
 
@@ -370,56 +360,56 @@ This target determines the % of PNC visits that occurred within 72 hours of birt
 
 ```
 if (c.contact != null && c.contact.type === 'person') {
-	c.reports.forEach(function(r) {
-		// For each PNC form, check to see if it's a delivery report and if it is more recent than the most recent pregnancy registration
-		if (r.form === 'postnatal_care' && r.fields.delivery_date != '' && r.reported_date > newestPregnancyTimestamp) {
-			// Create a variable to track the cutoff date for when PNC must be done
-			var followup_cutoff = new Date(r.fields.delivery_date);
-			followup_cutoff.setDate(followup_cutoff.getDate() + 3);
-			followup_cutoff.setHours(23, 59, 59);
-			// Pass = true if the PNC/delivery report was submitted before the cutoff
-			var pass = new Date(r.reported_date) <= followup_cutoff;
-			var instance = createTargetInstance('newborn-visit-72hr', r, pass);
-			emitTargetInstance(instance);
-		}
+  c.reports.forEach(function(r) {
+    // For each PNC form, check to see if it's a delivery report and if it is more recent than the most recent pregnancy registration
+    if (r.form === 'postnatal_care' && r.fields.delivery_date != '' && r.reported_date > newestPregnancyTimestamp) {
+      // Create a variable to track the cutoff date for when PNC must be done
+      var followup_cutoff = new Date(r.fields.delivery_date);
+      followup_cutoff.setDate(followup_cutoff.getDate() + 3);
+      followup_cutoff.setHours(23, 59, 59);
+      // Pass = true if the PNC/delivery report was submitted before the cutoff
+      var pass = new Date(r.reported_date) <= followup_cutoff;
+      var instance = createTargetInstance('newborn-visit-72hr', r, pass);
+      emitTargetInstance(instance);
+    }
 
-		// Look at each pregnancy registration to see if the EDD falls within the current month. This tells us if there are any pregnancies for which we expect a PNC/delivery report this month.
-		// Make sure the pregnancy registration is the most recent registration and that it is more recent than the most recent PNC/delivery report so that there is no overlap with the previous section where we looked at PNC/delivery reports.
-		if (r.form === 'pregnancy' && r.reported_date >= newestPregnancyTimestamp && r.reported_date > newestPostnatalTimestamp) {
-			// We only want to look at pregnancies with EDDs this month that were at least 3 days ago
-			// Create a variable to set the cutoff for EDDs we want to consider (3 days ago)
-			var edd_cutoff = new Date();
-			edd_cutoff.setDate(today.getDate() - 3);
-			edd_cutoff.setHours(23, 59, 59);
-			// Create a variable to keep track of the start date of this month
-			var month_start_date = new Date(today.getFullYear(), today.getMonth(), 1);
-			// Calculate the EDD based on the LMP reported in the pregnancy registration
-			var edd = new Date(r.fields.lmp_date);
-			edd.setDate(edd.getDate() + 280);
-			edd.setHours(0,0,1);
+    // Look at each pregnancy registration to see if the EDD falls within the current month. This tells us if there are any pregnancies for which we expect a PNC/delivery report this month.
+    // Make sure the pregnancy registration is the most recent registration and that it is more recent than the most recent PNC/delivery report so that there is no overlap with the previous section where we looked at PNC/delivery reports.
+    if (r.form === 'pregnancy' && r.reported_date >= newestPregnancyTimestamp && r.reported_date > newestPostnatalTimestamp) {
+      // We only want to look at pregnancies with EDDs this month that were at least 3 days ago
+      // Create a variable to set the cutoff for EDDs we want to consider (3 days ago)
+      var edd_cutoff = new Date();
+      edd_cutoff.setDate(today.getDate() - 3);
+      edd_cutoff.setHours(23, 59, 59);
+      // Create a variable to keep track of the start date of this month
+      var month_start_date = new Date(today.getFullYear(), today.getMonth(), 1);
+      // Calculate the EDD based on the LMP reported in the pregnancy registration
+      var edd = new Date(r.fields.lmp_date);
+      edd.setDate(edd.getDate() + 280);
+      edd.setHours(0,0,1);
 
-			var pass;
-			// Check to see if the EDD falls this month but before the EDD cutoff. 
-			// Make sure the most recent pregnancy registration is more recent than the most recent pregnancy visit OR the most recent pregnancy visit is more recent than the most recent pregnancy registration but there has been no delivery report.
-			if(edd >= month_start_date && edd <= edd_cutoff && (newestPregnancyTimestamp > newestPregnancyVisitTimestamp || (newestPregnancyVisitTimestamp > newestPregnancyTimestamp && newestPregnancyVisit.fields.discontinue_follow_up === 'false'))) {
-				// Create a variable to track the start of the window for which we want to look for PNC/delivery reports for any EDDs this month
-				var edd_window_start = new Date(edd);
-				edd_window_start.setDate(edd.getDate() - 60);
-				// If the most recent PNC/delivery report occurred within the 60-day window, pass = true because the PNC/delivery report was done
-				// We are assuming that any PNC within 60 days would be for the pregnancy with an EDD this month
-				if(newestPostnatalTimestamp >= edd_window_start && newestPostnatalTimestamp < today) {
-				  pass = true;
-				}
-				// If not, pass = false because the PNC/delivery report was not done but we were expecting it to have happened
-				else {
-				  pass = false;
-				}
-				var instance = createTargetInstance('newborn-visit-72hr', r, pass);
-				// Set the target date to the EDD since we know that the EDD will be within the current month
-				instance.date = edd;
-				emitTargetInstance(instance);
-			}
-		}
-	});
+      var pass;
+      // Check to see if the EDD falls this month but before the EDD cutoff. 
+      // Make sure the most recent pregnancy registration is more recent than the most recent pregnancy visit OR the most recent pregnancy visit is more recent than the most recent pregnancy registration but there has been no delivery report.
+      if(edd >= month_start_date && edd <= edd_cutoff && (newestPregnancyTimestamp > newestPregnancyVisitTimestamp || (newestPregnancyVisitTimestamp > newestPregnancyTimestamp && newestPregnancyVisit.fields.discontinue_follow_up === 'false'))) {
+        // Create a variable to track the start of the window for which we want to look for PNC/delivery reports for any EDDs this month
+        var edd_window_start = new Date(edd);
+        edd_window_start.setDate(edd.getDate() - 60);
+        // If the most recent PNC/delivery report occurred within the 60-day window, pass = true because the PNC/delivery report was done
+        // We are assuming that any PNC within 60 days would be for the pregnancy with an EDD this month
+        if(newestPostnatalTimestamp >= edd_window_start && newestPostnatalTimestamp < today) {
+          pass = true;
+        }
+        // If not, pass = false because the PNC/delivery report was not done but we were expecting it to have happened
+        else {
+          pass = false;
+        }
+        var instance = createTargetInstance('newborn-visit-72hr', r, pass);
+        // Set the target date to the EDD since we know that the EDD will be within the current month
+        instance.date = edd;
+        emitTargetInstance(instance);
+      }
+    }
+  });
 }
 ```
