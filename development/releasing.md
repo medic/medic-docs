@@ -10,7 +10,7 @@ When all the required issues are fixed in master it's time to put together a rel
   - Update the git submodules (api and sentinel) to the latest and commit to `master` and push.
   - [Export the translations](translations.md) for all languages from POE which pushes directly to `master` so pull these changes locally.
   - Create a new release branch from `master` named `<major>.<minor>.x` in medic-webapp, medic-sentinel, and medic-api.
-3. Set the version number from step 1 in medic-webapp kanso.json, package.json, and npm-shrinkwrap.json.
+3. Set the version number from step 1 in medic-webapp kanso.json, package.json, and npm-shrinkwrap.json. If releasing a new major or minor, also set the versions in `master` to be the next version (e.g. `<major>.<minor+1>.0`), so that the alpha builds will have the right version.
 4. If releasing a service pack use `git cherry-pick` to merge the relevant commits into the release branch.
 5. Update the [changelog](https://github.com/medic/medic-webapp/blob/master/Changes.md) include descriptions of bug fixes, features, breaking changes, known issues, and workarounds. Include link to issues or further documentation where applicable. You may find [this script](https://github.com/medic/medic-webapp/blob/master/scripts/changelog-generator.js) useful to find issues closed since the previous release.
 6. Commit and push the above changes.
