@@ -13,7 +13,8 @@ Note that "keys" in .properties files are referred to as `terms` in POEditor.
 New languages must be added and configured in several places:
 - *In GitHub*
   - Create a new [medic-webapp/translations/messages-XX.properties](https://github.com/medic/medic-webapp/blob/master/translations/) file, replacing XX with the 2 or 3 letter language code.
-  - Add language to the default app settings (eg for ANC, add it to locales [here](https://github.com/medic/medic-data/blob/master/data/generic-anc/base/app-settings.json))
+  - Add the language to the [LOCAL_NAME_MAP in api](https://github.com/medic/medic-api/blob/master/translations.js#L10). Use the language code for the key, and the local name followed by the English name for the language in brackets, eg: "fr: 'Français (French)'".
+  - Import the moment language pack in the [root app.js file](https://github.com/medic/medic-webapp/blob/master/static/js/app.js#L25). If moment doesn't provide the required language pack you may need to contribute it upstream to the moment library.
 - *In POEditor*
   - In the [Medic Mobile project](https://poeditor.com/projects/view?id=33025), add the language
   - In the [GitHub integration page](https://poeditor.com/github/projects), link that language to the GitHub file
