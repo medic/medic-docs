@@ -8,6 +8,7 @@ There are two variables available to you to inspect to generate the summary info
 
 - `contact` which is the currently selected contact.
 - `reports` which is an array of reports for the contact.
+- `lineage` which is an array of the contacts parents (added in 2.13.0).
 
 ## Outputs
 
@@ -60,7 +61,7 @@ if (contact.type === 'person') {
     { label: 'contact.age', value: contact.date_of_birth, width: 3, filter: 'age' },
     { label: 'Phone Number', value: contact.phone, width: 3, filter: 'phone' },
     { label: 'Notes', value: contact.notes, width: 12 },
-    { label: 'contact.parent', value: contact.parent, filter: 'lineage' }
+    { label: 'contact.parent', value: lineage, filter: 'lineage' }
   ];
   var pregnancy;
   var pregnancyDate;
