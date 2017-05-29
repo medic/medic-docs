@@ -1,6 +1,6 @@
 # User Deletion
 
-The user deletion scripts are located in the medic-bulk-utils/script/data-deletion folder
+The user deletion scripts are located in the medic-webapp/script/data-deletion folder
 
 Two key scripts in the above location can help delete different types of data:
 The scripts are:
