@@ -28,6 +28,7 @@ Then if needed, install apps:
 
 * [Forms](configuration/forms.md)
 * [App settings](configuration/app-settings.md)
+* [Replication](configuration/replication.md)
 * [Contact summary cards](configuration/contact-summary.md)
 * [Sentinel transitions](configuration/transitions.md)
 * [CouchDB authentication](configuration/couchdb-authentication.md)
