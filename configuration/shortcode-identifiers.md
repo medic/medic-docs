@@ -30,4 +30,4 @@ It is not possible to either alter the maximum length of ids, to stop it automat
 
 ## Valid sizes
 
-Shortcodes can be between 5 and 13 digits long. Due to the last digit being a checksum digit, there are at most 10,000 5 digit ids, and at most ~61,000,000,000 13 digit ids.
+Shortcodes can be between 5 and 13 digits long. Due to the last digit being a checksum digit, there are at most 10,000 5 digit ids, and at most 1,000,000,000,000 13 digit ids.
