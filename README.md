@@ -36,6 +36,7 @@ Then if needed, install apps:
 * [Replicating with Futon](configuration/replicate.md)
 * [CouchDB authentication](configuration/couchdb-authentication.md)
 * [Variables in messages](configuration/variables-in-messages.md)
+* [Configuring patient shortcode length](configuration/shortcode-identifiers.md)
 
 ## Development
 
