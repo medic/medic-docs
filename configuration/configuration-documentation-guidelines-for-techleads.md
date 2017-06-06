@@ -39,6 +39,8 @@ Last edit on: 5th June, 2017
 
 - You could use a GitHub Flavored markdown editor such as [this one](https://jbt.github.io/markdown-editor/) but always make sure you check your final document on GitHub.
 
+- If you use Sublime text editor to create your markdown documents, it is recommended that you install a plugin that will enable you to preview your document in your web browser. [Markdown Preview](https://packagecontrol.io/packages/Markdown%20Preview) is one recommendation.
+
 ### 4. Images
 
 - All images should be placed in the `img` folder.
