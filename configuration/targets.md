@@ -78,7 +78,7 @@ Each of your targets must be defined so that the app knows how to render it. You
 
 #### Example Target Definition - Count
 
-```javascript
+```
 {
   "type": "count",
   "id": "assessments-u1",
@@ -96,7 +96,7 @@ Each of your targets must be defined so that the app knows how to render it. You
 
 #### Example Target Definition - Percent
 
-```javascript
+```
 {
   "type": "percent",
   "id": "newborn-visit-48hr",
