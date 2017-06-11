@@ -84,6 +84,18 @@ When creating a task, you are required to pass in a contact, a schedule and a re
 * `resolved`: This tracks whether or not the task has been completed. It is set to false initially and then updated to a condition later.
 * `actions`: This is an array of the actions (forms) that a user can access after clicking on a task. If you put multiple forms here, then the user will see a task summary screen where they can select which action they would like to complete.
 
+Within your array of `actions` there are some additional properties that you can define:
+
+* `actions[n].type`: Type of action, usually `'report'`.
+* `actions[n].form`: The form that should open when you click on the action.
+* `actions[n].label`: The label that should appear on the button to start this action on the task summary page ('Click here to begin the follow up' in our example summary screen above).
+* `actions[n].content`: Contains fields that you want to pass into the form that will open when you click on the task or action.
+
+## Tips & Tricks
+
+1. `actions[n].content` is where you can pass form fields from the report that triggered the action to the form that will open when you click on a task. Be sure you include `content.source: 'task'`, `content.source_id: r._id` and `content.contact: c.contact`. The `source` and `source_id` are used in Analytics to relate a task to the action that triggered it.
+1. There are some use cases where information collected during an action within a task schedule may mean that the task schedule must change. For example, if you register a child for malnutrition follow-ups, you collect the height and weight during registration and tasks for follow-ups are created based on the registration. At the next visit (first follow-up), you collect the height and weight again and you want to update these so that future tasks reference this new height and weight. You can either clear and regenerate the schedule after each follow-up visit is done, or you can create only one follow-up at a time so that height and weight are always referencing the most recent visit.
+
 ## Configuring Tasks
 
 Tasks are configured in two places: `task-rules.js` and `task-schedules.json`. `task-rules.js` is where you define which form submissions trigger tasks and set the rules for creation and emission of tasks, including which types of users will see which tasks. This is also where you can pull information from the form that triggers the task schedule and pass it to the form that the user needs to fill to complete the tasks. More information on this is below. 
@@ -101,11 +113,214 @@ Each task needs a due date, window, icon and title to be defined so that the app
 
 For each event, you need to include the following:
 
-* `events.id`: This is an `id` you define for each of your tasks.
-* `events.days`: Due date for the task. It is the number of days after the schedule start date that a task is due.
-* `events.start`: The number of days before the task due date that the task should appear in the task list.
-* `events.end`: The number of days after the task due date that the task should continue to appear in the task list.
-* `events.icon`: You can use any icon that you like, but make sure the icon has been uploaded to your instance and the name matches.
-* `events.title`: The name of your task that will appear to the user. This field supports locales, so you can include translations if you have users viewing the app in different languages on the same instance.
-* `events.description`: This is optional. It is a second line of text that can appear at the right side of the task on the tasks list.
+* `events[n].id`: This is an `id` you define for each of your tasks.
+* `events[n].days`: Due date for the task. It is the number of days after the schedule start date that a task is due.
+* `events[n].start`: The number of days before the task due date that the task should appear in the task list.
+* `events[n].end`: The number of days after the task due date that the task should continue to appear in the task list.
+* `events[n].icon`: You can use any icon that you like, but make sure the icon has been uploaded to your instance and the name matches.
+* `events[n].title`: The name of your task that will appear to the user. This field supports locales, so you can include translations if you have users viewing the app in different languages on the same instance.
+* `events[n].description`: This is optional. It is a second line of text that can appear at the right side of the task on the tasks list.
+
+#### Example Task Definition - Normal Task
+
+This example shows one task in the schedule. For schedules with multiple tasks, add an event for each task.
+
+```
+{
+  "name": "assessment-treatment",
+  "events": [
+    {
+      "id": "treatment-followup-1",
+      "days": 2,
+      "start": 2,
+      "end": 2,
+      "icon": "treatment",
+      "title": [
+        {
+          "content": "{{contact.name}} treatment follow up",
+          "locale": "en"
+        }
+      ]
+    }
+  ]
+}
+```
+
+#### Example Task Definition - High Priority Task
+
+This example shows one task in the schedule. For schedules with multiple tasks, add an event for each task.
+
+```
+{
+  "name": "assessment-referral",
+  "events": [
+    {
+      "id": "referral-followup-1",
+      "days": 1,
+      "start": 1,
+      "end": 3,
+      "icon": "clinic",
+      "title": [
+        {
+          "content": "{{contact.name}} referral follow up",
+          "locale": "en"
+        }
+      ],
+      "description": [
+        {
+          "content": "Referral made",
+          "locale": "en"
+        }
+      ]
+    }
+  ]
+}
+```
+
+### `task-rules.js`
+
+Each task must also be created and emitted, as discussed above. The creation and emission of tasks happens in `task-rules.js`. This is also where you will define when a task should be generated and for which types of users. Depending on how many types of tasks you have in your project, you may choose to use a switch statement with a case for each type of report. Below are some examples of tasks - examples are using the switch statement.
+
+#### ICCM Follow-up
+
+In this example, we are generating a follow-up for either a treatment or a referral, depending on the outcome of the ICCM assessment.
+
+```javascript
+case 'assessment':
+  var followupType = 'treat'; // will be one of: treat, refer
+
+  if (r.fields) {
+    // The follow-up schedule is based on the `reported_date`, so store it for use later
+    var reportedDate = new Date(r.reported_date);
+    // Set schedule name to the one for treatment follow-up
+    var scheduleName = 'assessment-treatment';
+
+    // Check to see if the patient was referred
+    if (r.fields.referral_follow_up == 'true') {
+      // If they were, change the follow-up type and schedule name accordingly
+      followupType = 'refer';
+      scheduleName = 'assessment-referral';
+    }
+
+    // Get the task schedule that you specified in `task-schedules.json`
+    var schedule = Utils.getSchedule(scheduleName);
+
+    if (schedule) {
+      schedule.events.forEach(function(s) {
+        // Determine the due date by taking the base date (`reported_date` in this case) and adding the number of days specified
+        var dueDate = new Date(Utils.addDate(reportedDate, s.days));
+        var visit = createTask(c, s, r);
+        // Set the due date of the task
+        visit.date = dueDate;
+        // This task should be cleared if the `assessment_follow_up` form is submitted within the task window
+        visit.resolved = Utils.isFormSubmittedInWindow(c.reports, 'assessment_follow_up', Utils.addDate(dueDate, s.start * -1).getTime(), Utils.addDate(dueDate, s.end).getTime() );
+        // We only have one available action this time
+        visit.actions.push({
+          type: 'report',
+          form: 'assessment_follow_up',
+          content: {
+            source: 'task',
+            source_id: r._id,
+            contact: c.contact,
+            // Include the follow-up type as an input to the `assessment_follow_up` form
+            t_follow_up_type: followupType,
+          }
+        });
+        emitTask(visit, s);
+      });
+    }
+  }
+  break;
+```
+
+#### Pregnancy Visits
+
+In this example, we see how we can use the task summary screen and have two available actions from one task.
+
+```javascript
+case 'pregnancy':
+
+  if ( !(r.fields && r.fields.lmp_date ) ) { break; }
+
+  // The schedule will be based on the LMP date, so store it
+  var lmp = new Date(r.fields.lmp_date);
+
+  // Set the schedule name
+  var scheduleName = 'pregnancy-healthy';
+  // If the pregnancy is is high-risk, adjust the schedule name
+  if ((pregnancy.fields.risk_factors && pregnancy.fields.risk_factors != '') 
+    || (pregnancy.fields.danger_signs && pregnancy.fields.danger_signs != '')
+    || parseInt(pregnancy.fields.patient_age_at_lmp, 10) < 18
+    || parseInt(pregnancy.fields.patient_age_at_lmp, 10) > 35 ){
+      scheduleName = 'pregnancy-high-risk';
+  }
+
+  // Get the specified task schedule
+  var schedule = Utils.getSchedule(scheduleName);
+  if (schedule) {
+    schedule.events.forEach(function(s) {
+      // Determine the due date by taking the base date (`lmp`) and adding the number of days you specified
+      var dueDate = new Date(Utils.addDate(lmp, s.days));
+      var visit = createTask(c, s, r);
+      // Set the task due date
+      visit.date = dueDate;
+      // Add fields to be displayed on the task summary screen
+      visit.fields.push({
+        label: [
+          {
+            content: 'Patient Age',
+            locale: 'en'
+          }
+        ],
+        value: [
+          {
+            content: age,
+          }
+        ]
+      },
+      {
+        label: [
+          {
+            content: 'EDD',
+            locale: 'en'
+          }
+        ],
+        value: [
+          {
+            content: edd_date,
+          }
+        ]
+      });
+      // This task should be cleared if there is a newer pregnancy, there has been a delivery, or visit done in the task window
+      visit.resolved = r.reported_date < newestPregnancyTimestamp || r.reported_date < newestPostnatalTimestamp || Utils.isFormSubmittedInWindow(c.reports, 'pregnancy_visit', Utils.addDate(dueDate, s.start * -1).getTime(), Utils.addDate(dueDate, s.end).getTime());
+      // We are adding two possible actions, Pregnancy Visit and Delivery Report
+      visit.actions.push({
+        type: 'report',
+        form: 'pregnancy_visit',
+        label: 'Pregnancy Visit',
+        content: {
+          source: 'task',
+          source_id: r._id,
+          contact: c.contact,
+          // Include the LMP so that we can use it during the pregnancy visit
+          t_lmp_date: lmp.toISOString()
+        }
+      },
+      {
+        type: 'report',
+        form: 'delivery_report',
+        label: 'Delivery Report',
+        content: {
+          source: 'task',
+          source_id: r._id,
+          contact: c.contact,
+          // Include the LMP so that we can use it during the pregnancy visit
+          t_lmp_date: lmp.toISOString()
+        }
+      });
+      emitTask(visit, s);
+    });
+  }
+```
+
 
