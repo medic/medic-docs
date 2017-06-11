@@ -20,7 +20,7 @@ We currently have 3 types of widgets available:
 
 ## Using Targets
 
-As you'll see in the `task-rules.js` files for existing project, in order to make targets work, you have to first create the target and then emit the target. There are functions for both of these steps already written.
+As you'll see in the `task-rules.js` files for existing projects, in order to make targets work, you have to first create the target and then emit the target. There are functions for both of these steps already written.
 
 ### Creating a Target
 
@@ -149,7 +149,7 @@ if (c.contact != null) {
 
 #### Simple Count - All Time
 
-You may also want to count the total number of pregnancies registered over all time. The key to all time targets is adjusting the target date to sometime in the current month. The easiest way is to set the target's date to today.
+You may also want to count the total number of pregnancies registered over all time. The key to all-time targets is adjusting the target date to sometime in the current month. The easiest way is to set the target's date to today.
 
 ```javascript
 if (c.contact != null && c.contact.type === 'person') {
@@ -233,7 +233,7 @@ if (c.contact != null && c.contact.type === 'person') {
     var today = new Date();
     // Find all delivery reports
     if (r.form === 'postnatal_care' && r.fields.delivery_date != '') {
-      // Calculate the 48 hour cutoff
+      // Calculate the 48 hour cutoff (2 days after the delivery date at 23:59)
       var followup_cutoff = new Date(r.fields.delivery_date);
       followup_cutoff.setDate(followup_cutoff.getDate() + 2);
       followup_cutoff.setHours(23, 59, 59);
@@ -295,7 +295,7 @@ if(c.contact.type === 'clinic'){
   instance.date = today.getTime();
   emitTargetInstance(instance);
 
-  // Review all report for the current household
+  // Review all reports for the current household
   c.reports.forEach(function(r) {
     // Find out if a survey form was completed for this household
     if (r.form === 'family_equity' && r.reported_date >= newestEquitySurveyTimestamp){
@@ -369,7 +369,7 @@ if (c.contact != null && c.contact.type === 'person') {
   c.reports.forEach(function(r) {
     // For each PNC form, check to see if it's a delivery report and if it is more recent than the most recent pregnancy registration
     if (r.form === 'postnatal_care' && r.fields.delivery_date != '' && r.reported_date > newestPregnancyTimestamp) {
-      // Create a variable to track the cutoff date for when PNC must be done
+      // Create a variable to track the cutoff date for when PNC must be done (by 3 days after delivery date at 23:59)
       var followup_cutoff = new Date(r.fields.delivery_date);
       followup_cutoff.setDate(followup_cutoff.getDate() + 3);
       followup_cutoff.setHours(23, 59, 59);
