@@ -108,7 +108,7 @@ Each task needs a due date, window, icon and title to be defined so that the app
 
 ![Task description](img/task_with_description.png)
 
-* `name`: This is the name of the task schedule. It's used when retrieving a particular task schedule from `task-rules.js`.
+* `name`: This is the name of the task schedule. It's used when retrieving a particular task schedule from `task-schedules.json` for use in `task-rules.js`.
 * `events`: These are the individual tasks in the schedule. You may have one or more tasks in your schedule.
 
 For each event, you need to include the following:
