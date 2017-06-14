@@ -38,6 +38,10 @@ Then if needed, install apps:
 * [Variables in messages](configuration/variables-in-messages.md)
 * [Configuring patient shortcode length](configuration/shortcode-identifiers.md)
 
+## Support and Troubleshooting
+
+* [Dealing with conflicts](troubleshooting/conflicts.md)
+
 ## Development
 
 ### Code
