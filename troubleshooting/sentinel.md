@@ -21,3 +21,7 @@ If messages are not going out, or if contacts are not being associated with repo
   `tail -f -n 500 medic_medic_medic-sentinel3.log`
   
   - Is sentinel restarting a lot? Are there any errors? Stack traces which give info on where in the code it's crashing? 
+
+## Restart sentinel (TODO)
+
+## Find how many changes sentinel still has to process (TODO)
