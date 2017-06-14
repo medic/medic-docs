@@ -24,6 +24,8 @@ If you wish to change the minimum length to of ids to generate, create or edit t
 
 NB: If this file already exists be sure to include the existing `_rev` property.
 
+NB: If you are changing this document and want to make it relevant straight away, **you must restart Sentinel.** Otherwise there may be a collection of cached already accepted ids of the previous length that Sentinel will work through first. 
+
 ## Configuring a maximum length, locking down an exact length etc
 
 It is not possible to either alter the maximum length of ids, to stop it automatically increasing or to tweak when it decides to automatically increase. IDs automatically increasing in length when required is important to the continual correct functioning of Sentinel.
