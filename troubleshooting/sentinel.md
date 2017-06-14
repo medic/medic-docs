@@ -22,6 +22,14 @@ If messages are not going out, or if contacts are not being associated with repo
   
   - Is sentinel restarting a lot? Are there any errors? Stack traces which give info on where in the code it's crashing? 
 
-## Restart sentinel (TODO)
+## Restart sentinel
 
-## Find how many changes sentinel still has to process (TODO)
+You can kill and restart sentinel by restarting gardener, the supervisor for sentinel. That will also kill and restart api.
+
+`svc-restart gardener`
+
+## Find how many changes sentinel still has to process 
+
+Find the last change sentinel processed : Find the doc in `medic` database with `_id: sentinel-meta-data`. The `processed_seq` field is the last change that sentinel processed.
+
+Find the last change on the `medic` database : `curl <server url>/medic/_changes` and look for `last_seq` field.
