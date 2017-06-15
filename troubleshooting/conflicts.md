@@ -44,6 +44,8 @@ Now you have all versions of the document, you can diff them and try to determin
 
 A common problem, for example, might be sentinel hitting a document really quickly between you creating it and editing it.
 
+A less common problem that requires some special attention, is UUID collisions (see below).
+
 If you get stuck feel free to escalate to a developer, who can take a look.
 
 ### If appropriate, raise a bug
@@ -106,3 +108,56 @@ The problem here is clear: `some_user` and `admin` read the document at the same
    ]
  }
 ```
+
+#### Resolving UUID collisions
+
+A UUID collision is a rare event where two clients (eg two android phones running our application) generate the same UUID ID for two completely different documents.
+
+You can tell when your conflict is a UUID collision as there is no common root between the two conflicting versions. For example, one might be of type person and one might of type data_record.
+
+These situations are more complicated, and require that you essentially recreate all conflicting versions as new documents, and fix any linkages that exist in the database.
+
+Let's say you find the following situation:
+
+```diff
+{
+  "_id": "7FADDF76-55E4-4E50-9444-5E468E61EA83"
+- "_rev": "1-e4da228c29dc4ebc8b156967bbf48bd1",
++ "_rev": "1-ce40d1dc470643e2b9be9368ea9ff240",
+- "type": "person"
++ "type": "data_record"
+<snip a bunch more stuff that doesn't relate to each other>
+}
+```
+
+You will want to do four things:
+ - Download the `_rev` for the `person` and create a new document, with a new uuid, for that document (you can do this by uploadig the document without an `_id` or `_rev` parameter and let CouchDB generate them for you)
+ - Do the same for the `data_record` version
+ - Delete the main conflicting document `7FADDF76-55E4-4E50-9444-5E468E61EA83`
+
+And finally, find any references to `7FADDF76-55E4-4E50-9444-5E468E61EA83`, work out which doc they were *supposed* to point to, and then edit those UUIDs to be the correct UUID `_id` from the docs you created above.
+
+Because this should be a rare event and a generic view would be enormous, we do not ship a view that helps you find this out.
+
+However, you can create your own view! You're going to want to create a DDOC specifically for this view. You can follow the following template to create what you want:
+
+```json
+{
+  "_id": "_design/docs-by-reference",
+  "views": {
+    "docs-by-reference": {
+      "map": "function(doc) {\n  var KEYS = [];\n\n  // TODO: consider switching this around to whitelist doc types\n  if (doc._id.match(/-info$/) ||\n      doc._id.match(/^_local/)) {\n    return;\n  }\n\n  var goDeeper = function(obj, path) {\n    Object.keys(obj).forEach(function(key) {\n      if (typeof obj[key] === 'string' &&\n          KEYS.indexOf(obj[key]) !== -1) {\n        emit(obj[key], path + '/' + key);\n      }\n\n      if (obj[key] && typeof obj[key] === 'object') {\n        goDeeper(obj[key], path + '/' + key);\n      }\n    });\n  };\n\n  goDeeper(doc, doc._id);\n}"
+    }
+  }
+}
+```
+
+In this, add any IDs you want to be found in the `KEYS` variable at the top of the function. So in our case, we would change `KEYS` to look like this:
+
+```js
+var KEYS = ['7FADDF76-55E4-4E50-9444-5E468E61EA83']
+```
+
+If you upload this DDOC (do not just add the view to an existing DDOC, as you will force all views on that DDOC to regenerate) and then prime it by querying it once (it may take a long time to run), once it is complete you should see all references to any keys you pass it.
+
+This will help you to identify which documents are affected by this change. Usually the only change needed is to change the ID located to the new ones you generated.
