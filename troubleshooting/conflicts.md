@@ -60,7 +60,7 @@ Now that you've diagnosed the problem, and perhaps reported a bug, you should re
 
 For a document to no longer be conflicted, there must only be one active `_rev`. You would do this by picking one rev and updating it with the changes you want to make, and then updating the others with the `_deleted: true` property.
 
-You can tell that a document is no longer conflicted if they don't appear _in the view, or if when you request the document with `?conflicts=true` the `_conflicts` property either doesn't appear or is empty.
+You can tell that a document is no longer conflicted if they don't appear in the view, or if when you request the document with `?conflicts=true` the `_conflicts` property either doesn't appear or is empty.
 
 #### A trivial example
 
