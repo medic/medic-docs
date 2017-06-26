@@ -24,9 +24,10 @@ Transitions obey the following rules:
   the `change.doc` reference (copying is discouraged). `db` and `audit` are
   handles to let you query those DBs. More about `callback` below.
 
-* If they save the document provided at `change.doc` it takes responsibility for saving the document and re-attaching the newly saved document (with new seq etc) at `change.doc`
-  
-* guarantees the consistency of a document. 
+* It is not necessary for an individual transition to save the changes to `change.doc` to the db: the doc will be saved once, after all the transitions have edited it.
+If an individual transition saves the document provided at `change.doc`, it takes responsibility re-attaching the newly saved document (with new seq etc) at `change.doc`
+
+* guarantees the consistency of a document.
 
 * runs serially and in any order.  A transition is free to make async calls but
   the next transition will only run after the previous transitions's callback
@@ -42,16 +43,14 @@ Transitions obey the following rules:
 
 Callback arguments:
 
-* callback(err, true)
+* callback(err, needsSaving)
 
-  The document is saved and `ok` property value is false if `err` is truthy.
+   `needsSaving` is true if the `change.doc` needs to be saved to db by the transition runner. For instance the transition has edited the `change.doc` in memory.
+   `err` if truthy, the error will be added to the `changes.doc` in memory. (Note that if `needsSaving` is falsy, the doc will not be saved, so that error will not be persisted).
 
-* callback(err)
+Regardless whether the doc is saved or not, the transitions will all be run (unless one crashes!).
 
-  The document is saved and `ok` property value is false if `err` is truthy.
-  Use this when a transition fails and should be re-run.
-
-* callback()
-
-  Nothing to be done, the document is not saved and next transition continues.
-  Transitions will run again on next change.
+When your transition encounters an error, there are different ways to deal with it. You can :
+- finish your transition with `callback(someError, true)`. This will save the error to `change.doc`.
+- finish your transition with `callback(someError, false)`. The error will be logged to the sentinel log. This will not save the error on the `change.doc`, so there will be no record that this transition ran. That particular `change` will not go through transitions again, but if the same doc has another change in the future, since there is no record of the erroring transition having run, it will be rerun.
+- crash sentinel. When sentinel restarts, since that `change` did not record a successful processing, it will be reprocessed. Transitions that did not save anything to the `change.doc` will be rerun.
