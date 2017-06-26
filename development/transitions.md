@@ -51,6 +51,6 @@ Callback arguments:
 Regardless whether the doc is saved or not, the transitions will all be run (unless one crashes!).
 
 When your transition encounters an error, there are different ways to deal with it. You can :
-- finish your transition with `callback(someError, true)`. This will save the error to `change.doc`. The transition will not be rerun on this doc.
+- finish your transition with `callback(someError, true)`. This will save the error to `change.doc`.
 - finish your transition with `callback(someError, false)`. The error will be logged to the sentinel log. This will not save the error on the `change.doc`, so there will be no record that this transition ran. That particular `change` will not go through transitions again, but if the same doc has another change in the future, since there is no record of the erroring transition having run, it will be rerun.
 - crash sentinel. When sentinel restarts, since that `change` did not record a successful processing, it will be reprocessed. Transitions that did not save anything to the `change.doc` will be rerun.
