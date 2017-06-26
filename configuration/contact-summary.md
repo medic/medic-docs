@@ -45,7 +45,7 @@ Each field is an object with the following properties:
 Common filters are: `age`, `phone`, `weeksPregnant`, `relativeDate`, `relativeDay`, `fullDate`, `simpleDate`, `simpleDateTime`, `lineage`, `resourceIcon`. 
 For the complete list of filters, and more details on what each does, check out the code in [`medic-webapp/static/js/filters` dir](https://github.com/medic/medic-webapp/tree/master/static/js/filters).
 
-To return the result you need to declare the object on the last line of the script, as in the following example.
+In 2.13.0 and later the configured function `return`s to supply the output as in the following example. Prior to 2.13.0 to return the result you needed to declare the object on the last line of the script.
 
 ### Example
 
@@ -100,10 +100,9 @@ if (contact.type === 'person') {
   ];
 }
 
-var result = {
+return {
   fields: fields,
   cards: cards,
   context: context
 };
-result; // output on the last line of the configuration
 ```
