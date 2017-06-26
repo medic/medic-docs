@@ -50,17 +50,42 @@ If you get stuck feel free to escalate to a developer, who can take a look.
 
 ### If appropriate, raise a bug
 
-If you determine (or just suspect) that the problem is caused by bad design, feel free to raise a bug to development. For example, historically read status has been stored against the document, which can easily cause conflicts if you create a document and then instantly view it with sentinel processing in the background.
+If you determine (or just suspect) that the problem could be in our code or data structures, feel free to raise a bug to development. For example, historically read status has been stored against the document, which can easily cause conflicts if you create a document and then instantly view it with sentinel processing in the background.
 
-While conflicts are inevitable, we want to architect away from them as much as possible. Ideally tech leads would never have to resolve conflicts.
+While some conflicts are inevitable, we want to architect away from them as much as possible. Ideally tech leads would never have to resolve conflicts.
 
 ### Regardless, resolve the conflicts
 
-Now that you've diagnosed the problem, and perhaps reported a bug, you should resolve the conflict. This is important, as conflicts can cause important changes to not be recognised.
+Now that you've diagnosed the problem, and perhaps reported a bug, you should resolve the conflict.
+
+This is **extremely** important. Conflicts cause saved changes to not appear against documents silently, and could cause important document changes (eg fixing someone's EDD) to not occur.
 
 For a document to no longer be conflicted, there must only be one active `_rev`. You would do this by picking one rev and updating it with the changes you want to make, and then updating the others with the `_deleted: true` property.
 
-You can tell that a document is no longer conflicted if they don't appear in the view, or if when you request the document with `?conflicts=true` the `_conflicts` property either doesn't appear or is empty.
+You can tell that a document is no longer conflicted if they don't appear in the view, or if when you request the document with `?conflicts=true` the `_conflicts` property either doesn't appear or is empty:
+
+```
+https://yourserver/medic/yourdocid?conflicts=true
+
+{
+  "_id": "yourdocid",
+  "_rev": "2-the-current-rev"
+  "_conflicts": [
+    "2-a-conflicting-rev"
+  ]
+}
+```
+
+In the above example, `yourdocid` has two revisions that conflict with each other. Here you would need to update one of the revs (it doesn't matter which) with the other's changes, then delete the other rev. You would then see:
+
+```
+https://yourserver/medic/yourdocid?conflicts=true
+
+{
+  "_id": "yourdocid",
+  "_rev": "3-the-new-rev"
+}
+```
 
 #### A trivial example
 
@@ -146,7 +171,7 @@ However, you can create your own view! You're going to want to create a DDOC spe
   "_id": "_design/docs-by-reference",
   "views": {
     "docs-by-reference": {
-      "map": "function(doc) {\n  var KEYS = [];\n\n  // TODO: consider switching this around to whitelist doc types\n  if (doc._id.match(/-info$/) ||\n      doc._id.match(/^_local/)) {\n    return;\n  }\n\n  var goDeeper = function(obj, path) {\n    Object.keys(obj).forEach(function(key) {\n      if (typeof obj[key] === 'string' &&\n          KEYS.indexOf(obj[key]) !== -1) {\n        emit(obj[key], path + '/' + key);\n      }\n\n      if (obj[key] && typeof obj[key] === 'object') {\n        goDeeper(obj[key], path + '/' + key);\n      }\n    });\n  };\n\n  goDeeper(doc, doc._id);\n}"
+      "map": "function(doc) {\n  var KEYS = [];\n\n  // TODO: consider switching this around to whitelist doc types\n  if (doc._id.match(/-info$/) ||\n      doc._id.match(/^_local/)) {\n    return;\n  }\n\n  var goDeeper = function(obj, path) {\n    Object.keys(obj).forEach(function(key) {\n      if (typeof obj[key] === 'string' &&\n          KEYS.indexOf(obj[key]) !== -1) {\n        emit(obj[key], path + '.' + key);\n      }\n\n      if (obj[key] && typeof obj[key] === 'object') {\n        goDeeper(obj[key], path + '.' + key);\n      }\n    });\n  };\n\n  goDeeper(doc, doc._id);\n}"
     }
   }
 }
@@ -158,6 +183,35 @@ In this, add any IDs you want to be found in the `KEYS` variable at the top of t
 var KEYS = ['7FADDF76-55E4-4E50-9444-5E468E61EA83']
 ```
 
-If you upload this DDOC (do not just add the view to an existing DDOC, as you will force all views on that DDOC to regenerate) and then prime it by querying it once (it may take a long time to run), once it is complete you should see all references to any keys you pass it.
+Upload this document to CouchDB (do not just add the view to an existing DDOC, as you will force all views on that DDOC to regenerate) and then warm up the views by querying it once (it may take a long time to run).
+
+Once it is complete you can query the view again to return a list of documents that reference the ids you hard-coded above.
 
 This will help you to identify which documents are affected by this change. Usually the only change needed is to change the ID located to the new ones you generated.
+
+```json
+{
+  "total_rows": 2,
+  "offset": 0,
+  "rows": [
+    {
+      "id": "1B7922A6-A6D6-C956-BBAE-DE5EB5A2E6C8",
+      "key": [
+        "7FADDF76-55E4-4E50-9444-5E468E61EA83"
+      ],
+      "value": "1B7922A6-A6D6-C956-BBAE-DE5EB5A2E6C8.fields.inputs.contact._id"
+    },
+    {
+      "id": "1B7922A6-A6D6-C956-BBAE-DE5EB5A2E6C8",
+      "key": [
+        "7FADDF76-55E4-4E50-9444-5E468E61EA83"
+      ],
+      "value": "1B7922A6-A6D6-C956-BBAE-DE5EB5A2E6C8.fields.patient_id"
+    }
+  ]
+}
+```
+
+In this example, there are two references to `7FADDF76-55E4-4E50-9444-5E468E61EA83`, both in the `1B7922A6-A6D6-C956-BBAE-DE5EB5A2E6C8` document, one at `fields.inputs.contact._id` and one at `fields.patient_id`.
+
+If you get stuck, feel free to contact a developer (either a specific one, or just post in `#development`) and they can help you out.
