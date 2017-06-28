@@ -26,6 +26,7 @@ In this example the `d` transition will not be applied, but the other three will
 | accept_patient_reports | Validates reports about a patient and silences relevant reminders. |
 | conditional_alerts | Executes the configured condition and sends an alert if the condition is met. |
 | default_responses | Responds to the message with a confirmation or validation error. |
+| [multi_form_alerts](#multi_form_alerts) | Similar to conditional_alerts, with more flexible configuration, including using different form types for the same alert. |
 | [registration](#registration) | For registering a patient to a schedule. Performs some validation and creates the patient document if the patient does not already exist. |
 | resolve_pending | Sets the state of pending messages to sent. It is useful during builds where we don't want any outgoing messages queued for sending. |
 | update_clinics | Update clinic data on new data records, use refid for clinic lookup otherwise phone number. |
@@ -38,6 +39,10 @@ In this example the `d` transition will not be applied, but the other three will
 ## Transition Configuration Guide
 
 Guides for how to setup specific transitions.
+
+### multi_form_alerts
+
+
 
 ### Registration
 
