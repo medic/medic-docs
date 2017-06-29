@@ -28,7 +28,7 @@ An array of cards to show below the summary, each with their own header and arra
 
 ### `context`
 
-An object which is passed to each forms `expression` to give more information to decide whether or not to show the form in the "New action" menu.
+An object which is used to to encapsulate information about this contact. This is to passed to each forms `expression` to give more information to decide whether or not to show the form in the "New action" menu, and also passed to each xform which can then use the information in field calculations.
 
 ![New action menu](img/new-action-menu.png)
 
