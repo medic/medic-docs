@@ -13,3 +13,28 @@ You can view the XML forms from Futon (check out the `forms` view). You can uplo
 ![XML forms](img/xml_forms.png)
 
 _*Note that although Medic Collect uses XForms in the Android app, for now it still needs a corresponding JSON form in the webapp to interpret the incoming report._
+
+## Accessing the contact-summary
+
+xforms have the ability to access the output of the [configured contact-summary script](https://github.com/medic/medic-docs/blob/master/configuration/contact-summary.md). This means you can have different fields, state, or information based on any known information about the contact.
+
+To configure this, add a new instance with the id "contact-summary" to your xform somewhere below your primary instance, then bind values where you need them. Example:
+
+```xml
+<h:html>
+  <h:head>
+    <model>
+      <instance>
+        <visit>
+          <age/>
+        </visit>
+      </instance>
+      <instance id="contact-summary"/>
+      <bind calculate="instance('contact-summary')/context/age" nodeset="/visit/age" type="string"/>
+    </model>
+  </h:head>
+  <h:body>
+    <input ref="/visit/age" />
+  </h:body>
+</h:html>
+```
