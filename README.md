@@ -55,6 +55,8 @@ Then if needed, install apps:
 * [Releasing our app](development/releasing.md)
 * [Virtual appliance build environment](development/mmva-build.md)
 * [How to migrate dashboard to SSL](development/update-markets.md)
+* [Using Git](development/using-git.md)
+* [Using npm](development/using-npm.md)
 
 ### Culture
 
