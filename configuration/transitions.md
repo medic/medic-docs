@@ -26,6 +26,7 @@ In this example the `d` transition will not be applied, but the other three will
 | accept_patient_reports | Validates reports about a patient and silences relevant reminders. |
 | conditional_alerts | Executes the configured condition and sends an alert if the condition is met. |
 | default_responses | Responds to the message with a confirmation or validation error. |
+| [multi_form_alerts](#multi_form_alerts) | Similar to conditional_alerts, with more flexible configuration, including using different form types for the same alert. |
 | [registration](#registration) | For registering a patient to a schedule. Performs some validation and creates the patient document if the patient does not already exist. |
 | resolve_pending | Sets the state of pending messages to sent. It is useful during builds where we don't want any outgoing messages queued for sending. |
 | update_clinics | Update clinic data on new data records, use refid for clinic lookup otherwise phone number. |
@@ -38,6 +39,30 @@ In this example the `d` transition will not be applied, but the other three will
 ## Transition Configuration Guide
 
 Guides for how to setup specific transitions.
+
+### multi_form_alerts
+
+Full documentation in [kanso.json](https://github.com/medic/medic-webapp/blob/master/kanso.json) or in the Dashboard app_settings page.
+
+Send alert messages by SMS when specific conditions are received through reports. More flexible than simple Alerts.
+
+Example: send SMS to the district manager when 2 CHWs within the same district report cholera or diarrhea symptoms within the last week.
+
+```
+"multi_form_alerts": [{
+    "numReportsThreshold": 2,
+    "timeWindowInDays": 7,
+    "isReportCounted": "function(report, latestReport) { return latestReport.contact.parent.parent._id === report.contact.parent.parent._id; }",
+    "message": "2 patients with big problem in 7 days, reported at {{countedReports[0].contact.parent.parent.name}}. Report by {{countedReports[0].contact.name}} ({{countedReports[0].contact.phone}}) for patient {{countedReports[0].patient_id}}. Report by {{countedReports[1].contact.name}} ({{countedReports[1].contact.phone}}) for patient {{countedReports[1].patient_id}}",
+    "recipients": [
+      "+123456789",
+      "countedReports[0].contact.phone", // sender of the latest report
+      "countedReports[0].contact.parent.parent.contact.phone", // contact person for the parent place of the sender of the report
+      "countedReports.map((report) => report.contact.phone)" // all senders of reports counted in the alert.
+    ],
+    "forms": ["C", "D"] // Only Cholera and Diarrhea forms.
+  }]
+```
 
 ### Registration
 
