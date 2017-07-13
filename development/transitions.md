@@ -19,6 +19,9 @@ Transitions obey the following rules:
 
 * a `onMatch(change, db, auditDb, callback)` function than will run on changes
   that pass the filter.
+  
+* can have an `init()` function to do any required setup and throw Errors on invalid
+  configuration.
 
 * has an `onChange(change, db, audit, callback)` function that makes changes to
   the `change.doc` reference (copying is discouraged). `db` and `audit` are
