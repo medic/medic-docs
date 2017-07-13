@@ -34,9 +34,9 @@ Then if needed, install apps:
 * [CouchDB authentication](configuration/couchdb-authentication.md)
 * [Garden](configuration/garden.md)
 * [Replicating with Futon](configuration/replicate.md)
-* [CouchDB authentication](configuration/couchdb-authentication.md)
 * [Variables in messages](configuration/variables-in-messages.md)
 * [Configuring patient shortcode length](configuration/shortcode-identifiers.md)
+* [Accessing CouchDB directly](configuration/direct-access.md)
 
 ## Support and Troubleshooting
 
