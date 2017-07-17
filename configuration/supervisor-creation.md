@@ -278,7 +278,7 @@ process.on('SIGINT', function() {
 
 
 
-** Tying it all together **
+**Tying it all together**
 ```bash
 COUCH_URL=<admin:pass@instance-url> EXTRA_IMPORT_FLAGS='' EXTRA_IMPORT_FILTERS=cat make import
 ```
