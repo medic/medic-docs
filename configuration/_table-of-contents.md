@@ -32,4 +32,5 @@ Tech leads please read the [documentation guidelines](configuration-documentatio
 
 - [Data deletion](data-deletion.md)
 - [Pyxform](pyxform.md)
+- [Supervisor creation](supervisor-creation.md)
 
