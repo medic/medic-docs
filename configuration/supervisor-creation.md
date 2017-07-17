@@ -276,9 +276,23 @@ process.on('SIGINT', function() {
 });
 ```
 
+**sample Branches.csv**
+
+|uuid|name|
+|--|--|
+|some_random_uuid|Branch Y|
+
+
+**sample CHW_Zones.csv**
+
+|Name|Branch|
+|--|--|
+|Person EX|Branch Y|
 
 
 **Tying it all together**
 ```bash
 COUCH_URL=<admin:pass@instance-url> EXTRA_IMPORT_FLAGS='' EXTRA_IMPORT_FILTERS=cat make import
+
+make fix-bm-role
 ```
