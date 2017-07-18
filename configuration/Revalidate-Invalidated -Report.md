@@ -1,7 +1,7 @@
 # How to revalidate an invalid report
 You may encounter a dreaded case when reports coming in to a Medic Webapp instance have a red indicator instead of the green indicator.
 
-![Invalid Reports](img/invalid_reports.png)
+![Invalid Reports](img/invalid_reports2.png)
 
 This may be caused by:
 - Missing forms in the `app_settings` config.
