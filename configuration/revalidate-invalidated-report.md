@@ -10,7 +10,7 @@ This may be caused by:
 - Configuring some forms in the wrong section of the app_settings i.e `registrations` and `patient_reports`. Forms that don't have a patient_id field because it is generated afterwards, e.g ANCR, IMMR, go to the `registrations` section, while form that have a patient_id field e.g ANCP, ANCV, IMMV; go to the `patient_reports` section
 
 # How to solve
-To revalidate an invalid report, we need to clear the errors field on the doc (set it to []). Updating this field from Futon will not work and will result in an endless update process. The recommended way to do it is to download the doc, update it and then upload it. This will also for propagation and replication in couchdb.
+To revalidate an invalid report, we need to clear the errors field on the doc (set it to []). Updating this field from Futon will not work and will result in an endless update process. The recommended way to do it is to download the doc, update it and then upload it. This will also ensure propagation and replication in couchdb.
 
 To download a doc, use:
 ```
