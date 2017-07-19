@@ -6,7 +6,7 @@ To do over the air Medic Collect form updates via HTTP rather than sending APKs 
 - They should use underscore as name separators. e.g form_name.xlsx
 - They should have `form_id` and `name`  properties in the settings
 
-[!Name property](img/xform_name_settings.png)
+![Name property](img/xform_name_settings.png)
 
 2. Send the forms to the instance using the latest convert.sh from `medic-webapp` using the below command. Convert.sh will convert it to xml and upload it to the instance as long as you specify `COUCH_URL` environment variable.
 ```
