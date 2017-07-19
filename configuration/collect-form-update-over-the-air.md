@@ -26,5 +26,10 @@ This means you probably uploaded a XLS file without a `name` or `form_id` proper
 curl -vvvv -H "x-openrosa-version: 1" http://user:pass@host:port/api/v1/forms
 ```
 
+Should bring a list like this one
+
+![Xform List](img/xform_list.png)
+
+
 Go through the list and see which form has  a missing `<name>` or `<formID>` property. Add it and reupload it using `convert.sh`
 
