@@ -12,11 +12,22 @@ npm install --save libphonenumber@latest
 ```
   - Confirm the the git submodules (api and sentinel) are on the latest commit on the right branch (should mirror the parent repo).
 ```bash
+#!/bin/sh
+# 
+# 
+
+set -e
+
 git submodule update --remote api
 git submodule update --remote sentinel
-git status --exit-code api sentinel || \
-git commit -m 'bumping submodules' api sentinel && \
-git push
+
+if (git diff --exit-code api sentinel); then
+  echo "Submodules are up to date."
+else 
+  git commit -m 'bumping submodules' api sentinel
+  git push
+  echo 'Submodules updated and pushed, confirm new build in CI succeeds.'
+fi
 ```
   - [Export the translations](translations.md#exporting-changes-from-poeditor-to-github) for all languages from POE which pushes directly to `master` so pull these changes locally.
   - Create a new release branch from `master` named `<major>.<minor>.x` in medic-webapp, medic-sentinel, and medic-api.
