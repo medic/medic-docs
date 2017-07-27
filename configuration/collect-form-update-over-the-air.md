@@ -8,7 +8,9 @@ To do over the air Medic Collect form updates via HTTP rather than sending APKs 
 
 ![Name property](img/xform_name_settings.png)
 
-2. Send the forms to the instance using the latest convert.sh from `medic-webapp` using the below command. Convert.sh will convert it to xml and upload it to the instance as long as you specify `COUCH_URL` environment variable.
+2. Send the forms to the instance using the latest convert.sh from `medic-projects/scripts` using the below command.
+Make sure you have the latest `upload_xform.sh` from `medic-webapps/scripts`.
+Convert.sh will convert it to xml and upload it to the instance as long as you specify `COUCH_URL` environment variable.
 ```
 convert.sh -uf form_name.xlsx
 ```
