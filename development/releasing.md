@@ -13,8 +13,10 @@ npm install --save libphonenumber@latest
   - Confirm the the git submodules (api and sentinel) are on the latest commit on the right branch (should mirror the parent repo).
 ```bash
 #!/bin/sh
-# 
-# 
+#
+# Update git submodules based on configuration in .gitmodules and push changes
+# to remote if there are any.
+#
 
 set -e
 
@@ -22,7 +24,7 @@ git submodule update --remote api
 git submodule update --remote sentinel
 
 if (git diff --exit-code api sentinel); then
-  echo "Submodules are up to date."
+  echo 'Submodules are up to date.'
 else 
   git commit -m 'bumping submodules' api sentinel
   git push
