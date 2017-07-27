@@ -14,11 +14,9 @@ These are the instructions for getting logs using adb:
 ![Allow USB debugging?](img/allow_usb_debugging.png)
 7. Open the command which was opened previously and write the following command: `adb start-server`
 8. To check if your phone is properly connected, write the command `adb devices`. This will list the devices connected. Something like 
-```
-List of devices attached
-4df798d76f98cf6d        DEVICE
-```
+
  ![ADB Devices](img/adb_devices.png)
+ 
 9. Followup with command: `adb logcat > gateway.txt`
 10. Now it is ready to take android logs. This is the time to to try to reproduce the error. 
 Check some of the messages that are 'WAITING' and click retry
