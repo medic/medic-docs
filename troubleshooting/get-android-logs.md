@@ -17,8 +17,8 @@ These are the instructions for getting logs using adb:
 
  ![ADB Devices](img/adb_devices.png)
  
-9. Followup with command: `adb logcat > gateway.txt`
-10. Now it is ready to take android logs. This is the time to to try to reproduce the error. 
+9. Followup with command: `adb logcat > gateway.txt`. This stores the android logs in the file `gateway.txt`.
+10. Now it is taking android logs. This is the time to to try to reproduce the error. 
 Check some of the messages that are 'WAITING' and click retry
 Do this for as many times as you deem necessary to capture logs for that event.
 Wait about 15 minutes to enable capture of sufficient android device environment logs
