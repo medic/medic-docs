@@ -18,13 +18,12 @@ These are the instructions for getting logs using adb:
 List of devices attached
 4df798d76f98cf6d        DEVICE
 ```
- See below screenshot
  ![ADB Devices](img/adb_devices.png)
-8. Followup with command: `adb logcat > gateway.txt`
-9. Now it is ready to take android logs. This is the time to to try to reproduce the error. 
+9. Followup with command: `adb logcat > gateway.txt`
+10. Now it is ready to take android logs. This is the time to to try to reproduce the error. 
 Check some of the messages that are 'WAITING' and click retry
 Do this for as many times as you deem necessary to capture logs for that event.
 Wait about 15 minutes to enable capture of sufficient android device environment logs
-10. Disconnect the phone from the computer
-11. Open the folder which has the adb executable, you will see a file called gateway.txt
+11. Disconnect the phone from the computer
+12. Open the folder which has the adb executable, you will see a file called gateway.txt
 Send that file to the concerned person(PM or techlead)
