@@ -8,7 +8,7 @@ When all the required issues are fixed in master it's time to put together a rel
 2. If releasing a new major or minor...
   - Update [google-libphonenumber](https://www.npmjs.com/package/google-libphonenumber) to the latest version in api, sentinel, and webapp and commit to `master` and push. This ensures we're up to date with the latest in phone number validation.
 ```bash
-npm install --save libphonenumber@latest
+npm install --save google-libphonenumber@latest
 ```
   - Update the git submodules (api and sentinel) to the latest and commit to `master` and push.
   - [Export the translations](translations.md#exporting-changes-from-poeditor-to-github) for all languages from POE which pushes directly to `master` so pull these changes locally.
