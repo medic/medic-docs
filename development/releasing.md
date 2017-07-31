@@ -10,7 +10,27 @@ When all the required issues are fixed in master it's time to put together a rel
 ```bash
 npm install --save google-libphonenumber@latest
 ```
-  - Update the git submodules (api and sentinel) to the latest and commit to `master` and push.
+  - Confirm the the git submodules (api and sentinel) are on the latest commit on the right branch (should mirror the parent repo).
+```bash
+#!/bin/sh
+#
+# Update git submodules based on configuration in .gitmodules and push changes
+# to remote if there are any.
+#
+
+set -e
+
+git submodule update --remote api
+git submodule update --remote sentinel
+
+if (git diff --exit-code api sentinel); then
+  echo 'Submodules are up to date.'
+else 
+  git commit -m 'bumping submodules' api sentinel
+  git push
+  echo 'Submodules updated and pushed, confirm new build in CI succeeds.'
+fi
+```
   - [Export the translations](translations.md#exporting-changes-from-poeditor-to-github) for all languages from POE which pushes directly to `master` so pull these changes locally.
   - Create a new release branch from `master` named `<major>.<minor>.x` in medic-webapp, medic-sentinel, and medic-api.
 3. Set the version number from step 1 in medic-webapp kanso.json, package.json, and npm-shrinkwrap.json. If releasing a new major or minor, also set the versions in `master` to be the next version (e.g. `<major>.<minor+1>.0`), so that the alpha builds will have the right version.
