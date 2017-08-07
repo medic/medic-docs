@@ -8,11 +8,13 @@ Follow the steps as below (if you don't have physical access to the phone, switc
         i). Connected to the internet. You can check this by opening any Browser app in the phone and going to `https://google.com`.
         
         ii). Check if the instance name, instance type and `gateway` user password are set correctly in the Gateway `Settings` app screen.
+        
         ![Medic Gateway Settings screen](img/settings_screen.png)
         
         iii) Has the latest Gateway version. Get the latest version by opening the Google Playstore, searching for `Medic Gateway` and updating the existing app
         
         iv). Medic Gatway is set as the default app for SMS. To check if it is not, go to `Settings` in the Gateway app. If not the default, you will be met with the below app screen. In that case, click `Help me change` - after which composing or reading messages through the normal app will not be possible
+        
         ![Medic Gateway is not set as the default messaging app](img/not_default.png)
         
         v). If messages are not going through to the server, in the `To Webapp`  tab, select some of them and press `Retry` at the bottom and wait for about 5-10 minutes.
