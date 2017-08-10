@@ -5,6 +5,7 @@ In a techlead heaven, we would have immeadiate physical access to gateway phones
 Follow the steps as below (if you don't have physical access to the phone, start with step 2 i.e debug from the server side first)
 
 1. - Make sure that the device:
+
         i). Is connected to the internet. You can check this by opening any Browser app in the phone and going to `https://google.com`.
         
         ii). Check if the instance name, instance type and `gateway` user password are set correctly in the Gateway `Settings` app screen.
