@@ -32,11 +32,11 @@ Follow the steps as below (if you don't have physical access to the phone, start
 Follow the steps:
    - Navigate to `/srv/storage/gardener/logs/ `
    - Perform `ls -lt` to arrange the log files in order of modified date. Note the concerned file which was last modified on the date you are investigating 
-   - Pipe it to grep to get only SMS logs e.g `cat medic_medic_medic-api4.log | grep api/sms`. As below, note the errors and work from there.
+   - Pipe it to grep to get only SMS logs e.g `grep api/sms medic_medic_medic-api4.log`. As below, note the errors and work from there.
 ```
 cd /srv/storage/gardener/logs/   
 ls -lt   
-cat medic_medic_medic-api4.log | grep api/sms
+grep api/sms medic_medic_medic-api4.log
 ```
 > If the above steps don't yield the problem, get the Android logs using the steps outlined in the doc [in this link](https://github.com/medic/medic-docs/blob/master/troubleshooting/get-android-logs.md), note the make/model/android version their gateway handset is and escalate with those details to the PM/project techlead.
 **Tip**: Insist on screenshots even for the most trivial things that partners insist they have performed as you asked. They are also good for giving you a mental image of what is happenning on the phone remotely.
