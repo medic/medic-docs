@@ -79,8 +79,8 @@ Configuration :
     "message": "{{num_counted_reports}} patients with {{alert_name}} in {{time_window_in_days}} days reported at {{new_reports.0.contact.parent.name}}. New reports from: {{new_reports.0.contact.name}}, {{new_reports.1.contact.name}}, {{new_reports.2.contact.name}}.",
     "recipients": [
       "+123456"
-      "new_report.contact.phone", // sender of the latest report
-      "new_report.contact.parent.parent.contact.phone", // contact person for the parent place of the sender of the report
+      "new_report.contact.phone", // sender of each report in new_reports
+      "new_report.contact.parent.parent.contact.phone", // contact person for the parent place of the sender of each report in new_reports
     ],
     "time_window_in_days": 7,
     "forms": ["C", "D"] // Only Cholera and Diarrhea forms.
