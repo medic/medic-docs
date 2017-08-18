@@ -42,27 +42,55 @@ Guides for how to setup specific transitions.
 
 ### multi_report_alerts
 
-Full documentation in [kanso.json](https://github.com/medic/medic-webapp/blob/master/kanso.json) or in the Dashboard app_settings page.
+Additional documentation in [kanso.json](https://github.com/medic/medic-webapp/blob/master/kanso.json) or in the Dashboard app_settings page.
 
 Send alert messages by SMS when specific conditions are received through reports. More flexible than simple Alerts.
 
 Example: send SMS to the district manager when 2 CHWs within the same district report cholera or diarrhea symptoms within the last week.
 
+
+Understanding the different types of reports used in the configuration:
+
 ```
-"multi_report_alerts": [{
-    "numReportsThreshold": 2,
-    "timeWindowInDays": 7,
-    "isReportCounted": "function(report, latestReport) { return latestReport.contact.parent.parent._id === report.contact.parent.parent._id; }",
-    "message": "2 patients with big problem in 7 days, reported at {{countedReports[0].contact.parent.parent.name}}. Report by {{countedReports[0].contact.name}} ({{countedReports[0].contact.phone}}) for patient {{countedReports[0].patient_id}}. Report by {{countedReports[1].contact.name}} ({{countedReports[1].contact.phone}}) for patient {{countedReports[1].patient_id}}",
+             previous suspected_cholera alert was sent
+             |
+             |           latest_report comes in, suspected_cholera alert is sent
+             |           |
+             v           v
+---[---*-o---*--*--o-o---*]------->    time
+                1        0
+```
+
+`[]` : time window
+
+`*` and `o` : `reports` : any report that came in to the server.
+
+`*` : `counted_reports` : reports that came in that passed the `is_report_counted` filter function.
+
+`0`, `1` : `new_reports` : `counted_reports` that came in since the previous alert was sent. They haven't been messaged about yet.
+
+Configuration :
+```
+"multi_report_alerts" : [
+  {
+    "name": "suspected_cholera",
+    "is_report_counted": "function(report, latest_report) {  return latest_report.contact.parent.parent._id === report.contact.parent.parent._id; }",
+    "num_reports_threshold": 2,
+    "message": "{{num_counted_reports}} patients with {{alert_name}} in {{time_window_in_days}} days reported at {{new_reports.0.contact.parent.name}}. New reports from: {{new_reports.0.contact.name}}, {{new_reports.1.contact.name}}, {{new_reports.2.contact.name}}.",
     "recipients": [
-      "+123456789",
-      "countedReports[0].contact.phone", // sender of the latest report
-      "countedReports[0].contact.parent.parent.contact.phone", // contact person for the parent place of the sender of the report
-      "countedReports.map((report) => report.contact.phone)" // all senders of reports counted in the alert.
+      "+123456"
+      "new_report.contact.phone", // sender of each report in new_reports
+      "new_report.contact.parent.parent.contact.phone", // contact person for the parent place of the sender of each report in new_reports.
+      // If it's the same for several reports, only one message will be sent (recipient phone numbers are deduplicated before generating messages).
     ],
+    "time_window_in_days": 7,
     "forms": ["C", "D"] // Only Cholera and Diarrhea forms.
-  }]
+  }
+]
 ```
+
+Note that we are using Mustache templates for our message templates (anything with `{{}}`), and they use a `.` notation to access items in an array (e.g. `new_reports.1`) rather than a `[]` notation as in conventional javascript (`new_reports[1]`).
+
 
 ### Registration
 
