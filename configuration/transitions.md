@@ -80,7 +80,8 @@ Configuration :
     "recipients": [
       "+123456"
       "new_report.contact.phone", // sender of each report in new_reports
-      "new_report.contact.parent.parent.contact.phone", // contact person for the parent place of the sender of each report in new_reports
+      "new_report.contact.parent.parent.contact.phone", // contact person for the parent place of the sender of each report in new_reports.
+      // If it's the same for several reports, only one message will be sent (recipient phone numbers are deduplicated before generating messages).
     ],
     "time_window_in_days": 7,
     "forms": ["C", "D"] // Only Cholera and Diarrhea forms.
