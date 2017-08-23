@@ -57,17 +57,18 @@ Understanding the different types of reports used in the configuration:
              |           latest_report comes in, suspected_cholera alert is sent
              |           |
              v           v
----[---*-o---*--*--o-o---*]------->    time
+---[---o-o---o--o--o-o---o]------->    time
+       *     *  *        *
                 1        0
 ```
 
-`[]` : time window
+`[]` is the time window
 
-`*` and `o` : `reports` : any report that came in to the server.
+`o` markers are `reports` : any report that came in to the server.
 
-`*` : `counted_reports` : reports that came in that passed the `is_report_counted` filter function.
+`*` markers are `counted_reports` : reports that came in that passed the `is_report_counted` filter function.
 
-`0`, `1` : `new_reports` : `counted_reports` that came in since the previous alert was sent. They haven't been messaged about yet.
+Number markers (`0`, `1`) are `new_reports` : `counted_reports` that came in since the previous alert was sent. They haven't been messaged about yet.
 
 Configuration :
 ```
