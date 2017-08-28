@@ -6,9 +6,9 @@ In the `app_settings.contact_summary` you can write a script to output fields fo
 
 There are two variables available to you to inspect to generate the summary information:
 
-- `contact` which is the currently selected contact.
+- `contact` which is the currently selected contact. This has minimal stubs for the `contact.parent`, so if you want to refer to a property on the parent use `lineage` below.
 - `reports` which is an array of reports for the contact.
-- `lineage` which is an array of the contacts parents (added in 2.13.0).
+- `lineage` which is an array of the contacts parents (added in 2.13.0). `lineage[0]` is the parent, `lineage[1]` is the grandparent, etc. Each lineage entry has full information for the contact, so you can use `lineage[1].contact.phone` for example.
 
 ## Outputs
 
