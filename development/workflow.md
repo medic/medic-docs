@@ -64,15 +64,11 @@ Issues are managed in Github. When creating issues assign a status value by choo
 
 If an issue has no status label at all then it needs to be triaged to work out the scheduled and priority.
 
-#### 0 - Backlog
-
-Proposed but not approved for development yet. This issue may be closed as unrequired, moved into scheduled, or linger in purgatory forever more.
-
-#### 1 - Scheduled
+#### 1 - Triaged
 
 We have all the design and detail we need to begin development. Once issues are in this state they can be selected for inclusion in a milestone and can be assigned to a developer for Active Work.
 
-#### 2 - Active Work
+#### 2 - Active work
 
 In development and being worked on. Issues in this state must be assigned to a developer and be in the current milestone.
 
@@ -82,7 +78,7 @@ Create one feature branch in each of the repositories you update. The name of th
 2. Link from the PR to the original issue or vice versa.
 3. Assign the original issue to another developer for review, the PR can be left unassigned since it's linked on the original issue.
 
-#### 3 - Code Review
+#### 3 - Code review
 
 All non-trivial commits should be reviewed by another developer. Reviews should focus on code readability, test quality and coverage, and looking for obvious bugs.
 
@@ -94,7 +90,7 @@ Once the code passes review:
 2. Apply the Acceptance Testing tag.
 3. Clear your assignment.
 
-#### 4 - Acceptance Testing
+#### 4 - Acceptance testing
 
 Ready to be user acceptance tested. If the issue passes acceptance testing then apply the Ready state tag and close the issue. However if the issue fails then add the Active Work and Returned tags, assigned back to the developer who worked on it, and move it to the current milestone.
 
@@ -120,8 +116,7 @@ We are trying to cut down on a giant unmanagable backlog of possibly irrelevant 
 
 Before the end of the sprint, you must, for each ticket assigned to you, work out if that ticket should be scheduled or closed. You may need to ask other relevant people about it, so you probably won't want to leave it until the last day. You can either :
 
- - **schedule it**: the issue is currently relevant and should be done as soon as time and priorities allow. Label it `1 - Scheduled`. No need to put it in current sprint. It will be considered for future sprints.
-
- - **close it**: if it is not that relevant, or might be interesting deep in the future, or is interesting but maybe not a big deal: **just close it**! If it's really that important it will come up again.
+ - **schedule it**: the issue is currently relevant and should be done as soon as time and priorities allow. Label it `1 - Triaged`, pick only one of the type labels, and one of the priority labels. No need to put it in current sprint - it will be considered for future sprints.
+ - **close it**: if it is not that relevant, or might be interesting deep in the future, or is interesting but maybe not a big deal: **just close it**! Add the relevant "Won't fix" label. If it's really that important it will come up again.
 
 Regardless of what you do with the ticket, please document the reasoning by commenting in the issue. This will help reduce mistakes, as the reasoning will be available for everyone to read, and any mistakes there can be rectified.
