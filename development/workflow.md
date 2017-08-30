@@ -92,12 +92,11 @@ Once the code passes review:
 
 1. Merge the Pull Request. Most of the time we use the Squash and Merge technique to make the git history as clean as possible.
 2. Apply the Acceptance Testing tag.
-3. Close the issue.
-4. Clear your assignment.
+3. Clear your assignment.
 
 #### 4 - Acceptance Testing
 
-Ready to be user acceptance tested. If the issue passes acceptance testing then apply the Ready state tag. However if the issue fails then: reopened it, add the Active Work and Returned tags, assigned back to the developer who worked on it, and move it to the current milestone.
+Ready to be user acceptance tested. If the issue passes acceptance testing then apply the Ready state tag and close the issue. However if the issue fails then add the Active Work and Returned tags, assigned back to the developer who worked on it, and move it to the current milestone.
 
 #### 5 - Ready
 
