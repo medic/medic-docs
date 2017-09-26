@@ -2,9 +2,7 @@
 
 Targets refers to our in-app analytics widgets. These widgets can be configured to track metrics for an individual CHW or for an entire health facility, depending on what data the logged in user has access to. Targets can be configured for any user that has offline access (user type is "restricted to their place"). When configuring targets, you have access to all the contacts (people and places) that your logged in user can view, along with all the reports about them.
 
-## Types of Widgets
-
-We currently have 3 types of widgets available:
+## Types of targets
 
 ### Plain count with no goal
 
@@ -13,6 +11,10 @@ We currently have 3 types of widgets available:
 ### Count with a goal
 
 ![Count with goal](img/target_count_with_goal.png)
+
+### Percentage with no goal
+
+![Percentage no goal](img/target_percent_no_goal.png)
 
 ### Percentage with a goal
 
@@ -74,40 +76,35 @@ Each of your targets must be defined so that the app knows how to render it. You
 * `icon`: You can use any icon that you like, but make sure the icon has been uploaded to your instance and the name matches.
 * `goal`: For percentage targets, you must put a positive number. For count targets, put a positive number if there is a goal. If there is no goal, put -1.
 * `context`: This is an expression similar to form context that describes which users will see a certain target. In this case, you only have access to the `user` (person logged in) and not to the `contact` since you are not on a person or place profile page.
-* `name`: The name of your target that will appear to the user. This field supports locales, so you can include translations if you have users viewing the app in different languages on the same instance.
+* `translation_key`: The name of the translation key to use for the title of this target.
+* `subtitle_translation_key`: The name of the translation key to use for the subtitle of this target. If none supplied the subtitle will be blank.
+* `percentage_count_translation_key`: The name of the translation key to use for the percentage value detail shown at the bottom of the target, eg: "(5 of 6 deliveries)". The translation context has `pass` and `total` variables available. If none supplied this defaults to "targets.count.default".
 
 #### Example Target Definition - Count
 
-```
+```JSON
 {
   "type": "count",
   "id": "assessments-u1",
   "icon": "infant",
   "goal": 4,
   "context": "user.parent.parent.name == 'San Francisco'",
-  "name": [
-    {
-      "locale": "en",
-      "content": "U1 Sick Child Assessments"
-    }
-  ]
+  "translation_key": "targets.assessments.title",
+  "subtitle_translation_key": "targets.assessments.subtitle"
 }
 ```
 
 #### Example Target Definition - Percent
 
-```
+```JSON
 {
   "type": "percent",
   "id": "newborn-visit-48hr",
   "icon": "mother-child",
   "goal": 85,
-  "name": [
-    {
-      "locale": "en",
-      "content": "% Newborn Care Visit within 48 hours"
-    }
-  ]
+  "translation_key": "targets.visits.title",
+  "subtitle_translation_key": "targets.visits.subtitle",
+  "percentage_count_translation_key": "targets.visits.detail"
 }
 ```
 
