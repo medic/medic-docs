@@ -26,7 +26,7 @@ Then if needed, install apps:
 
 ### Standard
 
-* [Install a new standard project on an instance](installation/install-a-new-standard-project.md)
+* [Installing a standard project](installation/install-a-new-standard-project.md)
 
 ## Configuration
 
