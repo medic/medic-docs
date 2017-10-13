@@ -45,6 +45,7 @@ Then if needed, install apps:
 ## Support and Troubleshooting
 
 * [Dealing with conflicts](troubleshooting/conflicts.md)
+* [Troubleshooting - Quick Pointers and Tips](troubleshooting/troubleshooting-quick-pointers.md)
 
 ## Development
 
