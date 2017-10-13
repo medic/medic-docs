@@ -24,6 +24,10 @@ Then if needed, install apps:
 * [Medic gateway configuration](configuration/gateway-config.md)
 * [Medic gateway recommended phones](configuration/gateway-phones.md)
 
+### Standard
+
+* [Install a new standard project on an instance](installation/install-a-new-standard-project.md)
+
 ## Configuration
 
 * [Forms](configuration/forms.md)
