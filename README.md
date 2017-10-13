@@ -26,7 +26,7 @@ Then if needed, install apps:
 
 ### Standard
 
-* [Installing a standard project](installation/install-a-new-standard-project.md)
+* [Installing a standard project](installation/installing-a-standard-project.md)
 
 ## Configuration
 
