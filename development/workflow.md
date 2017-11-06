@@ -4,17 +4,15 @@
 
 Each day developers post our objectives in the #dailies Slack channel for the previous and current day and discuss any potential blockers. If a issue will not be completed within an iteration time frame that should be discussed.
 
-There are optional daily standup meetings, at 9am UTC (10am CEST) and 8pm UTC (9am NZST). Show up if you want, it's a good place to check in and discuss issues.
+There are optional daily standup meetings twice a day roughly 12 hours apart. Show up to whichever one fits with your timezone. It's a good place to check in and discuss issues.
 
 ## Weekly Call
 
-Each week the team meets on a call to discuss progress and plans for the next week. Someone reports back to #weeklies to update the wider team.
+Each week the team meets on a call to discuss progress and plans for the next week. Notes are taken in the [agenda doc](https://docs.google.com/document/d/14AuJ7SerLuOPESBjQlJqpBtzwSAoVf5ykTT7fjyJBT0/edit#). Someone reports back so our progress can be reported in #medic-news for the wider team.
 
-## Fortnightly Iterations
+## Monthly Goals
 
-We strive to do fortnightly iterations with feature reviews and deployment to our beta/testing market. An iteration begins with a meeting where the relevant issues are discussed, prioritized and assigned.
-
-At the end of each iteration we have a meeting where working code is demonstrated and acceptance by stake holders is confirmed. Issues are closed or moved to a ready or released state and new issues are potentially opened if unfinished work or new issues are discovered.
+At the end of each month we review progress and plan the goals for the next month.
 
 ## Coding
 
