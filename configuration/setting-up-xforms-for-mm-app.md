@@ -37,7 +37,7 @@ add a `README` in the scripts folder referencing these scripts and indicating ho
 
  ### Converting and uploading 
 
-- Install and use [Medic-Configurer] to upload the XForms.
+- Install and use [Medic-Configurer](https://github.com/medic/medic-configurer) to upload the XForms.
 
 
 ### Notes:
