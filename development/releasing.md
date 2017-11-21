@@ -10,27 +10,6 @@ When all the required issues are fixed in master it's time to put together a rel
 ```bash
 npm install --save google-libphonenumber@latest
 ```
-  - Confirm the the git submodules (api and sentinel) are on the latest commit on the right branch (should mirror the parent repo).
-```bash
-#!/bin/sh
-#
-# Update git submodules based on configuration in .gitmodules and push changes
-# to remote if there are any.
-#
-
-set -e
-
-git submodule update --remote api
-git submodule update --remote sentinel
-
-if (git diff --exit-code api sentinel); then
-  echo 'Submodules are up to date.'
-else 
-  git commit -m 'bumping submodules' api sentinel
-  git push
-  echo 'Submodules updated and pushed, confirm new build in CI succeeds.'
-fi
-```
   - [Export the translations](translations.md#exporting-changes-from-poeditor-to-github) for all languages from POE which pushes directly to `master` so pull these changes locally.
   - Create a new release branch from `master` named `<major>.<minor>.x` in medic-webapp, medic-sentinel, and medic-api.
 3. Set the version number from step 1 in medic-webapp kanso.json, package.json, and npm-shrinkwrap.json. If releasing a new major or minor, also set the versions in `master` to be the next version (e.g. `<major>.<minor+1>.0`), so that the alpha builds will have the right version.
@@ -43,7 +22,7 @@ fi
 6. Commit and push the above changes.
 7. Release a beta for the new version by tagging the release branch, ie: `git tag <version>-beta.<beta-number> && git push --tags`
 8. Wait for the build to succeed then notify developers, testers, and product managers to begin release testing. Until release testing passes, fix the issues in `master`, and go back to step 4.
-9. Create a release in GitHub so it shows up under the [Releases tab](https://github.com/medic/medic-webapp/releases) with the naming convention `<major>.<minor>.<patch>`. This will create the git tag automatically. Copy the entry from the changes log as the release description. Also create a tag in medic-api and medic-sentinel with the same tag name.
+9. Create a release in GitHub so it shows up under the [Releases tab](https://github.com/medic/medic-webapp/releases) with the naming convention `<major>.<minor>.<patch>`. This will create the git tag automatically. Copy the entry from the changes log as the release description.
 10. Confirm the release build completes successfully and the new release is available on the correct [market](https://staging.dev.medicmobile.org).
 11. Copy the changelog for the release from the release branch into `master`
 12. Let the product manager (Sharon) know to announce the release.
