@@ -77,9 +77,9 @@ When creating a task, you are required to pass in a contact, a schedule and a re
 * `contact`: Set to the contact you passed in. Has contact information only.
 * `icon`: Set to the `icon` specified for the task in `task-schedules.json`.
 * `priority`: Set to high priority if there is a description for the task in `task-schedules.json`. High priority means that the task has the high risk icon on the right hand side.
-* `priorityLabel`: Set to the `description` listed in `task-schedules.json` for the task if there is a description.
+* `priorityLabel`: Set to the `description` listed in `task-schedules.json` for the task if there is a description. Use a translation key for internationalisation support.
 * `date`: This is the due date of the task. It is left null during task creation and set later.
-* `title`: Set to the `title` that you indicated in your `task-schedules.json` file. The title is the text that appears in the UI on the task.
+* `title`: Set to the `title` that you indicated in your `task-schedules.json` file. The title is the text that appears in the UI on the task. Use a translation key for internationalisation support.
 * `fields`: Fields are pieces of data that display on the task summary screen. List a label and value for each field you want to display on the summary screen.
 * `resolved`: This tracks whether or not the task has been completed. It is set to false initially and then updated to a condition later.
 * `actions`: This is an array of the actions (forms) that a user can access after clicking on a task. If you put multiple forms here, then the user will see a task summary screen where they can select which action they would like to complete.
