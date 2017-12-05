@@ -110,9 +110,7 @@ At the time of writing it will be run once every sprint, and will assign 2 issue
 
 ### What do I do with one of these tickets?
 
-We are trying to cut down on a giant unmanagable backlog of possibly irrelevant tickets.
-
-Before the end of the sprint, you must, for each ticket assigned to you, work out if that ticket should be scheduled or closed. You may need to ask other relevant people about it, so you probably won't want to leave it until the last day. You can either :
+We are trying to keep on top of our backlog of issues. Before the end of the sprint, you must, for each ticket assigned to you, work out if that ticket should be scheduled or closed. You may need to ask other relevant people about it, so you probably won't want to leave it until the last day. You can either :
 
  - **schedule it**: the issue is currently relevant and should be done as soon as time and priorities allow. Label it `1 - Triaged`, pick only one of the type labels, and one of the priority labels. No need to put it in current sprint - it will be considered for future sprints.
  - **close it**: if it is not that relevant, or might be interesting deep in the future, or is interesting but maybe not a big deal: **just close it**! Add the relevant "Won't fix" label. If it's really that important it will come up again.
