@@ -7,18 +7,6 @@
 * [Changelog](https://github.com/medic/medic-webapp/blob/master/Changes.md)
 * [Supported software](installation/supported-software.md)
 
-### Setup Medic OS
-
-Pick your VM software:
-
-* [VMWare player](installation/mmva-vmware.md)
-* [Virtual box](installation/mmva-vbox.md)
-* [VMWare fusion](installation/mmva-vmware-fusion.md)
-
-Then if needed, install apps:
-
-* [Installing apps](installation/garden.md)
-
 ### Medic Gateway
 
 * [Medic gateway configuration](configuration/gateway-config.md)
