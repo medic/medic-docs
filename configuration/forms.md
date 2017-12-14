@@ -6,15 +6,98 @@ There are two types of forms:
 - **JSON forms**: used for SMS interfaces such as formatted SMS, SIM applications, and Medic Collect*
 - **XForms**: used for forms used within the web app, whether it is accessed in browser or via the Android app.
 
-You can view the list of JSON forms and load new ones through the webapp's interface (in Configuration). You can also upload them from command line with the [load_forms.js](https://github.com/medic/medic-webapp/blob/master/scripts/load_forms.js) script.
+## JSON forms
+Used for SMS interfaces such as formatted SMS, SIM applications, and Medic Collect. You can view the list of JSON forms and load new ones through the webapp's Configuration pages, or via the `forms` field of `app_settings.json`. Each form has fields defined in our specific JSON format, eg:
 
-You can view the XML forms from Futon (check out the `forms` view). You can upload new forms from command line with the [upload_xform.sh](https://github.com/medic/medic-webapp/blob/master/scripts/upload_xform.sh) script. XML forms with ids starting with `forms:contact:` will customize the edit/create page for the given contact (person or place) type.
+```
+    "F": {
+      "meta": {
+        "code": "F",
+        "icon": "risk",
+        "label": {
+          "en": "Danger sign flag (SMS)",
+          "hi": "खतरे की सूचना (SMS)",
+          "id": "Laporan tanda bahaya (SMS)"
+        }
+      },
+      "fields": {
+        "patient_id": {
+          "labels": {
+            "description": {
+              "en": "Patient ID"
+            },
+            "short": {
+              "en": "ID"
+            },
+            "tiny": {
+              "en": "ID"
+            }
+          },
+          "position": 0,
+          "type": "string",
+          "flags": {
+            "input_digits_only": true
+          },
+          "length": [
+            5,
+            13
+          ],
+          "required": true
+        },
+        "notes": {
+          "labels": {
+            "description": {
+              "en": "Notes"
+            },
+            "short": {
+              "en": "Notes"
+            },
+            "tiny": {
+              "en": "N"
+            }
+          },
+          "position": 1,
+          "type": "string",
+          "length": [
+            1,
+            100
+          ],
+          "required": false
+        }
+      },
+      "public_form": true
+    }
+```
+
+# XForms
+The XForms are used for all Actions, Tasks, and Contact Creation/Edit forms within the web app, whether it is accessed in browser or via the Android app. We generally create these in Excel using the [XLSForm standard](http://xlsform.org/), and then convert them using the configurer tool ([medic-conf](https://github.com/medic/medic-conf)). You can view the list of XForms and upload new ones through the webapp's Configuration pages as well. Each form has meta information which defines in which context the form is accessible. Using `medic-config` this info is in a `{name}.properties.json` file. XML forms with IDs starting with `forms:contact:` will customize the edit/create page for the given contact (person or place) type.
 
 ![XML forms](img/xml_forms.png)
 
 _*Note that although Medic Collect uses XForms in the Android app, for now it still needs a corresponding JSON form in the webapp to interpret the incoming report._
 
-## Accessing the contact-summary
+## General Structure
+A typical Action or Task form starts with an `inputs` group which contains prepopulated fields that may be needed during the completion of the form (eg patient's name, prior information), and ends with a summary group (eg `group_summary`, or `group_review`) where important information is shown to the user before they submit the form. In between these two is the form flow, usually a collection of questions grouped into pages. All data fields submitted with a form are stored, but often important information that will need to be accessed from the form is brought to the top level.
+
+| **type** | **name** | **label** | ... |
+|---|---|---|---|
+| begin group | inputs | Inputs |
+| string | source | Source |
+| string | source_id | Source ID |
+| end group| | |
+| calculate | patient_id | Patient ID |
+| calculate | patient_name | Patient Name |
+| calculate | edd | EDD |
+...
+| begin group | group_review | Review |
+| note | r_patient_info | \*\*${patient_name}\*\* ID: ${r_patient_id} |
+| note | r_followup | Follow Up <i class="fa fa-flag"></i> |
+| note | r_followup_note | ${r_followup_instructions} |
+| end group| | |
+
+
+
+## Accessing data from the contact-summary
 
 xforms have the ability to access the output of the [configured contact-summary script](https://github.com/medic/medic-docs/blob/master/configuration/contact-summary.md). This means you can have different fields, state, or information based on any known information about the contact.
 
