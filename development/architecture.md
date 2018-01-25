@@ -30,17 +30,19 @@ nginx proxies all requests to api and adds encryption and compression.
 
 ## Client side
 
-### [medic-webapp](https://github.com/medic/medic-webapp/)
+### [medic-webapp](https://github.com/medic/medic-webapp)
 
 This is the application that most users interact with. It's an [AngularJS](https://angularjs.org) single page responsive web application.
 
 We use an offline first strategy which means the data is stored on the client and all pages can load immediately regardless of whether you have a fast connection, slow connection, or no connection at all. The data is stored in [PouchDB](https://pouchdb.com) which replicates changes back and forth in the background with the server CouchDB.
 
-The application works in the browser or wrapped in the [medic-android](https://github.com/medic/medic-android) android app which allows for project branding, sets the project URL, and hides browser elements like the URL bar.
-
 We use [Enketo](https://enketo.org) to render configured xforms and help with styling and dynamic elements such as show/hide and validation rules.
 
 We use the [nools](https://github.com/C2FO/nools) rules engine to compute the upcoming tasks and monthly targets of the users.
+
+### [medic-android](https://github.com/medic/medic-android)
+
+The application works in the browser or wrapped in the medic-android app which allows for project branding, sets the project URL, and hides browser elements like the URL bar.
 
 ## Other applications
 
