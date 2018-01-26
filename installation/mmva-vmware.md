@@ -101,3 +101,19 @@ Copy the password down somewhere safe so you don't lose or forget it.
 Great, your VM is running! 
 
 Next: [Install some apps](garden.md)
+
+### Troubleshooting
+
+You might encounter issues with your vm characterized by a memory related screen popup or / and vm freezing in some Ubuntu distros.
+
+Apply the following commands derived from [here](https://askubuntu.com/a/973130) to fix the issue. You can convert them to an executable script by copying them to a file.
+
+```shell
+cd /tmp
+git clone https://github.com/mkubecek/vmware-host-modules.git
+cd vmware-host-modules
+git checkout workstation-14.0.0  # choose the branch named after your vmplayer version
+tar cf vmmon.tar vmmon-only
+sudo cp vmmon.tar /usr/lib/vmware/modules/source
+sudo vmware-modconfig --console --install-all
+```
