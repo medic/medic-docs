@@ -128,5 +128,7 @@ Additionally, if there are missing labels:
  
 ### Anything else?
 
-Regardless of what you do with the ticket, please document the reasoning by commenting in the issue. This will help reduce mistakes, as the reasoning will be available for everyone to read, and any mistakes there can be rectified.
+Regardless of what you do with the ticket, please:
+ - Remove the `Needs Triage` label once triage is complete
+ - Document the reasoning by commenting in the issue. This will help reduce mistakes, as the reasoning will be available for everyone to read, and any mistakes there can be rectified.
 
