@@ -100,19 +100,33 @@ Passed acceptance testing and ready for release.
 
 The code to resolve the issue has been released to the market.
 
-## Triaging old issues
+## Triaging old tickets
 
-There is a [script](https://github.com/SCdF/github-issue-roulette) that can be configured to run against medic-webapp.
+We periodically run a [script](https://github.com/medic/github-issue-roulette) against medic-webapp tickets. We do this to catch two situations:
+ - Tickets that do not have the three labels they need (Type, Priority and Status)
+ - Tickets that have not been touched in 90 days
+ 
+The plan is to keep cruft in our ticket DB to a minimum, and have them curated into a colletion of detailed clear tickets that can and should be actionable in the near to mid future.
 
-This script is meant to randomly assign old untriaged issues to devs in the sprint.
+You will occasionally get assigned tickets and asked to deal with one or both of the above problems.
 
-At the time of writing it will be run once every sprint, and will assign 2 issues per developer.
+### What do I do when I get one of these tickets?
 
-### What do I do with one of these tickets?
+Use your judgement (or someone else's, feel free to pull in others either directly on the ticket or via Slack etc) to decide:
+ - Is its description too vague? Is it detailed enough to be actionable?
+ - Is this something we want to do **in the near future**? Does it fit with our product etc?
+ - If this is an older ticket, do you think it is still relevant? Is there still interest? (If there is no interest it can be closed: it can always be re-opened or re-written in the future)
+ - Is this covered by existing tickets, or existing plans?
+ - If it's a bug, does it have: steps to reproduce; expected behaviour; actual behaviour; server info, browser info, screenshots etc where applicable?
 
-We are trying to keep on top of our backlog of issues. Before the end of the sprint, you must, for each ticket assigned to you, work out if that ticket should be scheduled or closed. You may need to ask other relevant people about it, so you probably won't want to leave it until the last day. You can either :
+From this decide if you need to go back to the ticket creator for more information, or close the ticket (using one of the `Won't Fix` labels), or keep it.
 
- - **schedule it**: the issue is currently relevant and should be done as soon as time and priorities allow. Label it `1 - Triaged`, pick only one of the type labels, and one of the priority labels. No need to put it in current sprint - it will be considered for future sprints.
- - **close it**: if it is not that relevant, or might be interesting deep in the future, or is interesting but maybe not a big deal: **just close it**! Add the relevant "Won't fix" label. If it's really that important it will come up again.
+Additionally, if there are missing labels:
+ - Type should be reasonably obvious: which of those labels most fits the issue
+ - Status should almost certainly be `Status: 1 - Triaged`
+ - Priority is dependent on the severity of the problem: if it's a production issue it's probably high, if it's a minor thing it's probably low, medium for everything else (but use your judgement)
+ 
+### Anything else?
 
 Regardless of what you do with the ticket, please document the reasoning by commenting in the issue. This will help reduce mistakes, as the reasoning will be available for everyone to read, and any mistakes there can be rectified.
+
