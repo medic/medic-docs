@@ -21,6 +21,8 @@
 * [Forms](configuration/forms.md)
 * [App settings](configuration/app-settings.md)
 * [Replication](configuration/replication.md)
+* [Tasks](configuration/tasks.md)
+* [Targets](configuration/targets.md)
 * [Contact summary cards](configuration/contact-summary.md)
 * [Sentinel transitions](configuration/transitions.md)
 * [CouchDB authentication](configuration/couchdb-authentication.md)
