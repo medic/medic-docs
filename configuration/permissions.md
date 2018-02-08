@@ -15,7 +15,6 @@ The user types that can have permissions adjusted are:
 
 | Key | Description |
 |---|---|
-| can_access_directly |  |
 | can_access_gateway_api |  |
 | can_bulk_delete_reports |  |
 | can_configure |  |
