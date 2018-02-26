@@ -21,20 +21,24 @@ In this example the `d` transition will not be applied, but the other three will
 
 ## Available transitions
 
+The following transitions are available and executed in order.
+
 | Key | Description |
 |---|---|
-| accept_patient_reports | Validates reports about a patient and silences relevant reminders. |
-| conditional_alerts | Executes the configured condition and sends an alert if the condition is met. |
-| default_responses | Responds to the message with a confirmation or validation error. |
-| [multi_report_alerts](#multi_report_alerts) | Similar to conditional_alerts, with more flexible configuration, including using different form types for the same alert. |
-| [registration](#registration) | For registering a patient to a schedule. Performs some validation and creates the patient document if the patient does not already exist. |
-| resolve_pending | Sets the state of pending messages to sent. It is useful during builds where we don't want any outgoing messages queued for sending. |
+| maintain_info_document | Records metadata about the document such as when it was replicated. Enabled by default. |
 | update_clinics | Update clinic data on new data records, use refid for clinic lookup otherwise phone number. |
-| update_notifications | Mutes or unmutes scheduled messages based on configuration. |
-| update_scheduled_reports | If a report has a month/week/week_number, year and clinic then look for duplicates and update those instead. |
+| [registration](#registration) | For registering a patient to a schedule. Performs some validation and creates the patient document if the patient does not already exist. |
+| accept_patient_reports | Validates reports about a patient and silences relevant reminders. |
+| [generate_patient_id_on_people](#generate-patient-id-on-people) | Automatically generates the `patient_id` on all person documents. |
+| default_responses | Responds to the message with a confirmation or validation error. |
 | update_sent_by | Sets the sent_by field of the report based on the sender's phone number. |
 | update_sent_forms | Update sent_forms property on facilities so we can setup reminders for specific forms. |
-| [generate_patient_id_on_people](#generate-patient-id-on-people) | Automatically generates the `patient_id` on all person documents. |
+| death_reporting | Updates the deceased status of patients. |
+| conditional_alerts | Executes the configured condition and sends an alert if the condition is met. |
+| [multi_report_alerts](#multi_report_alerts) | Similar to conditional_alerts, with more flexible configuration, including using different form types for the same alert. |
+| update_notifications | Mutes or unmutes scheduled messages based on configuration. |
+| update_scheduled_reports | If a report has a month/week/week_number, year and clinic then look for duplicates and update those instead. |
+| resolve_pending | Sets the state of pending messages to sent. It is useful during builds where we don't want any outgoing messages queued for sending. |
 
 ## Transition Configuration Guide
 
