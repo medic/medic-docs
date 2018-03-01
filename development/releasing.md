@@ -10,8 +10,8 @@ When all the required issues are fixed in master it's time to put together a rel
 ```bash
 npm install --save google-libphonenumber@latest
 ```
-  - [Export the translations](translations.md#exporting-changes-from-poeditor-to-github) for all languages from POE which pushes directly to `master` so pull these changes locally.
-  - Create a new release branch from `master` named `<major>.<minor>.x` in medic-webapp, medic-sentinel, and medic-api.
+  - [Export the translations](translations.md#exporting-changes-from-poeditor-to-github) for all languages from POE which pushes directly to `master` so pull these changes locally. Do a diff between the latest English translations and translations in the previous release to find all the ones that have been updated. Send the list of updated translations to Jill Shah so the other languages can be updated too.
+  - Create a new release branch from `master` named `<major>.<minor>.x` in medic-webapp.
 3. Set the version number from step 1 in medic-webapp kanso.json, package.json, and npm-shrinkwrap.json. If releasing a new major or minor, also set the versions in `master` to be the next version (e.g. `<major>.<minor+1>.0`), so that the alpha builds will have the right version.
 4. If releasing a service pack use `git cherry-pick` to merge the relevant commits into the release branch.
 5. Update the [changelog](https://github.com/medic/medic-webapp/blob/master/Changes.md) include descriptions of bug fixes, features, breaking changes, known issues, and workarounds. Include link to issues or further documentation where applicable. You may find [this script](https://github.com/medic/medic-webapp/blob/master/scripts/changelog-generator.js) useful to find issues closed since the previous release, however the script output will need a lot of curation before it's ready to publish, for example, the title should be rewritten in plain English. Also check that the issue...
