@@ -29,9 +29,14 @@ Tech leads please read the [documentation guidelines](configuration-documentatio
 - [Medic Mobile Gateway Configuration](gateway-config.md)
 - [List of Phones that Work Well with Medic Gateway](gateway-phones.md)
 
-5. Miscellaneous
+5. Medic-Os
+- [Install SSL Cerificates to VM](install-ssl-certificates-to-vm.md)
 
-- [Data deletion](data-deletion.md)
+6. Users
 - [Pyxform](pyxform.md)
 - [Supervisor creation](supervisor-creation.md)
+
+7. Data
+- [Data deletion](data-deletion.md)
 - [Revalidate Invalidated Reports](revalidate-invalidated-report.md)
+
