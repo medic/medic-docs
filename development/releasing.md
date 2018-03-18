@@ -14,11 +14,7 @@ npm install --save google-libphonenumber@latest
   - Create a new release branch from `master` named `<major>.<minor>.x` in medic-webapp.
 3. Set the version number from step 1 in medic-webapp kanso.json, package.json, and npm-shrinkwrap.json. If releasing a new major or minor, also set the versions in `master` to be the next version (e.g. `<major>.<minor+1>.0`), so that the alpha builds will have the right version.
 4. If releasing a service pack use `git cherry-pick` to merge the relevant commits into the release branch.
-5. Update the [changelog](https://github.com/medic/medic-webapp/blob/master/Changes.md) include descriptions of bug fixes, features, breaking changes, known issues, and workarounds. Include link to issues or further documentation where applicable. You may find [this script](https://github.com/medic/medic-webapp/blob/master/scripts/changelog-generator.js) useful to find issues closed since the previous release, however the script output will need a lot of curation before it's ready to publish, for example, the title should be rewritten in plain English. Also check that the issue...
-  - was actually fixed and not just closed as a duplicate or being old or whatever
-  - existed in a previous released version - ff not, it didn't affect anyone so shouldn't be notified
-  - isn't already documented in the changelog
-  - is categorised correctly (feature, bug, performance, etc).
+5. Update the [changelog](https://github.com/medic/medic-webapp/blob/master/Changes.md). Ensure all issues are in the GH Project, that they're correct labelled, have human readable descriptions. Use [this script](https://github.com/medic/medic-webapp/blob/master/scripts/changelog-generator) to export the issues into our changelog format. Manually document any known migration steps and known issues.
 6. Commit and push the above changes.
 7. Release a beta for the new version by tagging the release branch, ie: `git tag <version>-beta.<beta-number> && git push --tags`
 8. Wait for the build to succeed then notify developers, testers, and product managers to begin release testing. Until release testing passes, fix the issues in `master`, and go back to step 4.
