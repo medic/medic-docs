@@ -618,64 +618,9 @@ If you can think of any others you'd like to be included raise an issue in [medi
 
 ### Uploading
 ### Examples
-#### Example Task Definition - Normal Task
-
-This example shows one task in the schedule. For schedules with multiple tasks, add an event for each task.
-
-```
-{
-  "name": "assessment-treatment",
-  "events": [
-    {
-      "id": "treatment-followup-1",
-      "days": 2,
-      "start": 2,
-      "end": 2,
-      "icon": "treatment",
-      "title": [
-        {
-          "content": "{{contact.name}} treatment follow up",
-          "locale": "en"
-        }
-      ]
-    }
-  ]
-}
-```
-
-#### Example Task Definition - High Priority Task
-
-This example shows one task in the schedule. For schedules with multiple tasks, add an event for each task.
-
-```
-{
-  "name": "assessment-referral",
-  "events": [
-    {
-      "id": "referral-followup-1",
-      "days": 1,
-      "start": 1,
-      "end": 3,
-      "icon": "clinic",
-      "title": [
-        {
-          "content": "{{contact.name}} referral follow up",
-          "locale": "en"
-        }
-      ],
-      "description": [
-        {
-          "content": "Referral made",
-          "locale": "en"
-        }
-      ]
-    }
-  ]
-}
-```
+All of the following examples show code that runs for each report of a certain type.
 
 ##### ICCM Follow-up
-
 In this example, we are generating a follow-up for either a treatment or a referral, depending on the outcome of the ICCM assessment.
 
 ```javascript
@@ -727,7 +672,6 @@ case 'assessment':
 ```
 
 ##### Pregnancy Visits
-
 In this example, we see how we can use the task summary screen and have two available actions from one task.
 
 ```javascript
@@ -815,6 +759,7 @@ case 'pregnancy':
     });
   }
 ```
+
 ### Tips & Tricks
 1. `actions[n].content` is where you can pass form fields from the report that triggered the action to the form that will open when you click on a task. Be sure you include `content.source: 'task'`, `content.source_id: r._id` and `content.contact: c.contact`. The `source` and `source_id` are used in Analytics to relate a task to the action that triggered it.
 1. There are some use cases where information collected during an action within a task schedule may mean that the task schedule must change. For example, if you register a child for malnutrition follow-ups, you collect the height and weight during registration and tasks for follow-ups are created based on the registration. At the next visit (first follow-up), you collect the height and weight again and you want to update these so that future tasks reference this new height and weight. You can either clear and regenerate the schedule after each follow-up visit is done, or you can create only one follow-up at a time so that height and weight are always referencing the most recent visit.
