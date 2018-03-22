@@ -44,17 +44,15 @@ Configuring Medic Mobile
         - [Tasks](#tasks)
         - [Actions](#actions)
     - [Tasks](#tasks-1)
-        - [Overview](#overview-3)
-        - [Definition: `tasks.json`](#definition-tasksjson)
-        - [Creation: `rules.nools.js`](#creation-rulesnoolsjs)
+        - [Configuration: `rules.nools.js`](#configuration-rulesnoolsjs)
         - [Uploading](#uploading)
         - [Examples](#examples)
         - [Tips & Tricks](#tips--tricks-1)
         - [Troubleshooting](#troubleshooting-1)
     - [Targets](#targets)
-        - [Overview](#overview-4)
-        - [Definition: `targets.json`](#definition-targetsjson)
-        - [Creation: `rules.nools.js`](#creation-rulesnoolsjs-1)
+        - [Overview](#overview-3)
+        - [Template: `targets.json`](#template-targetsjson)
+        - [Creation: `rules.nools.js`](#creation-rulesnoolsjs)
         - [Uploading](#uploading-1)
         - [Examples](#examples-1)
         - [Tips & Tricks](#tips--tricks-2)
@@ -65,7 +63,7 @@ Configuring Medic Mobile
         - [Edit [via UI, needs training module]](#edit-via-ui-needs-training-module)
         - [Bulk create](#bulk-create)
     - [Users](#users)
-        - [Overview](#overview-5)
+        - [Overview](#overview-4)
         - [Bulk Creation (conf#61)](#bulk-creation-conf61)
         - [Permissions](#permissions)
     - [Data Migration](#data-migration)
@@ -444,157 +442,183 @@ Note that you can pass a large object to the form, which can then read any value
 #### Passing data 
 ------------------------------------
 ## Tasks
-### Overview
-Tasks are used in the app to help CHWs plan their activities by reminding them about forms they need to complete on behalf of their patients. They are essentially the Medic app's version of SMS reminders - instead of receiving an SMS reminder, the app generates a task for the CHW to complete. When a CHW clicks on a tasks from the Tasks tab or from a contact profile, they will be taken to the designated form that they need to fill in order to complete the task.
+_Tasks guide health workers through their days and weeks. Each generated task prompts a preconfigured workflow, ensuring that the right actions are taken for the people at the right time._
 
-Tasks can be viewed in a few places in the Medic app. Tasks for a particular patient can be viewed on the patient's profile, tasks for a family/household as well as the family members can be viewed on the family/household profile, and all tasks for all patients and families can be viewed on the tasks tab. Tasks are listed in order of due date. Tasks that are past due will appear at the top of the list and tasks due in the future will appear at the end of the list. If a task is high priority (more on this in the next two sections) it will come first within the subset of tasks that are due on its due date. So if you have three tasks due on Thursday and one of them is high priority, the high priority task will be the first in the list of tasks due on Thursday.
+_Tasks can be configured for any user of type "restricted to their place". When configuring tasks, you have access to all the contacts (people and places) that the logged in user can view, along with all the reports about them. Tasks can also pull in fields from the reports that trigger them and pass these fields in as inputs to the form that opens when you click on the task. For example, if you register a pregnancy and include the LMP, this generates follow-up tasks for ANC visits. When you click on an ANC visit task, it will open the ANC visit form and this form could "know" the LMP of the woman. In this section we will discuss how to configure such tasks._
 
-Tasks can be configured for any user that has offline access (user type is "restricted to their place"). When configuring tasks, you have access to all the contacts (people and places) that your logged in user can view, along with all the reports about them. Tasks can also pull in fields from the reports that trigger them and pass these fields in as inputs to the form that opens when you click on the task. So, for example, if you register a pregnancy and include the LMP, this generates follow-up tasks for ANC visits. When you click on an ANC visit task, it will open the ANC visit form and this form could "know" the LMP of the woman. More on how to configure this later in this document.
-
-When a user clicks on a task in the task list, the app can either take them to the task summary screen...
-
-![Task summary screen](../img/task_summary_screen.png)
-
-...or directly to the action (form) they need to complete.
-
-![Task form](../img/task_form.png)
-
-Tasks are defined in `tasks.json` then created by the rules `rules.nools.js`. 
- 
-### Definition: `tasks.json`
-Tasks are defined in `tasks.json`, where the due date and task window, the icon and the task title are set.
-
-Each task needs a due date, window, icon and title to be defined so that the app knows how to render it. The diagram below explains where each of the properties will appear. You will need to include the properties listed after the diagram for each of your task schedules.
+A rules engine is used to generate the tasks using the data available in the client app. The data, comprised of docs for people, places, and the reports about them, are processed by rules engine code to emit tasks like this one:
 
 ![Task description](../img/task_with_description.png)
 
-* `name`: This is the name of the task schedule. It's used when retrieving a particular task schedule from `tasks.json` for use in `rules.nools.js`.
-* `events`: These are the individual tasks in the schedule. You may have one or more tasks in your schedule.
+The rules engine code is completely configurable in `rules.nools.js`. It iterates through an object with all contacts accompanied by their reports. When the code identifies a condition that needs tasks, it generates a series of tasks based on templates in `tasks.json`. The tasks emitted by the rules engine code are then handled by the app. The app automatically shows the tasks in the Tasks tab and on contact's profiles, and removes them when they are completed.
 
-For each event, you need to include the following:
+### Configuration: `rules.nools.js`
+The rules engine code receives an object containing the following:
+- `contact`: the contact's doc. All contacts have `type` of either `person` or `place`.
+- `reports`: an array of all the reports submitted about the contact.
 
-* `events[n].id`: This is an `id` you define for each of your tasks.
-* `events[n].days`: Due date for the task. It is the number of days after the schedule start date that a task is due.
-* `events[n].start`: The number of days before the task due date that the task should appear in the task list.
-* `events[n].end`: The number of days after the task due date that the task should continue to appear in the task list.
-* `events[n].icon`: You can use any icon that you like, but make sure the icon has been uploaded to your instance and the name matches.
-* `events[n].title`: The name of your task that will appear to the user. This field supports locales, so you can include translations if you have users viewing the app in different languages on the same instance.
-* `events[n].description`: This is optional. It is a second line of text that can appear at the right side of the task on the tasks list.
+The basic structure of the rules engine code is as follows:
 
-#### Example Task Definition - Normal Task
-
-This example shows one task in the schedule. For schedules with multiple tasks, add an event for each task.
-
-```
-{
-  "name": "assessment-treatment",
-  "events": [
-    {
-      "id": "treatment-followup-1",
-      "days": 2,
-      "start": 2,
-      "end": 2,
-      "icon": "treatment",
-      "title": [
-        {
-          "content": "{{contact.name}} treatment follow up",
-          "locale": "en"
-        }
-      ]
-    }
-  ]
+```js
+define Contact {
+  contact: null,
+  reports: null
 }
-```
 
-#### Example Task Definition - High Priority Task
-
-This example shows one task in the schedule. For schedules with multiple tasks, add an event for each task.
-
-```
-{
-  "name": "assessment-referral",
-  "events": [
-    {
-      "id": "referral-followup-1",
-      "days": 1,
-      "start": 1,
-      "end": 3,
-      "icon": "clinic",
-      "title": [
-        {
-          "content": "{{contact.name}} referral follow up",
-          "locale": "en"
-        }
-      ],
-      "description": [
-        {
-          "content": "Referral made",
-          "locale": "en"
-        }
-      ]
-    }
-  ]
-}
-```
-
-### Creation: `rules.nools.js`
-A rules engine processes all contacts and their reports, then emits tasks that will show at the appropriate time in the app. The rules engine is configured in `rules-nools.js` by preparing the task instances, and then emitting them. Below are some helpful functions and examples.
-
-#### Creating a Task
-
-```javascript
-var createTask = function(contact, schedule, report) {
-  return new Task({
-    _id: contact.contact._id + '-' + schedule.id,
-    deleted: (contact.contact ? contact.contact.deleted : false) || (report ? report.deleted : false),
-    doc: contact,
-    contact: contact.contact,
-    icon: schedule.icon,
-    priority: schedule.description ? 'high' : null,
-    priorityLabel: schedule.description ? schedule.description : '',
-    date: null,
-    title: schedule.title,
-    fields: [],
-    resolved: false,
-    actions: []
-  });
-};
-```
-
-#### Emitting a Task
-
-```javascript
-var emitTask = function(task, scheduleEvent) {
-  if (Utils.isTimely(task.date, scheduleEvent)) {
-    emit('task', task);
+rule GenerateEvents {
+  when {
+    c: Contact
   }
-};
+  then {
+    if (c.contact && c.contact.type === 'person') {
+      // Check for condition in person's doc
+        // Create + emit task based on person's fields
+
+      c.reports.forEach(
+        function(report) {
+          switch(report.form) {
+            case 'form_id':
+              // Check for condition in report
+                // Create + emit task based on report fields
+            // ...
+          }
+        }
+      );
+    }
+    emit('_complete', { _id: true });
+  }
+}
 ```
-You can also create custom task creation functions if it is useful. This is also where you can pull information from the form that triggers the task schedule and pass it to the form that the user needs to fill to complete the tasks. More information on this is below.
 
-#### Task Properties
+To generate tasks the rules engine code must emit an object with the following properties:
 
-When creating a task, you are required to pass in a contact, a schedule and a report (see above function). Tasks have many properties:
+| property | description | required |
+|---|---|---|
+|`_id`| Unique identifier for the task. Emitting another task with the same `_id` will overwrite the previous one. Generally `_id` includes the source report's ID and the event's ID in order to be unique. | yes |
+| `deleted` | Expression to determine if the source docs for this task are deleted. If they are deleted the task itself can be deleted. | no |
+| `doc` | Set to the contact you passed in and includes their contact info and an array of the reports about that contact | no |
+| `contact` | Set to the contact you passed in. Has contact information only. | no |
+| `icon` | Set to the `icon` specified for the task in `tasks.json`. | no |
+| `priority` | Set to `high` priority if there is a description for the task in `tasks.json`. High priority means that the task displays a high risk icon. | no |
+| `priorityLabel` | Set to the `description` listed in `tasks.json` for the task if there is a description. Use a translation key for internationalisation support. | yes |
+| `date` | This is the due date of the task. It is left null during task creation and set later. | yes |
+| `title` | Set to the `title` that you indicated in your `tasks.json` file. The title is the text that appears in the UI on the task. Use a translation key for internationalisation support. | yes |
+| `fields` | Fields are pieces of data that display on the task summary screen. List a label and value for each field you want to display on the summary screen. | no |
+| `resolved` | This tracks whether or not the task has been completed. It is set to false initially and then updated to a condition later. | yes |
+| `actions` | This is an array of the actions (forms) that a user can access after clicking on a task. If you put multiple forms here, then the user will see a task summary screen where they can select which action they would like to complete. Within your array of `actions` there are some additional properties that you can define. | yes |
+| `actions[n].type` | Type of action, usually `'report'`. | yes |
+| `actions[n].form` | The form that should open when you click on the action. | yes |
+| `actions[n].label`|  The label that should appear on the button to start this action on the task summary page ('Click here to begin the follow up' in our example summary screen above). | no |
+| `actions[n].content`|  Contains fields that you want to pass into the form that will open when you click on the task or action. | no |
 
-* `_id`: By default, the `_id` is set to [contact ID]-[schedule ID]. [contact ID] is the `_id` of the contact that you passed in. [schedule ID] is the `id` of the particular task that you indicated in your `tasks.json` file.
-* `deleted`: Set based on whether the report that generated the task is deleted.
-* `doc`: Set to the contact you passed in and includes their contact info and an array of the reports about that contact
-* `contact`: Set to the contact you passed in. Has contact information only.
-* `icon`: Set to the `icon` specified for the task in `tasks.json`.
-* `priority`: Set to high priority if there is a description for the task in `tasks.json`. High priority means that the task has the high risk icon on the right hand side.
-* `priorityLabel`: Set to the `description` listed in `tasks.json` for the task if there is a description. Use a translation key for internationalisation support.
-* `date`: This is the due date of the task. It is left null during task creation and set later.
-* `title`: Set to the `title` that you indicated in your `tasks.json` file. The title is the text that appears in the UI on the task. Use a translation key for internationalisation support.
-* `fields`: Fields are pieces of data that display on the task summary screen. List a label and value for each field you want to display on the summary screen.
-* `resolved`: This tracks whether or not the task has been completed. It is set to false initially and then updated to a condition later.
-* `actions`: This is an array of the actions (forms) that a user can access after clicking on a task. If you put multiple forms here, then the user will see a task summary screen where they can select which action they would like to complete.
+To separate the task structure from the logic, we have a template for each task in `tasks.json`. This file is structured as an array of task schedule objects, each with a `event` which contains one or more task templates. For each event we define the relative due date, task window, icon and title.
 
-Within your array of `actions` there are some additional properties that you can define:
+```json
+[
+  {
+    "name": "task-schedule-name",
+    "events": [
+      {
+        "id": "task-id",
+        "days": 7,
+        "start": 0,
+        "end": 6,
+        "icon": "pregnancy-1",
+        "title": [
+          {
+            "content": "Title",
+            "locale": "en"
+          }
+        ],
+        "description": [
+          {
+            "content": "High risk message",
+            "locale": "en"
+          }
+        ]
+      }
+    ]
+  }
+]
+```
 
-* `actions[n].type`: Type of action, usually `'report'`.
-* `actions[n].form`: The form that should open when you click on the action.
-* `actions[n].label`: The label that should appear on the button to start this action on the task summary page ('Click here to begin the follow up' in our example summary screen above).
-* `actions[n].content`: Contains fields that you want to pass into the form that will open when you click on the task or action.
+The individual fields are described in table below:
+
+| field | description |
+|----|----|
+| `name`| This is the name of the task schedule. It's used when retrieving a particular task schedule from `tasks.json` for use in `rules.nools.js`.|
+| `events`| These are the individual tasks in the schedule. You may have one or more tasks in your schedule. For each event, you need to include the following |
+| `events[n].id` | This is an `id` you define for each of your tasks.|
+| `events[n].days` | Due date for the task. It is the number of days after the schedule start date that a task is due.|
+| `events[n].start` | The number of days before the task due date that the task should appear in the task list.|
+| `events[n].end` | The number of days after the task due date that the task should continue to appear in the task list.|
+| `events[n].icon` | You can use any icon that you like, but make sure the icon has been uploaded to your instance and the name matches.|
+| `events[n].title` | The name of your task that will appear to the user. This field supports locales, so you can include translations if you have users viewing the app in different languages on the same instance.|
+| `events[n].description` | This is optional. It is a second line of text that can appear at the right side of the task on the tasks list.|
+
+To initialize a task we use a `createTask` function, passing to it the contact the task is about, the specific `event` from the task schedule, and the `report` that triggered the task:
+```js
+    var createTask = function(contact, event, report) {
+      return new Task({
+        _id: report._id + '-' + event.id,
+        deleted: (contact.contact ? contact.contact.deleted : false) || (report ? report.deleted : false),
+        doc: contact,
+        contact: contact.contact,
+        icon: event.icon,
+        priority: event.description ? 'high' : null,
+        priorityLabel: event.description ? event.description : '',
+        date: null,
+        title: event.title,
+        resolved: false,
+        actions: []
+      });
+    };
+
+```
+The newly initialized task needs to be manipulated a bit more before it is ready to be emitted. Typically, the fields that need to be set after initialization are the actual `date` the task is due, the possible `actions` with data to be passed to forms, and the `resolved` condition. Additionally, based on the specific task, it is possible that the `_id` needs to be modified further to be unique, and that the `priority` and `priorityLabel` need to be calculated dynamically.
+
+In order for a task to show for an appropriate number of days before and after the due date we only emit tasks when the current time is between the start and end days from the due date. To make this easier, we use the `emitTasks` function to only emit the task between the `start` and `end` days for the task, as specified in the task template.
+
+```js
+    var emitTask = function(task, scheduleEvent) {
+      if (Utils.isTimely(task.date, scheduleEvent)) {
+        emit('task', task);
+      }
+    };
+```
+
+Putting these concepts all together, here is an example snippet where a task is created, modified, then emitted for each event in a task schedule.
+```js
+var schedule = Utils.getSchedule('pregnancy-missing-visit');
+if (schedule) {
+  for (var k = 0; k < schedule.events.length; k++) {
+    var event = schedule.events[k];
+    var dueDate = new Date(Utils.addDate(new Date(report.scheduled_tasks[i].due), event.days));
+    var task = createTask(contact, event, report);
+    // each group needs its own task, otherwise will be combined into one
+    task._id += '-' + i;
+    task.date = dueDate;
+    task.priority = isHighRiskPregnancy ? 'high' : null;
+    task.priorityLabel = isHighRiskPregnancy ? ( schedule.description ? schedule.description : 'High Risk' ) : '';
+    task.actions.push({
+        type: 'report',
+        form: 'pregnancy_visit',
+        label: 'Follow up',
+        content: {
+        source: 'task',
+        source_id: report._id,
+        contact: contact.contact
+        }
+    });
+    // Resolved if there is a newer pregnancy, there has been a delivery, or visit received in window
+    task.resolved = report.reported_date < newestPregnancyTimestamp
+        || report.reported_date < newestDeliveryTimestamp
+        || isFormFromArraySubmittedInWindow(c.reports, antenatalForms, Utils.addDate(dueDate, event.start * -1).getTime(), Utils.addDate(dueDate, event.end + 1).getTime());
+
+    emitTask(task, event);
+  }
+}
+```
 
 #### Utils
 
@@ -764,8 +788,14 @@ case 'pregnancy':
 1. `actions[n].content` is where you can pass form fields from the report that triggered the action to the form that will open when you click on a task. Be sure you include `content.source: 'task'`, `content.source_id: r._id` and `content.contact: c.contact`. The `source` and `source_id` are used in Analytics to relate a task to the action that triggered it.
 1. There are some use cases where information collected during an action within a task schedule may mean that the task schedule must change. For example, if you register a child for malnutrition follow-ups, you collect the height and weight during registration and tasks for follow-ups are created based on the registration. At the next visit (first follow-up), you collect the height and weight again and you want to update these so that future tasks reference this new height and weight. You can either clear and regenerate the schedule after each follow-up visit is done, or you can create only one follow-up at a time so that height and weight are always referencing the most recent visit.
 1. Given the way that the rules engine works, code that generates tasks must be immutable. Otherwise you will find that tasks are not clearing properly.
+1. If you have more than one action, click a prompted task will show a summary screen with fields you have passed along with a button for each possible action.
+![Task summary screen](../img/task_summary_screen.png)
+1. If you have a single action for a task, click the task will bring you straight to the specified form.
+![Task form](../img/task_form.png)
+
 
 ### Troubleshooting
+1. Cannot see tasks: Makes sure your user is an offline user
 1. Tasks is not clearing: Make sure the the code that generates the task is immutable.
 
 ------------------------------------
@@ -777,7 +807,7 @@ Targets are configured in two places:
 - `targets.json` is where you define how the target looks, including the title, icon and goal (if applicable). It is also where you set the `context` to decide who should see the target.
 - `rules.nools.js` is where you define the calculation for each of your targets.
 
-### Definition: `targets.json`
+### Template: `targets.json`
 Each of your targets must be defined so that the app knows how to render it. You will need to include the following properties for each of your targets:
 
 * `type`: There are currently two types of targets, `count` and `percent`. These are illustrated above in the Types of Widgets section. 1 & 2 are the `count` type and 3 is the `percent` type.
@@ -1189,7 +1219,8 @@ if (c.contact != null && c.contact.type === 'person') {
 ## Users 
 ### Overview
 ### Bulk Creation (conf#61)
-### Permissions 
+### Permissions
+TODO
 ## Data Migration
 ------------------------------------
 ------------------------------------
