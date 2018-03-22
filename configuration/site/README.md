@@ -4,11 +4,11 @@ Configuring Medic Mobile
 <!-- TOC depthFrom:1 depthTo:3 -->
 
 - [Introduction](#introduction)
-    - [What is Medic Mobile](#what-is-medic-mobile)
+    - [What is Medic Mobile <!-- TODO: Jill to fill in with conceptual info about app, not specific to a technical audience -->](#what-is-medic-mobile----todo-jill-to-fill-in-with-conceptual-info-about-app-not-specific-to-a-technical-audience---)
         - [Review of app structure and workflows](#review-of-app-structure-and-workflows)
         - [Overview of various pages + core functions](#overview-of-various-pages--core-functions)
-    - [What’s configurable](#whats-configurable)
-- [Getting Started](#getting-started)
+    - [What’s configurable <!-- TODO: Jill to fill in with list of screenshots, with notes on what is configurable in each  -->](#whats-configurable----todo-jill-to-fill-in-with-list-of-screenshots-with-notes-on-what-is-configurable-in-each----)
+- [Getting Started <!-- TODO -->](#getting-started----todo---)
     - [To know before starting](#to-know-before-starting)
         - [CouchDB](#couchdb)
         - [Javascript](#javascript)
@@ -18,26 +18,25 @@ Configuring Medic Mobile
         - [Have access to an instance](#have-access-to-an-instance)
         - [Set up a dev instance](#set-up-a-dev-instance)
         - [Set up medic-conf](#set-up-medic-conf)
-- [Configure](#configure)
+- [Configure <!-- TODO -->](#configure----todo---)
     - [Overview](#overview)
         - [File structure](#file-structure)
         - [App settings](#app-settings)
         - [...and more!](#and-more)
-    - [Localization](#localization)
+    - [Localization <!-- TODO -->](#localization----todo---)
     - [Icons](#icons)
     - [SMS Forms](#sms-forms)
     - [App Forms](#app-forms)
-        - [Overview](#overview-1)
         - [Structuring a form](#structuring-a-form)
-        - [Showing a form](#showing-a-form)
-        - [Getting data into a form](#getting-data-into-a-form)
-        - [Uploading forms](#uploading-forms)
+        - [Showing a form <!-- TODO -->](#showing-a-form----todo---)
+        - [Getting data into a form <!-- TODO -->](#getting-data-into-a-form----todo---)
+        - [Uploading forms <!-- TODO -->](#uploading-forms----todo---)
         - [Other Medic specific XForm conventions](#other-medic-specific-xform-conventions)
-        - [Tips & Tricks](#tips--tricks)
-        - [Troubleshooting](#troubleshooting)
+        - [Tips & Tricks <!-- TODO -->](#tips--tricks----todo---)
+        - [Troubleshooting <!-- TODO -->](#troubleshooting----todo---)
     - [Collect Forms](#collect-forms)
     - [Profiles](#profiles)
-        - [Overview](#overview-2)
+        - [Overview](#overview-1)
         - [Info card](#info-card)
         - [Condition cards](#condition-cards)
         - [History](#history)
@@ -45,27 +44,26 @@ Configuring Medic Mobile
         - [Actions](#actions)
     - [Tasks](#tasks-1)
         - [Configuration: `rules.nools.js`](#configuration-rulesnoolsjs)
-        - [Uploading](#uploading)
+        - [Uploading <!-- TODO -->](#uploading----todo---)
         - [Examples](#examples)
-        - [Tips & Tricks](#tips--tricks-1)
-        - [Troubleshooting](#troubleshooting-1)
-    - [Targets](#targets)
-        - [Overview](#overview-3)
+        - [Tips & Tricks](#tips--tricks)
+        - [Troubleshooting](#troubleshooting)
+    - [Targets <!-- TODO: Marc to revise to similar structure as Tasks -->](#targets----todo-marc-to-revise-to-similar-structure-as-tasks---)
         - [Template: `targets.json`](#template-targetsjson)
         - [Creation: `rules.nools.js`](#creation-rulesnoolsjs)
-        - [Uploading](#uploading-1)
+        - [Uploading <!-- TODO -->](#uploading----todo----1)
         - [Examples](#examples-1)
-        - [Tips & Tricks](#tips--tricks-2)
-        - [Troubleshooting](#troubleshooting-2)
+        - [Tips & Tricks](#tips--tricks-1)
+        - [Troubleshooting](#troubleshooting-1)
 - [Set-up](#set-up)
     - [Contacts](#contacts)
         - [Create [via UI, needs training module]](#create-via-ui-needs-training-module)
         - [Edit [via UI, needs training module]](#edit-via-ui-needs-training-module)
         - [Bulk create](#bulk-create)
     - [Users](#users)
-        - [Overview](#overview-4)
+        - [Overview](#overview-2)
         - [Bulk Creation (conf#61)](#bulk-creation-conf61)
-        - [Permissions](#permissions)
+        - [Permissions <!-- TODO -->](#permissions----todo---)
     - [Data Migration](#data-migration)
 - [Deploy + Maintain](#deploy--maintain)
     - [Versioning](#versioning)
@@ -78,8 +76,8 @@ Configuring Medic Mobile
     - [Export](#export)
 
 <!-- /TOC -->
-# Introduction
-## What is Medic Mobile
+# Introduction 
+## What is Medic Mobile <!-- TODO: Jill to fill in with conceptual info about app, not specific to a technical audience -->
 ### Review of app structure and workflows
 ### Overview of various pages + core functions
 #### Tasks tab
@@ -101,9 +99,9 @@ Configuring Medic Mobile
 #### History/Reports. 
 ##### Define Forms and where they live.
 #### Definitions
-## What’s configurable
+## What’s configurable <!-- TODO: Jill to fill in with list of screenshots, with notes on what is configurable in each  -->
 ------------------------------------
-# Getting Started
+# Getting Started <!-- TODO -->
 ## To know before starting
 ### CouchDB
 ### Javascript
@@ -114,20 +112,19 @@ Configuring Medic Mobile
 ### Set up a dev instance
 ### Set up medic-conf
 ------------------------------------
-# Configure
+# Configure <!-- TODO -->
 ## Overview
 ### File structure
 ### App settings
 ### ...and more!
 ------------------------------------
-## Localization
+## Localization <!-- TODO -->
 ------------------------------------
 ## Icons
 ------------------------------------
 ## SMS Forms
 ------------------------------------
 ## App Forms
-### Overview
 Whether using Medic Mobile in the browser or via the Android app, all Actions, Tasks, Contact creation/edit forms are created using [ODK XForms](https://opendatakit.github.io/xforms-spec/) -- a XML definition of the structure and format for a set of questions. Since writing raw XML can be tedious, we suggest creating the forms using the [XLSForm standard](http://xlsform.org/), and using the [medic-conf](https://github.com/medic/medic-conf) command line configurer tool to convert them to XForm format. The instructions below assume knowledge of XLSForm.
 
 - A XLSForm form definition, converted to the XForm (optional) 
@@ -138,35 +135,35 @@ Whether using Medic Mobile in the browser or via the Android app, all Actions, T
 ### Structuring a form
 A typical Task form starts with an `inputs` group which contains prepopulated fields that may be needed during the completion of the form (eg patient's name, prior information), and ends with a summary group (eg `group_summary`, or `group_review`) where important information is shown to the user before they submit the form. In between these two is the form flow, usually a collection of questions grouped into pages. All data fields submitted with a form are stored, but often important information that will need to be accessed from the form is brought to the top level. Since all forms in Medic Mobile are submitted about a person or place you must make sure at least on of `place_id`, `patient_id`, and `patient_uuid` are stored at the top level.
 
-| **type** | **name** | **label** | ... |
-|---|---|---|---|
-| begin group | inputs | Inputs |
-| string | source | Source |
-| string | source_id | Source ID |
-| end group| | |
-| calculate | patient_id | Patient ID |
-| calculate | patient_name | Patient Name |
-| calculate | edd | EDD |
+| **type** | **name** | **label** | **relevant** | **appearance** | ... |
+|---|---|---|---|---|---|
+| begin group | inputs | Inputs | ./source = 'user' | field-list |
+| string | source | Source |  | hidden |
+| string | source_id | Source ID |  | hidden |
+| end group| | |  |  |
+| string | patient_id | Patient ID |  | db-object |
+| string | patient_name | Patient Name |  | hidden |
+| string | edd | EDD |  | hidden |
 | ...
-| begin group | group_review | Review |
-| note | r_patient_info | \*\*${patient_name}\*\* ID: ${r_patient_id} |
-| note | r_followup | Follow Up \<i class="fa fa-flag"\>\</i\> |
-| note | r_followup_note | ${r_followup_instructions} |
-| end group| | |
+| begin group | group_review | Review |  | field-list summary |
+| note | r_patient_info | \*\*${patient_name}\*\* ID: ${r_patient_id} |  |  |
+| note | r_followup | Follow Up \<i class="fa fa-flag"\>\</i\> |  |  |
+| note | r_followup_note | ${r_followup_instructions} |  |  |
+| end group| | |  |  |
 
 #### Inputs
 
 #### Outputs
 All forms in Medic Mobile are submitted about a person or place. In order for a submitted report to be handled properly by Medic Mobile it must have at least one of the following identifiers at the top level of the data model: `place_id`, `patient_id`, `patient_uuid`.
 
-#### Summary page
+#### Summary page <!-- TODO -->
 ##### Structure
 ##### Styling
 
-### Showing a form
+### Showing a form <!-- TODO -->
 #### On History/Reports
 #### On Profiles (see Profile section for how to show)
-### Getting data into a form
+### Getting data into a form <!-- TODO -->
 #### From Profiles
 ##### Inputs
 ##### Contact-summary (see Profile section)
@@ -175,17 +172,17 @@ All forms in Medic Mobile are submitted about a person or place. In order for a 
 ##### Best practices
 ##### source_id
 #### From a database object
-### Uploading forms
+### Uploading forms <!-- TODO -->
 #### CLI
 #### UI
 ### Other Medic specific XForm conventions
-#### Dropdown with people/places
-#### Hiding fields/groups in Reports view
+#### Dropdown with people/places <!-- TODO -->
+#### Hiding fields/groups in Reports view <!-- TODO -->
+Use the `attributes::tag` with `hidden` in XLSForm
 #### Creating additional docs
 In version 2.13.0 and higher, you can configure your app forms to generate additional docs upon submission. You can create one or more docs using variations on the configuration described below. One case where this can be used is to register a newborn from a delivery report, as shown below. First, here is an overview of what you can do and how the configuration should look in XML:
 
 ##### Extra docs
-
 - Extra docs can be added by defining structures in the model with the attribute db-doc="true". **Note that you must have lower-case `true` in your XLSform, even though Excel will default to `TRUE`.**
 
 ###### Example Form Model
@@ -425,9 +422,9 @@ return result;
 ```
 
 Note that you can pass a large object to the form, which can then read any value, but doing so does noticeably slow the loading of the form. Because of this it is preferable to remove from the context any fields that are not being used. It is a good idea to future proof by maintaining the same structure so that fields can be added without needing to modify existing form calculations.
-#### Showing fields in Reports tab
-### Tips & Tricks
-### Troubleshooting
+#### Showing fields in Reports tab <!-- TODO -->
+### Tips & Tricks <!-- TODO -->
+### Troubleshooting <!-- TODO -->
 ------------------------------------
 ## Collect Forms
 ------------------------------------
@@ -621,7 +618,6 @@ if (schedule) {
 ```
 
 #### Utils
-
 Some utility functions are available to your rule configuration and have been included to make common tasks much easier. To use the function call `Utils.<function-name>(<params>)`, for example `Utils.addDate(report.reported_date, 10)`.
 
 | Name | Description |
@@ -640,7 +636,7 @@ Some utility functions are available to your rule configuration and have been in
 
 If you can think of any others you'd like to be included raise an issue in [medic/medic-webapp](https://github.com/medic/medic-webapp/issues).
 
-### Uploading
+### Uploading <!-- TODO -->
 ### Examples
 All of the following examples show code that runs for each report of a certain type.
 
@@ -799,8 +795,7 @@ case 'pregnancy':
 1. Tasks is not clearing: Make sure the the code that generates the task is immutable.
 
 ------------------------------------
-## Targets
-### Overview
+## Targets <!-- TODO: Marc to revise to similar structure as Tasks -->
 Targets refers to our in-app analytics widgets. These widgets can be configured to track metrics for an individual CHW or for an entire health facility, depending on what data the logged in user has access to. Targets can be configured for any user that has offline access (user type is "restricted to their place"). When configuring targets, you have access to all the contacts (people and places) that your logged in user can view, along with all the reports about them.
 
 Targets are configured in two places:
@@ -1059,7 +1054,7 @@ if (c.contact != null && c.contact.type === 'person') {
 }
 ```
 
-### Uploading
+### Uploading <!-- TODO -->
 ### Examples
 This section contains some other examples of more complex targets.
 #### Calculate Percent of Households that were Surveyed - All-Time
@@ -1219,8 +1214,7 @@ if (c.contact != null && c.contact.type === 'person') {
 ## Users 
 ### Overview
 ### Bulk Creation (conf#61)
-### Permissions
-TODO
+### Permissions <!-- TODO -->
 ## Data Migration
 ------------------------------------
 ------------------------------------
