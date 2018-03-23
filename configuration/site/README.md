@@ -8,8 +8,8 @@ Configuring Medic Mobile
         - [Review of app structure and workflows](#review-of-app-structure-and-workflows)
         - [Overview of various pages + core functions](#overview-of-various-pages--core-functions)
     - [What’s configurable <!-- TODO: Jill to fill in with list of screenshots, with notes on what is configurable in each  -->](#whats-configurable----todo-jill-to-fill-in-with-list-of-screenshots-with-notes-on-what-is-configurable-in-each----)
-- [Getting Started <!-- TODO -->](#getting-started----todo---)
-    - [To know before starting](#to-know-before-starting)
+- [Getting Started <!-- TODO: Marc by March 30, 2018  -->](#getting-started----todo-marc-by-march-30-2018----)
+    - [Prerequisite knowledge - To know before starting](#prerequisite-knowledge---to-know-before-starting)
         - [CouchDB](#couchdb)
         - [Javascript](#javascript)
         - [JSON](#json)
@@ -18,15 +18,15 @@ Configuring Medic Mobile
         - [Have access to an instance](#have-access-to-an-instance)
         - [Set up a dev instance](#set-up-a-dev-instance)
         - [Set up medic-conf](#set-up-medic-conf)
-- [Configure <!-- TODO -->](#configure----todo---)
+- [Configure <!-- TODO: Marc by March 30, 2018 -->](#configure----todo-marc-by-march-30-2018---)
     - [Overview](#overview)
         - [File structure](#file-structure)
         - [App settings](#app-settings)
         - [...and more!](#and-more)
-    - [Localization <!-- TODO -->](#localization----todo---)
-    - [Icons](#icons)
+    - [Localization <!-- TODO: Marc by March 30, 2018, to be further fleshed out by Derick as needed -->](#localization----todo-marc-by-march-30-2018-to-be-further-fleshed-out-by-derick-as-needed---)
+    - [Icons <!-- TODO: Derick -->](#icons----todo-derick---)
     - [SMS Forms](#sms-forms)
-    - [App Forms](#app-forms)
+    - [App Forms <!-- TODO: review content and add subsections -->](#app-forms----todo-review-content-and-add-subsections---)
         - [Structuring a form](#structuring-a-form)
         - [Showing a form <!-- TODO -->](#showing-a-form----todo---)
         - [Getting data into a form <!-- TODO -->](#getting-data-into-a-form----todo---)
@@ -42,7 +42,7 @@ Configuring Medic Mobile
         - [History](#history)
         - [Tasks](#tasks)
         - [Actions](#actions)
-    - [Tasks](#tasks-1)
+    - [Tasks <!-- TODO: Already rewritten, needs review and updated screenshots -->](#tasks----todo-already-rewritten-needs-review-and-updated-screenshots---)
         - [Configuration: `rules.nools.js`](#configuration-rulesnoolsjs)
         - [Uploading <!-- TODO -->](#uploading----todo---)
         - [Examples](#examples)
@@ -62,8 +62,9 @@ Configuring Medic Mobile
         - [Bulk create](#bulk-create)
     - [Users](#users)
         - [Overview](#overview-2)
+        - [Create [via UI, needs training module] <!-- TODO: Jill -->](#create-via-ui-needs-training-module----todo-jill---)
         - [Bulk Creation (conf#61)](#bulk-creation-conf61)
-        - [Permissions <!-- TODO -->](#permissions----todo---)
+        - [Permissions <!-- TODO: Derick -->](#permissions----todo-derick---)
     - [Data Migration](#data-migration)
 - [Deploy + Maintain](#deploy--maintain)
     - [Versioning](#versioning)
@@ -101,8 +102,8 @@ Configuring Medic Mobile
 #### Definitions
 ## What’s configurable <!-- TODO: Jill to fill in with list of screenshots, with notes on what is configurable in each  -->
 ------------------------------------
-# Getting Started <!-- TODO -->
-## To know before starting
+# Getting Started <!-- TODO: Marc by March 30, 2018  -->
+## Prerequisite knowledge - To know before starting
 ### CouchDB
 ### Javascript
 ### JSON
@@ -112,19 +113,19 @@ Configuring Medic Mobile
 ### Set up a dev instance
 ### Set up medic-conf
 ------------------------------------
-# Configure <!-- TODO -->
+# Configure <!-- TODO: Marc by March 30, 2018 -->
 ## Overview
 ### File structure
 ### App settings
 ### ...and more!
 ------------------------------------
-## Localization <!-- TODO -->
+## Localization <!-- TODO: Marc by March 30, 2018, to be further fleshed out by Derick as needed -->
 ------------------------------------
-## Icons
+## Icons <!-- TODO: Derick -->
 ------------------------------------
 ## SMS Forms
 ------------------------------------
-## App Forms
+## App Forms <!-- TODO: review content and add subsections -->
 Whether using Medic Mobile in the browser or via the Android app, all Actions, Tasks, Contact creation/edit forms are created using [ODK XForms](https://opendatakit.github.io/xforms-spec/) -- a XML definition of the structure and format for a set of questions. Since writing raw XML can be tedious, we suggest creating the forms using the [XLSForm standard](http://xlsform.org/), and using the [medic-conf](https://github.com/medic/medic-conf) command line configurer tool to convert them to XForm format. The instructions below assume knowledge of XLSForm.
 
 - A XLSForm form definition, converted to the XForm (optional) 
@@ -438,7 +439,7 @@ Note that you can pass a large object to the form, which can then read any value
 #### Context
 #### Passing data 
 ------------------------------------
-## Tasks
+## Tasks <!-- TODO: Already rewritten, needs review and updated screenshots -->
 _Tasks guide health workers through their days and weeks. Each generated task prompts a preconfigured workflow, ensuring that the right actions are taken for the people at the right time._
 
 _Tasks can be configured for any user of type "restricted to their place". When configuring tasks, you have access to all the contacts (people and places) that the logged in user can view, along with all the reports about them. Tasks can also pull in fields from the reports that trigger them and pass these fields in as inputs to the form that opens when you click on the task. For example, if you register a pregnancy and include the LMP, this generates follow-up tasks for ANC visits. When you click on an ANC visit task, it will open the ANC visit form and this form could "know" the LMP of the woman. In this section we will discuss how to configure such tasks._
@@ -1213,8 +1214,19 @@ if (c.contact != null && c.contact.type === 'person') {
 ### Bulk create
 ## Users 
 ### Overview
+### Create [via UI, needs training module] <!-- TODO: Jill -->
 ### Bulk Creation (conf#61)
-### Permissions <!-- TODO -->
+### Permissions <!-- TODO: Derick -->
+#### Overview
+#### User roles
+| Role | Description |
+|-----|-----|
+|`district_admin`|  |
+
+#### Reference Table
+| Permission | Description |
+|-----|-----|
+|`can_blah_blah`|  |
 ## Data Migration
 ------------------------------------
 ------------------------------------
