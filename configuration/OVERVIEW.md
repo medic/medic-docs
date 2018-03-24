@@ -38,7 +38,8 @@ Configuring Medic Mobile
         - [Tasks](#tasks)
         - [Actions](#actions)
     - [Tasks <!-- TODO: Already rewritten, needs review and updated screenshots -->](#tasks----todo-already-rewritten-needs-review-and-updated-screenshots---)
-        - [Configuration: `rules.nools.js`](#configuration-rulesnoolsjs)
+        - [Logic: `rules.nools.js`](#logic-rulesnoolsjs)
+        - [Templates: `tasks.json`](#templates-tasksjson)
         - [Uploading <!-- TODO -->](#uploading----todo---)
         - [Examples](#examples)
         - [Tips & Tricks](#tips--tricks)
@@ -518,7 +519,7 @@ A rules engine is used to generate the tasks using the data available in the cli
 
 The rules engine code is completely configurable in `rules.nools.js`. It iterates through an object with all contacts accompanied by their reports. When the code identifies a condition that needs tasks, it generates a series of tasks based on templates in `tasks.json`. The tasks emitted by the rules engine code are then handled by the app. The app automatically shows the tasks in the Tasks tab and on contact's profiles, and removes them when they are completed.
 
-### Configuration: `rules.nools.js`
+### Logic: `rules.nools.js`
 The rules engine code receives an object containing the following:
 - `contact`: the contact's doc. All contacts have `type` of either `person` or `place`.
 - `reports`: an array of all the reports submitted about the contact.
@@ -577,6 +578,7 @@ To generate tasks the rules engine code must emit an object with the following p
 | `actions[n].label`|  The label that should appear on the button to start this action on the task summary page ('Click here to begin the follow up' in our example summary screen above). | no |
 | `actions[n].content`|  Contains fields that you want to pass into the form that will open when you click on the task or action. | no |
 
+### Templates: `tasks.json`
 To separate the task structure from the logic, we have a template for each task in `tasks.json`. This file is structured as an array of task schedule objects, each with a `event` which contains one or more task templates. For each event we define the relative due date, task window, icon and title.
 
 ```json
