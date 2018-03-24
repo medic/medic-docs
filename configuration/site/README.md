@@ -8,22 +8,16 @@ Configuring Medic Mobile
         - [Review of app structure and workflows](#review-of-app-structure-and-workflows)
         - [Overview of various pages + core functions](#overview-of-various-pages--core-functions)
     - [What’s configurable <!-- TODO: Jill to fill in with list of screenshots, with notes on what is configurable in each  -->](#whats-configurable----todo-jill-to-fill-in-with-list-of-screenshots-with-notes-on-what-is-configurable-in-each----)
-- [Getting Started <!-- TODO: Marc by March 30, 2018  -->](#getting-started----todo-marc-by-march-30-2018----)
-    - [Prerequisite knowledge - To know before starting](#prerequisite-knowledge---to-know-before-starting)
+- [Prerequisites](#prerequisites)
+    - [Test Instance](#test-instance)
+    - [Background skills](#background-skills)
         - [CouchDB](#couchdb)
         - [Javascript](#javascript)
         - [JSON](#json)
         - [XLSForms and XForms](#xlsforms-and-xforms)
-    - [To do before starting](#to-do-before-starting)
-        - [Have access to an instance](#have-access-to-an-instance)
-        - [Set up a dev instance](#set-up-a-dev-instance)
-        - [Set up medic-conf](#set-up-medic-conf)
-- [Configure <!-- TODO: Marc by March 30, 2018 -->](#configure----todo-marc-by-march-30-2018---)
-    - [Overview](#overview)
-        - [File structure](#file-structure)
-        - [App settings](#app-settings)
-        - [...and more!](#and-more)
-    - [Localization <!-- TODO: Marc by March 30, 2018, to be further fleshed out by Derick as needed -->](#localization----todo-marc-by-march-30-2018-to-be-further-fleshed-out-by-derick-as-needed---)
+        - [SQL](#sql)
+- [Configure](#configure)
+    - [Localization](#localization)
     - [Icons <!-- TODO: Derick -->](#icons----todo-derick---)
     - [SMS Forms](#sms-forms)
     - [App Forms <!-- TODO: review content and add subsections -->](#app-forms----todo-review-content-and-add-subsections---)
@@ -36,7 +30,7 @@ Configuring Medic Mobile
         - [Troubleshooting <!-- TODO -->](#troubleshooting----todo---)
     - [Collect Forms](#collect-forms)
     - [Profiles](#profiles)
-        - [Overview](#overview-1)
+        - [Overview](#overview)
         - [Info card](#info-card)
         - [Condition cards](#condition-cards)
         - [History](#history)
@@ -61,10 +55,12 @@ Configuring Medic Mobile
         - [Edit [via UI, needs training module]](#edit-via-ui-needs-training-module)
         - [Bulk create](#bulk-create)
     - [Users](#users)
-        - [Overview](#overview-2)
+        - [Overview](#overview-1)
         - [Create [via UI, needs training module] <!-- TODO: Jill -->](#create-via-ui-needs-training-module----todo-jill---)
         - [Bulk Creation (conf#61)](#bulk-creation-conf61)
         - [Permissions <!-- TODO: Derick -->](#permissions----todo-derick---)
+    - [User types](#user-types)
+    - [Available permissions](#available-permissions)
     - [Data Migration](#data-migration)
 - [Deploy + Maintain](#deploy--maintain)
     - [Versioning](#versioning)
@@ -102,29 +98,103 @@ Configuring Medic Mobile
 #### Definitions
 ## What’s configurable <!-- TODO: Jill to fill in with list of screenshots, with notes on what is configurable in each  -->
 ------------------------------------
-# Getting Started <!-- TODO: Marc by March 30, 2018  -->
-## Prerequisite knowledge - To know before starting
+# Prerequisites
+
+## Test Instance
+In order to configure Medic Mobile you will need an instance set up for testing. You can set up a local instance using our _Horticulturalist_ tool by [following these instructions](https://github.com/medic/medic-webapp/tree/master/#deploy-locally-using-horticulturalist-beta).
+
+## Background skills
+There are many aspects that can be configured in a Medic Mobile, and these require a variety of technical skills.
+
 ### CouchDB
+A free and open source NoSQL database we use to store all our data, configuration, and even the application code. CouchDB is really good at replication which is the process of sending the data to another database, such as PouchDB in the client application, and back again.
+
+Although configuration does not require knowledge or experience with CouchDB it would be useful to be familiar with general concept of it as a document store.
+
 ### Javascript
+Many key aspects of Medic Mobile are configured with JavaScript code and expressions. This includes managing profile pages, creating tasks and targets, and even setting the condition for when to show forms. A good understanding of JavaScript is required for all but the simplest of modifications to configuration.
+
 ### JSON
+JSON (JavaScript Object Notation) is a format for storing structured text. A good understanding of the JSON is key to configuring Medic Mobile. You can find more information on JSON [here](https://www.json.org/).
+
 ### XLSForms and XForms
-## To do before starting
-### Have access to an instance
-### Set up a dev instance
-### Set up medic-conf
+Many workflows in Medic Mobile, including completing tasks and creating contacts, are generated using [ODK XForms](https://opendatakit.github.io/xforms-spec/). Many configurers use XLSForms as an easier way to generate XForms. A strong knowledge of [XLSForm standard](http://xlsform.org/) is therefore very useful in customizing a Medic Mobile application.
+
+### SQL
+Although the Medic Mobile application uses a NoSQL database, a parallel PostgreSQL database can be set up to make querying data. Familiarity with SQL is needed to set up and query the database.
+
+
 ------------------------------------
-# Configure <!-- TODO: Marc by March 30, 2018 -->
-## Overview
-### File structure
-### App settings
-### ...and more!
-------------------------------------
-## Localization <!-- TODO: Marc by March 30, 2018, to be further fleshed out by Derick as needed -->
-------------------------------------
+# Configure
+The Medic Mobile application is designed to have a common core that can be configured for all deployments, regardless of the size or type of workflow. Some CHWs log into Medic Mobile on their Android devices to use it offline, whereas others interact with Medic Mobile using SMS on their basic phones. In both cases, the core application is the same. App and SMS workflows are defined in configuration, as are Profiles, Tasks, and Targets. This configuration defines user interactions, whether they are working in the community on their mobile device, or sitting at their computer at a health facility.
+
+It is possible to configure parts of Medic Mobile in the app itself from the Configuration tab. The UI is intuitive to use, but does not track changes. We recommend using the Medic Mobile Configurer tool called `medic-conf`, and tracking files using a revision control system such as Git. Throughout this documentation we will refer to configuration techniques using `medic-conf` wherever possible.
+
+To start using Configurer follow the installation instructions [here](https://github.com/medic/medic-conf/blob/master/README.md). To properly use Configurer you will need configuration files in set locations within a folder. If you are starting with a blank configuration you can initialize the file layout using the `initialise-project-layout` action:
+
+    medic-conf initialise-project-layout
+
+Once you are set up with the basic files structure, you will be able to make the necessary edits to configuration files. You can then use Configurer to compile or convert components as needed, and upload the configuration to your Medic Mobile instance. The configuration is saved in Medic Mobile's application CouchDB database. Much of the configuration is saved as a single doc of key value pairs, which is represented as the `app_settings.json` file. Other aspects, such as icons and forms are uploaded as separate database docs.
+
+## Localization
+Medic Mobile is used in many countries around the world and was designed with localization in mind. The app itself is available in English, French, Hindi, Nepali, Spanish, Swahili, and Indonesian. Please contact the Medic Mobile team (hello@medicmobile.org) if you are interested in translating the app into a different language, as we can work together to make that language available to all partners.
+
+It is easy to view and add additional languages via the `Configuration > Languages` page. You'll also see there the default language for the application, and a separate default language for outgoing messages that are sent via SMS. These language settings map the following fields in `app_settings.json`:
+
+```json
+  "locales": [
+    {
+      "code": "en",
+      "name": "English"
+    },
+    {
+      "code": "es",
+      "name": "Español (Spanish)"
+    },
+    {
+      "code": "fr",
+      "name": "Français (French)"
+    },
+    {
+      "code": "ne",
+      "name": "नेपाली (Nepali)"
+    },
+    {
+      "code": "sw",
+      "name": "Kiswahili (Swahili)"
+    },
+    {
+      "code": "hi",
+      "name": "हिन्दी (Hindi)"
+    },
+    {
+      "code": "id",
+      "name": "Bahasa Indonesia (Indonesian)"
+    }
+  ],
+  "locale": "en",
+  "locale_outgoing": "en",
+```
+
+All configurable parts of the app can be localized as well. This is done either with translation keys, or within the XLSForm that generates the forms used in the app. In all cases, the app automatically uses the proper language for each user. This may be the user's language, as specific on their profile, or the default language.
+
+We will cover translation keys in this section since it is relevant to many configuration aspects. Using translation keys consists of two parts: specifying which key to use, and translating that key for the app.
+
+The key to use is usually specified in JSON, as such:
+
+    "translation_key": "targets.assessments.title"
+
+This means that the element that we configured should use the label associated with the `targets.assessments.title` key. We then provide the text for that key in translations files. Each language has it's own `.properties` file in the `translations` folder. For instance, for English, we would have a `messages-en.properties` file as such:
+
+```
+[Application Text]
+targets.assessments.title=Assessments Completed
+```
+
+All the properties files use the format `messages-{language-code}.properties`, where the language code is the same 2 letter code used to identify the language in the application. If a translation is missing for the user's language it will use that of the default language.
+
 ## Icons <!-- TODO: Derick -->
-------------------------------------
 ## SMS Forms
-------------------------------------
 ## App Forms <!-- TODO: review content and add subsections -->
 Whether using Medic Mobile in the browser or via the Android app, all Actions, Tasks, Contact creation/edit forms are created using [ODK XForms](https://opendatakit.github.io/xforms-spec/) -- a XML definition of the structure and format for a set of questions. Since writing raw XML can be tedious, we suggest creating the forms using the [XLSForm standard](http://xlsform.org/), and using the [medic-conf](https://github.com/medic/medic-conf) command line configurer tool to convert them to XForm format. The instructions below assume knowledge of XLSForm.
 
@@ -426,9 +496,7 @@ Note that you can pass a large object to the form, which can then read any value
 #### Showing fields in Reports tab <!-- TODO -->
 ### Tips & Tricks <!-- TODO -->
 ### Troubleshooting <!-- TODO -->
-------------------------------------
 ## Collect Forms
-------------------------------------
 ## Profiles
 ### Overview
 ### Info card
@@ -438,7 +506,6 @@ Note that you can pass a large object to the form, which can then read any value
 ### Actions
 #### Context
 #### Passing data 
-------------------------------------
 ## Tasks <!-- TODO: Already rewritten, needs review and updated screenshots -->
 _Tasks guide health workers through their days and weeks. Each generated task prompts a preconfigured workflow, ensuring that the right actions are taken for the people at the right time._
 
@@ -795,7 +862,6 @@ case 'pregnancy':
 1. Cannot see tasks: Makes sure your user is an offline user
 1. Tasks is not clearing: Make sure the the code that generates the task is immutable.
 
-------------------------------------
 ## Targets <!-- TODO: Marc to revise to similar structure as Tasks -->
 Targets refers to our in-app analytics widgets. These widgets can be configured to track metrics for an individual CHW or for an entire health facility, depending on what data the logged in user has access to. Targets can be configured for any user that has offline access (user type is "restricted to their place"). When configuring targets, you have access to all the contacts (people and places) that your logged in user can view, along with all the reports about them.
 
@@ -1206,7 +1272,6 @@ if (c.contact != null && c.contact.type === 'person') {
 
 ### Troubleshooting
 ------------------------------------
-------------------------------------
 # Set-up
 ## Contacts
 ### Create [via UI, needs training module]
@@ -1217,18 +1282,62 @@ if (c.contact != null && c.contact.type === 'person') {
 ### Create [via UI, needs training module] <!-- TODO: Jill -->
 ### Bulk Creation (conf#61)
 ### Permissions <!-- TODO: Derick -->
-#### Overview
-#### User roles
-| Role | Description |
-|-----|-----|
-|`district_admin`|  |
+Certain actions/views within the app can be restricted so that they are only able to be performed/seen by certain user types.
 
-#### Reference Table
-| Permission | Description |
-|-----|-----|
-|`can_blah_blah`|  |
+## User types
+The user types that can have permissions adjusted are:
+- National manager - access to all docs
+- Regional manager - restricted to their place
+- Data entry - access to Medic Reporter only
+- Analytics - Data export via URL only
+- Gateway - Limited access user for Medic Gateway
+
+Currently mobile app users are all set to be "Regional managers".
+
+## Available permissions
+
+| Key | Description |
+|---|---|
+| can_access_gateway_api |  |
+| can_bulk_delete_reports |  |
+| can_configure |  |
+| can_create_people |  |
+| can_create_places |  |
+| can_create_records |  |
+| can_create_users |  |
+| can_delete_contacts |  |
+| can_delete_messages |  |
+| can_delete_reports |  |
+| can_delete_users |  |
+| can_edit |  |
+| can_edit_profile |  |
+| can_export_audit |  |
+| can_export_contacts |  |
+| can_export_feedback |  |
+| can_export_forms |  |
+| can_export_messages |  |
+| can_export_server_logs |  |
+| can_update_messages |  |
+| can_update_people |  |
+| can_update_places |  |
+| can_update_users |  |
+| can_view_analytics |  |
+| can_view_analytics_tab |  |
+| can_view_call_action | When viewing a contact, the user can see the call action in the action bar |
+| can_view_contacts |  |
+| can_view_contacts_tab |  |
+| can_view_data_records |  |
+| can_view_message_action | When viewing a contact, the user can see the message action in the action bar |
+| can_view_messages |  |
+| can_view_messages_tab |  |
+| can_view_reports |  |
+| can_view_reports_tab |  |
+| can_view_tasks |  |
+| can_view_tasks_tab |  |
+| can_view_unallocated_data_records |  |
+| can_view_users |  |
+
 ## Data Migration
-------------------------------------
 ------------------------------------
 # Deploy + Maintain
 ## Versioning
@@ -1239,5 +1348,3 @@ if (c.contact != null && c.contact.type === 'person') {
 ## Development Setup
 ## Contributing code
 ## Export
-------------------------------------
-------------------------------------
