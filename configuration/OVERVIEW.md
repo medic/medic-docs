@@ -395,7 +395,7 @@ Other docs:
 This example shows how you would register a single newborn from a delivery report.
 
 First, the relevant section of the delivery report XLSForm file:
-![Delivery report](../img/linked_docs_xlsform.png)
+![Delivery report](img/linked_docs_xlsform.png)
 
 Here is the corresponding portion of XML generated after converting the form:
 ```
@@ -428,7 +428,7 @@ If you've done your configuration correctly, all you should see when you click o
 This example extends the above example to show how you would register one or multiple newborns from a delivery report. This allows you to handle multiple births.
 
 First, the relevant section of the delivery report XLSForm file:
-![Delivery report](../img/repeated_docs_xlsform.png)
+![Delivery report](img/repeated_docs_xlsform.png)
 
 Here is the corresponding portion of XML generated after converting the form:
 ```
@@ -513,7 +513,7 @@ _Tasks can be configured for any user of type "restricted to their place". When 
 
 A rules engine is used to generate the tasks using the data available in the client app. The data, comprised of docs for people, places, and the reports about them, are processed by rules engine code to emit tasks like this one:
 
-![Task description](../img/task_with_description.png)
+![Task description](img/task_with_description.png)
 
 The rules engine code is completely configurable in `rules.nools.js`. It iterates through an object with all contacts accompanied by their reports. When the code identifies a condition that needs tasks, it generates a series of tasks based on templates in `tasks.json`. The tasks emitted by the rules engine code are then handled by the app. The app automatically shows the tasks in the Tasks tab and on contact's profiles, and removes them when they are completed.
 
@@ -853,9 +853,9 @@ case 'pregnancy':
 1. There are some use cases where information collected during an action within a task schedule may mean that the task schedule must change. For example, if you register a child for malnutrition follow-ups, you collect the height and weight during registration and tasks for follow-ups are created based on the registration. At the next visit (first follow-up), you collect the height and weight again and you want to update these so that future tasks reference this new height and weight. You can either clear and regenerate the schedule after each follow-up visit is done, or you can create only one follow-up at a time so that height and weight are always referencing the most recent visit.
 1. Given the way that the rules engine works, code that generates tasks must be immutable. Otherwise you will find that tasks are not clearing properly.
 1. If you have more than one action, click a prompted task will show a summary screen with fields you have passed along with a button for each possible action.
-![Task summary screen](../img/task_summary_screen.png)
+![Task summary screen](img/task_summary_screen.png)
 1. If you have a single action for a task, click the task will bring you straight to the specified form.
-![Task form](../img/task_form.png)
+![Task form](img/task_form.png)
 
 
 ### Troubleshooting
@@ -883,19 +883,19 @@ Each of your targets must be defined so that the app knows how to render it. You
 
 #### Plain count with no goal
 
-![Count no goal](../img/target_count_no_goal.png)
+![Count no goal](img/target_count_no_goal.png)
 
 #### Count with a goal
 
-![Count with goal](../img/target_count_with_goal.png)
+![Count with goal](img/target_count_with_goal.png)
 
 #### Percentage with no goal
 
-![Percentage no goal](../img/target_percent_no_goal.png)
+![Percentage no goal](img/target_percent_no_goal.png)
 
 #### Percentage with a goal
 
-![Percentage with goal](../img/target_percent_with_goal.png)
+![Percentage with goal](img/target_percent_with_goal.png)
 
 #### Example Target Definition - Count
 
