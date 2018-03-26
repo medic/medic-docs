@@ -38,8 +38,8 @@ Configuring Medic Mobile
         - [Tasks](#tasks)
         - [Actions](#actions)
     - [Tasks <!-- TODO: Already rewritten, needs review and updated screenshots -->](#tasks----todo-already-rewritten-needs-review-and-updated-screenshots---)
-        - [Logic: `rules.nools.js`](#logic-rulesnoolsjs)
         - [Templates: `tasks.json`](#templates-tasksjson)
+        - [Logic: `rules.nools.js`](#logic-rulesnoolsjs)
         - [Uploading <!-- TODO -->](#uploading----todo---)
         - [Examples](#examples)
         - [Tips & Tricks](#tips--tricks)
@@ -519,7 +519,55 @@ A rules engine is used to generate the tasks using the data available in the cli
 
 The rules engine code is completely configurable in `rules.nools.js`. It iterates through an object with all contacts accompanied by their reports. When the code identifies a condition that needs tasks, it generates a series of tasks based on templates in `tasks.json`. The tasks emitted by the rules engine code are then handled by the app. The app automatically shows the tasks in the Tasks tab and on contact's profiles, and removes them when they are completed.
 
+### Templates: `tasks.json`
+To separate the task structure from the logic, we have a template for each task in `tasks.json`. This file is structured as an array of task schedule objects, each with an `event` field containing one or more task templates. For each event we define the relative due date, task window, icon and title.
+
+```json
+[
+  {
+    "name": "task-schedule-name",
+    "events": [
+      {
+        "id": "task-id",
+        "days": 7,
+        "start": 0,
+        "end": 6,
+        "icon": "pregnancy-1",
+        "title": [
+          {
+            "content": "Title",
+            "locale": "en"
+          }
+        ],
+        "description": [
+          {
+            "content": "High risk message",
+            "locale": "en"
+          }
+        ]
+      }
+    ]
+  }
+]
+```
+
+The individual fields are described in table below:
+
+| field | description |
+|----|----|
+| `name`| This is the name of the task schedule. It's used when retrieving a particular task schedule from `tasks.json` for use in `rules.nools.js`.|
+| `events`| These are the individual tasks in the schedule. You may have one or more tasks in your schedule. For each event, you need to include the following |
+| `events[n].id` | This is an `id` you define for each of your tasks.|
+| `events[n].days` | Due date for the task. It is the number of days after the schedule start date that a task is due.|
+| `events[n].start` | The number of days before the task due date that the task should appear in the task list.|
+| `events[n].end` | The number of days after the task due date that the task should continue to appear in the task list.|
+| `events[n].icon` | You can use any icon that you like, but make sure the icon has been uploaded to your instance and the name matches.|
+| `events[n].title` | The name of your task that will appear to the user. This field supports locales, so you can include translations if you have users viewing the app in different languages on the same instance.|
+| `events[n].description` | This is optional. It is a second line of text that can appear at the right side of the task on the tasks list.|
+
 ### Logic: `rules.nools.js`
+Tasks templates in `tasks.json` do not show up on their own in the app. The logic for building actual tasks is done in the rules engine code found in `rules.nools.js`. This code iterates through all contacts and their reports, and then creates tasks as needed using templates in `tasks.json`. These tasks are then emitted to the app, which shows them at the appropriate time in the Tasks tab and on contact's profiles.
+
 The rules engine code receives an object containing the following:
 - `contact`: the contact's doc. All contacts have `type` of either `person` or `place`.
 - `reports`: an array of all the reports submitted about the contact.
@@ -577,52 +625,6 @@ To generate tasks the rules engine code must emit an object with the following p
 | `actions[n].form` | The form that should open when you click on the action. | yes |
 | `actions[n].label`|  The label that should appear on the button to start this action on the task summary page ('Click here to begin the follow up' in our example summary screen above). | no |
 | `actions[n].content`|  Contains fields that you want to pass into the form that will open when you click on the task or action. | no |
-
-### Templates: `tasks.json`
-To separate the task structure from the logic, we have a template for each task in `tasks.json`. This file is structured as an array of task schedule objects, each with a `event` which contains one or more task templates. For each event we define the relative due date, task window, icon and title.
-
-```json
-[
-  {
-    "name": "task-schedule-name",
-    "events": [
-      {
-        "id": "task-id",
-        "days": 7,
-        "start": 0,
-        "end": 6,
-        "icon": "pregnancy-1",
-        "title": [
-          {
-            "content": "Title",
-            "locale": "en"
-          }
-        ],
-        "description": [
-          {
-            "content": "High risk message",
-            "locale": "en"
-          }
-        ]
-      }
-    ]
-  }
-]
-```
-
-The individual fields are described in table below:
-
-| field | description |
-|----|----|
-| `name`| This is the name of the task schedule. It's used when retrieving a particular task schedule from `tasks.json` for use in `rules.nools.js`.|
-| `events`| These are the individual tasks in the schedule. You may have one or more tasks in your schedule. For each event, you need to include the following |
-| `events[n].id` | This is an `id` you define for each of your tasks.|
-| `events[n].days` | Due date for the task. It is the number of days after the schedule start date that a task is due.|
-| `events[n].start` | The number of days before the task due date that the task should appear in the task list.|
-| `events[n].end` | The number of days after the task due date that the task should continue to appear in the task list.|
-| `events[n].icon` | You can use any icon that you like, but make sure the icon has been uploaded to your instance and the name matches.|
-| `events[n].title` | The name of your task that will appear to the user. This field supports locales, so you can include translations if you have users viewing the app in different languages on the same instance.|
-| `events[n].description` | This is optional. It is a second line of text that can appear at the right side of the task on the tasks list.|
 
 To initialize a task we use a `createTask` function, passing to it the contact the task is about, the specific `event` from the task schedule, and the `report` that triggered the task:
 ```js
