@@ -1,4 +1,4 @@
-**_NOTE: This doc is meant to be the starting place for anyone configuring Medic Mobile. It is intentionally one large document while we reorganize and replace existing documentation, and will eventually become the README.md for this directory._**
+**_NOTE: This doc is meant to be the starting place for anyone configuring Medic Mobile. It is intentionally one large document while we reorganize and replace existing documentation, and will eventually become the README.md for this directory. The ToC is generated automatically, but not perfectly. This will be resolved before publishing more widely._**
 
 Configuring Medic Mobile
 ------------------------------
