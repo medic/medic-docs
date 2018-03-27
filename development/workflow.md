@@ -60,7 +60,7 @@ Issues are managed in Github. When creating issues assign a status value by choo
 
 #### Nothing
 
-If an issue has no status label at all then it needs to be triaged to work out the scheduled and priority.
+If an issue has no status label at all then it needs to be triaged to work out the schedule and priority.
 
 #### 1 - Triaged
 
