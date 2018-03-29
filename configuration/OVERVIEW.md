@@ -45,7 +45,7 @@ Configuring Medic Mobile
         - [Tips & Tricks](#tips--tricks)
         - [Troubleshooting](#troubleshooting)
     - [Targets <!-- TODO: Marc to revise to similar structure as Tasks -->](#targets----todo-marc-to-revise-to-similar-structure-as-tasks---)
-        - [Templates: `tasks.json`](#templates-tasksjson-1)
+        - [Templates: `targets.json`](#templates-targetsjson)
         - [Logic: `rules.nools.js`](#logic-rulesnoolsjs-1)
         - [Uploading <!-- TODO -->](#uploading----todo----1)
         - [Examples](#examples-1)
@@ -892,7 +892,7 @@ Like Tasks, a rules engine is used to generate the targets using the data availa
 
 The rules engine code is completely configurable in `rules.nools.js`, and is used to generate Targets and Tasks. It iterates through an object with all contacts accompanied by their reports. When the code identifies a condition related to a target widget in `targets.json`, it creates data for the widget as a _target instance_. The target instances emitted by the rules engine code are handled by the app. The app takes care of showing the target instances in the appropriate widgets of the Targets tab, updating counts and percentages automatically.
 
-### Templates: `tasks.json`
+### Templates: `targets.json`
 To separate the target widgets from the logic, we have a template for each target in `targets.json`. This file is structured as an object of Target properties, where the `items` field is an array of widget templates. For each widget we have a template defining how it looks and who can see it, as seen here:
 
 ```JSON
@@ -936,7 +936,7 @@ The individual fields are described in this table:
 
 
 ### Logic: `rules.nools.js`
-Target templates, unlike Task templates, will show up on their own in the app without any logic. However, they will not have any data unless you emit data as target instances in the `rules.nools.js` rules engine code -- the code to generate both Tasks and Targets. This code iterates through all contacts and their reports, and then creates and emits _target instances_ -- data to be shown in the widgets defined in `targets.json`. The app then automatically shows the data in the corresponding widgets in the Targets tab, updating their counts and percentages as needed.
+Target templates, unlike Task templates, will show up on their own in the app without any logic. However, they will not have any data unless you emit data as target instances in the `rules.nools.js` rules engine code. This is the code that generates both Tasks and Targets. It iterates through all contacts and their reports, and then creates and emits _target instances_ -- data to be shown in the widgets defined in `targets.json`. The app then automatically shows the data in the corresponding widgets in the Targets tab, updating their counts and percentages as needed.
 
 The rules engine code receives an object containing the following:
 - `contact`: the contact's doc. All contacts have `type` of either `person` or `place`.
@@ -979,11 +979,11 @@ To generate data for targets the rules engine code must emit an object with the 
 
 | property | description | required |
 |---|---|---|
-| `_id` | By default, the `_id` is set to [report ID]-[type]. [report ID] is the `_id` of the report that you passed in. | yes |
+| `_id` | A unique identifier for the data. Typically unique by including the target type and ID for the source data. Creating a target instance with a non-unique ID will overwrite the previous instance. | yes |
 | `deleted` | Set based on whether the report that generated the target is deleted. | yes |
-| `type` | Set to the passed in value that you provide. The `type` must match the `id` that you list in your `targets.json` file. More on the `targets.json` file below. | yes |
+| `type` | Set to the passed in value that you provide. The `type` must match the target widget `id` that you listed in the `targets.json` template. | yes |
 | `pass` | Can be true or false. True if the report meets the specified condition and false if the report doesn't meet the condition. The total number of target emissions is always equal to the number of targets emitted with `pass: true` plus the number of targets emitted with `pass: false`. | yes |
-| `date` | The date for the data in question. Widgets only show data for the current month. Typically set to the `reported_date` of the report that generated the data. Set to `new Date().getTime()` if data needs to be shown regardless of date. | yes |
+| `date` | The date for the data in question. Widgets only show data for the current month. Typically set to the `reported_date` of the report that generated the data. Set to `new Date().getTime()` if data needs to be shown regardless of current date. | yes |
 
 
 To initialize the target instance we use a `createTargetInstance` function, passing to it the `type` of target widget, the `source` contact or report that triggered the target instance, and the `pass` condition:
@@ -998,7 +998,7 @@ var createTargetInstance = function(type, source, pass) {
   });
 };
 ```
-The newly initialized target instance can be manipulated further if needed before being emitted. Typically, the fields changed after initialization are the `date` so that it shows up for the current month, and the `_id` if needed to ensure uniqueness.
+The newly initialized target instance can be manipulated further if needed before being emitted. Typically, the fields changed after initialization are the `date` so that it shows up for the current month, and the `_id` if needed to further ensure uniqueness.
 
 To emit a target instance we use the following function:
 
@@ -1324,7 +1324,7 @@ if (c.contact != null && c.contact.type === 'person') {
 ### Tips & Tricks
 1. You can use Utils functions just as you can with Task rules. See [Tasks>Utils](#utils) for more information. 
 1. Percentage targets are always equal to: `(number of true targets) / (number of true targets + number of false targets)`
-1. It's possible to emit a target that refers to the same form or contact multiple times. This can be used to calculate percentage targets by emitting a false target for each of the forms or contacts that you want to include and then emitting true only for the ones that meet certain conditions. See the Calculate Percent of Households that were Surveyed example below.
+1. It's possible to emit a target that refers to the same form or contact multiple times. This can be used to calculate percentage targets by emitting a false target for each of the forms or contacts that you want to include and then emitting true only for the ones that meet certain conditions. See the [Calculate Percent of Households that were Surveyed](#calculate-percent-of-households-that-were-surveyed---all-time) example.
 1. Remember that targets are emitted in a specific order, so if you are using the method in the previous tip, this might impact your results. The app will always use the target emitted most recently, so if you emit false, true, false for the same form or contact, then the app will consider it a false target, even though there was a true emitted at some point. 
 
 ### Troubleshooting
