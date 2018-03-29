@@ -22,7 +22,7 @@ Configuring Medic Mobile
     - [Icons <!-- TODO: Derick -->](#icons----todo-derick---)
     - [SMS Forms](#sms-forms)
     - [App Forms <!-- TODO: review content and add subsections -->](#app-forms----todo-review-content-and-add-subsections---)
-        - [Structuring a form](#structuring-a-form)
+        - [Structure](#structure)
         - [Showing a form <!-- TODO -->](#showing-a-form----todo---)
         - [Getting data into a form <!-- TODO -->](#getting-data-into-a-form----todo---)
         - [Uploading forms <!-- TODO -->](#uploading-forms----todo---)
@@ -44,7 +44,7 @@ Configuring Medic Mobile
         - [Examples](#examples)
         - [Tips & Tricks](#tips--tricks)
         - [Troubleshooting](#troubleshooting)
-    - [Targets <!-- TODO: Marc to revise to similar structure as Tasks -->](#targets----todo-marc-to-revise-to-similar-structure-as-tasks---)
+    - [Targets <!-- TODO: Already rewritten, needs review and updated screenshots -->](#targets----todo-already-rewritten-needs-review-and-updated-screenshots---)
         - [Templates: `targets.json`](#templates-targetsjson)
         - [Logic: `rules.nools.js`](#logic-rulesnoolsjs-1)
         - [Uploading <!-- TODO -->](#uploading----todo----1)
@@ -205,33 +205,43 @@ Whether using Medic Mobile in the browser or via the Android app, all Actions, T
 - Meta information in the `{form_name}.properties.json` file (optional)
 - Media files in the `{form_name}-media` directory (optional)
 
-### Structuring a form
-A typical Task form starts with an `inputs` group which contains prepopulated fields that may be needed during the completion of the form (eg patient's name, prior information), and ends with a summary group (eg `group_summary`, or `group_review`) where important information is shown to the user before they submit the form. In between these two is the form flow, usually a collection of questions grouped into pages. All data fields submitted with a form are stored, but often important information that will need to be accessed from the form is brought to the top level. Since all forms in Medic Mobile are submitted about a person or place you must make sure at least on of `place_id`, `patient_id`, and `patient_uuid` are stored at the top level.
+### Structure
+A typical form starts with an `inputs` group which contains prepopulated fields that may be needed during the completion of the form (eg patient's name, prior information), and ends with a summary group (eg `group_summary`, or `group_review`) where important information is shown to the user before they submit the form. In between these two is the form flow, usually a collection of questions grouped into pages. All data fields submitted with a form are stored, but often important information that will need to be accessed from the form is brought to the top level. Since all forms in Medic Mobile are submitted about a person or place you must make sure at least on of `place_id`, `patient_id`, and `patient_uuid` are stored at the top level.
 
-| **type** | **name** | **label** | **relevant** | **appearance** | ... |
+| type | name | label | relevant | appearance | ... |
 |---|---|---|---|---|---|
 | begin group | inputs | Inputs | ./source = 'user' | field-list |
 | string | source | Source |  | hidden |
 | string | source_id | Source ID |  | hidden |
-| end group| | |  |  |
-| string | patient_id | Patient ID |  | db-object |
+| begin group | contact | | | |
+| db:person | patient_id | Patient ID |  | db-object |
 | string | patient_name | Patient Name |  | hidden |
 | string | edd | EDD |  | hidden |
+| end group| | |  |  |
+| end group| | |  |  |
 | ...
-| begin group | group_review | Review |  | field-list summary |
+| begin group | group_summary | Summary |  | field-list summary |
 | note | r_patient_info | \*\*${patient_name}\*\* ID: ${r_patient_id} |  |  |
 | note | r_followup | Follow Up \<i class="fa fa-flag"\>\</i\> |  |  |
 | note | r_followup_note | ${r_followup_instructions} |  |  |
 | end group| | |  |  |
 
 #### Inputs
+Data is passed to forms as fields in the `inputs` group, or via the `contact-summary` instance. Fields in the `inputs` group must be explicitly declared in the XLSForm/XForm so those will be detailed here. The `contact-summary` does not require XLSForm/XForm field declaration, so are documented in the [accessing contact-summary data](#accessing-contact-summary-data) section.
+
+| Tab | Data |
+|---|---|
+| Reports | No `input` fields are populated for forms opened from the Reports tab. As a result, we use a `db-object` field to have the user select the subject of the form, and then populate the `inputs.contact` field once the form has already been opened. |
+| People | The `inputs.contact` field is populated with the contact from which the form is opened. Nested groups are needed in the XLSForm/XForm to access fields nested on the contact, such as the info of their `parent` place. |
+| Tasks | Data provided in `actions[n].content` is directly mapped to the `inputs` group. For instance, the `contact` is passed in this way so the task form knows who the form is about. Also, the `source` and `source_id` are used in Analytics to relate a task to the action that triggered it. |
 
 #### Outputs
-All forms in Medic Mobile are submitted about a person or place. In order for a submitted report to be handled properly by Medic Mobile it must have at least one of the following identifiers at the top level of the data model: `place_id`, `patient_id`, `patient_uuid`.
+All forms in Medic Mobile are submitted about a person or place. In order for a submitted report to be handled properly by Medic Mobile it must have at least one of the following identifiers at the top level of the data model: `place_id`, `patient_id`, `patient_uuid`. Additional fields can be at the top level, or nested in groups. The inputs are not saved with form, so any input fields that need to be saved in the report should be included outside of that group too, with a calculate refering back to the input field.
 
-#### Summary page <!-- TODO -->
-##### Structure
-##### Styling
+#### Summary page
+It is a good practice for all forms to show users a summary of their actions along with followup information before they submit their report. This is often used to review that the information was submitted for the right patient, that the symptoms were properly entered, along with the diagnosis and next steps for the user.
+
+A convention we have used for the summary page is to have it in a `group` called  `group_summary`. This group would have `field-list summary` as the `appearance`,  and several sections within it, such as Patient Details, Symptoms, Diagnosis, and Follow-Up. Each section has a header `note` that is styled with custom `appearance` values such as `h1 yellow`. These headers are followed by details for that section as `note` fields, which are shown when `relevant` based on data in the form.
 
 ### Showing a form <!-- TODO -->
 #### On History/Reports
@@ -671,14 +681,14 @@ if (schedule) {
     task.priority = isHighRiskPregnancy ? 'high' : null;
     task.priorityLabel = isHighRiskPregnancy ? ( schedule.description ? schedule.description : 'High Risk' ) : '';
     task.actions.push({
-        type: 'report',
-        form: 'pregnancy_visit',
-        label: 'Follow up',
-        content: {
+      type: 'report',
+      form: 'pregnancy_visit',
+      label: 'Follow up',
+      content: {
         source: 'task',
         source_id: report._id,
         contact: contact.contact
-        }
+      }
     });
     // Resolved if there is a newer pregnancy, there has been a delivery, or visit received in window
     task.resolved = report.reported_date < newestPregnancyTimestamp
@@ -867,7 +877,7 @@ case 'pregnancy':
 1. Cannot see tasks: Makes sure your user is an offline user
 1. Tasks is not clearing: Make sure the the code that generates the task is immutable.
 
-## Targets <!-- TODO: Marc to revise to similar structure as Tasks -->
+## Targets <!-- TODO: Already rewritten, needs review and updated screenshots -->
 _Health workers can easily view their goals and progress for the month, even while offline._
 
 _Targets refers to our in-app analytics widgets. These widgets can be configured to track metrics for an individual CHW or for an entire health facility, depending on what data the logged in user has access to. Targets can be configured for any user that has offline access (user type is "restricted to their place"). When configuring targets, you have access to all the contacts (people and places) that your logged in user can view, along with all the reports about them._
