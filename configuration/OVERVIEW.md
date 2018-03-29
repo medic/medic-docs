@@ -45,8 +45,8 @@ Configuring Medic Mobile
         - [Tips & Tricks](#tips--tricks)
         - [Troubleshooting](#troubleshooting)
     - [Targets <!-- TODO: Marc to revise to similar structure as Tasks -->](#targets----todo-marc-to-revise-to-similar-structure-as-tasks---)
-        - [Template: `targets.json`](#template-targetsjson)
-        - [Creation: `rules.nools.js`](#creation-rulesnoolsjs)
+        - [Templates: `tasks.json`](#templates-tasksjson-1)
+        - [Logic: `rules.nools.js`](#logic-rulesnoolsjs-1)
         - [Uploading <!-- TODO -->](#uploading----todo----1)
         - [Examples](#examples-1)
         - [Tips & Tricks](#tips--tricks-1)
@@ -517,7 +517,7 @@ A rules engine is used to generate the tasks using the data available in the cli
 
 ![Task description](img/task_with_description.png)
 
-The rules engine code is completely configurable in `rules.nools.js`. It iterates through an object with all contacts accompanied by their reports. When the code identifies a condition that needs tasks, it generates a series of tasks based on templates in `tasks.json`. The tasks emitted by the rules engine code are then handled by the app. The app automatically shows the tasks in the Tasks tab and on contact's profiles, and removes them when they are completed.
+The rules engine code is completely configurable in `rules.nools.js`, and is used to generate Targets and Tasks. It iterates through an object with all contacts accompanied by their reports. When the code identifies a condition that needs tasks, it generates a series of tasks based on templates in `tasks.json`. The tasks emitted by the rules engine code are then handled by the app. The app automatically shows the tasks in the Tasks tab and on contact's profiles, and removes them when they are completed.
 
 ### Templates: `tasks.json`
 To separate the task structure from the logic, we have a template for each task in `tasks.json`. This file is structured as an array of task schedule objects, each with an `event` field containing one or more task templates. For each event we define the relative due date, task window, icon and title.
@@ -551,7 +551,7 @@ To separate the task structure from the logic, we have a template for each task 
 ]
 ```
 
-The individual fields are described in table below:
+The individual fields are described in this table:
 
 | field | description |
 |----|----|
@@ -566,7 +566,7 @@ The individual fields are described in table below:
 | `events[n].description` | This is optional. It is a second line of text that can appear at the right side of the task on the tasks list.|
 
 ### Logic: `rules.nools.js`
-Tasks templates in `tasks.json` do not show up on their own in the app. The logic for building actual tasks is done in the rules engine code found in `rules.nools.js`. This code iterates through all contacts and their reports, and then creates tasks as needed using templates in `tasks.json`. These tasks are then emitted to the app, which shows them at the appropriate time in the Tasks tab and on contact's profiles.
+Tasks templates in `tasks.json` do not show up on their own in the app. The logic for building actual tasks is done in the rules engine code found in `rules.nools.js` -- the code to generate both Tasks and Targets. This code iterates through all contacts and their reports, and then creates tasks as needed using templates in `tasks.json`. These tasks are then emitted to the app, which shows them at the appropriate time in the Tasks tab and on contact's profiles.
 
 The rules engine code receives an object containing the following:
 - `contact`: the contact's doc. All contacts have `type` of either `person` or `place`.
@@ -868,23 +868,11 @@ case 'pregnancy':
 1. Tasks is not clearing: Make sure the the code that generates the task is immutable.
 
 ## Targets <!-- TODO: Marc to revise to similar structure as Tasks -->
-Targets refers to our in-app analytics widgets. These widgets can be configured to track metrics for an individual CHW or for an entire health facility, depending on what data the logged in user has access to. Targets can be configured for any user that has offline access (user type is "restricted to their place"). When configuring targets, you have access to all the contacts (people and places) that your logged in user can view, along with all the reports about them.
+_Health workers can easily view their goals and progress for the month, even while offline._
 
-Targets are configured in two places:
-- `targets.json` is where you define how the target looks, including the title, icon and goal (if applicable). It is also where you set the `context` to decide who should see the target.
-- `rules.nools.js` is where you define the calculation for each of your targets.
+_Targets refers to our in-app analytics widgets. These widgets can be configured to track metrics for an individual CHW or for an entire health facility, depending on what data the logged in user has access to. Targets can be configured for any user that has offline access (user type is "restricted to their place"). When configuring targets, you have access to all the contacts (people and places) that your logged in user can view, along with all the reports about them._
 
-### Template: `targets.json`
-Each of your targets must be defined so that the app knows how to render it. You will need to include the following properties for each of your targets:
-
-* `type`: There are currently two types of targets, `count` and `percent`. These are illustrated above in the Types of Widgets section. 1 & 2 are the `count` type and 3 is the `percent` type.
-* `id`: This can be whatever you like, but it must match the `type` property of the target being emitted in `rules.nools.js`.
-* `icon`: You can use any icon that you like, but make sure the icon has been uploaded to your instance and the name matches.
-* `goal`: For percentage targets, you must put a positive number. For count targets, put a positive number if there is a goal. If there is no goal, put -1.
-* `context`: This is an expression similar to form context that describes which users will see a certain target. In this case, you only have access to the `user` (person logged in) and not to the `contact` since you are not on a person or place profile page.
-* `translation_key`: The name of the translation key to use for the title of this target.
-* `subtitle_translation_key`: The name of the translation key to use for the subtitle of this target. If none supplied the subtitle will be blank.
-* `percentage_count_translation_key`: The name of the translation key to use for the percentage value detail shown at the bottom of the target, eg: "(5 of 6 deliveries)". The translation context has `pass` and `total` variables available. If none supplied this defaults to "targets.count.default".
+Like Tasks, a rules engine is used to generate the targets using the data available in the client app. The data, comprised of docs for people, places, and the reports about them, are processed by rules engine code to emit data for widgets like these:
 
 #### Plain count with no goal
 
@@ -902,70 +890,136 @@ Each of your targets must be defined so that the app knows how to render it. You
 
 ![Percentage with goal](img/target_percent_with_goal.png)
 
-#### Example Target Definition - Count
+The rules engine code is completely configurable in `rules.nools.js`, and is used to generate Targets and Tasks. It iterates through an object with all contacts accompanied by their reports. When the code identifies a condition related to a target widget in `targets.json`, it creates data for the widget as a _target instance_. The target instances emitted by the rules engine code are handled by the app. The app takes care of showing the target instances in the appropriate widgets of the Targets tab, updating counts and percentages automatically.
+
+### Templates: `tasks.json`
+To separate the target widgets from the logic, we have a template for each target in `targets.json`. This file is structured as an object of Target properties, where the `items` field is an array of widget templates. For each widget we have a template defining how it looks and who can see it, as seen here:
 
 ```JSON
 {
-  "type": "count",
-  "id": "assessments-u1",
-  "icon": "infant",
-  "goal": 4,
-  "context": "user.parent.parent.name == 'San Francisco'",
-  "translation_key": "targets.assessments.title",
-  "subtitle_translation_key": "targets.assessments.subtitle"
+  "enabled": true,
+  "items": [
+    {
+      "type": "count",
+      "id": "assessments-u1",
+      "icon": "infant",
+      "goal": 4,
+      "context": "user.parent.parent.name == 'Mukono'",
+      "translation_key": "targets.assessments.title",
+      "subtitle_translation_key": "targets.assessments.subtitle"
+    },
+    {
+      "type": "percent",
+      "id": "newborn-visit-48hr",
+      "icon": "mother-child",
+      "goal": 85,
+      "translation_key": "targets.visits.title",
+      "subtitle_translation_key": "targets.visits.subtitle",
+      "percentage_count_translation_key": "targets.visits.detail"
+    }
+  ]
 }
 ```
 
-#### Example Target Definition - Percent
+The individual fields are described in this table:
 
-```JSON
-{
-  "type": "percent",
-  "id": "newborn-visit-48hr",
-  "icon": "mother-child",
-  "goal": 85,
-  "translation_key": "targets.visits.title",
-  "subtitle_translation_key": "targets.visits.subtitle",
-  "percentage_count_translation_key": "targets.visits.detail"
+| field | description |
+|----|----|
+| `type` |There are currently two types of targets, `count` and `percent`. These are illustrated above in the Types of Widgets section. 1 & 2 are the `count` type and 3 is the `percent` type. |
+| `id` |This can be whatever you like, but it must match the `type` property of the target being emitted in `rules.nools.js`. |
+| `icon` |You can use any icon that you like, but make sure the icon has been uploaded to your instance and the name matches. |
+| `goal` |For percentage targets, you must put a positive number. For count targets, put a positive number if there is a goal. If there is no goal, put -1. |
+| `context` |This is an expression similar to form context that describes which users will see a certain target. In this case, you only have access to the `user` (person logged in) and not to the `contact` since you are not on a person or place profile page. |
+| `translation_key` |The name of the translation key to use for the title of this target. |
+| `subtitle_translation_key` |The name of the translation key to use for the subtitle of this target. If none supplied the subtitle will be blank. |
+| `percentage_count_translation_key` |The name of the translation key to use for the percentage value detail shown at the bottom of the target, eg |"(5 of 6 deliveries)". The translation context has `pass` and `total` variables available. If none supplied this defaults to "targets.count.default".
+
+
+### Logic: `rules.nools.js`
+Target templates, unlike Task templates, will show up on their own in the app without any logic. However, they will not have any data unless you emit data as target instances in the `rules.nools.js` rules engine code -- the code to generate both Tasks and Targets. This code iterates through all contacts and their reports, and then creates and emits _target instances_ -- data to be shown in the widgets defined in `targets.json`. The app then automatically shows the data in the corresponding widgets in the Targets tab, updating their counts and percentages as needed.
+
+The rules engine code receives an object containing the following:
+- `contact`: the contact's doc. All contacts have `type` of either `person` or `place`.
+- `reports`: an array of all the reports submitted about the contact.
+
+The basic structure of the rules engine code is as follows:
+
+```js
+define Contact {
+  contact: null,
+  reports: null
+}
+
+rule GenerateEvents {
+  when {
+    c: Contact
+  }
+  then {
+    if (c.contact && c.contact.type === 'person') {
+      // Check for condition in person's doc
+        // Create + emit target instance based on person's fields
+
+      c.reports.forEach(
+        function(report) {
+          switch(report.form) {
+            case 'form_id':
+              // Check for condition in report
+                // Create + emit target instance based on report fields
+            // ...
+          }
+        }
+      );
+    }
+    emit('_complete', { _id: true });
+  }
 }
 ```
 
-### Creation: `rules.nools.js`
-A rules engine processes all contacts and reports and emits data to the defined targets. The rules engine is configured in `rules-nools.js` by preparing the target instances, and then emitting them. Below are some helpful functions, and examples from the most basic to the more complex.
+To generate data for targets the rules engine code must emit an object with the following properties:
 
-#### Creating a Target
+| property | description | required |
+|---|---|---|
+| `_id` | By default, the `_id` is set to [report ID]-[type]. [report ID] is the `_id` of the report that you passed in. | yes |
+| `deleted` | Set based on whether the report that generated the target is deleted. | yes |
+| `type` | Set to the passed in value that you provide. The `type` must match the `id` that you list in your `targets.json` file. More on the `targets.json` file below. | yes |
+| `pass` | Can be true or false. True if the report meets the specified condition and false if the report doesn't meet the condition. The total number of target emissions is always equal to the number of targets emitted with `pass: true` plus the number of targets emitted with `pass: false`. | yes |
+| `date` | The date for the data in question. Widgets only show data for the current month. Typically set to the `reported_date` of the report that generated the data. Set to `new Date().getTime()` if data needs to be shown regardless of date. | yes |
 
-Here is a sample function to create a data point for a target, called a target instance.
 
-```javascript
-var createTargetInstance = function(type, report, pass) {
+To initialize the target instance we use a `createTargetInstance` function, passing to it the `type` of target widget, the `source` contact or report that triggered the target instance, and the `pass` condition:
+```js
+var createTargetInstance = function(type, source, pass) {
   return new Target({
-    _id: report._id + '-' + type,
-    deleted: !!report.deleted,
+    _id: source._id + '-' + type,
+    deleted: !!source.deleted,
     type: type,
     pass: pass,
-    date: report.reported_date
+    date: source.reported_date
   });
 };
 ```
+The newly initialized target instance can be manipulated further if needed before being emitted. Typically, the fields changed after initialization are the `date` so that it shows up for the current month, and the `_id` if needed to ensure uniqueness.
 
-When creating a target, you are required to pass in a type, a report and pass (as shown in the above function). Targets have several properties:
+To emit a target instance we use the following function:
 
-* `_id`: By default, the `_id` is set to [report ID]-[type]. [report ID] is the `_id` of the report that you passed in.
-* `deleted`: Set based on whether the report that generated the target is deleted.
-* `type`: Set to the passed in value that you provide. The `type` must match the `id` that you list in your `targets.json` file. More on the `targets.json` file below.
-* `pass`: Can be true or false. True if the report meets the specified condition and false if the report doesn't meet the condition. The total number of target emissions is always equal to the number of targets emitted with `pass: true` plus the number of targets emitted with `pass: false`.
-* `date`: By default, this is set to the `reported_date` of the report that you provided.
-
-It's possible to change any of the properties of a target before you emit it. This can come in handy when configuring different types of targets. Some examples will be outlined later in this document. Once you have created your target and made any changes to its properties, make sure you emit the target using the `emitTargetInstance` function.
-
-#### Emitting a Target
-
-```javascript
-var emitTargetInstance = function(instance) {
-  emit('target', instance);
-};
+```js
+    var emitTargetInstance = function(instance) {
+      emit('target', instance);
+    };
 ```
+
+Putting these concepts all together, here is an example snippet where a target instance is created, modified, then emitted.
+```js
+        // IMM: CHILDREN WITH BCG REPORTED
+        var instance = createTargetInstance('imm-children-with-bcg-reported', c.contact, isBcgReported(c));
+        instance.date = now.getTime();
+        emitTargetInstance(instance);
+```
+
+### Uploading <!-- TODO -->
+
+### Examples
+This section contains some examples of simple and complex targets.
 
 #### Simple Count - This Month
 
@@ -1126,9 +1180,6 @@ if (c.contact != null && c.contact.type === 'person') {
 }
 ```
 
-### Uploading <!-- TODO -->
-### Examples
-This section contains some other examples of more complex targets.
 #### Calculate Percent of Households that were Surveyed - All-Time
 
 In this case, we are emitting a false target for every household and then a true target for every household for which a survey was done. Because the true target will be emitted after the false target, it will overwrite the false target.
@@ -1271,6 +1322,7 @@ if (c.contact != null && c.contact.type === 'person') {
 ```
 
 ### Tips & Tricks
+1. You can use Utils functions just as you can with Task rules. See [Tasks>Utils](#utils) for more information. 
 1. Percentage targets are always equal to: `(number of true targets) / (number of true targets + number of false targets)`
 1. It's possible to emit a target that refers to the same form or contact multiple times. This can be used to calculate percentage targets by emitting a false target for each of the forms or contacts that you want to include and then emitting true only for the ones that meet certain conditions. See the Calculate Percent of Households that were Surveyed example below.
 1. Remember that targets are emitted in a specific order, so if you are using the method in the previous tip, this might impact your results. The app will always use the target emitted most recently, so if you emit false, true, false for the same form or contact, then the app will consider it a false target, even though there was a true emitted at some point. 
