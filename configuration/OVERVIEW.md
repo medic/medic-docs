@@ -263,7 +263,7 @@ The items shown in the list can be constrained to show only people, or a specifi
 | `db:clinic` | List of all places with `"type": "clinic"`. This corresponds to the lowest facility in the hierarchy. |
 | `db:health_center` | List of all places with `"type": "health_center"`. This corresponds to the middle facility in the hierarchy. |
 | `db:district_hospital` | List of all places with `"type": "district_hospital"`. This corresponds to the highest facility in the hierarchy. |
-| `string` | List of all places with `"type": "district_hospital"`. This corresponds to the highest facility in the hierarchy. |
+| `string` | A list of all docs, not constrained by type. Support for this may change, so use with caution. <!-- Verify status of this previously undocumented feature --> |
 
 This type of widget is often used to obtain and use data about a particular contact in the form itself. **The default behavior of the widget is therefore to assign the value of any of the selected doc's fields to matching fields in the XForm.** For instance, if a field `name` exists in the XForm at the same level as the `db-object` field, it will be updated with the value of the selected contact's `name` field. To override this default binding behaviour, and only get the `_id` value assigned to the `db-object` field, you must also specify `bind-id-only` in the appearance.
 
