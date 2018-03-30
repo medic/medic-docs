@@ -24,7 +24,6 @@ Configuring Medic Mobile
     - [App Forms <!-- TODO: review content and add subsections -->](#app-forms----todo-review-content-and-add-subsections---)
         - [Structure](#structure)
         - [Showing a form <!-- TODO -->](#showing-a-form----todo---)
-        - [Getting data into a form <!-- TODO -->](#getting-data-into-a-form----todo---)
         - [Uploading forms <!-- TODO -->](#uploading-forms----todo---)
         - [Other Medic specific XForm conventions](#other-medic-specific-xform-conventions)
         - [Tips & Tricks <!-- TODO -->](#tips--tricks----todo---)
@@ -246,15 +245,6 @@ A convention we have used for the summary page is to have it in a `group` called
 ### Showing a form <!-- TODO -->
 #### On History/Reports
 #### On Profiles (see Profile section for how to show)
-### Getting data into a form <!-- TODO -->
-#### From Profiles
-##### Inputs
-##### Contact-summary (see Profile section)
-#### From Tasks
-##### Inputs
-##### Best practices
-##### source_id
-#### From a database object
 ### Uploading forms <!-- TODO -->
 #### CLI
 #### UI
