@@ -23,7 +23,7 @@ Configuring Medic Mobile
     - [SMS Forms](#sms-forms)
     - [App Forms <!-- TODO: review content and add subsections -->](#app-forms----todo-review-content-and-add-subsections---)
         - [Structure](#structure)
-        - [Showing a form <!-- TODO -->](#showing-a-form----todo---)
+        - [Showing a form <!-- TODO: info about context field in properties -->](#showing-a-form----todo-info-about-context-field-in-properties---)
         - [Uploading forms <!-- TODO -->](#uploading-forms----todo---)
         - [Other Medic specific XForm conventions](#other-medic-specific-xform-conventions)
         - [Tips & Tricks <!-- TODO -->](#tips--tricks----todo---)
@@ -205,25 +205,28 @@ Whether using Medic Mobile in the browser or via the Android app, all Actions, T
 - Media files in the `{form_name}-media` directory (optional)
 
 ### Structure
-A typical form starts with an `inputs` group which contains prepopulated fields that may be needed during the completion of the form (eg patient's name, prior information), and ends with a summary group (eg `group_summary`, or `group_review`) where important information is shown to the user before they submit the form. In between these two is the form flow, usually a collection of questions grouped into pages. All data fields submitted with a form are stored, but often important information that will need to be accessed from the form is brought to the top level. Since all forms in Medic Mobile are submitted about a person or place you must make sure at least on of `place_id`, `patient_id`, and `patient_uuid` are stored at the top level.
+A typical form starts with an `inputs` group which contains prepopulated fields that may be needed during the completion of the form (eg patient's name, prior information), and ends with a summary group (eg `group_summary`, or `group_review`) where important information is shown to the user before they submit the form. In between these two is the form flow, usually a collection of questions grouped into pages. All data fields submitted with a form are stored, but often important information that will need to be accessed from the form is brought to the top level. Since all forms in Medic Mobile are submitted about a person or place you must make sure at least one of `place_id`, `patient_id`, and `patient_uuid` are stored at the top level.
 
-| type | name | label | relevant | appearance | ... |
-|---|---|---|---|---|---|
+| type | name | label | relevant | appearance | calculate | ... |
+|---|---|---|---|---|---|---|
 | begin group | inputs | Inputs | ./source = 'user' | field-list |
-| string | source | Source |  | hidden |
-| string | source_id | Source ID |  | hidden |
-| begin group | contact | | | |
-| db:person | patient_id | Patient ID |  | db-object |
-| string | patient_name | Patient Name |  | hidden |
-| string | edd | EDD |  | hidden |
-| end group| | |  |  |
-| end group| | |  |  |
+| hidden | source |
+| hidden | source_id |
+| begin group | contact |
+| db:person | _id | Patient ID |  | db-object |
+| string | patient_id | Medic ID |  | hidden |
+| string | name | Patient Name |  | hidden |
+| end group
+| end group
+| calculate | _id | | | | ../inputs/contact/_id |
+| calculate | patient_id | | | | ../inputs/contact/patient_id |
+| calculate | name | | | | ../inputs/contact/name |
 | ...
 | begin group | group_summary | Summary |  | field-list summary |
-| note | r_patient_info | \*\*${patient_name}\*\* ID: ${r_patient_id} |  |  |
-| note | r_followup | Follow Up \<i class="fa fa-flag"\>\</i\> |  |  |
-| note | r_followup_note | ${r_followup_instructions} |  |  |
-| end group| | |  |  |
+| note | r_patient_info | \*\*${patient_name}\*\* ID: ${r_patient_id} |
+| note | r_followup | Follow Up \<i class="fa fa-flag"\>\</i\> |
+| note | r_followup_note | ${r_followup_instructions} |
+| end group |
 
 #### Inputs
 Data is passed to forms as fields in the `inputs` group, or via the `contact-summary` instance. Fields in the `inputs` group must be explicitly declared in the XLSForm/XForm so those will be detailed here. The `contact-summary` does not require XLSForm/XForm field declaration, so are documented in the [accessing contact-summary data](#accessing-contact-summary-data) section.
@@ -242,16 +245,69 @@ It is a good practice for all forms to show users a summary of their actions alo
 
 A convention we have used for the summary page is to have it in a `group` called  `group_summary`. This group would have `field-list summary` as the `appearance`,  and several sections within it, such as Patient Details, Symptoms, Diagnosis, and Follow-Up. Each section has a header `note` that is styled with custom `appearance` values such as `h1 yellow`. These headers are followed by details for that section as `note` fields, which are shown when `relevant` based on data in the form.
 
-### Showing a form <!-- TODO -->
+### Showing a form <!-- TODO: info about context field in properties -->
 #### On History/Reports
 #### On Profiles (see Profile section for how to show)
 ### Uploading forms <!-- TODO -->
 #### CLI
 #### UI
 ### Other Medic specific XForm conventions
-#### Dropdown with people/places <!-- TODO -->
-#### Hiding fields/groups in Reports view <!-- TODO -->
-Use the `attributes::tag` with `hidden` in XLSForm
+#### Dropdown with people/places
+A Medic Mobile specific XForm widget was introduced to be able to select a person or place from the database. This widget looks like a dropdown, which is familiar to users, and when a person is selected will set the doc's `_id` to the field in question.
+
+The items shown in the list can be constrained to show only people, or a specific type of place. To use it you must specify the appearance to be `db-object`, and then contrain the selection with one of the following XLSForm types:
+
+| XLSForm Type | Behavior |
+|----|----|
+| `db:person` | List of all people that the user can see in the data |
+| `db:clinic` | List of all places with `"type": "clinic"`. This corresponds to the lowest facility in the hierarchy. |
+| `db:health_center` | List of all places with `"type": "health_center"`. This corresponds to the middle facility in the hierarchy. |
+| `db:district_hospital` | List of all places with `"type": "district_hospital"`. This corresponds to the highest facility in the hierarchy. |
+| `string` | List of all places with `"type": "district_hospital"`. This corresponds to the highest facility in the hierarchy. |
+
+This type of widget is often used to obtain and use data about a particular contact in the form itself. **The default behavior of the widget is therefore to assign the value of any of the selected doc's fields to matching fields in the XForm.** For instance, if a field `name` exists in the XForm at the same level as the `db-object` field, it will be updated with the value of the selected contact's `name` field. To override this default binding behaviour, and only get the `_id` value assigned to the `db-object` field, you must also specify `bind-id-only` in the appearance.
+
+#### Hiding fields/groups in Reports view
+By default all fields saved with a report are shown when viewing a submitted report in the Reports tab. To hide any individual field or group you must set its `tag` attribute as `hidden` in the data model. 
+
+For instance, in the following form the `inputs` group is completely hidden, as is the `patient_uuid` field:
+```xml
+        <delivery delimiter="#" id="delivery" prefix="J1!delivery!" version="2018-03-06_06-54">
+          <inputs tag="hidden">
+            <source>user</source>
+            <source_id/>
+            <contact>
+              <_id/>
+              <patient_id/>
+              [...]
+            </contact>
+          </inputs>
+          <patient_uuid tag="hidden"/>
+          <patient_id/>
+          <patient_name/>
+          [...]
+        </delivery>
+```
+
+This is can easily be done via XLSForm by adding a `attributes::tag` column, and then set the value `hidden` for the row of the fields that are to be hidden. The XLSForm snippet below corresponds to the XForm above, hiding the `inputs` group and the `patient_uuid` field.
+
+| type | name | ... | attributes::tag | 
+|---|---|---|---|
+| begin group | inputs | | hidden |
+| hidden | source |
+| hidden | source_id |
+| begin group | contact |
+| db:person | _id |
+| string | patient_id |
+| ... |
+| end group |
+| end group |
+| calculate | patient_uuid | | hidden |
+| calculate | patient_id |
+| calculate | patient_name |
+
+_Note that hiding the `inputs` group is used as an example here but generally unnecessary since that group in particular is not saved as fields in the report's database doc._
+
 #### Creating additional docs
 In version 2.13.0 and higher, you can configure your app forms to generate additional docs upon submission. You can create one or more docs using variations on the configuration described below. One case where this can be used is to register a newborn from a delivery report, as shown below. First, here is an overview of what you can do and how the configuration should look in XML:
 
@@ -495,7 +551,6 @@ return result;
 ```
 
 Note that you can pass a large object to the form, which can then read any value, but doing so does noticeably slow the loading of the form. Because of this it is preferable to remove from the context any fields that are not being used. It is a good idea to future proof by maintaining the same structure so that fields can be added without needing to modify existing form calculations.
-#### Showing fields in Reports tab <!-- TODO -->
 ### Tips & Tricks <!-- TODO -->
 ### Troubleshooting <!-- TODO -->
 ## Collect Forms
@@ -1343,11 +1398,13 @@ Certain actions/views within the app can be restricted so that they are only abl
 
 ## User types
 The user types that can have permissions adjusted are:
-- National manager - access to all docs
-- Regional manager - restricted to their place
-- Data entry - access to Medic Reporter only
-- Analytics - Data export via URL only
-- Gateway - Limited access user for Medic Gateway
+| User Type | Description |
+|----|----|
+| National manager | Access to all docs |
+| Regional manager | Restricted to their place |
+| Data entry | Access to Medic Reporter only |
+| Analytics | Data export via URL only |
+| Gateway | Limited access user for Medic Gateway |
 
 Currently mobile app users are all set to be "Regional managers".
 
