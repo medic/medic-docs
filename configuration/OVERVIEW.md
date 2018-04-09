@@ -77,25 +77,56 @@ Configuring Medic Mobile
 # Introduction 
 ## What is Medic Mobile <!-- TODO: Jill to fill in with conceptual info about app, not specific to a technical audience -->
 ### Review of app structure and workflows
+Medic Mobile was designed and built for health workers delivering care in hard-to-reach areas. The toolkit supports any language and works with or without internet connectivity. Our tools run on basic phones, smartphones, tablets, and computers, supporting people working in communities, health facilities, and management offices. We are committed to developing open-source software, sharing learnings, and lowering barriers to adoption, scale, and reach for these tools.
+
+Our mobile app was designed for a new wave of health workers and integrated health systems. It supports multiple user types, including nurses or skilled birth attendants in communities or facilities, community health workers, managers on supervisory visits, and other people who deliver care and support.
+
+The app provides an automated and prioritized list of upcoming tasks, covering all of a health worker's activities in their community. Health workers are guided through tasks — such as screening for high-risk pregnancies or diagnosing and providing treatments for children — and get real-time indicators for progress towards their goals. Medic Mobile for Android is an offline web app with an Android container, delivering the benefits of the web and a native app. Data from every mobile user is replicated to the database and analytics tools, providing access to facility staff and managers. 
+
 ### Overview of various pages + core functions
 #### Tasks tab
+The Tasks tab shows a list of tasks with a due date. Tasks guide health workers through their days and weeks. Each auto-generated task prompts a preconfigured workflow, ensuring that the right actions are taken for the people at the right time.
+
 #### People tab
+Health workers easily access and manage the families and people they serve from the People tab. Profiles display important information, status and conditions, upcoming tasks, and history.
+
 ##### Hierarchy levels
+Currently, there are three hierarchy levels allowed in the app - generally, they are District (the ‘highest’ one), Health Center, and CHW Area. A user logging into the app will see People, Tasks, Reports, and Analytics based on the hierarchy level that they are assigned. This allows appropriate data sharing based on the role of the user in the health system. For example, if you are a District-level user, you might see all of the Health Centers within your district, and the data and profiles for all health workers as well as patients in the CHW Areas within those Health Centers. If you are a nurse at a specific Health Center, you might see all of the CHW Areas that you manage for your Health Center and all of the patients and data in those Areas. And if you are a community health worker, you might see only the patients you manage and the data that you’ve submitted about those patients. Depending on the app configuration for a particular health system or program, each of those hierarchy levels might be titled differently. 
+
 ##### People profile
-###### info card
-###### condition card
-###### tasks
-###### history
+On the People tab, you will find Places as well as People. For example, if you are a Health Center level user, you can click on a CHW Area (a Place) and see the Profile of that Place. You can also click on any person - whether a health worker or a patient - and see the Profile of that Person.
+
+The People profile contains important information about that person in the health system.
+At the top is an info card that typically contains their name, age, and phone number as well as any other general information about them, such as their gender and notes. 
+
+Below the info card, you might find a series of cards that detail their present and past health conditions. These are called condition cards, and they display information about those health conditions. For example, if a patient is currently pregnant, you might see a Pregnancy card that details the expected date of delivery, number of antenatal care visits completed, and the status of the pregnancy (normal versus high-risk). 
+
+Below condition cards is a table of Tasks that are upcoming and open for that patient. Any of these tasks can be launched and completed from this screen.
+
+Finally, at the very bottom, is a table of submitted reports about this Patient. These reports are generally forms that have been submitted by any health worker in the system who has access to this patient’s Profile.
+
 ##### Place profiles
-###### info card
-###### (condition card)
-###### sub places/people
-###### tasks
-###### history
+The Place profile contains important information about that place in the health system.
+
+At the top is an info card that typically contains the name of the place as well as any general information about that place such as the location.
+
+You can display condition cards on Place profile as a way of summarizing any reports that have been submitted about a particular Place. For example, if Households occupy one level in your app hierarchy and you have a Household-level survey that is submitted against that Place, you can summarize information from that survey into a condition card to display at-a-glance household-level information.
+
+Below the condition cards, you will find a table of People or Places that are “below” this Place in the app hierarchy. For example, if you are viewing the CHW Area profile, you will see a table of the health workers and patients that belong to this CHW Area.
+ 
+Beneath the table of sub-people or sub-places, you will find a table of Tasks that are upcoming and open for that Place. Again, if there are forms that are required for a particular Place in the health system, Tasks can be configured to display when these forms are due, and any of these tasks can be launched and completed from this screen.
+
+Finally, at the very bottom, is a table of submitted reports about this Place. These reports are generally forms that have been submitted by any health worker in the system who has access to this Place.
+
 #### Targets tab
-##### widgets
-#### History/Reports. 
-##### Define Forms and where they live.
+The Targets tab makes use of widgets that visualize essential data for the end user. For community health workers (CHWs), the Targets tab provides a quick summary of their progress. For CHW supervisors, nurses, and other facility-based users, it displays important insights into how health systems are performing.
+
+There are two types of widgets: count and percentage. The count widget tallies information such as the number of active pregnancies or facility-based deliveries this month. The percentage widgets displays a proportion of success, such as pregnancies with one or more ANC visits or the percentage of on-time follow-ups. Both types of widgets can include goals.
+
+#### History/Reports tab
+##### Define Forms and where they live
+All data submitted in the application is configured as a Form and can be submitted from many parts of the app including from Tasks, from Person or Place profiles, or from the Reports/History tab. The Reports/History tab is also where all of these forms are collected in one Place. Based on your role in the health system and the hierarchy level assigned to your user, you might see only the reports submitted by you (for example, if you are a community health worker) or everyone you manage (for example, if you are a community health worker supervisor). This page also contains filter for easily finding a specific report or set of reports that you might be searching for.
+
 #### Definitions
 ## What’s configurable <!-- TODO: Jill to fill in with list of screenshots, with notes on what is configurable in each  -->
 ------------------------------------
