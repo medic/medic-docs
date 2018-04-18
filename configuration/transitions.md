@@ -46,12 +46,9 @@ Guides for how to setup specific transitions.
 
 ### multi_report_alerts
 
-Additional documentation in [kanso.json](https://github.com/medic/medic-webapp/blob/master/kanso.json) or in the Dashboard app_settings page.
-
 Send alert messages by SMS when specific conditions are received through reports. More flexible than simple Alerts.
 
 Example: send SMS to the district manager when 2 CHWs within the same district report cholera or diarrhea symptoms within the last week.
-
 
 Understanding the different types of reports used in the configuration:
 
@@ -73,7 +70,8 @@ Understanding the different types of reports used in the configuration:
 
 `0`, `1` : `new_reports` : `counted_reports` that came in since the previous alert was sent. They haven't been messaged about yet.
 
-Configuration :
+#### Configuration
+
 ```
 "multi_report_alerts" : [
   {
@@ -95,6 +93,7 @@ Configuration :
 
 Note that we are using Mustache templates for our message templates (anything with `{{}}`), and they use a `.` notation to access items in an array (e.g. `new_reports.1`) rather than a `[]` notation as in conventional javascript (`new_reports[1]`).
 
+For performance reasons the `num_reports_threshold` cannot exceed 100.
 
 ### Registration
 
