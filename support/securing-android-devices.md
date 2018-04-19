@@ -6,7 +6,8 @@
 
 Open the `Security` menu under settings. On unmodified versions of Android, this can be found under `Settings`
 `>` `Personal` `>` `Security`. Choose `Encrypt Phone`, `Encrypt Tablet`, or `Encrypt Device`. If you haven't
-already set a PIN or passcode for the lock screen, you will be prompted to do so.
+already set a PIN or passcode for the lock screen, you will be prompted to do so. Remember this PIN and do
+not write it down.
 
 ### Android 4.4 or earlier
 
