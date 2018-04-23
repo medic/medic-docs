@@ -112,8 +112,10 @@ Container Registry Setup
 4. Use Docker to tag the local image(s) you wish to push to ECR. The following
    example tags two releases of Medic OS with our ECR hostname.
    ```shell
-   docker tag medic-os:1.7.1 720541322708.dkr.ecr.eu-west-2.amazonaws.com/medic/medic-os:1.7.1;
-   docker tag medic-os:2.1.1 720541322708.dkr.ecr.eu-west-2.amazonaws.com/medic/medic-os:2.1.1;
+   docker tag medic/medic-os:1.7.1 \
+     720541322708.dkr.ecr.eu-west-2.amazonaws.com/medic/medic-os:1.7.1;
+   docker tag medic/medic-os:2.1.1 \
+     720541322708.dkr.ecr.eu-west-2.amazonaws.com/medic/medic-os:2.1.1;
    ```
    Then, push the newly-tagged images to the AWS ECR Docker registry using `docker push`.
    ```shell
