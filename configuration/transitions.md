@@ -80,7 +80,7 @@ Understanding the different types of reports used in the configuration:
     "num_reports_threshold": 2,
     "message": "{{num_counted_reports}} patients with {{alert_name}} in {{time_window_in_days}} days reported at {{new_reports.0.contact.parent.name}}. New reports from: {{new_reports.0.contact.name}}, {{new_reports.1.contact.name}}, {{new_reports.2.contact.name}}.",
     "recipients": [
-      "+123456"
+      "+123456",
       "new_report.contact.phone", // sender of each report in new_reports
       "new_report.contact.parent.parent.contact.phone", // contact person for the parent place of the sender of each report in new_reports.
       // If it's the same for several reports, only one message will be sent (recipient phone numbers are deduplicated before generating messages).
