@@ -112,13 +112,13 @@ Container Registry Setup
 4. Use Docker to tag the local image(s) you wish to push to ECR. The following
    example tags two releases of Medic OS with our ECR hostname.
    ```shell
-   docker tag medic-os:1.7.1 720541322708.dkr.ecr.eu-west-2.amazonaws.com/medic-os:1.7.1;
-   docker tag medic-os:2.1.1 720541322708.dkr.ecr.eu-west-2.amazonaws.com/medic-os:2.1.1;
+   docker tag medic-os:1.7.1 720541322708.dkr.ecr.eu-west-2.amazonaws.com/medic/medic-os:1.7.1;
+   docker tag medic-os:2.1.1 720541322708.dkr.ecr.eu-west-2.amazonaws.com/medic/medic-os:2.1.1;
    ```
    Then, push the newly-tagged images to the AWS ECR Docker registry using `docker push`.
    ```shell
-   docker push 720541322708.dkr.ecr.eu-west-2.amazonaws.com/medic-os:1.7.1;
-   docker push 720541322708.dkr.ecr.eu-west-2.amazonaws.com/medic-os:2.1.1;
+   docker push 720541322708.dkr.ecr.eu-west-2.amazonaws.com/medic/medic-os:1.7.1;
+   docker push 720541322708.dkr.ecr.eu-west-2.amazonaws.com/medic/medic-os:2.1.1;
    ```
    If the operation was successful, you'll see `Pushed` and a cryptographic digest
    of the image printed on standard output. To further verify the operation was successful,
@@ -616,7 +616,7 @@ Container Deployment
    then run the following command, where `$version` is the version of the image you
    wish to pull (e.g. `1.7.1`, `2.1.1`).
    ```shell
-   docker pull "720541322708.dkr.ecr.eu-west-2.amazonaws.com/medic-os:$version"
+   docker pull "720541322708.dkr.ecr.eu-west-2.amazonaws.com/medic/medic-os:$version"
    ```
 
 4. To run a new copy of a container on the Docker Machine instance you've selected,
@@ -624,7 +624,7 @@ Container Deployment
    referenced in step three.
    ```shell
    docker run -d -v /srv \
-     "720541322708.dkr.ecr.eu-west-2.amazonaws.com/medic-os:$version"
+     "720541322708.dkr.ecr.eu-west-2.amazonaws.com/medic/medic-os:$version"
    ```
    When the container launches successfully, you'll see a large universally-unique
    identifier printed on standard output. This is your new container identifier.
