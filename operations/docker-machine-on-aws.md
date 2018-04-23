@@ -626,22 +626,27 @@ Container Deployment
    run the following command, where `$version` is one of the image versions you
    referenced in step three.
    ```shell
-   docker run -d -v /srv \
+   docker run -d -p 80 -p 443 -p 33696 -v /srv \
      "720541322708.dkr.ecr.eu-west-2.amazonaws.com/medic/medic-os:$version"
    ```
    When the container launches successfully, you'll see a large universally-unique
    identifier printed on standard output. This is your new container identifier.
 
-5. To attach to the container you just started in step four in order to view logs or
-   console output, run the following command, where `$container_id` is the container
-   identifier you obtained in step four.
+5. To view log output from the container you just started in step four, run the
+   following command, where `$container_id` is the container identifier you obtained
+   in step four.
    ```shell
-   docker-attach "$container_id"
+   docker logs "$container_id"
    ```
+   You should see boot-time messages and/or logs from the running container. Avoid
+   using `docker attach` if possible: escape sequences are complicated, and
+   there are some potential signal handling and terminal control edge cases.
+
 
 Elastic Load Balancer Rule Management
 =====================================
 
-**To do**: Explain how to add load balancer target groups and rules, and how to tag Docker
-resources in order to provide linkage to AWS ALB rules and target groups.
+For every container you deploy, you'll have to add a target group and make a
+rule modification on the Application Load Balancer (ALB) to ensure traffic for
+the correct host is delivered to the correct Docker Machine instance and port.
 
