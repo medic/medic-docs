@@ -560,7 +560,8 @@ Machine Setup
     head-end gateway via SSH. This will give you (and Docker Machine) access to the AWS API.
     (**To do**: `aws configure` stores AWS access key credentials in the clear in `~/.aws`, which
     isn't desirable on a head-end server such as this; find a strategy to avoid storing access
-    keys in this way).
+    keys in this way, or definitively determine that our `mfa-required` policy renders the
+    stored access keys useless to an attacker).
 
 13. Now that you're authenticated to AWS, use the SSH public key you received in step ten
     to register a new SSH keypair with AWS, where `$public_key` is the entire contents of
