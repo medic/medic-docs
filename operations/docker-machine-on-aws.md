@@ -589,19 +589,52 @@ Machine Setup
         --amazonec2-ssh-keypath ~/.ssh/id_rsa --amazonec2-root-size "$root_size" \
         --amazonec2-subnet-id "$subnet_id" --amazonec2-instance-type "$instance_type" "$name"
     ```
-
-15. To point `docker` to a specific Docker Machine, run the following command in your
-    shell, where `$name` is the machine name you used in the previous step.
-    ```shell
-    eval "`docker-machine env "$name"`"
-    ```
     Docker Machine setup is now complete.
 
 Container Deployment
 ====================
 
-**To do**: Explain how to pull and deploy containers on a specific Docker Machine instance.
+1. To list the available Docker Machine instances for a given cell, run the following
+   command on the head-end gateway machine after you've [authenticated](#authentication-setup)
+   successfully.
+   ```shell
+   docker-machine ls
+   ```
+   This will yield information about all of the machines in this cell, including instance
+   state and version information. You can use `docker-machine inspect` to return a large
+   amount of information about a Docker Machine managed instance, including AWS-specific
+   resource identifiers.
 
+2. To point `docker` to a specific Docker Machine, run the following command in your
+   shell, where `$name` is the machine name you used in the previous step.
+   ```shell
+   eval "`docker-machine env "$name"`"
+   ```
+
+3. To retrieve an image from the ECR repository for deployment, execute step one from
+   the [Container Registry Setup](container-registry-setup) to authenticate with ECR,
+   then run the following command, where `$version` is the version of the image you
+   wish to pull (e.g. `1.7.1`, `2.1.1`).
+   ```shell
+   docker pull "720541322708.dkr.ecr.eu-west-2.amazonaws.com/medic-os:$version"
+   ```
+
+4. To run a new copy of a container on the Docker Machine instance you've selected,
+   run the following command, where `$version` is one of the image versions you
+   referenced in step three.
+   ```shell
+   docker run -d -v /srv \
+     "720541322708.dkr.ecr.eu-west-2.amazonaws.com/medic-os:$version"
+   ```
+   When the container launches successfully, you'll see a large universally-unique
+   identifier printed on standard output. This is your new container identifier.
+
+5. To attach to the container you just started in step four in order to view logs or
+   console output, run the following command, where `$container_id` is the container
+   identifier you obtained in step four.
+   ```shell
+   docker-attach "$container_id"
+   ```
 
 Elastic Load Balancer Rule Management
 =====================================
