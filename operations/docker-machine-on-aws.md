@@ -600,12 +600,12 @@ Machine Setup
 Container Deployment
 ====================
 
-To do: Explain how to pull and deploy containers on a specific Docker Machine instance.
+**To do**: Explain how to pull and deploy containers on a specific Docker Machine instance.
 
 
 Elastic Load Balancer Rule Management
 =====================================
 
-To do: Explain how to add load balancer target groups and rules, and how to tag Docker
+**To do**: Explain how to add load balancer target groups and rules, and how to tag Docker
 resources in order to provide linkage to AWS ALB rules and target groups.
 
