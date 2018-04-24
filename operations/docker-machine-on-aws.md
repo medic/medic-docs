@@ -592,7 +592,20 @@ Machine Setup
         --amazonec2-ssh-keypath ~/.ssh/id_rsa --amazonec2-root-size "$root_size" \
         --amazonec2-subnet-id "$subnet_id" --amazonec2-instance-type "$instance_type" "$name"
     ```
+
+15. Finally, grab a cauldron and get ready to recite some magic spells, because Docker
+    Machine's `amazonec2` driver inexplicably saves the temporary AWS STS credentials you
+    just used to create the new machine, and those credentials turn into a pumpkin at midnight.
+    Luckily, if you simply remove the cached credentials from the configuration file, Docker
+    Machine will do the right thing thanks to [this](https://github.com/docker/machine/pull/3799)
+    patch that was merged back in 2016. Run the following commands.
+    ```shell
+    config=~/".docker/machine/machines/$name/config.json";
+    tf="`mktemp`" && jq 'del(.Driver.AccessKey, .Driver.SecretKey, .Driver.SessionToken)' \
+      < "$config" > "$tf" && chmod 0600 "$tf" && mv "$tf" "$config";
+    ```
     Docker Machine setup is now complete.
+   
 
 Container Deployment
 ====================
