@@ -1,15 +1,10 @@
 # Securing Android devices
 
-## PIN Setup and Disk Encryption
+To secure an android device you should enable at least a pin code lock on the device, enable FDE (full disc encryption) and setup remote wiping capabilities by enabling mobile device management.
 
-### Android 6.0 or later
+## PIN Setup and FDE
 
-Disk encryption should be automatic for these versions of Android.
-
-To verify that the device is encrypted, navigate
-to `Settings` `>` `Personal` `>` `Security`, and verify that encryption is on.
-Then, navigate to `Settings` `>` `Security` `>` `Screen Lock` and ensure that
-a numeric PIN is set.
+Instructions are slightly different per device. Enabling FDE has the added benefit that you must also lock the device with a pin code or password.
 
 ### Android 5.0 or later
 
@@ -37,14 +32,16 @@ manufacturer. Choose `Encrypt Phone` or `Encrypt Tablet`.
 ### Android Versions before 3.0
 
 Android does not support disk encryption in versions earlier than 3.0
-(Honeycomb). If you have one of these devices, do not use it.
+(Honeycomb). If you have one of these devices, we recommend that you do not use it.
 
-## Parking lot
+## Mobile device management
 
-TODO: instructions on how to secure an android device:
+Setting up mobile device management that if a phone gets lost or stolen you can ensure the data on it is deleted safely.
 
- - disk encryption
- - pincode / password
- - remote wiping
- - possibly discuss scenarios, explain how our data is stored and what that means (ie we store data unencrypted, anyone who can access the phone can pull of PHI etc)
+You can enable this if the Google accounts used on the phones are part of a paid-for plan of Google's G Suite.
+
+Up to date instructions for enabling mobile device management can be found here: https://support.google.com/a/answer/7400753
+
+If you need to remotely wipe a device, see instructions here: https://support.google.com/a/answer/173390
+
 
