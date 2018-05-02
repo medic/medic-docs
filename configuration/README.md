@@ -10,7 +10,6 @@ Tech leads please read the [documentation guidelines](configuration-documentatio
 - [Variables in outgoing SMS](variables-in-messages.md)
 - [Creating XForms for Medic Collect](create-xforms-for-medic-collect.md)
 - [Updating Collect forms over the air](collect-form-update-over-the-air.md)
-- [Creating a Medic Collect App](create-medic-collect-app.md)
 
 2. Medic Mobile App
 
