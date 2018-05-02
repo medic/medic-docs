@@ -32,6 +32,7 @@
 * [Configuring patient shortcode length](configuration/shortcode-identifiers.md)
 * [Accessing CouchDB directly](configuration/direct-access.md)
 * [Install SSL Cerificates to VM](configuration/install-ssl-certificates-to-vm.md)
+* [Creating a Medic Collect App](configuration/create-medic-collect-app.md)
 
 ## Support and Troubleshooting
 

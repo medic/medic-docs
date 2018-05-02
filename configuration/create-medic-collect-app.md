@@ -58,7 +58,7 @@ Open `assets/collect.json` in your favorite text editor and customise it to your
     - Under `general_preferences` change the `server_url` to your `https://le-app.app.medicmobile.org`. Also change `sms_gateway` to the number of the gateway for the project.
 
 ### Step 5: Back to Anroid Studio; Under `Build Variants`, select `le_appDebug` as the Build Variant. 
-Note: Don't choose `*Release` of any buildVariant because that require a certificate.
+Note: Don't choose `*Release` of any buildVariant because that require the application to be signed by a release key.
 
 ![alt-text](img/build-variant-debug.png "Build Variants")
 
