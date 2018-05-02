@@ -28,7 +28,7 @@ Configuring Medic Mobile
         - [Other Medic specific XForm conventions](#other-medic-specific-xform-conventions)
         - [Tips & Tricks <!-- TODO -->](#tips--tricks----todo---)
         - [Troubleshooting <!-- TODO -->](#troubleshooting----todo---)
-    - [Create Collect App](create-a-new-collect-app)
+    - [Create A New Collect App](#create-a-new-collect-app)
     - [Collect Forms](#collect-forms)
     - [Profiles](#profiles)
         - [Overview](#overview)
