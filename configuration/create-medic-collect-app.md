@@ -62,6 +62,13 @@ Note: Don't choose `*Release` of any buildVariant because that require the appli
 
 ![alt-text](img/build-variant-debug.png "Build Variants")
 
+### Step 6: Edit App Name
+
+Go to `medic-workspace/medic-projects/_medic-collect-flavors/le_app/res/values`, open the file `untranslated.xml` and edit it as appropriate. Change the `app_name`, `default_server_url`, usernames and passwords for the instance.
+
+Make sure that the data in there is the same as the data put in `medic-workspace/medic-projects/_medic-collect-flavors/le_app/assets/collect.json` file. Those are the 2 files where you need to edit the server url, username and password.
+
+
 ### Step 6: Run `Build` on Android Studio
 
 You will get the .apk file in `medic-collect/build/outputs/apk`
