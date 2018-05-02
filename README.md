@@ -37,6 +37,7 @@
 
 * [Dealing with conflicts](troubleshooting/conflicts.md)
 * [Troubleshooting - Quick Pointers and Tips](troubleshooting/troubleshooting-quick-pointers.md)
+* [Replicating production data locally](troubleshooting/replicating-production-locally.md)
 
 ## Development
 
