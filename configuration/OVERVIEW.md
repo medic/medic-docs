@@ -226,6 +226,157 @@ targets.assessments.title=Assessments Completed
 All the properties files use the format `messages-{language-code}.properties`, where the language code is the same 2 letter code used to identify the language in the application. If a translation is missing for the user's language it will use that of the default language.
 
 ## Icons <!-- TODO: Derick -->
+
+## SMS Workflow
+#### app_settings.json
+
+###### 1.  Schedules
+
+Schedules are created to send automated SMS's at a particular time to particular recipient as a form of reminder or notification.
+The fields are seen:
+| Key | Description |
+| ------ | ------ |
+| name | This is the name of the schedule |
+|summary|Contains a summary of what the schedule is all about|
+|description|Contains a small description of what the schedule is about|
+|start_from|This is time from which the messages offset is added to to determine the time in which the schedule message is to be sent|
+|messages|This contains a list of all messages that are to be sent and the time they'll be sent. The time they'll be sent is basically `start_from ` + ` offset` The message elements are discussed in detail in the following table.|
+
+Message elements
+|key|Description|
+| ------ | ------ |
+|group|Unique integer that identify each schedule group |
+|offset|amount of time from the specified `start_from` in which the schedule is supposed to be sent|
+|send_day|This is day of the week in words which the schedule is to be sent e.g. `monday`|
+|send_time|The specific time of the day in 24 hours date format in which the schedule should be sent e.g. `10:00`|
+|recipient|The recipient who will receive the schedule message|
+
+The `offset` above can be any of the following:
+- x minutes
+- x weeks
+- x days
+
+An example of message schedule is as illustrated below:
+```
+{
+      "name": "Schedule Demo",
+      "summary": "",
+      "description": "Demo for how schedules work",
+      "start_from": "reported_date",
+      "messages": [
+        {
+          "message": [
+            {
+              "content": "Thank you for submitting pregnancy report. . You will get reminders to follow-up",
+              "locale": "en"
+            }
+          ],
+          "group": 1,
+          "offset": "15 minutes",
+          "send_day": "",
+          "send_time": "",
+          "recipient": "reporting_unit"
+        },
+        {
+          "message": [
+            {
+              "content": "Please follow-up with {{contact.name}} for details at {{contact.phone}}.",
+              "locale": "en"
+            }
+          ],
+          "group": 1,
+          "offset": "5 weeks",
+          "send_day": "monday",
+          "send_time": "09:00",
+          "recipient": "phone_contact_for_other_community_actor_for_counseling"
+        }
+      ]
+    }
+```
+
+The above schedule group would send a schedule exactly 15 minutes and 5 weeks from the time the report that triggers it is sent to the webapp.
+# registrations
+Configuration is held at `app_settings.registrations`, as a list of objects connecting forms to validations, events and messages. Its structure is described in kanso.json.
+Forms that don't have a patient_id field because it is generated afterwards, e.g ANCR, IMMR, go to this `registrations` section of the app_settings.json 
+The items under registration are are follows:
+##### Events
+
+Lists different events.
+
+##### `on_create`
+
+This is the only supported event.
+
+#### Triggers
+
+##### `add_patient`
+
+Generates a patient id--or if configured to uses a provided one--, sets it onto the root of the registration document, as well as creating (if required) a person document for that patient.
+
+###### External Patient ID
+
+If you are providing the patient id instead of having Sentinel generate you one, name the field in a `patient_id_field` key in `"params"`:
+
+```json
+{
+    "name": "on_create",
+    "trigger": "add_patient",
+    "params": "{\"patient_id_field\": \"external_id\"}",
+    "bool_expr": ""
+}
+```
+
+In this example the provided id would be in `fields.external_id` on the registration document.
+
+**NB:** this field must not be called `patient_id`.
+**NB:** the JSON passed in `"params"`` should still be a string. Support for raw JSON as shown below exists, but is in beta and may not always work correctly in all situations, because kanso.json does not support it:
+```json
+{
+    "params": {"patient_id_field": "external_id"},
+}
+```
+
+
+###### Alternative Name Location
+
+To provide an alternative location for the patient name, either provide a `patient_name_field` in `"params"` or provide it directly into the `"params"` field as a String:
+
+```json
+{
+    "params": "{\"patient_name_field\": \"full_name\"}",
+}
+```
+```json
+{
+    "params": "full_name",
+}
+```
+
+The first format is required if you wish to also provide an exteral patient id:
+
+```json
+{
+    "params": "{
+        \"patient_name_field\": \"full_name\",
+        \"patient_id_field\": \"external_id\"
+    }",
+}
+```
+
+##### `add_patient_id`
+
+**Deprecated in favour of `add_patient`.** Previously this only added a `patient_id` to the root of the registration form. This functionality has been merged into `add_patient`. Now, using this event will result in the same functionality as described in `add_patient` above.
+
+##### `add_expected_date`
+##### `add_birth_date`
+##### `assign_schedule`
+##### `clear_schedule`
+
+
+### Generate Patient ID On People
+
+No custom configuration for `generate_patient_id_on_people`.
+
 ## SMS Forms
 ## App Forms <!-- TODO: review content and add subsections -->
 Whether using Medic Mobile in the browser or via the Android app, all Actions, Tasks, Contact creation/edit forms are created using [ODK XForms](https://opendatakit.github.io/xforms-spec/) -- a XML definition of the structure and format for a set of questions. Since writing raw XML can be tedious, we suggest creating the forms using the [XLSForm standard](http://xlsform.org/), and using the [medic-conf](https://github.com/medic/medic-conf) command line configurer tool to convert them to XForm format. The instructions below assume knowledge of XLSForm.
