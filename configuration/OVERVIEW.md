@@ -234,6 +234,7 @@ All the properties files use the format `messages-{language-code}.properties`, w
 
 Schedules are created to send automated SMS's at a particular time to particular recipient as a form of reminder or notification.
 The fields are seen:
+
 | Key | Description |
 | ------ | ------ |
 | name | This is the name of the schedule |
@@ -243,6 +244,7 @@ The fields are seen:
 |messages|This contains a list of all messages that are to be sent and the time they'll be sent. The time they'll be sent is basically `start_from ` + ` offset` The message elements are discussed in detail in the following table.|
 
 Message elements
+
 |key|Description|
 | ------ | ------ |
 |group|Unique integer that identify each schedule group |
