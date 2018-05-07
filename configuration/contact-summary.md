@@ -4,7 +4,7 @@ In the `app_settings.contact_summary` you can write a script to output fields fo
 
 ## Inputs
 
-There are two variables available to you to inspect to generate the summary information:
+There are several variables available to you to inspect to generate the summary information:
 
 - `contact` which is the currently selected contact. This has minimal stubs for the `contact.parent`, so if you want to refer to a property on the parent use `lineage` below.
 - `reports` which is an array of reports for the contact.
