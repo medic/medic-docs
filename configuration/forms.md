@@ -343,3 +343,54 @@ Here is the corresponding portion of XML generated after converting the form:
 ```
 
 If you've done your configuration correctly, all you should see when you click on the submitted report from the Reports tab is the `child_doc` field with an `_id` that corresponds to the first doc that was created. The other docs will have a link to the report that created them but the report will not link directly to them. Again, you could look for that `_id` on the People tab or in the DB itself to confirm that the resulting docs look correct.
+
+### Custom xpath functions
+
+#### z-score
+
+In Enketo forms you have access to an xpath function to calculate the z-score value for a patient.
+
+##### Table data
+
+First, create a doc in couchdb to store the z-score tables you want to use, for example:
+
+```json
+{
+  "_id": "zscore-charts",
+  "charts": [
+    {
+      "id": "weight-for-age",
+      "data": {
+        "male": [
+          {
+            "key": 0,
+            "points": [
+              1.701,
+              2.08,
+              2.459,
+              2.881,
+              3.346,
+              3.859,
+              4.419,
+              5.031,
+              5.642
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+This creates a `weight-for-age` table which shows for a male aged 0 at 2.08kg their z-score is -3. Your doc will be much larger than this. To help convert from z-score tables to this doc format use the [conversation script](https://github.com/medic/medic-webapp/blob/master/scripts/zscore-table-to-json.js).
+
+##### Form configuration
+
+Next you can configure the form to calculate the z-score for a patient using the data above. The `z-score` function takes four parameters: the name of z-score table to use, patient's sex, and the two parameters for the table lookup (eg: age and weight). For example, to calculate the z-score for a patient given their sex, age, and weight your form configuration might look like this:
+
+```xml
+<bind nodeset="/data/wfa" type="string" calculate="z-score('weight-for-age', ../my_sex, ../my_age, ../my_weight)" readonly="true()"/>
+```
+
+[Full example form](https://github.com/medic/medic-webapp/blob/master/demo-forms/z-score.xml).
