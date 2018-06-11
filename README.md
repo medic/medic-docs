@@ -39,6 +39,7 @@
 * [Troubleshooting - Quick Pointers and Tips](troubleshooting/troubleshooting-quick-pointers.md)
 * [Replicating production data locally](troubleshooting/replicating-production-locally.md)
 * [Obtaining production logs](troubleshooting/obtaining-logs.md)
+* [Cleaning up transition errors on docs](troubleshooting/cleanup-transition-errors.md)
 
 ## Development
 
