@@ -33,7 +33,7 @@ The following transitions are available and executed in order.
 | default_responses | Responds to the message with a confirmation or validation error. |
 | update_sent_by | Sets the sent_by field of the report based on the sender's phone number. |
 | update_sent_forms | Update sent_forms property on facilities so we can setup reminders for specific forms. |
-| death_reporting | Updates the deceased status of patients. |
+| [death_reporting](#death_reporting) | Updates the deceased status of patients. |
 | conditional_alerts | Executes the configured condition and sends an alert if the condition is met. |
 | [multi_report_alerts](#multi_report_alerts) | Similar to conditional_alerts, with more flexible configuration, including using different form types for the same alert. |
 | update_notifications | Mutes or unmutes scheduled messages based on configuration. |
@@ -95,9 +95,33 @@ Note that we are using Mustache templates for our message templates (anything wi
 
 For performance reasons the `num_reports_threshold` cannot exceed 100.
 
+### death_reporting
+
+Updates patient documents with a `date_of_death` field which updates how the patient is displayed in the UI.
+
+#### Configuration
+
+Configuration is stored in the `death_reporting` field of the settings.
+
+| Property | Description |
+|---|---|
+| `mark_deceased_forms` | An array of form codes which will cause patients to be recorded as deceased. |
+| `undo_deceased_forms` | An array of form codes which will remove the deceased date from the patient. Optional. |
+| `date_field` | The path to the field in the report document which has the date the patient died. Optional: if not configured it defaults to the reported_date of the report. |
+
+##### Example
+
+```json
+"death_reporting": {
+  "mark_deceased_forms": [ "death" ],
+  "undo_deceased_forms": [ "undo-death" ],
+  "date_field": "fields.death_date"
+}
+```
+
 ### Registration
 
-Configuration is held at `app_settings.registrations`, as a list of objects connecting forms to validations, events and messages. Its structure is described in kanso.json.
+Configuration is held at `app_settings.registrations`, as a list of objects connecting forms to validations, events and messages.
 
 #### Events
 
@@ -129,7 +153,8 @@ If you are providing the patient id instead of having Sentinel generate you one,
 In this example the provided id would be in `fields.external_id` on the registration document.
 
 **NB:** this field must not be called `patient_id`.
-**NB:** the JSON passed in `"params"`` should still be a string. Support for raw JSON as shown below exists, but is in beta and may not always work correctly in all situations, because kanso.json does not support it:
+**NB:** the JSON passed in `"params"` should still be a string. Support for raw JSON as shown below exists, but is in beta and may not always work correctly in all situations, because kanso.json does not support it:
+
 ```json
 {
     "params": {"patient_id_field": "external_id"},
@@ -152,7 +177,7 @@ To provide an alternative location for the patient name, either provide a `patie
 }
 ```
 
-The first format is required if you wish to also provide an exteral patient id:
+The first format is required if you wish to also provide an external patient id:
 
 ```json
 {
