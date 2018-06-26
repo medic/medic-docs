@@ -380,6 +380,10 @@ The first format is required if you wish to also provide an exteral patient id:
 No custom configuration for `generate_patient_id_on_people`.
 
 ## SMS Forms
+Users of the medic platform can send in data over SMS using SMS forms. A form sent to the medic platform over SMS typically follows this pattern `<form code> <field value>` e.g. `V 12345`. The form must be configured in app_settings and instructions can be found [here](https://github.com/medic/medic-docs/blob/master/configuration/forms.md#json-forms).
+
+For SMS forms to work, a gateway device must be configured so that users can send the forms to the gateway number. Instructions on how to setup a gateway device can be found [here](https://github.com/medic/medic-docs/blob/master/configuration/gateway-config.md).
+
 ## App Forms <!-- TODO: review content and add subsections -->
 Whether using Medic Mobile in the browser or via the Android app, all Actions, Tasks, Contact creation/edit forms are created using [ODK XForms](https://opendatakit.github.io/xforms-spec/) -- a XML definition of the structure and format for a set of questions. Since writing raw XML can be tedious, we suggest creating the forms using the [XLSForm standard](http://xlsform.org/), and using the [medic-conf](https://github.com/medic/medic-conf) command line configurer tool to convert them to XForm format. The instructions below assume knowledge of XLSForm.
 
