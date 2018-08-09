@@ -19,7 +19,7 @@
 ## Configuration
 
 * [Forms](configuration/forms.md)
-* [App settings](configuration/legacy/app-settings.md)
+* [App settings](configuration/app-settings.md)
 * [Replication](configuration/replication.md)
 * [Tasks](configuration/tasks.md)
 * [Targets](configuration/targets.md)
