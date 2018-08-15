@@ -7,14 +7,14 @@
 1. Create a folder for the project in `medic-projects`
 The folder for the project should follow the format: {partner-name}-{country-code}
 
-2. Create a child settings file referencing standard config
+2. Create a child settings file referencing standard config. [Example](https://github.com/medic/medic-projects/blob/master/padhar-in/settings.inherit.json)
 ``` 
 {
  "inherit": "./node_modules/medic/config/standard",
  "replace": {
    "locale_outgoing": "hi",
    "default_country_code": "91",
-   "gateway_number": "+918770883081",
+   "gateway_number": "+91*****",
    "district_admins_access_unallocated_messages": true
  },
  "merge": {
@@ -45,12 +45,12 @@ In "filter" include only the JSON forms used for your use cases. Most of the cha
 | gateway_number | can be set later, but better to include early on |
 | district_admins_access_unallocated_messages | set to true if you want users to see all messages from unknown numbers, like those from the gateway | 
 
-3. Copy [package.json](https://github.com/medic/medic-webapp/blob/master/config/standard/package.json) and [package-lock.json](https://github.com/medic/medic-webapp/blob/master/config/standard/package-lock.json) to your {partner-name}-{country-code}
+3. Copy [package.json](https://github.com/medic/medic-webapp/blob/master/config/standard/package.json) and [package-lock.json](https://github.com/medic/medic-webapp/blob/master/config/standard/package-lock.json) to the {partner-name}-{country-code} directory
 
-4. Compile app_settings for that project
+4. Compile `app_settings` for that project: 
 `medic-conf compile-app-settings`
 
-_Make sure that the app-settings is compiled without any error_
+	_Make sure that the app-settings is compiled without any error_
 
 5. Commit your changes to GitHub
 
