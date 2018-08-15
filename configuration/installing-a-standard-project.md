@@ -73,12 +73,11 @@ It will run the following:
      - csv-to-docs
      - upload-docs
 
-A quicker upload would be:
-
+    A quicker upload would be:
 `medic-conf --instance {project-url-prefix} compile-app-settings backup-app-settings upload-app-settings backup-all-forms delete-all-forms upload-app-forms upload-collect-forms upload-contact-forms upload-resources upload-custom-translations`
 
-7. Delete unused app forms from instance
-You can delete forms that are not needed for that deployment. This is helpful to a) make it easier for those using Collect to avoid downloading forms they won’t use, and b) avoid showing app forms in the forms filter in the Reports tab.
+7. Delete unused app forms from instance: 
+    You can delete forms that are not needed for that deployment. This is helpful to a) make it easier for those using Collect to avoid downloading forms they won’t use, and b) avoid showing app forms in the forms filter in the Reports tab.
 
     Remove app forms for PNC:
 `medic-conf --instance {project-url-prefix} delete-forms -- postnatal_visit`
