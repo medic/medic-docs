@@ -16,7 +16,8 @@ Although the file contains JavaScript, its modular and declarative nature makes 
   {
     icon: 'mother-child',
     title: [ { locale:'en', content:'Postnatal visit needed' } ],
-    appliesToForms: [ 'delivery' ],
+    appliesTo: 'reports',
+    appliesToType: [ 'delivery' ],
     actions: [ { form:'postnatal_visit' } ],
     events: [
       {
@@ -36,18 +37,16 @@ Although the file contains JavaScript, its modular and declarative nature makes 
 
 ## Declarative task properties
 
-More complex tasks can be written using the full set of properties for tasks, as detailed in the following table. The `appliesToContacts` and `appliesToForms` helps to associate the task to a particular doc. Specifying these is not mutually exclusive, but at least one must be set. 
+More complex tasks can be written using the full set of properties for tasks, as detailed in the following table.
 
 | property | description | required |
 |---|---|---|
 | `name`| Unique identifier for the task. | no |
 | `icon` | The icon to show alongside the task. | no |
 | `title` | The title of the task when shown in the app. Structured as a localization label array or a translation. | yes |
-<!-- | `appliesToType` | `'report'`, `'person'`, `'place'`. Not yet implemented, only `'report'` works. | yes | -->
-| `appliesToContacts` | array. The types of contacts for which this task should be associated. | no |
-| `appliesToForms` | array. The form codes for which this task should be associated. | no |
-| `appliesToScheduledTaskIf` | function(report,index). If present, associate the task to the report's scheduled_task elements for which the function returns true. | no |
-| `appliesIf` | function(contact, report). Create the task only if this function returns true. | no |
+| `appliesTo` | `'contacts'`, `'reports'`, or `'scheduled_tasks'`. The items on which the task is applied. | yes |
+| `appliesToType` | Array of report or contact types. The types of contacts (eg `['person']`, `['clinic', 'health_center']`) or form codes (eg `['pregnancy']`, `['P', 'pregnancy']`) for which this task should be associated. | no |
+| `appliesIf` | function(contact, report, scheduledTaskIndex). The task can only be created for items where this function returns true. `scheduledTaskIndex` will be null for contacts and reports. | no |
 | `resolvedIf` | function(contact, report, event, dueDate, index). Create the task only if this function returns true. | yes |
 | `events` | An array of task events. | yes |
 | `events.id` | Unique ID for this task event. Helps when this is a descriptive id, eg `pregnancy-high-risk` | yes |
@@ -76,7 +75,8 @@ Helper variables and functions can be defined in `nools-extras.js` to keep the t
   {
     icon: 'mother-child',
     title: [ { locale:'en', content:'Postnatal visit needed' } ],
-    appliesToForms: [ 'D', 'delivery' ],
+    appliesTo: 'reports',
+    appliesToType: [ 'D', 'delivery' ],
     appliesIf: function(c, r) {
       return isCoveredByUseCase(c.contact, 'pnc') &&
           r.fields &&
@@ -106,7 +106,8 @@ Helper variables and functions can be defined in `nools-extras.js` to keep the t
   {
     icon: 'family',
     title: 'task.family_survey.title',
-    appliesToContacts: [ 'clinic' ],
+    appliesTo: 'contacts',
+    appliesToType: [ 'clinic' ],
     actions: [ { form:'family_survey' } ],
     events: [ {
       id: 'family-survey',
@@ -123,7 +124,8 @@ Helper variables and functions can be defined in `nools-extras.js` to keep the t
   {
     icon: 'infant',
     title: 'task.infant.title',
-    appliesToContacts: [ 'person' ],
+    appliesTo: 'contacts',
+    appliesToType: [ 'person' ],
     actions: [ { form:'infant_assessment' } ],
     events: [ 
       {
@@ -149,7 +151,8 @@ Helper variables and functions can be defined in `nools-extras.js` to keep the t
   {
     icon: 'family',
     title: 'task.family_survey.title',
-    appliesToContacts: [ 'clinic' ],
+    appliesTo: 'contacts',
+    appliesToType: [ 'clinic' ],
     appliesIf: needsFamilySurvey, // function returns true if family doesn't have survey in previous 6 months
     actions: [ { form:'family_survey' } ],
     events: [ {
@@ -199,7 +202,7 @@ var targets = [
     icon: 'infant',
     goal: -1,
     translation_key: 'targets.births.title',
-    appliesToType: 'report',
+    appliesTo: 'reports',
     appliesIf: isHealthyDelivery,
   },
 ```
@@ -220,9 +223,9 @@ More complex targets can be written using the full set of properties for targets
 | `translation_key` |Translation key for the title of this target. | no, but recommended |
 | `subtitle_translation_key` |Translation key for the subtitle of this target. If none supplied the subtitle will be blank. | no |
 | `percentage_count_translation_key` |Translation key for the percentage value detail shown at the bottom of the target, eg |"(5 of 6 deliveries)". The translation context has `pass` and `total` variables available. If none supplied this defaults to `targets.count.default`. | no |
-| `appliesToType` | `'report'`, `'person'`, `'place'`. Currently only supports `'report'` and `'person'`. | yes |
-| `appliesToForms` | array. The form codes for which this target should be associated. | yes, if `appliesToType` is `'report'` |
-| `appliesIf` | function(contact, report). Create the target only if this function returns true. | no |
+| `appliesTo` | `'contacts'` or `'reports'`. The items which apply for this target widget. | yes |
+| `appliesToType` | Array of report or contact types. The types of contacts (eg `['person']`, `['clinic', 'health_center']`) or form codes (eg `['pregnancy']`, `['P', 'pregnancy']`) for which this target is relevant. | no |
+| `appliesIf` | function(contact, report, scheduledTaskIndex). The target is relevant only for items where this function returns true. `scheduledTaskIndex` will be null for contacts and reports. | no |
 | `date` | By default only values for this month are shown in targets. Set to `'now'` if doing an all time count. Set to `'reported'` for time relevant counts, which relies on the doc's `reported_date`. | no |
 | `emitCustom` | function(contact, report). Each defined target emits one target instance per doc. A function can be defined here to emit a custom target instance, or multiple instances. | no |
 | `idType` | By default only one target instance is counted per contact. When multiple reports should be counted, eg counting multiple visits for a person, this property must be set to `'report'`. | no |
@@ -245,7 +248,7 @@ var targets = [
     translation_key: 'targets.births.title',
     subtitle_translation_key: 'targets.this_month.subtitle',
 
-    appliesToType: 'report',
+    appliesTo: 'reports',
     appliesIf: isHealthyDelivery,
     date: 'reported',
   },
@@ -259,7 +262,7 @@ var targets = [
     translation_key: 'targets.delivery_1_visit.title',
     subtitle_translation_key: 'targets.all_time.subtitle',
 
-    appliesToType: 'report',
+    appliesTo: 'reports',
     idType: 'report',
     appliesIf: isHealthyDelivery,
     passesIf: function(c, r) {
