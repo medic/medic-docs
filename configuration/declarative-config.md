@@ -36,15 +36,16 @@ Although the file contains JavaScript, its modular and declarative nature makes 
 
 ## Declarative task properties
 
-More complex tasks can be written using the full set of properties for tasks, as detailed in the following table: 
+More complex tasks can be written using the full set of properties for tasks, as detailed in the following table. The `appliesToContacts` and `appliesToForms` helps to associate the task to a particular doc. Specifying these is not mutually exclusive, but at least one must be set. 
 
 | property | description | required |
 |---|---|---|
 | `name`| Unique identifier for the task. | no |
 | `icon` | The icon to show alongside the task. | no |
 | `title` | The title of the task when shown in the app. Structured as a localization label array or a translation. | yes |
-| `appliesToType` | `'report'`, `'person'`, `'place'`. Not yet implemented, only `'report'` works. | yes |
-| `appliesToForms` | array. The form codes for which this task should be associated. | yes, if `appliesToType` is `'report'` |
+<!-- | `appliesToType` | `'report'`, `'person'`, `'place'`. Not yet implemented, only `'report'` works. | yes | -->
+| `appliesToContacts` | array. The types of contacts for which this task should be associated. | no |
+| `appliesToForms` | array. The form codes for which this task should be associated. | no |
 | `appliesToScheduledTaskIf` | function(report,index). If present, associate the task to the report's scheduled_task elements for which the function returns true. | no |
 | `appliesIf` | function(contact, report). Create the task only if this function returns true. | no |
 | `resolvedIf` | function(contact, report, event, dueDate, index). Create the task only if this function returns true. | yes |
@@ -53,7 +54,7 @@ More complex tasks can be written using the full set of properties for tasks, as
 | `events.days` | Number of days after the doc's `reported_date` that the event is due | yes, if `dueDate` is not set |
 | `events.start` | Number of days to show the task before it is due | yes |
 | `events.end` | Number of days to show the task after it is due | yes |
-| `events.dueDate` | The specific date that the task event is due. If set this will override the `days` value. | yes, if `days` is not set |
+| `events.dueDate` | function(r, event, scheduledTaskIdx). The specific date that the task event is due. If set this will override the `days` value. | yes, if `days` is not set |
 | `actions` | This is an array of the actions (forms) that a user can access after clicking on a task. If you put multiple forms here, then the user will see a task summary screen where they can select which action they would like to complete. Within your array of `actions` there are some additional properties that you can define. | yes |
 | `actions[n].type` | Type of action, usually `'report'`. | yes |
 | `actions[n].form` | The form that should open when you click on the action. | yes |
@@ -99,7 +100,71 @@ Helper variables and functions can be defined in `nools-extras.js` to keep the t
                  Utils.addDate(dueDate, -event.start).getTime(),
                  Utils.addDate(dueDate,  event.end+1).getTime());
     },
-  }
+  },
+
+  // Option 1a: Place-based task: Family survey when place is created, then every 6 months
+  {
+    icon: 'family',
+    title: 'task.family_survey.title',
+    appliesToContacts: [ 'clinic' ],
+    actions: [ { form:'family_survey' } ],
+    events: [ {
+      id: 'family-survey',
+      days:0, start:0, end:14,
+    } ],
+    resolvedIf: function(c, r, event, dueDate) {
+      // Resolved if there a family survey received in time window
+      return isFormFromArraySubmittedInWindow(c.reports, 'family_survey',
+                 Utils.addDate(dueDate, -event.start).getTime(),
+                 Utils.addDate(dueDate,  event.end+1).getTime());
+    },
+  },
+  // Regular check for infants
+  {
+    icon: 'infant',
+    title: 'task.infant.title',
+    appliesToContacts: [ 'person' ],
+    actions: [ { form:'infant_assessment' } ],
+    events: [ 
+      {
+        id: 'infant_asssessment-q1',
+        days:91, start:7, end:14,
+      },
+      {
+        id: 'infant_asssessment-q2',
+        days:182, start:7, end:14,
+      },
+      {
+        id: 'infant_asssessment-q3',
+        days:273, start:7, end:14,
+      },
+      {
+        id: 'infant_asssessment-q4',
+        days:365, start:7, end:14,
+      }
+    ]
+  },
+
+  // Option 2: Place-based task: Family survey every 6 months
+  {
+    icon: 'family',
+    title: 'task.family_survey.title',
+    appliesToContacts: [ 'clinic' ],
+    appliesIf: needsFamilySurvey, // function returns true if family doesn't have survey in previous 6 months
+    actions: [ { form:'family_survey' } ],
+    events: [ {
+      id: 'family-survey',
+      start:0, end:14,
+      dueDate: getNextFamilySurveyDate  // function gets expected date of next family survey 
+    } ],
+    resolvedIf: function(c, r, event, dueDate) {
+      // Resolved if there a family survey received in time window
+      return isFormFromArraySubmittedInWindow(c.reports, 'family_survey',
+                 Utils.addDate(dueDate, -event.start).getTime(),
+                 Utils.addDate(dueDate,  event.end+1).getTime());
+    },
+  },
+
 ]
 ```
 
