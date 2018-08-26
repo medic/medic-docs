@@ -95,8 +95,6 @@ A typical Action or Task form starts with an `inputs` group which contains prepo
 | note | r_followup_note | ${r_followup_instructions} |
 | end group| | |
 
-
-
 ## Accessing data from the contact-summary
 
 xforms have the ability to access the output of the [configured contact-summary script](https://github.com/medic/medic-docs/blob/master/configuration/contact-summary.md). This means you can have different fields, state, or information based on any known information about the contact.
@@ -149,7 +147,7 @@ In version 2.13.0 and higher, you can configure your app forms to generate addit
 
 #### Example Form Model
 
-```
+```xml
 <data>
   <root_prop_1>val A</root_prop_1>
   <other_doc db-doc="true">
@@ -176,12 +174,13 @@ Report (as before):
 ```
 
 Other doc:
-```
+
+```json
 {
-  _id: '...',
-  _rev: '...',
-  type: 'whatever',
-  other_prop: 'val B',
+  "_id": "...",
+  "_rev": "...",
+  "type": "whatever",
+  "other_prop": "val B"
 }
 ```
 
@@ -190,7 +189,8 @@ Other doc:
 - Linked docs can be referred to using the doc-ref attribute, with an xpath. This can be done at any point in the model, e.g.:
 
 #### Example Form Model
-```
+
+```xml
 <sickness>
   <sufferer db-doc-ref="/sickness/new">
   <new db-doc="true">
@@ -204,26 +204,27 @@ Other doc:
 #### Resulting docs
 
 Report:
-```
+
+```json
 {
-  _id: 'abc-123',
-  _rev: '...',
-  type: 'report',
-  _attachments: { xml: ... ],
-  fields: {
-    sufferer: 'def-456',
+  "_id": "abc-123",
+  "_rev": "...",
+  "type": "report",
+  "fields": {
+    "sufferer": "def-456"
   }
 }
 ```
 
 Other doc:
+
 ```
 {
-  _id: 'def-456',
-  _rev: '...',
-  type: 'person',
-  name: 'Gómez',
-  original_report: 'abc-123',
+  "_id": "def-456",
+  "_rev": "...",
+  "type": "person",
+  "name": "Gómez",
+  "original_report": "abc-123"
 }
 ```
 
@@ -233,7 +234,8 @@ Other doc:
 - These currently cannot be linked from other docs, as no provision is made for indexing these docs
 
 #### Example Form
-```
+
+```xml
 <thing>
   <name>Ab</name>
   <related db-doc="true">
@@ -252,33 +254,37 @@ Other doc:
 #### Resulting docs
 
 Report:
-```
+
+```json
 {
-  _id: 'abc-123',
-  _rev: '...',
-  type: 'report',
-  _attachments: { xml: ... ],
-  fields: {
-    name: 'Ab',
+  "_id": "abc-123",
+  "_rev": "...",
+  "type": "report",
+  "fields": {
+    "name": "Ab"
   }
 }
 ```
 
 Other docs:
-```
+
+```json
 {
-  _id: '...',
-  _rev: '...',
-  type: 'relative',
-  name: 'Bo',
-  parent: 'abc-123',
+  "_id": "...",
+  "_rev": "...",
+  "type": "relative",
+  "name": "Bo",
+  "parent": "abc-123",
 }
+```
+
+```json
 {
-  _id: '...',
-  _rev: '...',
-  type: 'relative',
-  name: 'Ch',
-  parent: 'abc-123',
+  "_id": "...",
+  "_rev": "...",
+  "type": "relative",
+  "name": "Ch",
+  "parent": "abc-123",
 }
 ```
 
@@ -289,7 +295,8 @@ First, the relevant section of the delivery report XLSForm file:
 ![Delivery report](img/linked_docs_xlsform.png)
 
 Here is the corresponding portion of XML generated after converting the form:
-```
+
+```xml
 <repeat>
   <child_repeat db-doc="true" jr:template="">
     <child_name/>
@@ -322,7 +329,8 @@ First, the relevant section of the delivery report XLSForm file:
 ![Delivery report](img/repeated_docs_xlsform.png)
 
 Here is the corresponding portion of XML generated after converting the form:
-```
+
+```xml
 <child_doc db-doc-ref=" /postnatal_care/child "/>
 <child db-doc="true">
   <created_by_doc db-doc-ref="/postnatal_care"/>
@@ -343,6 +351,12 @@ Here is the corresponding portion of XML generated after converting the form:
 ```
 
 If you've done your configuration correctly, all you should see when you click on the submitted report from the Reports tab is the `child_doc` field with an `_id` that corresponds to the first doc that was created. The other docs will have a link to the report that created them but the report will not link directly to them. Again, you could look for that `_id` on the People tab or in the DB itself to confirm that the resulting docs look correct.
+
+### Uploading binary attachments
+
+Forms can include arbitrary binary data which is submitted and included in the doc as an attachment. If this is an image type it'll then be displayed inline in the report UI.
+
+To mark an element as having binary data add an extra column in the XLSForm called `instance::type` and specify `binary` in the element's row.
 
 ### Custom xpath functions
 
