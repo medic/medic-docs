@@ -1,5 +1,5 @@
 # Overview
-Workflows in the Medic app are highly configurable using a combination of XForms, JSON, and JavaScript files. The JavaScript portion allows for full control of tasks, targets, and contact profiles. This portion of the configuration is also time consuming to write, and error prone to maintain over time. For this reason we've developed a simpler way to define tasks in the configuration. Previously iterative code genertates all configured elements. Now, with the _declarative configuration_ method, you define each element in the app in a modular way, and then specify when and how it should show. This document is meant to be a guide for configuring tasks, targets, and contact profiles in the Medic app using declarative configurations.
+Workflows in the Medic app are highly configurable using a combination of XForms, JSON, and JavaScript files. The JavaScript portion allows for full control of tasks, targets, and contact profiles. This portion of the configuration is also time consuming to write, and error prone to maintain over time. For this reason we've developed a simpler way to define tasks in the configuration. Previously iterative code generates all configured elements. Now, with the _declarative configuration_ method, you define each element in the app in a modular way, and then specify when and how it should show. This document is meant to be a guide for configuring tasks, targets, and contact profiles in the Medic app using declarative configurations.
 
 # Background
 Having robust configuration code is pivotal in having a successful deployment of Medic tools. Configuration for Tasks, Targets, and Contact Summary in Medic Mobile applications is driven by JavaScript code. It has historically been a series of nested loops and conditional statements, using functions and calculations to pump out each task, target, and contact profile card to show. These code heavy configurations are difficult to write, understand, maintain, and test because imperative configuration code spews out the configured elements with project-specific logic. Modifying any element requires understanding large portions of the configuration, including the code and context. As the number of Tasks, Targets, or Condition Cards increases, so does the complexity. The result is that strong development skills are needed to create and manage each project configuration, as well as considerable time to understand the workflows and context. An error in any of this code can make the application non-usable, which does not always get reported to project managers.
@@ -420,7 +420,7 @@ function getSubsequentVisits(r) {
 # Notes
 
 ## Nools Extras
-Helper variables and functions can be defined in `nools-extras.js`, and is shared by both `tasks.js` and `targets.js`. The following are global variables that can be used:
+Helper variables and functions can be defined in `nools-extras.js`, which is shared by both `tasks.js` and `targets.js`. The following are global variables that can be used:
 | Variable | Description |
 |---|---|
 | `c.contact` | The contact's doc. All contacts have `type` of either `person` or `place`.
