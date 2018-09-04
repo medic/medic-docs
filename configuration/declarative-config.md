@@ -421,6 +421,7 @@ function getSubsequentVisits(r) {
 
 ## Nools Extras
 Helper variables and functions can be defined in `nools-extras.js`, which is shared by both `tasks.js` and `targets.js`. The following are global variables that can be used:
+
 | Variable | Description |
 |---|---|
 | `c.contact` | The contact's doc. All contacts have `type` of either `person` or `place`.
@@ -432,6 +433,7 @@ Helper variables and functions can be defined in `nools-extras.js`, which is sha
 Helpfer variables and functions for the contact summary can be defined in `contact-summary-extras.js`. There are several variables available to inspect to generate the summary information:
 
 | Variable | Description |
+|---|---|
 | `contact` | The currently selected contact. This has minimal stubs for the `contact.parent`, so if you want to refer to a property on the parent use `lineage` below.| 
 | `reports` | An array of reports for the contact. | 
 | `lineage` | An array of the contact's parents (2.13+), eg `lineage[0]` is the parent, `lineage[1]` is the grandparent, etc. Each lineage entry has full information for the contact, so you can use `lineage[1].contact.phone`. | 
