@@ -6,8 +6,19 @@ Having robust configuration code is pivotal in having a successful deployment of
 
 In order to build and maintain robust configurations quickly we now have isolated each configured element (ie task, targets, contact profile fields and condition cards) and attached to it the logic needed to display them properly. Writing new configuration elements is easier because they are independent from others. Similarly, editing existing elements requires understanding of that individual element only, and changes to one element do not impact others in the configuration.
 
-# Declarative Tasks
-All tasks are now defined in the `tasks.js` file, which contains a JavaScript array of objects. Each object corresponds to a set of task events that could show in the app. The properties for the object are used to define when the task's events can show, and what they should look like. 
+All Actions, Tasks, and Contact creation/edit forms are defined as [ODK XForms](https://opendatakit.github.io/xforms-spec/) -- a XML definition of the structure and format for a set of questions. You can find out more about creating these forms in the [forms documentation](forms.md#xforms). When a user completes an Action or Task form the contents are saved in the database with the type `data_record`. These docs are known as _Reports_. Completed Contact forms are saved in the database with their respective type: 'person', 'clinic', 'health_center', and 'district_hospital'. All of these types are collectively referred to here as _Contacts_. 
+
+# Tasks
+Tasks guide health workers through their days and weeks. Each generated task prompts a preconfigured workflow, ensuring that the right actions are taken for the people at the right time.
+
+Tasks can be configured for any user of type "restricted to their place". When configuring tasks, you have access to all the contacts (people and places) that the logged in user can view, along with all the reports about them. Tasks can also pull in fields from the reports that trigger them and pass these fields in as inputs to the form that opens when you click on the task. For example, if you register a pregnancy and include the LMP, this generates follow-up tasks for ANC visits. When you click on an ANC visit task, it will open the ANC visit form and this form could "know" the LMP of the woman. In this section we will discuss how to configure such tasks.
+
+A rules engine is used to generate the tasks using the data available in the client app. The data, comprised of docs for people, places, and the reports about them, are processed by rules engine code to emit tasks like this one:
+
+<!-- TODO: Update annotated screenshots -->
+![Task description](img/task_with_description.png)
+
+In previous versions of the configuration we would iterate through an object with all contacts accompanied by their reports. When the code identified a condition that needs tasks, it generated a series of tasks based on templates in `tasks.json`. The tasks emitted by the rules engine code were then handled by the app. With the new declarative style of configuration all tasks are now defined in the `tasks.js` file, which contains a JavaScript array of objects. Each object corresponds to a set of task events that the app automatically shows in the Tasks tab and on contact's profiles. These are automatically removed from the app when they are completed. The properties for the object are used to define when the task's events can show, and what they should look like. 
 
 Although the file contains JavaScript, its modular and declarative nature makes it much easier to manage. For instance, here is a simple example that generates two `postnatal-visit` tasks for each `delivery` form:
 
@@ -33,9 +44,7 @@ Although the file contains JavaScript, its modular and declarative nature makes 
 ]
 ```
 
-<!-- TODO: Add annotated screenshot of task in task tab and people tab -->
-
-## Declarative task properties
+## Task properties
 
 More complex tasks can be written using the full set of properties for tasks, as detailed in the following table.
 
@@ -48,7 +57,7 @@ More complex tasks can be written using the full set of properties for tasks, as
 | `appliesToType` | Array of report or contact types. The types of contacts (eg `['person']`, `['clinic', 'health_center']`) or form codes (eg `['pregnancy']`, `['P', 'pregnancy']`) for which this task should be associated. | no |
 | `appliesIf` | function(contact, report, scheduledTaskIndex). The task can only be created for items where this function returns true. `scheduledTaskIndex` will be null for contacts and reports. | no |
 | `resolvedIf` | function(contact, report, event, dueDate, index). Create the task only if this function returns true. | yes |
-| `events` | An array of task events. | yes |
+| `events` | An array of task events. The event's properties are used to specify the timeline of when a task will appear and disappear from the user interface. | yes |
 | `events.id` | Unique ID for this task event. Helps when this is a descriptive id, eg `pregnancy-high-risk` | yes |
 | `events.days` | Number of days after the doc's `reported_date` that the event is due | yes, if `dueDate` is not set |
 | `events.start` | Number of days to show the task before it is due | yes |
@@ -188,8 +197,32 @@ function isFormFromArraySubmittedInWindow(reports, formsArray, startTime, endTim
 ```
 
 
-# Declarative Targets
-All targets are now defined in the `targets.js` file, which defines a JavaScript variable `targets` as an array of objects. Each object corresponds to a target widget that could show in the app. The properties for the object are used to define when the target widget can show, what it should look like, and what to values to include. 
+# Targets
+Health workers can easily view their goals and progress for the month, even while offline. Targets refers to our in-app analytics widgets. These widgets can be configured to track metrics for an individual CHW or for an entire health facility, depending on what data the logged in user has access to. Targets can be configured for any user that has offline access (user type is "restricted to their place"). When configuring targets, you have access to all the contacts (people and places) that your logged in user can view, along with all the reports about them.
+
+Like Tasks, a rules engine is used to generate the targets using the data available in the client app. The data, comprised of docs for people, places, and the reports about them, are processed by rules engine code to emit data for widgets like these:
+
+<!-- TODO: Update annotated screenshots -->
+
+#### Plain count with no goal
+
+![Count no goal](img/target_count_no_goal.png)
+
+#### Count with a goal
+
+![Count with goal](img/target_count_with_goal.png)
+
+#### Percentage with no goal
+
+![Percentage no goal](img/target_percent_no_goal.png)
+
+#### Percentage with a goal
+
+![Percentage with goal](img/target_percent_with_goal.png)
+
+In previous versions of the configuration we would iterate through an object with all contacts accompanied by their reports. When the code identified a condition related to a target widget in `targets.json`, it created data for the widget as a _target instance_. The target instances emitted by the rules engine code are handled by the app. The app takes care of showing the target instances in the appropriate widgets of the Targets tab, updating counts and percentages automatically.
+
+With the new declarative style of configuration all targets are now defined in the `targets.js` file. In the file we define a JavaScript variable `targets` as an array of objects. Each object corresponds to a target widget that could show in the app. The properties for the object are used to define when the target widget can show, what it should look like, and what to values to include. 
 
 Like `tasks.js`, the Targets file contains JavaScript but its modular and declarative nature makes it much easier to manage. For instance, here is a simple example that generates two `postnatal-visit` tasks for each `delivery` form:
 
@@ -207,9 +240,7 @@ var targets = [
   },
 ```
 
-<!-- TODO: Add annotated screenshots with the different types of target widgets -->
-
-## Declarative target properties
+## Target properties
 
 More complex targets can be written using the full set of properties for targets, as detailed in the following table: 
 
