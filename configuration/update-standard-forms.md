@@ -1,4 +1,4 @@
-This guide is intended to help anyone updating Collect forms for the Standard config. A similar procedure applies for updating App and Contact forms, so instructions for those are included as well. These steps use `medic-conf` so the first step is to navigate to your folder with the config.
+This guide is intended to help anyone updating Collect forms for the Standard config. A similar procedure applies for updating App and Contact forms, so instructions for those are included as well. These steps use [`medic-conf`](https://github.com/medic/medic-conf) so you must first have it installed. Once you have it installed, navigate to your folder with the Medic Mobile configuration.
 ```
 cd {path-to-medic-webapp}/config/standard
 ```
