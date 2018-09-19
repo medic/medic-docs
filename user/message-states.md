@@ -33,7 +33,7 @@ See [https://github.com/medic/medic-gateway#content](https://github.com/medic/me
 | sent | Successfully delivered to the sms network. |
 | delivered | Successfully received by the recipient's device. |
 | failed | The sending attempt failed. Sending will not be retried without user intervention. |
-| denied | This will not be sent as the recipient phone number is configured in the `outgoing_deny_list`. |
+| denied | This will not be sent. The recipient phone number is configured to be denied via `outgoing_deny_list`, `outgoing_deny_with_alphas`, or `outgoing_deny_shorter_than`. |
 | cleared | This will not be sent as a report has triggered an event to stop it. This can happen if a patient visit has occurred before the visit reminder is sent. |
 | muted | This will not be sent as the task has been deliberately stopped. Messages in this state can be unmuted by user action. |
 
