@@ -9,64 +9,42 @@ There are two types of forms:
 ## JSON forms
 Used for SMS interfaces such as formatted SMS, SIM applications, and Medic Collect. You can view the list of JSON forms and load new ones through the webapp's Configuration pages, or via the `forms` field of `app_settings.json`. Each form has fields defined in our specific JSON format, eg:
 
-```
-    "F": {
-      "meta": {
-        "code": "F",
-        "icon": "risk",
-        "label": {
-          "en": "Danger sign flag (SMS)",
-          "hi": "खतरे की सूचना (SMS)",
-          "id": "Laporan tanda bahaya (SMS)"
-        }
-      },
-      "fields": {
-        "patient_id": {
-          "labels": {
-            "description": {
-              "en": "Patient ID"
-            },
-            "short": {
-              "en": "ID"
-            },
-            "tiny": {
-              "en": "ID"
-            }
-          },
-          "position": 0,
-          "type": "string",
-          "flags": {
-            "input_digits_only": true
-          },
-          "length": [
-            5,
-            13
-          ],
-          "required": true
+```js
+{
+  "F": {
+    "meta": {
+      "code": "F",
+      "icon": "risk",
+      "translation_key": "form.flag.title" // displayed in the webapp
+    },
+    "fields": {
+      "patient_id": { // this is used for the property name when the report doc is created
+        "labels": {
+          "short": { "translation_key": "form.flag.patient_id.short" }, // displayed in the webapp
+          "tiny": "pid" // used in form submission to bind values to fields - not required for all submission formats
         },
-        "notes": {
-          "labels": {
-            "description": {
-              "en": "Notes"
-            },
-            "short": {
-              "en": "Notes"
-            },
-            "tiny": {
-              "en": "N"
-            }
-          },
-          "position": 1,
-          "type": "string",
-          "length": [
-            1,
-            100
-          ],
-          "required": false
-        }
+        "position": 0, // specifies where in the SMS this value should be
+        "type": "string",
+        "flags": {
+          "input_digits_only": true
+        },
+        "length": [ 5, 13 ],
+        "required": true
       },
-      "public_form": true
-    }
+      "notes": {
+        "labels": {
+          "short": { "translation_key": "form.flag.notes.short" },
+          "tiny": "form.flag.notes.tiny"
+        },
+        "position": 1,
+        "type": "string",
+        "length": [ 1, 100 ],
+        "required": false
+      }
+    },
+    "public_form": true
+  }
+}
 ```
 
 # XForms
