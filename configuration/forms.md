@@ -21,7 +21,7 @@ Used for SMS interfaces such as formatted SMS, SIM applications, and Medic Colle
       "patient_id": { // this is used for the property name when the report doc is created
         "labels": {
           "short": { "translation_key": "form.flag.patient_id.short" }, // displayed in the webapp
-          "tiny": "form.flag.patient_id.tiny" // used in form submission to bind fields if the key is provided
+          "tiny": "pid" // used in form submission to bind values to fields - not required for all submission formats
         },
         "position": 0, // specifies where in the SMS this value should be
         "type": "string",
