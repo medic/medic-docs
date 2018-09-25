@@ -31,7 +31,8 @@ To run the docker container, simply enter this command:
 ```
 docker run -t -p 5988:5988 -p 80:80 -p 443:443 medicmobile/medic-os
 ```
-Note the `New CouchDB Administrative User` and `New CouchDB Administrative Password` in the output terminal. These are the login credentials to use in the next step. 
+Note the `New CouchDB Administrative User` and `New CouchDB Administrative Password` in the output terminal. These are the login credentials to use in the next step.
+
 After bootstrap, visit: https://localhost and accept the self-signed SSL certificate warning.
 (Use the login credentials shown in the terminal output when the docker container was launched).
 ## Helpful Docker commands
