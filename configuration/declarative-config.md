@@ -470,6 +470,7 @@ Helpfer variables and functions for the contact summary can be defined in `conta
 | `lineage` | An array of the contact's parents (2.13+), eg `lineage[0]` is the parent, `lineage[1]` is the grandparent, etc. Each lineage entry has full information for the contact, so you can use `lineage[1].contact.phone`. | 
 
 ## Utils
+**NB:**_Utils is not accessible in contact-summary-*_
 Utility functions are available for your configuration and have been included to make common tasks much easier. To use the function call `Utils.<function-name>(<params>)`, for example `Utils.addDate(report.reported_date, 10)`.
 
 | Name | Description |
