@@ -352,8 +352,7 @@ Each field that can be shown on a contact's profile is defined as an objects in 
 | `translate` | Whether or not to translate the value. Defaults to false. *TODO: VERIFY IMPLEMENTED* | no |
 | `context` |  The fields available in the value's translation. eg {} | no | 
 | `icon` | The name of the icon to display beside this field, as defined through the Configuration > Icons page. | no |
-| `filter` | The display filter to apply to the value, eg: `{ value: '2005-10-09', filter: 'age' }` will render as "11 years". 
-Common filters are: `age`, `phone`, `weeksPregnant`, `relativeDate`, `relativeDay`, `fullDate`, `simpleDate`, `simpleDateTime`, `lineage`, `resourceIcon`. For the complete list of filters, and more details on what each does, check out the code in [`medic-webapp/static/js/filters` dir](https://github.com/medic/medic-webapp/tree/master/static/js/filters). | no |
+| `filter` | The display filter to apply to the value, eg: `{ value: '2005-10-09', filter: 'age' }` will render as "11 years". Common filters are: `age`, `phone`, `weeksPregnant`, `relativeDate`, `relativeDay`, `fullDate`, `simpleDate`, `simpleDateTime`, `lineage`, `resourceIcon`. For the complete list of filters, and more details on what each does, check out the code in [`medic-webapp/static/js/filters` dir](https://github.com/medic/medic-webapp/tree/master/static/js/filters). | no |
 
 ## Cards
 An array of cards to show below the summary, each with their own header and arrays of fields.
