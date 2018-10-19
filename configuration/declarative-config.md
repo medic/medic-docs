@@ -207,6 +207,19 @@ function isFormFromArraySubmittedInWindow(reports, formsArray, startTime, endTim
 }
 ```
 
+### Tips & Tricks
+1. There are some use cases where information collected during an action within a task schedule may mean that the task schedule must change. For example, if you register a child for malnutrition follow-ups, you collect the height and weight during registration and tasks for follow-ups are created based on the registration. At the next visit (first follow-up), you collect the height and weight again and you want to update these so that future tasks reference this new height and weight. You can either clear and regenerate the schedule after each follow-up visit is done, or you can create only one follow-up at a time so that height and weight are always referencing the most recent visit.
+1. Given the way that the rules engine works, code that generates tasks must be immutable. Otherwise you will find that tasks are not clearing properly.
+1. If you have more than one action, click a prompted task will show a summary screen with fields you have passed along with a button for each possible action.
+![Task summary screen](img/task_summary_screen.png)
+1. If you have a single action for a task, click the task will bring you straight to the specified form.
+![Task form](img/task_form.png)
+
+
+### Troubleshooting
+1. Cannot see tasks: Makes sure your user is an offline user
+1. Tasks is not clearing: Make sure the the code that generates the task is immutable.
+
 
 # Targets
 Health workers can easily view their goals and progress for the month, even while offline. Targets refers to our in-app analytics widgets. These widgets can be configured to track metrics for an individual CHW or for an entire health facility, depending on what data the logged in user has access to. Targets can be configured for any user that has offline access (user type is "restricted to their place"). When configuring targets, you have access to all the contacts (people and places) that your logged in user can view, along with all the reports about them.
