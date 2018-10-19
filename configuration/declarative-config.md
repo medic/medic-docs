@@ -1,3 +1,14 @@
+# Contents
+- [Overview](#overview)
+- [Background](#background)
+- [Tasks](#tasks)
+- [Targets](#targets)
+- [Contacts](#contacts)
+  - [Context](#context)
+  - [Fields](#fields)
+  - [Cards](#cards)
+- [Notes](#notes)
+
 # Overview
 Workflows in the Medic app are highly configurable using a combination of XForms, JSON, and JavaScript files. The JavaScript portion allows for full control of tasks, targets, and contact profiles. This portion of the configuration is also time consuming to write, and error prone to maintain over time. For this reason we've developed a simpler way to define tasks in the configuration. Previously iterative code generates all configured elements. Now, with the _declarative configuration_ method, you define each element in the app in a modular way, and then specify when and how it should show. This document is meant to be a guide for configuring tasks, targets, and contact profiles in the Medic app using declarative configurations.
 
