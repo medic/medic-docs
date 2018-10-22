@@ -16,6 +16,12 @@ Windows:
 
 Open the installation and follow the instructions
 
+Launch Docker. 
+
+Performance Settings that can be changed:
+Memory: 4 GiB
+CPUs: 2
+
 ## Download Medic Mobile Image:
 
 Open your terminal and run this command:
@@ -31,6 +37,13 @@ To run the docker container, simply enter this command:
 ```
 docker run -t -p 5988:5988 -p 80:80 -p 443:443 medicmobile/medic-os
 ```
+
+If you wish to run multiple projects, you will need to change the above ports:
+
+```
+docker run -t -p 5989:5988 -p 81:80 -p 444:443 medicmobile/medic-os
+```
+
 Note the `New CouchDB Administrative User` and `New CouchDB Administrative Password` in the output terminal. These are the login credentials to use in the next step.
 
 After bootstrap, visit: https://localhost and accept the self-signed SSL certificate warning.
@@ -46,4 +59,14 @@ docker exec -it <container_name> /bin/bash
 
 # View container stderr/stdout logs:
 docker logs <container_name>
+```
+
+## Clean Up
+
+```
+# list running containers
+docker ps
+
+# stop container
+docker stop <container name>
 ```
