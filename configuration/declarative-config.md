@@ -43,11 +43,11 @@ Although the file contains JavaScript, its modular and declarative nature makes 
     actions: [ { form:'postnatal_visit' } ],
     events: [
       {
-        id: 'postnatal-visit',
+        id: 'postnatal-visit-1',
         days:7, start:2, end:2,
       },
       {
-        id: 'postnatal-visit',
+        id: 'postnatal-visit-2',
         days:14, start:2, end:2,
       }
     ]
