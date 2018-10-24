@@ -73,7 +73,7 @@ More complex tasks can be written using the full set of properties for tasks, as
 | `events[n].days` | Number of days after the doc's `reported_date` that the event is due | yes, if `dueDate` is not set |
 | `events[n].start` | Number of days to show the task before it is due | yes |
 | `events[n].end` | Number of days to show the task after it is due | yes |
-| `events[n].dueDate` | function(r, event, scheduledTaskIdx). A date object of the specific date when the task event is due. If set this will override the `days` value. | yes, if `days` is not set |
+| `events[n].dueDate` | function(report, event, scheduledTaskIdx). A date object of the day when the task event is due. If set this will override the `days` value. | yes, if `days` is not set |
 | `actions` | This is an array of the actions (forms) that a user can access after clicking on a task. If you put multiple forms here, then the user will see a task summary screen where they can select which action they would like to complete. Within your array of `actions` there are some additional properties that you can define. | yes |
 | `actions[n].type` | Type of action, usually `'report'`. | yes |
 | `actions[n].form` | The form that should open when you click on the action. | yes |
