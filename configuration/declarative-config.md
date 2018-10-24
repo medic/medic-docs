@@ -69,11 +69,11 @@ More complex tasks can be written using the full set of properties for tasks, as
 | `appliesIf` | function(contact, report, scheduledTaskIndex). The task can only be created for items where this function returns true. `scheduledTaskIndex` will be null for contacts and reports. | no |
 | `resolvedIf` | function(contact, report, event, dueDate, index). Create the task only if this function returns true. | yes |
 | `events` | An array of task events. The event's properties are used to specify the timeline of when a task will appear and disappear from the user interface. | yes |
-| `events.id` | Unique ID for this task event. Helps when this is a descriptive id, eg `pregnancy-high-risk` | yes |
-| `events.days` | Number of days after the doc's `reported_date` that the event is due | yes, if `dueDate` is not set |
-| `events.start` | Number of days to show the task before it is due | yes |
-| `events.end` | Number of days to show the task after it is due | yes |
-| `events.dueDate` | function(r, event, scheduledTaskIdx). The specific date that the task event is due. If set this will override the `days` value. | yes, if `days` is not set |
+| `events[n].id` | Unique ID for this task event. Helps when this is a descriptive id, eg `pregnancy-high-risk` | yes |
+| `events[n].days` | Number of days after the doc's `reported_date` that the event is due | yes, if `dueDate` is not set |
+| `events[n].start` | Number of days to show the task before it is due | yes |
+| `events[n].end` | Number of days to show the task after it is due | yes |
+| `events[n].dueDate` | function(r, event, scheduledTaskIdx). The specific date that the task event is due. If set this will override the `days` value. | yes, if `days` is not set |
 | `actions` | This is an array of the actions (forms) that a user can access after clicking on a task. If you put multiple forms here, then the user will see a task summary screen where they can select which action they would like to complete. Within your array of `actions` there are some additional properties that you can define. | yes |
 | `actions[n].type` | Type of action, usually `'report'`. | yes |
 | `actions[n].form` | The form that should open when you click on the action. | yes |
