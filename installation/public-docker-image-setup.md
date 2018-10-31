@@ -46,6 +46,21 @@ docker run -t -p 5989:5988 -p 81:80 -p 444:443 medicmobile/medic-os
 
 Note the `New CouchDB Administrative User` and `New CouchDB Administrative Password` in the output terminal. These are the login credentials to use in the next step.
 
+
+If you have any **port conflicts**, substitute with an unused local port. For reference, the port forwarding syntax is as follows `<forwarded-port>:<port-from-docker>`
+
+To find out which service is using a conflicting port:
+
+On Linux
+```
+sudo netstat -plnt | grep ':<port>'
+```
+
+On Mac (10.10 and above)
+```
+sudo lsof -iTCP -sTCP:LISTEN -n -P | grep ':<port>'
+```
+
 After bootstrap, visit: https://localhost and accept the self-signed SSL certificate warning.
 (Use the login credentials shown in the terminal output when the docker container was launched).
 ## Helpful Docker commands
