@@ -83,5 +83,5 @@ docker logs <container_name>
 docker ps
 
 # stop container
-docker stop <container name>
+docker stop <container ID>
 ```
