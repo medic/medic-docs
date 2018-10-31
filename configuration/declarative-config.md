@@ -67,7 +67,7 @@ More complex tasks can be written using the full set of properties for tasks, as
 | `appliesTo` | `'contacts'`, `'reports'`, or `'scheduled_tasks'`. The items on which the task is applied. | yes |
 | `appliesToType` | Array of report or contact types. The types of contacts (eg `['person']`, `['clinic', 'health_center']`) or form codes (eg `['pregnancy']`, `['P', 'pregnancy']`) for which this task should be associated. | no |
 | `appliesIf` | function(contact, report, scheduledTaskIndex). The task can only be created for items where this function returns true. `scheduledTaskIndex` will be null for contacts and reports. | no |
-| `resolvedIf` | function(contact, report, event, dueDate, index). Create the task only if this function returns true. | yes |
+| `resolvedIf` | function(contact, report, event, dueDate, index). Create the task only if this function returns false. | yes |
 | `events` | An array of task events. The event's properties are used to specify the timeline of when a task will appear and disappear from the user interface. | yes |
 | `events[n].id` | Unique ID for this task event. Helps when this is a descriptive id, eg `pregnancy-high-risk` | yes |
 | `events[n].days` | Number of days after the doc's `reported_date` that the event is due | yes, if `dueDate` is not set |
