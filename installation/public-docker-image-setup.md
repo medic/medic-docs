@@ -72,6 +72,7 @@ docker ps
 # ssh into container/application
 docker exec -it <container_name> /bin/bash
 
+
 # View container stderr/stdout logs:
 docker logs <container_name>
 ```
@@ -87,4 +88,11 @@ sudo docker ps -a
 
 # stop container
 docker stop <container ID>
+
+# start container
+docker start <container ID>
+
+# list all stoped containers 
+docker ps -f "status=exited"
+
 ```
