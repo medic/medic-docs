@@ -82,6 +82,9 @@ docker logs <container_name>
 # list running containers
 docker ps
 
+# list all available docker containers with their status
+sudo docker ps -a
+
 # stop container
 docker stop <container ID>
 ```
