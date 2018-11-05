@@ -265,7 +265,7 @@ Configuration is stored in the `muting` field of the settings.
 | `mute_forms` | An array of form codes which will trigger muting. **Required** |
 | `unmute_forms` | An array of form codes which will trigger unmuting. Optional. |
 | `validations` | List of form fields validations. All mute & unmute forms will be subjected to these validation rules. Invalid forms will not trigger muting/unmuting actions. Optional. |
-| `messages` | List of tasks / errors that will be created, determined by `event_type`. Optional. |
+| `messages` | List of tasks/errors that will be created, determined by `event_type`. Optional. |
 
 Supported `events_types` are: 
 
@@ -275,7 +275,7 @@ Supported `events_types` are:
 | `unmute` | On successful `unmute` action |
 | `already_muted` | On `mute` action, when target contact is already muted |
 | `already_unmuted` | On `unmute` action, when target contact is already unmuted | 
-| `contact_not_found` | Either mute or unmute actions, when target contact is not found | 
+| `contact_not_found` | Either mute or unmute actions when target contact is not found | 
  
 
 ##### Example
