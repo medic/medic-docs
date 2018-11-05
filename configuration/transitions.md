@@ -244,17 +244,17 @@ Implements muting/unmuting of persons and places. Supports multiple forms for ea
 
 Muting action:
 
-- updates target contact and all its descendants to have a `muted` property with a value equal to current `timestamp`
-- updates all connected registrations<sup>[1]</sup>, changing the state of all unsent<sup>[2]</sup> `scheduled_tastks` to `muted`
+- updates target contact and all its descendants, setting the `muted` property equal to the current `timestamp`
+- updates all connected registrations<sup>[1]</sup>, changing the state of all unsent<sup>[2]</sup> `scheduled_tasks` to `muted`
 
 Unmuting action:
 
-- updates topmost muted ancestor<sup>[3]</sup> and all its descendants ` muted` property to `false`
-- updates all connected registrations<sup>[1]</sup>, changing the state of all present/future<sup>[4]</sup> `muted` `scheduled_tastks` to `scheduled`
+- updates target contact's topmost muted ancestor<sup>[3]</sup> and all its descendants, setting the `muted` property to `false`
+- updates all connected registrations<sup>[1]</sup>, changing the state of all present/future<sup>[4]</sup> `muted` `scheduled_tasks` to `scheduled`
 
 [1] target contact and descendants' registrations  
 [2] `scheduled_tasks` having either `scheduled` or `pending` state  
-[3] because the muted state is inherited, unmuting cascades upwards to the highest level muted ancestor.  
+[3] because the muted state is inherited, unmuting cascades upwards to the highest level muted ancestor. If none of the ancestors is muted, unmuting cascades downwards only.  
 [4] scheduled tasks which are due today or in the future. All `scheduled_tasks` with a due date in the past will remain unchanged.   
 
 #### Configuration
@@ -265,9 +265,9 @@ Configuration is stored in the `muting` field of the settings.
 | `mute_forms` | An array of form codes which will trigger muting. **Required** |
 | `unmute_forms` | An array of form codes which will trigger unmuting. Optional. |
 | `validations` | List of form fields validations. All mute & unmute forms will be subjected to these validation rules. Invalid forms will not trigger muting/unmuting actions. Optional. |
-| `messages` | List of tasks / errors that will be created, determined by `event_type`. |
+| `messages` | List of tasks / errors that will be created, determined by `event_type`. Optional. |
 
-Supported `events` are: 
+Supported `events_types` are: 
 
 | Event Type | Trigger | 
 |---|---|
@@ -295,17 +295,17 @@ Supported `events` are:
         "recipient": "reporting_unit"
       },
       {
-       "translation_key": "",
+        "translation_key": "",
         "event_type": "unmute",
         "recipient": "reporting_unit"
       },
       {
-       "translation_key": "",
+        "translation_key": "",
         "event_type": "already_muted",
         "recipient": "reporting_unit"
       },      
       {
-       "translation_key": "",
+        "translation_key": "",
         "event_type": "already_unmuted",
         "recipient": "reporting_unit"
       },            
