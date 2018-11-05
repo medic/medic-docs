@@ -36,9 +36,10 @@ The following transitions are available and executed in order.
 | [death_reporting](#death_reporting) | Updates the deceased status of patients. |
 | conditional_alerts | Executes the configured condition and sends an alert if the condition is met. |
 | [multi_report_alerts](#multi_report_alerts) | Similar to conditional_alerts, with more flexible configuration, including using different form types for the same alert. |
-| update_notifications | Mutes or unmutes scheduled messages based on configuration. |
+| [update_notifications](#update notifications) | **Deprecated** Mutes or unmutes scheduled messages based on configuration. |
 | update_scheduled_reports | If a report has a month/week/week_number, year and clinic then look for duplicates and update those instead. |
 | resolve_pending | Sets the state of pending messages to sent. It is useful during builds where we don't want any outgoing messages queued for sending. |
+| [muting](#muting) | Implements muting/unmuting actions of people and places. Available since 3.2.x. |
 
 ## Transition Configuration Guide
 
@@ -201,3 +202,57 @@ The first format is required if you wish to also provide an external patient id:
 ### Generate Patient ID On People
 
 No custom configuration for `generate_patient_id_on_people`.
+
+
+### Update notifications
+
+**Deprecated in favor of [Muting](#muting)** 
+
+#### Configuration
+
+```
+"notifications": {
+    "off_form": "OFF",
+    "on_form": "ON",
+    "validations": {
+      "join_responses": true,
+      "list": []
+    },
+    "messages": [
+      {
+        "translation_key": "",
+        "event_type": "on_mute",
+        "recipient": "reporting_unit"
+      },
+      {
+       "translation_key": "",
+        "event_type": "on_unmute",
+        "recipient": "reporting_unit"
+      },
+      {
+        "translation_key": "",
+        "event_type": "patient_not_found",
+        "recipient": "reporting_unit"
+      }
+    ]
+  }
+```
+
+### Muting
+
+Implements muting/unmuting of persons and places. Supports multiple forms for each action, for webapp and sms workflows. 
+
+Muting action:
+
+- updates target contact and all its descendants to have a `muted` property with a value equal to current `timestamp`
+- updates all connected registrations<sup>[1]</sup>, changing the state of all unsent<sup>[2]</sup> `scheduled_tastks` to `muted`
+
+Unmuting action:
+
+- updates topmost muted ancestor<sup>[3]</sup> and all its descendants ` muted` property to `false`
+- updates all connected registrations<sup>[1]</sup>, changing the state of all present/future<sup>[4]</sup> `muted` `scheduled_tastks` to `scheduled`
+
+1. target contact and descendants' registrations
+1. `scheduled_tasks` having either `scheduled` or `pending` state
+1. because the muted state is inherited, unmuting cascades upwards to the highest level muted ancestor.
+1. scheduled tasks which are due today or in the future. All `scheduled_tasks` with a due date in the past will remain unchanged. 
