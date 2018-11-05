@@ -252,10 +252,10 @@ Unmuting action:
 - updates topmost muted ancestor<sup>[3]</sup> and all its descendants ` muted` property to `false`
 - updates all connected registrations<sup>[1]</sup>, changing the state of all present/future<sup>[4]</sup> `muted` `scheduled_tastks` to `scheduled`
 
-1. target contact and descendants' registrations
-1. `scheduled_tasks` having either `scheduled` or `pending` state
-1. because the muted state is inherited, unmuting cascades upwards to the highest level muted ancestor.
-1. scheduled tasks which are due today or in the future. All `scheduled_tasks` with a due date in the past will remain unchanged. 
+[1] target contact and descendants' registrations  
+[2] `scheduled_tasks` having either `scheduled` or `pending` state  
+[3] because the muted state is inherited, unmuting cascades upwards to the highest level muted ancestor.  
+[4] scheduled tasks which are due today or in the future. All `scheduled_tasks` with a due date in the past will remain unchanged.   
 
 #### Configuration
 Configuration is stored in the `muting` field of the settings.
