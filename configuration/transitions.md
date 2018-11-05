@@ -36,7 +36,7 @@ The following transitions are available and executed in order.
 | [death_reporting](#death_reporting) | Updates the deceased status of patients. |
 | conditional_alerts | Executes the configured condition and sends an alert if the condition is met. |
 | [multi_report_alerts](#multi_report_alerts) | Similar to conditional_alerts, with more flexible configuration, including using different form types for the same alert. |
-| [update_notifications](#update notifications) | **Deprecated** Mutes or unmutes scheduled messages based on configuration. |
+| [update_notifications](#update_notifications) | **Deprecated** Mutes or unmutes scheduled messages based on configuration. |
 | update_scheduled_reports | If a report has a month/week/week_number, year and clinic then look for duplicates and update those instead. |
 | resolve_pending | Sets the state of pending messages to sent. It is useful during builds where we don't want any outgoing messages queued for sending. |
 | [muting](#muting) | Implements muting/unmuting actions of people and places. Available since 3.2.x. |
@@ -204,7 +204,7 @@ The first format is required if you wish to also provide an external patient id:
 No custom configuration for `generate_patient_id_on_people`.
 
 
-### Update notifications
+### update_notifications
 
 **Deprecated in favor of [Muting](#muting)** 
 
@@ -256,3 +256,64 @@ Unmuting action:
 1. `scheduled_tasks` having either `scheduled` or `pending` state
 1. because the muted state is inherited, unmuting cascades upwards to the highest level muted ancestor.
 1. scheduled tasks which are due today or in the future. All `scheduled_tasks` with a due date in the past will remain unchanged. 
+
+#### Configuration
+Configuration is stored in the `muting` field of the settings.
+
+| Property | Description |
+|---|---|
+| `mute_forms` | An array of form codes which will trigger muting. **Required** |
+| `unmute_forms` | An array of form codes which will trigger unmuting. Optional. |
+| `validations` | List of form fields validations. All mute & unmute forms will be subjected to these validation rules. Invalid forms will not trigger muting/unmuting actions. Optional. |
+| `messages` | List of tasks / errors that will be created, determined by `event_type`. |
+
+Supported `events` are: 
+
+| Event Type | Trigger | 
+|---|---|
+| `mute` | On successful `mute` action | 
+| `unmute` | On successful `unmute` action |
+| `already_muted` | On `mute` action, when target contact is already muted |
+| `already_unmuted` | On `unmute` action, when target contact is already unmuted | 
+| `contact_not_found` | Either mute or unmute actions, when target contact is not found | 
+ 
+
+##### Example
+
+```
+"muting": {
+    "mute_forms": ["mute_person", "mute_clinic"],
+    "unmute_forms": ["unmute_person", "unmute_clinic"],
+    "validations": {
+      "join_responses": true,
+      "list": []
+    },
+    "messages": [
+      {
+        "translation_key": "",
+        "event_type": "mute",
+        "recipient": "reporting_unit"
+      },
+      {
+       "translation_key": "",
+        "event_type": "unmute",
+        "recipient": "reporting_unit"
+      },
+      {
+       "translation_key": "",
+        "event_type": "already_muted",
+        "recipient": "reporting_unit"
+      },      
+      {
+       "translation_key": "",
+        "event_type": "already_unmuted",
+        "recipient": "reporting_unit"
+      },            
+      {
+        "translation_key": "",
+        "event_type": "contact_not_found",
+        "recipient": "reporting_unit"
+      }
+    ]
+  }
+``` 
