@@ -54,7 +54,9 @@ For more help with Git see: [Using Git](./using-git.md).
 
 ## Issues
 
-Issues are managed in Github. When creating issues assign a status value by choosing a label. This is used to track progress, so we have some idea what work is being handled. All issues are created in the medic-webapp repository so they can be tracked in one place.
+Issues are managed in Github. Issues should be created in the repository where the changes need to be made. If it is not clear in which repo to open an issue the default should be the `medic-webapp` repository. If it is a security or sensitive issue it should be opened in the private `medic-projects` repository.
+
+When creating issues add the appropriate [Priority](https://github.com/medic/medic-webapp/labels?utf8=%E2%9C%93&q=Priority%3A+) and [Type](https://github.com/medic/medic-webapp/labels?utf8=%E2%9C%93&q=Type%3A+) labels. The [Status](https://github.com/medic/medic-webapp/labels?utf8=%E2%9C%93&q=Status%3A+) label is used to track progress, so we have some idea what work is being handled. The [Status: 1 - Triaged](https://github.com/medic/medic-webapp/labels/Status%3A%201%20-%20Triaged) label will be added when the issue is scheduled within a release.
 
 ### States
 
@@ -62,11 +64,11 @@ Issues are managed in Github. When creating issues assign a status value by choo
 
 If an issue has no status label at all then it needs to be triaged to work out the schedule and priority.
 
-#### 1 - Triaged
+#### Status: 1 - Triaged
 
 We have all the design and detail we need to begin development. Once issues are in this state they can be selected for inclusion in a milestone and can be assigned to a developer for Active Work.
 
-#### 2 - Active work
+#### Status: 2 - Active work
 
 In development and being worked on. Issues in this state must be assigned to a developer and be in the current milestone.
 
@@ -76,7 +78,7 @@ Create one feature branch in each of the repositories you update. The name of th
 2. Link from the PR to the original issue or vice versa.
 3. Assign the original issue to another developer for review, the PR can be left unassigned since it's linked on the original issue.
 
-#### 3 - Code review
+#### Status: 3 - Code review
 
 All non-trivial commits should be reviewed by another developer. Reviews should focus on code readability, test quality and coverage, and looking for obvious bugs.
 
@@ -88,15 +90,15 @@ Once the code passes review:
 2. Apply the Acceptance Testing tag.
 3. Clear your assignment.
 
-#### 4 - Acceptance testing
+#### Status: 4 - Acceptance testing
 
 Ready to be user acceptance tested. If the issue passes acceptance testing then apply the Ready state tag and close the issue. However if the issue fails then add the Active Work and Returned tags, assigned back to the developer who worked on it, and move it to the current milestone.
 
-#### 5 - Ready
+#### Status: 5 - Ready
 
 Passed acceptance testing and ready for release.
 
-#### 6 - Released
+#### Status: 6 - Released
 
 The code to resolve the issue has been released to the market.
 
