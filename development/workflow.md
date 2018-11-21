@@ -56,7 +56,7 @@ For more help with Git see: [Using Git](./using-git.md).
 
 Issues are managed in Github. Issues should be created in the repository where the changes need to be made. If it is not clear in which repo to open an issue the default should be the `medic-webapp` repository. If it is a security or sensitive issue it should be opened in the private `medic-projects` repository.
 
-When creating issues add the appropriate [Priority](https://github.com/medic/medic-webapp/labels?utf8=%E2%9C%93&q=Priority%3A+) and [Type](https://github.com/medic/medic-webapp/labels?utf8=%E2%9C%93&q=Type%3A+) labels. The [Status](https://github.com/medic/medic-webapp/labels?utf8=%E2%9C%93&q=Status%3A+) label is used to track progress, so we have some idea what work is being handled. The [Status: 1 - Triaged](https://github.com/medic/medic-webapp/labels/Status%3A%201%20-%20Triaged) label will be added when the issue is scheduled within a release.
+When creating issues add the appropriate [Priority](https://github.com/medic/medic-webapp/labels?utf8=%E2%9C%93&q=Priority%3A+) and [Type](https://github.com/medic/medic-webapp/labels?utf8=%E2%9C%93&q=Type%3A+) labels. The [Status](https://github.com/medic/medic-webapp/labels?utf8=%E2%9C%93&q=Status%3A+) labels are used to track the progression of an issue.
 
 ### States
 
