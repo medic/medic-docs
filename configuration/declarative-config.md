@@ -221,7 +221,7 @@ function isFormFromArraySubmittedInWindow(reports, formsArray, startTime, endTim
 
 
 # Targets
-Health workers can easily view their goals and progress for the month, even while offline. Targets refers to our in-app analytics widgets. These widgets can be configured to track metrics for an individual CHW or for an entire health facility, depending on what data the logged in user has access to. Targets can be configured for any user that has offline access (user type is "restricted to their place"). When configuring targets, you have access to all the contacts (people and places) that your logged in user can view, along with all the reports about them.
+Health workers can easily view their goals and progress for the month, even while offline. Targets refers to the in-app analytics widgets. These widgets can be set to track metrics for an individual CHW or for an entire health facility, depending on what data the logged in user has access to. Targets can be seen by users that have offline access (user type is "restricted to their place"). When defining targets, you have access to all the contacts (people and places) that the logged in user would view, along with all the reports about them.
 
 Like Tasks, a rules engine is used to generate the targets using the data available in the client app. The data, comprised of docs for people, places, and the reports about them, are processed by rules engine code to emit data for widgets like these:
 
@@ -243,9 +243,9 @@ Like Tasks, a rules engine is used to generate the targets using the data availa
 
 ![Percentage with goal](img/target_percent_with_goal.png)
 
-In previous versions of the configuration we would iterate through an object with all contacts accompanied by their reports. When the code identified a condition related to a target widget in `targets.json`, it created data for the widget as a _target instance_. The target instances emitted by the rules engine code are handled by the app. The app takes care of showing the target instances in the appropriate widgets of the Targets tab, updating counts and percentages automatically.
+The target instances emitted by the rules engine code are handled by the app. The app takes care of showing the target instances in the appropriate widgets of the Targets tab, updating counts and percentages automatically. Previously the application code for Targets would iterate through an object with all contacts accompanied by their reports. When the code identified a condition related to a target widget in `targets.json`, it created data for the widget as a _target instance_. 
 
-With the new declarative style of configuration all targets are now defined in the `targets.js` file. In the file we define a JavaScript variable `targets` as an array of objects. Each object corresponds to a target widget that could show in the app. The properties for the object are used to define when the target widget can show, what it should look like, and what to values to include. 
+With the new declarative style all targets are now defined in the `targets.js` file. In this file we define a JavaScript variable `targets` as an array of objects. Each object corresponds to a target widget that could show in the app. The properties for the object are used to define when the target widget can show, what it should look like, and what to values to include. 
 
 Like `tasks.js`, the Targets file contains JavaScript but its modular and declarative nature makes it much easier to manage. For instance, here is a simple example that generates two `postnatal-visit` tasks for each `delivery` form:
 
@@ -355,10 +355,10 @@ In the `app_settings.contact_summary` you can write a script to output fields fo
 <!-- TODO: Add annotated screenshot of a contact page showing structure -->
 
 ## Context
-An object that is made available as context on the contact's profile page. The data available from a form's `expression` to determine when to show or hide the form in the "New action" menu. When opening the action from the contact profile this data is also available in the XForm.
+This object provides context information to Actions (aka "app forms") on the contact's profile page. The app form's `expression` can use the context to determine whether or not to show the form in the "New action" menu. When opening the action from the contact profile the context data is also available within the XForm.
 
 ## Fields
-An array of fields which summarize the contact and will be shown at the top of the contact pane.
+An array of fields are defined to show a summary of the contact at the top of their profile page.
 
 ![Summary card](img/summary-card.png)
 <!-- TODO: Add updated annotated screenshot of summary card -->
@@ -372,13 +372,13 @@ Each field that can be shown on a contact's profile is defined as an objects in 
 | `value` | `function(r)`. The value shown for the field. Can be a property of the contact, eg `contact.date_of_birth`. | yes |
 | `width` | The horizontal space for the field. Common values are 12 for full width, 6 for half width, or 3 for quarter width.| |
 | `appliesIf` | A function that determines when the field should be shown. | no |
-| `translate` | Whether or not to translate the value. Defaults to false. *TODO: VERIFY IMPLEMENTED* | no |
+| `translate` | Whether or not to translate the value. Defaults to false. <!-- TODO: VERIFY IMPLEMENTED --> | no |
 | `context` |  The fields available in the value's translation. eg {} | no | 
 | `icon` | The name of the icon to display beside this field, as defined through the Configuration > Icons page. | no |
 | `filter` | The display filter to apply to the value, eg: `{ value: '2005-10-09', filter: 'age' }` will render as "11 years". Common filters are: `age`, `phone`, `weeksPregnant`, `relativeDate`, `relativeDay`, `fullDate`, `simpleDate`, `simpleDateTime`, `lineage`, `resourceIcon`. For the complete list of filters, and more details on what each does, check out the code in [`medic-webapp/static/js/filters` dir](https://github.com/medic/medic-webapp/tree/master/static/js/filters). | no |
 
 ## Cards
-An array of cards to show below the summary, each with their own header and arrays of fields.
+An array of cards to show below the summary on the profile page. Each card has its own header and arrays of fields.
 
 ![Pregnancy card](img/pregnancy-card.png)
 <!-- TODO: Add updated annotated screenshot of a profile card -->
