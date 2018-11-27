@@ -96,7 +96,7 @@ Convert and build the contact forms into your application using the `convert-con
 
 
 ### App Forms
-Workflows within your app rely heavily on forms for Contact creation/editing, care guides/decision support, and surveys. When a user completes a form, the contents are saved in the database with the type `data_record`. These docs are known as _Reports_. 
+Workflows within your app rely heavily care guides, decision support, and surveys, which are collectively referred to as "app forms". App developers use the XForms standard to define app forms. When a user completes an app form, the contents are saved in the database with the type `data_record`. These docs are known as _Reports_. 
 
  Each form can have the following files:
 
