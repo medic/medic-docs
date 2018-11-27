@@ -253,7 +253,13 @@ Helper variables and functions can be defined in `nools-extras.js` to keep the t
              r.fields.delivery_code &&
              r.fields.delivery_code.toUpperCase() !== 'F';
     },
-    actions: [ { form:'postnatal_visit' } ],
+    actions: [{ 
+      form:'postnatal_visit',
+      // Pass content that will be used within the task form
+      modifyContent: function(r, content) {
+        content.delivery_place = 'home';
+      }
+    }],
     events: [ {
       id: 'postnatal-home-birth',
       days:0, start:0, end:4,
