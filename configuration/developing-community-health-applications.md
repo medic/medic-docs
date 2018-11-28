@@ -359,9 +359,12 @@ function isFormFromArraySubmittedInWindow(reports, formsArray, startTime, endTim
 
 #### Tips & Tricks
 1. There are some use cases where information collected during an action within a task schedule may mean that the task schedule must change. For example, if you register a child for malnutrition follow-ups, you collect the height and weight during registration and tasks for follow-ups are created based on the registration. At the next visit (first follow-up), you collect the height and weight again and you want to update these so that future tasks reference this new height and weight. You can either clear and regenerate the schedule after each follow-up visit is done, or you can create only one follow-up at a time so that height and weight are always referencing the most recent visit.
+
 1. If you have a single action for a task, clicking the task will bring you straight to the specified form.
 ![Task form](img/task_form.png)
+
 1. If you have more than one action, clicking a prompted task will show a summary screen with fields you have passed along with a button for each possible action.
+
 ![Task summary screen](img/task_summary_screen.png)
 
 
