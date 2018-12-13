@@ -36,7 +36,7 @@ The following transitions are available and executed in order.
 | [death_reporting](#death_reporting) | Updates the deceased status of patients. |
 | conditional_alerts | Executes the configured condition and sends an alert if the condition is met. |
 | [multi_report_alerts](#multi_report_alerts) | Similar to conditional_alerts, with more flexible configuration, including using different form types for the same alert. |
-| [update_notifications](#update_notifications) | **Deprecated** Mutes or unmutes scheduled messages based on configuration. |
+| [update_notifications](#update_notifications) | **Deprecated since 3.2.x** Mutes or unmutes scheduled messages based on configuration. |
 | update_scheduled_reports | If a report has a month/week/week_number, year and clinic then look for duplicates and update those instead. |
 | resolve_pending | Sets the state of pending messages to sent. It is useful during builds where we don't want any outgoing messages queued for sending. |
 | [muting](#muting) | Implements muting/unmuting actions of people and places. Available since 3.2.x. |
@@ -244,21 +244,35 @@ Implements muting/unmuting of persons and places. Supports multiple forms for ea
 
 Muting action:
 
-- updates target contact and all its descendants, setting the `muted` property equal to the current `timestamp`
-- updates all connected registrations<sup>[1]</sup>, changing the state of all unsent<sup>[2]</sup> `scheduled_tasks` to `muted`
+- updates target contact and all its descendants<sup>[1]</sup>, setting the `muted` property equal to the current `date` in ISO format<sup>[2]</sup>
+- adds a `muting_history` entry to Sentinel `info` docs for every updated contact<sup>[7]</sup>
+- updates all connected registrations<sup>[3]</sup>, changing the state of all unsent<sup>[4]</sup> `scheduled_tasks` to `muted`
 
 Unmuting action:
 
-- updates target contact's topmost muted ancestor<sup>[3]</sup> and all its descendants, setting the `muted` property to `false`
-- updates all connected registrations<sup>[1]</sup>, changing the state of all present/future<sup>[4]</sup> `muted` `scheduled_tasks` to `scheduled`
+- updates target contact's topmost muted ancestor<sup>[1][5]</sup> and all its descendants, removing the `muted` property
+- adds a `muting_history` entry to Sentinel `info` docs for every updated contact<sup>[7]</sup>
+- updates all connected registrations<sup>[3]</sup>, changing the state of all present/future<sup>[6]</sup> `muted` `scheduled_tasks` to `scheduled`
 
-[1] target contact and descendants' registrations  
-[2] `scheduled_tasks` having either `scheduled` or `pending` state  
-[3] because the muted state is inherited, unmuting cascades upwards to the highest level muted ancestor. If none of the ancestors is muted, unmuting cascades downwards only.  
-[4] scheduled tasks which are due today or in the future. All `scheduled_tasks` with a due date in the past will remain unchanged.   
+[1] Contacts that are already in the correct state are skipped. This applies to updates to the contact itself, updates to the Sentinel `muting_history` and to the connected registrations (registrations of a contact that is already in the correct state will not be updated).    
+[2] The date represents the moment Sentinel has processed the muting action   
+[3] target contact and descendants' registrations  
+[4] `scheduled_tasks` being in either `scheduled` or `pending` state  
+[5] Because the muted state is inherited, unmuting cascades upwards to the highest level muted ancestor. If none of the ancestors is muted, unmuting cascades downwards only.  
+[6] `scheduled_tasks` which are due today or in the future. All `scheduled_tasks` with a due date in the past will remain unchanged.    
+
+##### [7] Muting history
+Each time the `muted` state of a contact changes, an entry is added to a `muting_history` list saved in Sentinel `info` docs (stored as an array property with the same name).     
+Entries in `muting_history` contain the following information:
+
+| Property | Description |
+| --- | --- | 
+| muted | Boolean representing the muted state |
+| date | Date in ISO Format |
+| report_id | An `_id` reference to the report that triggered the action |
 
 #### Configuration
-Configuration is stored in the `muting` field of the settings.
+Configuration is stored in the `muting` field of the `settings` doc.
 
 | Property | Description |
 |---|---|
