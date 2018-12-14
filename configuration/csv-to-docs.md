@@ -3,9 +3,10 @@
 Ensure [medic-conf](https://github.com/medic/medic-conf) is installed and updated. 
 
 ### Using CSV Files on Google Drive
-Create a new json file named `csvs-on-google-drive.json`. 
 
-The key should be the name of the file stored locally, and for the value use the google id for the document. The name of the file must match what the file is generating a doc for. See the documentation [here](https://github.com/medic/medic-conf#csv-file-name) for naming files. 
+Create a new directory and add a new json file named `csvs-on-google-drive.json`. 
+
+The keys should be the name of the CSV file stored locally, and for the value use the google id for the document. The name of the file must match what the file is generating a doc for. See the documentation [here](https://github.com/medic/medic-conf#csv-file-name) for naming files. 
 
 ```
 {
@@ -15,7 +16,7 @@ The key should be the name of the file stored locally, and for the value use the
 
 ### Commands to Fetch and Upload Docs
 
-Run command `medic-conf fetch fetch-csvs-from-google-drive`. This will download the CSV files in the json document created above and place them into a folder named `csv`.
+Run command `medic-conf fetch-csvs-from-google-drive`. This will download the CSV files in the json document created above and place them into a folder named `csv`.
 
 Running `medic-conf csv-to-docs` will convert the CSV into json docs for the webapp. They are placed in a `json_docs` folder
 
