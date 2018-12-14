@@ -36,7 +36,7 @@ The following transitions are available and executed in order.
 | [death_reporting](#death_reporting) | Updates the deceased status of patients. |
 | conditional_alerts | Executes the configured condition and sends an alert if the condition is met. |
 | [multi_report_alerts](#multi_report_alerts) | Similar to conditional_alerts, with more flexible configuration, including using different form types for the same alert. |
-| [update_notifications](#update_notifications) | **Deprecated since 3.2.x** Mutes or unmutes scheduled messages based on configuration. |
+| [update_notifications](#update_notifications) | **Deprecated in 3.2.x** Mutes or unmutes scheduled messages based on configuration. |
 | update_scheduled_reports | If a report has a month/week/week_number, year and clinic then look for duplicates and update those instead. |
 | resolve_pending | Sets the state of pending messages to sent. It is useful during builds where we don't want any outgoing messages queued for sending. |
 | [muting](#muting) | Implements muting/unmuting actions of people and places. Available since 3.2.x. |
@@ -272,7 +272,7 @@ Entries in `muting_history` contain the following information:
 | report_id | An `_id` reference to the report that triggered the action |
 
 #### Configuration
-Configuration is stored in the `muting` field of the `settings` doc.
+Configuration is stored in the `muting` field of `app_settings.json`.
 
 | Property | Description |
 |---|---|
