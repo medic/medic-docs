@@ -25,3 +25,21 @@ Lastly run `medic-conf --local upload-docs` to upload the converted docs into yo
 ### Google Drive Authentication
 
 Medic-conf leverages google authentication to access google drive. You will need to create a client_secrets file named `.gdrive.secrets.json` and place it in the same directory where you want the CSVs to be fetched. [Token Creation](https://developers.google.com/identity/protocols/OAuth2InstalledApp)
+
+Create the `.gdrive.secrets.json` file by downloading the `client_secrets.json` from google. You will need a CLIENT_ID, CLIENT_SECRET and REDIRECT_URL. You can find these pieces of information by going to the Developer Console, clicking your project --> APIs & auth --> credentials --> Download JSON. This will download the credentials but will need modified to be in this structure. 
+
+```
+
+{
+		"client_id": "<client_id>.apps.googleusercontent.com",
+		"project_id": "proj_id",
+		"auth_uri": "https://accounts.google.com/o/oauth2/auth",
+		"token_uri": "https://accounts.google.com/o/oauth2/token",
+		"auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+		"client_secret": "client_secret",
+		"redirect_uris": ["urn:ietf:wg:oauth:2.0:oob","http://localhost"]
+}
+
+```
+
+ See google's docs [here](https://github.com/googleapis/google-api-nodejs-client#oauth2-client) on Oauth2
