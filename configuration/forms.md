@@ -407,59 +407,59 @@ To configure a form to send using Medic's custom SMS definition, add the field `
 
 * `...args`: 0 or more values to be concatenated.
 
-  concat('A', 'bee', 'Sea') => 'AbeeSea')
+	concat('A', 'bee', 'Sea') => 'AbeeSea')
 
 ##### `spaced(...args)`
 
 * `...args`: 0 or more values to be concatenated with spaces between them.
 
-  concat('A', 'bee', 'Sea') => 'A bee Sea')
+	concat('A', 'bee', 'Sea') => 'A bee Sea')
 
 ##### `match(val, matchers)`
 
 * `val`: the value to run matches against
 * `matchers`: a string representing values to match and their corresponding outputs
 
-  match('a', 'a:Hay,b:bzz,c:see') => 'Hay'
-  match('b', 'a:Hay,b:bzz,c:see') => 'bzz'
-  match('c', 'a:Hay,b:bzz,c:see') => 'c'
+	match('a', 'a:Hay,b:bzz,c:see') => 'Hay'
+	match('b', 'a:Hay,b:bzz,c:see') => 'bzz'
+	match('c', 'a:Hay,b:bzz,c:see') => 'c'
 
 #### Examples
 
 ##### Form submission JSON
 
-  doc.fields = {
-    s_acc_danger_signs: {
-      s_acc_danger_sign_seizure: 'no',
-      s_acc_danger_sign_loss_consiousness: 'yes',
-      s_acc_danger_sign_unable_drink: 'no',
-      s_acc_danger_sign_confusion: 'yes',
-      s_acc_danger_sign_vomit: 'no',
-      s_acc_danger_sign_chest_indrawing: 'yes',
-      s_acc_danger_sign_wheezing: 'no',
-      s_acc_danger_sign_bleeding: 'yes',
-      s_acc_danger_sign_lathargy: 'no',
-      has_danger_sign: 'true',
-    },
-  };
+	doc.fields = {
+	  s_acc_danger_signs: {
+	    s_acc_danger_sign_seizure: 'no',
+	    s_acc_danger_sign_loss_consiousness: 'yes',
+	    s_acc_danger_sign_unable_drink: 'no',
+	    s_acc_danger_sign_confusion: 'yes',
+	    s_acc_danger_sign_vomit: 'no',
+	    s_acc_danger_sign_chest_indrawing: 'yes',
+	    s_acc_danger_sign_wheezing: 'no',
+	    s_acc_danger_sign_bleeding: 'yes',
+	    s_acc_danger_sign_lathargy: 'no',
+	    has_danger_sign: 'true',
+	  },
+	};
 
 ##### `formDoc.report2sms`
 
-  concat(
-      "U5 ",
-      match(doc.s_acc_danger_signs.has_danger_sign, "true:DANGER, false:NO_DANGER"),
-      " ",
-      match(doc.s_acc_danger_signs.s_acc_danger_sign_seizure, "yes:S"),
-      match(doc.s_acc_danger_signs.s_acc_danger_sign_loss_consiousness, "yes:L"),
-      match(doc.s_acc_danger_signs.s_acc_danger_sign_unable_drink, "yes:D"),
-      match(doc.s_acc_danger_signs.s_acc_danger_sign_confusion, "yes:C"),
-      match(doc.s_acc_danger_signs.s_acc_danger_sign_vomit, "yes:V"),
-      match(doc.s_acc_danger_signs.s_acc_danger_sign_chest_indrawing, "yes:I"),
-      match(doc.s_acc_danger_signs.s_acc_danger_sign_wheezing, "yes:W"),
-      match(doc.s_acc_danger_signs.s_acc_danger_sign_bleeding, "yes:B"),
-      match(doc.s_acc_danger_signs.s_acc_danger_sign_lathargy, "yes:Y")
-  )
+	concat(
+	    "U5 ",
+	    match(doc.s_acc_danger_signs.has_danger_sign, "true:DANGER, false:NO_DANGER"),
+	    " ",
+	    match(doc.s_acc_danger_signs.s_acc_danger_sign_seizure, "yes:S"),
+	    match(doc.s_acc_danger_signs.s_acc_danger_sign_loss_consiousness, "yes:L"),
+	    match(doc.s_acc_danger_signs.s_acc_danger_sign_unable_drink, "yes:D"),
+	    match(doc.s_acc_danger_signs.s_acc_danger_sign_confusion, "yes:C"),
+	    match(doc.s_acc_danger_signs.s_acc_danger_sign_vomit, "yes:V"),
+	    match(doc.s_acc_danger_signs.s_acc_danger_sign_chest_indrawing, "yes:I"),
+	    match(doc.s_acc_danger_signs.s_acc_danger_sign_wheezing, "yes:W"),
+	    match(doc.s_acc_danger_signs.s_acc_danger_sign_bleeding, "yes:B"),
+	    match(doc.s_acc_danger_signs.s_acc_danger_sign_lathargy, "yes:Y")
+	)
 
 ##### SMS content
 
-  U5 DANGER LCIB
+	U5 DANGER LCIB
