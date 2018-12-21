@@ -399,7 +399,7 @@ To get forms sent in this format, follow the [ODK documentation](https://opendat
 
 ### Medic custom SMS representation
 
-To configure a form to send using Medic's custom SMS definition, add the field `report2sms` to the form's CouchDB doc.  The value of this field is [Angular Script (TODO: check name)](TODO link), and allows access to the `fields` property of the `data_record` doc created when saving the form submission to the database.  Extra functions are also provided to make compiling a form submission more simple.
+To configure a form to send using Medic's custom SMS definition, add the field `report2sms` to the form's CouchDB doc.  The value of this field is an [Angular expression](https://docs.angularjs.org/guide/expression), and allows access to the `fields` property of the `data_record` doc created when saving the form submission to the database.  Extra functions are also provided to make compiling a form submission more simple.
 
 #### Special functions
 
