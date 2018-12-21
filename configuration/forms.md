@@ -386,3 +386,80 @@ Next you can configure the form to calculate the z-score for a patient using the
 ```
 
 [Full example form](https://github.com/medic/medic-webapp/blob/master/demo-forms/z-score.xml).
+
+## Sending reports as SMS
+
+You can configure specific forms so that their reports are forwarded as SMS messages in addition to the standard XML storage in the database.
+
+There are two formats available - either using the [ODK's compact record representation for SMS](https://opendatakit.github.io/xforms-spec/#compact-record-representation-(for-sms)), or Medic's custom format.
+
+### ODK compact record representation for SMS
+
+To get forms sent in this format, follow the [ODK documentation](https://opendatakit.github.io/xforms-spec/#compact-record-representation-(for-sms)).
+
+### Medic custom SMS representation
+
+To configure a form to send using Medic's custom SMS definition, add the field `report2sms` to the form's CouchDB doc.  The value of this field is [Angular Script (TODO: check name)](TODO link), and allows access to the `fields` property of the `data_record` doc created when saving the form submission to the database.  Extra functions are also provided to make compiling a form submission more simple.
+
+#### Special functions
+
+##### `concat(...args)`
+
+* `...args`: 0 or more values to be concatenated.
+
+  concat('A', 'bee', 'Sea') => 'AbeeSea')
+
+##### `spaced(...args)`
+
+* `...args`: 0 or more values to be concatenated with spaces between them.
+
+  concat('A', 'bee', 'Sea') => 'A bee Sea')
+
+##### `match(val, matchers)`
+
+* `val`: the value to run matches against
+* `matchers`: a string representing values to match and their corresponding outputs
+
+  match('a', 'a:Hay,b:bzz,c:see') => 'Hay'
+  match('b', 'a:Hay,b:bzz,c:see') => 'bzz'
+  match('c', 'a:Hay,b:bzz,c:see') => 'c'
+
+#### Examples
+
+##### Form submission JSON
+
+  doc.fields = {
+    s_acc_danger_signs: {
+      s_acc_danger_sign_seizure: 'no',
+      s_acc_danger_sign_loss_consiousness: 'yes',
+      s_acc_danger_sign_unable_drink: 'no',
+      s_acc_danger_sign_confusion: 'yes',
+      s_acc_danger_sign_vomit: 'no',
+      s_acc_danger_sign_chest_indrawing: 'yes',
+      s_acc_danger_sign_wheezing: 'no',
+      s_acc_danger_sign_bleeding: 'yes',
+      s_acc_danger_sign_lathargy: 'no',
+      has_danger_sign: 'true',
+    },
+  };
+
+##### `formDoc.report2sms`
+
+  concat(
+      "U5 ",
+      match(doc.s_acc_danger_signs.has_danger_sign, "true:DANGER, false:NO_DANGER"),
+      " ",
+      match(doc.s_acc_danger_signs.s_acc_danger_sign_seizure, "yes:S"),
+      match(doc.s_acc_danger_signs.s_acc_danger_sign_loss_consiousness, "yes:L"),
+      match(doc.s_acc_danger_signs.s_acc_danger_sign_unable_drink, "yes:D"),
+      match(doc.s_acc_danger_signs.s_acc_danger_sign_confusion, "yes:C"),
+      match(doc.s_acc_danger_signs.s_acc_danger_sign_vomit, "yes:V"),
+      match(doc.s_acc_danger_signs.s_acc_danger_sign_chest_indrawing, "yes:I"),
+      match(doc.s_acc_danger_signs.s_acc_danger_sign_wheezing, "yes:W"),
+      match(doc.s_acc_danger_signs.s_acc_danger_sign_bleeding, "yes:B"),
+      match(doc.s_acc_danger_signs.s_acc_danger_sign_lathargy, "yes:Y")
+  )
+
+##### SMS content
+
+  U5 DANGER LCIB
