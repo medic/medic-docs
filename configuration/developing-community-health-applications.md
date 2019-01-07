@@ -76,8 +76,8 @@ To create the above XForm files it is recommended to use XLSForms. Also, if the 
 
     - /forms/contact/person-create.xlsx
     - /forms/contact/person-edit.xlsx
-    - /forms/contact/PLACE_TYPE.xlsx
-    - /forms/contact/PLACE_TYPE.xlsx
+    - /forms/contact/PLACE_TYPE-create.xlsx
+    - /forms/contact/PLACE_TYPE-edit.xlsx
     - /forms/contact/places.json
 
 Here is an example of a `places.json` files: 
