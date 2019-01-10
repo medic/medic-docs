@@ -17,3 +17,13 @@ You will get a ```Warning:medic-gateway is not set as the default messaging app 
 
 >**N:B** If you're configuring medic-gateway(v 0.62 and below - recommended if you have a non-medicmobile hosted instance) you will need to use the generic build of medic-gateway - links to download are [here](https://github.com/medic/medic-gateway/releases). Find out the value for webapp URL from your tech support then configure as below
  **WebappUrl**: ```https://my_gateway_user:topSecret@myproject.some-subdomain.mydomain.org```
+
+ # Power Saving
+
+ Care should be taken to disable all power-saving modes on the phone, as these may affect `medic-gateway`'s ability to check in with the server regularly.
+ 
+ On different versions of Android, power saving options may be found in different places.  Sometimes they will be per-app, and sometimes phone-wide.  Some places you might find the settings:
+
+* `WiFi > MORE > Keep WiFi on during sleep > ALWAYS (increases battery usage)`
+* `Smart Manager > Battery > App Power Saving > OFF`, or
+* `Smart Manager > Battery > App Power Saving > Detail > Medic Gateway > Disable`

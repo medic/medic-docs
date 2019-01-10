@@ -25,3 +25,7 @@ Wait about 15 minutes to enable capture of sufficient android device environment
 11. Disconnect the phone from the computer
 12. Open the folder which has the adb executable, you will see a file called gateway.txt
 Send that file to the concerned person(PM or techlead)
+
+NB. If you get this error `command not found` in steps 7, 8 or 9 this means adb is not in your PATH. This is where the shell looks for executables. You'll have to append `./` before any `adb` command so that you can use the `adb` in the current folder you're on.                 
+       e.g `./adb logcat > gateway.txt`.
+The dot is your current directory, and this tells Bash to use `adb` from there.

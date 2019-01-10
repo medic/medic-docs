@@ -54,51 +54,43 @@ For more help with Git see: [Using Git](./using-git.md).
 
 ## Issues
 
-Issues are managed in Github. When creating issues assign a status value by choosing a label. This is used to track progress, so we have some idea what work is being handled. All issues are created in the medic-webapp repository so they can be tracked in one place.
+Issues are managed in Github. Issues should be created in the repository where the changes need to be made. If it is not clear in which repo to open an issue the default should be the `medic-webapp` repository. If it is a security or sensitive issue it should be opened in the private `medic-projects` repository.
 
-### States
+When creating issues add the appropriate [Priority](https://github.com/medic/medic-webapp/labels?utf8=%E2%9C%93&q=Priority%3A+) and [Type](https://github.com/medic/medic-webapp/labels?utf8=%E2%9C%93&q=Type%3A+) labels.
 
-#### Nothing
+### Project States
 
-If an issue has no status label at all then it needs to be triaged to work out the schedule and priority.
+When the issue is scheduled for development it will be added to the appropriate [organisation project](https://github.com/orgs/medic/projects?query=is%3Aopen+sort%3Aname-asc) named after the webapp version it will be released with. Each column in the project represents the state the issue is in.
 
-#### 1 - Triaged
+#### To do
 
-We have all the design and detail we need to begin development. Once issues are in this state they can be selected for inclusion in a milestone and can be assigned to a developer for Active Work.
+Issues in this column have been scheduled to be released with this webapp version. The issue has all the detail needed to begin design and development and it is free for anyone to start work on. If you start work on an issue assign it to yourself and move it to "In progress".
 
-#### 2 - Active work
+#### In progress
 
-In development and being worked on. Issues in this state must be assigned to a developer and be in the current milestone.
+Issues in this column are being actively worked on, which includes development, design, and code reviews.
 
-Create one feature branch in each of the repositories you update. The name of the feature branch should be in the form `<issue-number>-<readable-name>`, for example `1104-inclusive-export`. Once you're satisfied with your changes:
+Any code should be in a feature branch in each of the repositories you update. The name of the feature branch should be in the form `<issue-number>-<readable-name>`, for example `1104-inclusive-export`. Once you're satisfied with your changes:
 
-1. Submit a PR for each of the branches.
-2. Link from the PR to the original issue or vice versa.
-3. Assign the original issue to another developer for review, the PR can be left unassigned since it's linked on the original issue.
+1. Submit a PR for each of the repositories.
+2. Link from the PR to the issue by referencing the number in the PR description, eg: "medic/medic-webapp#123"
+3. Wait for the builds to succeed and ensure there are no conflicts with the `master` branch so the PR can be merged.
+4. Pick at least one Reviewer for the PR and work with them until the code passes review.
+5. "Squash and Merge" the PRs into `master` and backport this commit to previous release branches if required.
+6. Unassign yourself from the Issue.
+7. Move the issue to "In AT".
 
-#### 3 - Code review
+#### In AT
 
-All non-trivial commits should be reviewed by another developer. Reviews should focus on code readability, test quality and coverage, and looking for obvious bugs.
+Issues in this column are ready to be Acceptance Tested by a Quality Assurance engineer. When picking up an issue for AT:
 
-If the code fails review then comment on the issue, apply the Active Work tag, and assign back to the original developer.
+1. Assign it to yourself.
+2. If the issue fails AT then notify the original developer, unassign yourself, and move the issue back to "In progress".
+3. If the issue passes AT then close the issue which will automatically move it to "Done".
 
-Once the code passes review:
+#### Done
 
-1. Merge the Pull Request. Most of the time we use the Squash and Merge technique to make the git history as clean as possible.
-2. Apply the Acceptance Testing tag.
-3. Clear your assignment.
-
-#### 4 - Acceptance testing
-
-Ready to be user acceptance tested. If the issue passes acceptance testing then apply the Ready state tag and close the issue. However if the issue fails then add the Active Work and Returned tags, assigned back to the developer who worked on it, and move it to the current milestone.
-
-#### 5 - Ready
-
-Passed acceptance testing and ready for release.
-
-#### 6 - Released
-
-The code to resolve the issue has been released to the market.
+Issues in this column have passed acceptance testing and are ready for release.
 
 ## Triaging old tickets
 

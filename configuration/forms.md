@@ -9,64 +9,42 @@ There are two types of forms:
 ## JSON forms
 Used for SMS interfaces such as formatted SMS, SIM applications, and Medic Collect. You can view the list of JSON forms and load new ones through the webapp's Configuration pages, or via the `forms` field of `app_settings.json`. Each form has fields defined in our specific JSON format, eg:
 
-```
-    "F": {
-      "meta": {
-        "code": "F",
-        "icon": "risk",
-        "label": {
-          "en": "Danger sign flag (SMS)",
-          "hi": "खतरे की सूचना (SMS)",
-          "id": "Laporan tanda bahaya (SMS)"
-        }
-      },
-      "fields": {
-        "patient_id": {
-          "labels": {
-            "description": {
-              "en": "Patient ID"
-            },
-            "short": {
-              "en": "ID"
-            },
-            "tiny": {
-              "en": "ID"
-            }
-          },
-          "position": 0,
-          "type": "string",
-          "flags": {
-            "input_digits_only": true
-          },
-          "length": [
-            5,
-            13
-          ],
-          "required": true
+```js
+{
+  "F": {
+    "meta": {
+      "code": "F",
+      "icon": "risk",
+      "translation_key": "form.flag.title" // displayed in the webapp
+    },
+    "fields": {
+      "patient_id": { // this is used for the property name when the report doc is created
+        "labels": {
+          "short": { "translation_key": "form.flag.patient_id.short" }, // displayed in the webapp
+          "tiny": "pid" // used in form submission to bind values to fields - not required for all submission formats
         },
-        "notes": {
-          "labels": {
-            "description": {
-              "en": "Notes"
-            },
-            "short": {
-              "en": "Notes"
-            },
-            "tiny": {
-              "en": "N"
-            }
-          },
-          "position": 1,
-          "type": "string",
-          "length": [
-            1,
-            100
-          ],
-          "required": false
-        }
+        "position": 0, // specifies where in the SMS this value should be
+        "type": "string",
+        "flags": {
+          "input_digits_only": true
+        },
+        "length": [ 5, 13 ],
+        "required": true
       },
-      "public_form": true
-    }
+      "notes": {
+        "labels": {
+          "short": { "translation_key": "form.flag.notes.short" },
+          "tiny": "form.flag.notes.tiny"
+        },
+        "position": 1,
+        "type": "string",
+        "length": [ 1, 100 ],
+        "required": false
+      }
+    },
+    "public_form": true
+  }
+}
 ```
 
 # XForms
@@ -94,8 +72,6 @@ A typical Action or Task form starts with an `inputs` group which contains prepo
 | note | r_followup | Follow Up <i class="fa fa-flag"></i> |
 | note | r_followup_note | ${r_followup_instructions} |
 | end group| | |
-
-
 
 ## Accessing data from the contact-summary
 
@@ -149,7 +125,7 @@ In version 2.13.0 and higher, you can configure your app forms to generate addit
 
 #### Example Form Model
 
-```
+```xml
 <data>
   <root_prop_1>val A</root_prop_1>
   <other_doc db-doc="true">
@@ -176,12 +152,13 @@ Report (as before):
 ```
 
 Other doc:
-```
+
+```json
 {
-  _id: '...',
-  _rev: '...',
-  type: 'whatever',
-  other_prop: 'val B',
+  "_id": "...",
+  "_rev": "...",
+  "type": "whatever",
+  "other_prop": "val B"
 }
 ```
 
@@ -190,7 +167,8 @@ Other doc:
 - Linked docs can be referred to using the doc-ref attribute, with an xpath. This can be done at any point in the model, e.g.:
 
 #### Example Form Model
-```
+
+```xml
 <sickness>
   <sufferer db-doc-ref="/sickness/new">
   <new db-doc="true">
@@ -204,26 +182,27 @@ Other doc:
 #### Resulting docs
 
 Report:
-```
+
+```json
 {
-  _id: 'abc-123',
-  _rev: '...',
-  type: 'report',
-  _attachments: { xml: ... ],
-  fields: {
-    sufferer: 'def-456',
+  "_id": "abc-123",
+  "_rev": "...",
+  "type": "report",
+  "fields": {
+    "sufferer": "def-456"
   }
 }
 ```
 
 Other doc:
+
 ```
 {
-  _id: 'def-456',
-  _rev: '...',
-  type: 'person',
-  name: 'Gómez',
-  original_report: 'abc-123',
+  "_id": "def-456",
+  "_rev": "...",
+  "type": "person",
+  "name": "Gómez",
+  "original_report": "abc-123"
 }
 ```
 
@@ -233,7 +212,8 @@ Other doc:
 - These currently cannot be linked from other docs, as no provision is made for indexing these docs
 
 #### Example Form
-```
+
+```xml
 <thing>
   <name>Ab</name>
   <related db-doc="true">
@@ -252,33 +232,37 @@ Other doc:
 #### Resulting docs
 
 Report:
-```
+
+```json
 {
-  _id: 'abc-123',
-  _rev: '...',
-  type: 'report',
-  _attachments: { xml: ... ],
-  fields: {
-    name: 'Ab',
+  "_id": "abc-123",
+  "_rev": "...",
+  "type": "report",
+  "fields": {
+    "name": "Ab"
   }
 }
 ```
 
 Other docs:
-```
+
+```json
 {
-  _id: '...',
-  _rev: '...',
-  type: 'relative',
-  name: 'Bo',
-  parent: 'abc-123',
+  "_id": "...",
+  "_rev": "...",
+  "type": "relative",
+  "name": "Bo",
+  "parent": "abc-123",
 }
+```
+
+```json
 {
-  _id: '...',
-  _rev: '...',
-  type: 'relative',
-  name: 'Ch',
-  parent: 'abc-123',
+  "_id": "...",
+  "_rev": "...",
+  "type": "relative",
+  "name": "Ch",
+  "parent": "abc-123",
 }
 ```
 
@@ -289,7 +273,8 @@ First, the relevant section of the delivery report XLSForm file:
 ![Delivery report](img/linked_docs_xlsform.png)
 
 Here is the corresponding portion of XML generated after converting the form:
-```
+
+```xml
 <repeat>
   <child_repeat db-doc="true" jr:template="">
     <child_name/>
@@ -322,7 +307,8 @@ First, the relevant section of the delivery report XLSForm file:
 ![Delivery report](img/repeated_docs_xlsform.png)
 
 Here is the corresponding portion of XML generated after converting the form:
-```
+
+```xml
 <child_doc db-doc-ref=" /postnatal_care/child "/>
 <child db-doc="true">
   <created_by_doc db-doc-ref="/postnatal_care"/>
@@ -343,3 +329,137 @@ Here is the corresponding portion of XML generated after converting the form:
 ```
 
 If you've done your configuration correctly, all you should see when you click on the submitted report from the Reports tab is the `child_doc` field with an `_id` that corresponds to the first doc that was created. The other docs will have a link to the report that created them but the report will not link directly to them. Again, you could look for that `_id` on the People tab or in the DB itself to confirm that the resulting docs look correct.
+
+### Uploading binary attachments
+
+Forms can include arbitrary binary data which is submitted and included in the doc as an attachment. If this is an image type it'll then be displayed inline in the report UI.
+
+To mark an element as having binary data add an extra column in the XLSForm called `instance::type` and specify `binary` in the element's row.
+
+### Custom xpath functions
+
+#### z-score
+
+In Enketo forms you have access to an xpath function to calculate the z-score value for a patient.
+
+##### Table data
+
+First, create a doc in couchdb to store the z-score tables you want to use, for example:
+
+```json
+{
+  "_id": "zscore-charts",
+  "charts": [
+    {
+      "id": "weight-for-age",
+      "data": {
+        "male": [
+          {
+            "key": 0,
+            "points": [
+              1.701,
+              2.08,
+              2.459,
+              2.881,
+              3.346,
+              3.859,
+              4.419,
+              5.031,
+              5.642
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+This creates a `weight-for-age` table which shows for a male aged 0 at 2.08kg their z-score is -3. Your doc will be much larger than this. To help convert from z-score tables to this doc format use the [conversation script](https://github.com/medic/medic-webapp/blob/master/scripts/zscore-table-to-json.js).
+
+##### Form configuration
+
+Next you can configure the form to calculate the z-score for a patient using the data above. The `z-score` function takes four parameters: the name of z-score table to use, patient's sex, and the two parameters for the table lookup (eg: age and weight). For example, to calculate the z-score for a patient given their sex, age, and weight your form configuration might look like this:
+
+```xml
+<bind nodeset="/data/wfa" type="string" calculate="z-score('weight-for-age', ../my_sex, ../my_age, ../my_weight)" readonly="true()"/>
+```
+
+[Full example form](https://github.com/medic/medic-webapp/blob/master/demo-forms/z-score.xml).
+
+## Sending reports as SMS
+
+You can configure specific forms so that their reports are forwarded as SMS messages in addition to the standard XML storage in the database.
+
+There are two formats available - either using the [ODK's compact record representation for SMS](https://opendatakit.github.io/xforms-spec/#compact-record-representation-(for-sms)), or Medic's custom format.
+
+### ODK compact record representation for SMS
+
+To get forms sent in this format, follow the [ODK documentation](https://opendatakit.github.io/xforms-spec/#compact-record-representation-(for-sms)).
+
+### Medic custom SMS representation
+
+To configure a form to send using Medic's custom SMS definition, add the field `report2sms` to the form's CouchDB doc.  The value of this field is an [Angular expression](https://docs.angularjs.org/guide/expression), and allows access to the `fields` property of the `data_record` doc created when saving the form submission to the database.  Extra functions are also provided to make compiling a form submission more simple.
+
+#### Special functions
+
+##### `concat(...args)`
+
+* `...args`: 0 or more values to be concatenated.
+
+	concat('A', 'bee', 'Sea') => 'AbeeSea')
+
+##### `spaced(...args)`
+
+* `...args`: 0 or more values to be concatenated with spaces between them.
+
+	concat('A', 'bee', 'Sea') => 'A bee Sea')
+
+##### `match(val, matchers)`
+
+* `val`: the value to run matches against
+* `matchers`: a string representing values to match and their corresponding outputs
+
+	match('a', 'a:Hay,b:bzz,c:see') => 'Hay'
+	match('b', 'a:Hay,b:bzz,c:see') => 'bzz'
+	match('c', 'a:Hay,b:bzz,c:see') => 'c'
+
+#### Examples
+
+##### Form submission JSON
+
+	doc.fields = {
+	  s_acc_danger_signs: {
+	    s_acc_danger_sign_seizure: 'no',
+	    s_acc_danger_sign_loss_consiousness: 'yes',
+	    s_acc_danger_sign_unable_drink: 'no',
+	    s_acc_danger_sign_confusion: 'yes',
+	    s_acc_danger_sign_vomit: 'no',
+	    s_acc_danger_sign_chest_indrawing: 'yes',
+	    s_acc_danger_sign_wheezing: 'no',
+	    s_acc_danger_sign_bleeding: 'yes',
+	    s_acc_danger_sign_lathargy: 'no',
+	    has_danger_sign: 'true',
+	  },
+	};
+
+##### `formDoc.report2sms`
+
+	concat(
+	    "U5 ",
+	    match(doc.s_acc_danger_signs.has_danger_sign, "true:DANGER, false:NO_DANGER"),
+	    " ",
+	    match(doc.s_acc_danger_signs.s_acc_danger_sign_seizure, "yes:S"),
+	    match(doc.s_acc_danger_signs.s_acc_danger_sign_loss_consiousness, "yes:L"),
+	    match(doc.s_acc_danger_signs.s_acc_danger_sign_unable_drink, "yes:D"),
+	    match(doc.s_acc_danger_signs.s_acc_danger_sign_confusion, "yes:C"),
+	    match(doc.s_acc_danger_signs.s_acc_danger_sign_vomit, "yes:V"),
+	    match(doc.s_acc_danger_signs.s_acc_danger_sign_chest_indrawing, "yes:I"),
+	    match(doc.s_acc_danger_signs.s_acc_danger_sign_wheezing, "yes:W"),
+	    match(doc.s_acc_danger_signs.s_acc_danger_sign_bleeding, "yes:B"),
+	    match(doc.s_acc_danger_signs.s_acc_danger_sign_lathargy, "yes:Y")
+	)
+
+##### SMS content
+
+	U5 DANGER LCIB

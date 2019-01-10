@@ -4,7 +4,7 @@ Replication is what we call it when users download a copy of the data on to thei
 
 ## Restricting replication
 
-If the user has the `can_access_directly` permission they can access all the data. If not they will get restricted access to the data.
+If the user has an online role they can access all the data, otherwise they will get restricted access to the data.
 
 ### Restriction by place
 
@@ -26,6 +26,10 @@ For example:
   ]
 }
 ```
+
+### Supervisor signoff
+
+Some reports need to be signed off by a supervisor even though that supervisor doesn't have the depth to see the patient the report is about. To achieve this the report needs a field named `needs_signoff` with a value of `true`.
 
 ### Sensitive documents
 

@@ -31,6 +31,8 @@ The goal here is to get a subset of data from prod into a DB on your local Couch
  - Wait for them to replicate all the data into your browser. You know this is done once the app lets you interact with it
  - Make sure your local CouchDB has CORS enabled: http://docs.couchdb.org/en/2.1.1/config/http.html?highlight=CORs
  - Open your browsers console and use PouchDB to replicate from your browser to your local CouchDB: `PouchDB.replicate('medic-user-XXX', 'http://your:admin@localhost:5984/YYY');`. Here `XXX` is the name you logged in as, and `YYY` is where you want to put that data.
+   - **NB**: If your browser complains about mixed content or unsafe scripts you'll need to work out how to bypass that. For Chrome there is a shield on the far right of the address bar which lets you reload the page and allow unsafe scripts.
+   - **NB**: If you get 401s and you're sure that your CouchDB credentials are right, make sure you don't have a local session in the same browser already, as the session cookie you have will take precidence over the basic auth and fail.
  - You can then log out of prod and clear your data from the developer console (Application -> Clear storage)
 
 ### Regardless, do this too
@@ -52,16 +54,17 @@ A local development environment will be useful to you if:
 
 ### Option 1, local development environment
 
-Follow the instructions on the [medic-webapp repo](https://github.com/medic/medic-webapp).
+If you don't already have a local dev env, follow the instructions on the [medic-webapp repo](https://github.com/medic/medic-webapp).
 
-Once that all works and you can use `grunt` to push builds to your local environment, run api locally etc:
- - Stop everything and delete the `medic` DB so you have a fresh database
- - Replicate your local PROD DB into a new `medic` database.
- - Run `yarn grunt` to build to push the ddoc with the unminified code up to CouchDB
- - Run api, this will make sure that extra attached ddocs get extracted, and config gets put in the right places
- - However this may have wiped your config, so run `medic-conf --local` in the correct directory for your project to push your project config up to your local deployment
+Now you need to:
+ - **Clear your db** by stopping everything and deleting the `medic` DB
+ - **Bootstrap your data** by replicating your local PROD DB into a new `medic` database.
+ - **Bootstrap the app** by running `grunt` to push the code you want to run it against
+ - **Prepare to configure** by running api until it's completed, which lets you run `medic-conf`
+ - **Re-configure** by running `medic-conf --local` in the correct directory for your project
+ - **Re-migrate config** by stopping api, deleting the `migration-log` CouchDB document and starting api again
 
-You should now be able to log in as that user locally!
+Once you've done all of that you should be able to log in with your user.
 
 ### Option 2, horticulturalist
 

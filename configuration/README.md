@@ -14,8 +14,10 @@ Tech leads please read the [documentation guidelines](configuration-documentatio
 2. Medic Mobile App
 
 - [Targets](targets.md)
-- [Setting up XForms in V2 (MM App)](setting-up-xforms-for-mm-app.md)
+- [Tasks](tasks.md)
 - [Contact Summary](contact-summary.md)
+- [Purging](purging.md)
+- [Setting up XForms in V2 (MM App)](setting-up-xforms-for-mm-app.md)
 
 3. Configuring the Webapp
 
