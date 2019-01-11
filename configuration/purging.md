@@ -1,6 +1,6 @@
 # Purging [beta]
 
-*Purging is only available in 3.4.0 and above.*
+*Purging is only available in 3.3.0 and above.*
 
 Purging is a tool that allows you to increase performance and available disk space for offline users (eg CHWs) by removing unneeded documents from their device.
 
