@@ -28,6 +28,7 @@ Purging does not run every time the application starts, as that would be very sl
 Reasons why purging would run on startup:
  - The server has just upgraded to a version of Medic that supports purging
  - The device was just setup and so initial replication just occurred. Importantly, purging here will allow users to login who otherwise would have too many documents to be able to.
+ - The purging function changed
  - Roughly every 30 days otherwise
 
 Reasons why purging would **not** run on startup:
