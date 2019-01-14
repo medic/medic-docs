@@ -20,14 +20,13 @@ The following settings do not need to be specified. They should only be defined 
 
 ### Configuring SMS schedules
 
-The Medic platform can have a set of predetermined messages set to be sent at a specificied times in future. These messages are usually
-triggered by form submissions. To configure scheduled messages, the following declarations must be made in app_settings.json:
+The Medic platform can be set up to send automated messages at specificied times in future. To set this up a form must be defined in `app_settings.json` to be a registration form, and then trigger a a particular set of scheduled messages. Other forms can be configured to clear the schedule, or silence it for a period of time.
 
-#### 1. Set up the scheduled messages
+#### Scheduled messages
 
 Scheduled messages are defined under the `schedules` key as an array of schedule objects. The definition takes the typical form below:
 
-```
+```json
   "schedules": [
     {
       "name": "ANC Visit Reminders",
@@ -73,11 +72,11 @@ Scheduled messages are defined under the `schedules` key as an array of schedule
 |`messages[].send_time`| Time of day that the message should be sent in 24 hour format.|no|
 |`messages[].recipient`| Recipient of the message. It can be set to `reporting_unit` (sender of the form), 'clinic' (clinic that the sender of the form is attached to), 'parent' (parent of the sender of the form), or a specific phone number.|no|
 
-#### 2. Set up schedule triggers
+#### Registrations
 
-Under the registrations key in app_settings, we can setup triggers for scheduled messages. A trigger for the schedule above can be defined as shown below:
+Under the `registrations` key in app_settings, we can setup triggers for scheduled messages. A trigger for the schedule above can be defined as shown below:
 
-```
+```json
 
 "registrations": [
 {
@@ -102,6 +101,63 @@ Under the registrations key in app_settings, we can setup triggers for scheduled
 |`form`|Form ID that should trigger the schedule.|yes|
 |`events`|An array of event object definitions of what should happen when this form is received.|yes|
 |`event[].name`|Name of the event that has happened. The only supported event is `on_create` which happens when a form is received.|yes|
-|`event[].trigger`|What should happen after the named event. `assign_schedule` will assign the schedule named in `params` to this report. The full set of trigger configuration directives are described [here](https://github.com/medic/medic-docs/blob/master/configuration/transitions.md#triggers).|yes|
+|`event[].trigger`|What should happen after the named event. `assign_schedule` will assign the schedule named in `params` to this report. Similarly `clear_schedule` will permanently clear all messages for a patient that are part of schedules listed in the `params` field. The full set of trigger configuration directives are described [here](https://github.com/medic/medic-docs/blob/master/configuration/transitions.md#triggers).|yes|
 |`event[].params`|Any useful information for the event. In our case, it holds the name of the schedule to be triggered.|no|
 |`event[].bool_expr`|A JavaScript expression that will be cast to boolean to qualify execution of the event. Leaving blank will default to always true. CouchDB document fields can be accessed using `doc.key.subkey`. Regular expressions can be tested using `pattern.test(value)` e.g. /^[0-9]+$/.test(doc.fields.last_menstrual_period). In our example above, we're making sure the form has an LMP date.|no|
+|`validations`|A set of validations to do for incoming reports. <!-- TODO: Flesh this out-->|no|
+|`messages`|A set of automated responses to incoming reports. <!-- TODO: Flesh this out-->.|no|
+
+#### Patient Reports
+
+Under the `patient_reports` key in app_settings, we can setup actions to take for other form submissions. A above can be defined as shown below:
+
+```json
+  "patient_reports": [
+    {
+    {
+      "form": "V",
+      "name": "Visit (SMS)",
+      "format": "V <patientid>",
+      "silence_type": "ANC Reminders, ANC Reminders LMP, ANC Reminders LMP from App",
+      "silence_for": "8 days",
+      "fields": [
+        {
+          "field_name": "",
+          "title": ""
+        }
+      ],
+      "validations": {
+        "join_responses": true,
+        "list": [
+          {
+            "property": "patient_id",
+            "rule": "regex('^[0-9]{5,13}$')",
+            "translation_key": "messages.generic.validation.patient_id"
+          }
+        ]
+      },
+      "messages": [
+        {
+          "translation_key": "messages.v.report_accepted",
+          "event_type": "report_accepted",
+          "recipient": "reporting_unit"
+        },
+        {
+          "translation_key": "messages.generic.registration_not_found",
+          "event_type": "registration_not_found",
+          "recipient": "reporting_unit"
+        }
+      ]
+    },
+```
+
+|property|description|required|
+|-------|---------|----------|
+|`form`|Form ID of the patient form.|yes|
+|`name`|Descriptive name of the form. This is not currently used in the app, but can be a helpful annotation.|no|
+|`format`|Guide of how the form can be used. This is not currently used in the app, but can be a helpful annotation.|no|
+|`silence_type`|A comma separated list of schedules to mute.|no|
+|`silence_for`|Duration from when the report was submitted for which messages should be muted. It is structured as a string with an integer value followed by a space and the time unit. For instance `8 weeks` or `2 days`. The units available are `seconds`, `minutes`, `hours`, `days`, `weeks`, `months`, `years`, and their singular forms as well. When a message is muted all messages belonging to the same group will be muted, even if it falls outside of this time period. See `messages[].group` in _Schedules_ for related info.|no|
+|`fields`|Descriptive list of form fields. This is not currently used in the app, but can be a helpful annotation.|no|
+|`validations`|A set of validations to do for incoming reports. <!-- TODO: Flesh this out-->|no|
+|`messages`|A set of automated responses to incoming reports. <!-- TODO: Flesh this out-->.|no|
