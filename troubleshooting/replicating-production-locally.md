@@ -27,6 +27,8 @@ If it's too large to replicate locally, you can replicate just a portion of it b
 
 The goal here is to get a subset of data from prod into a DB on your local CouchDB.
 
+**I'd recommend doing this on Chrome. I have been unable to get this to work in Firefox (due to CORS issues). If anyone gets it working in Firefox update this document with instructions :-)**
+
  - Log in to the production server as the user that you want, in your browser. _(If you want more data, like an entire district, you could consider creating a user at the right level and log in as them, but that is an exercise for the reader)_
  - Wait for them to replicate all the data into your browser. You know this is done once the app lets you interact with it
  - Make sure your local CouchDB has CORS enabled: http://docs.couchdb.org/en/2.1.1/config/http.html?highlight=CORs
