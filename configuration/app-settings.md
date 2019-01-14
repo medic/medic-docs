@@ -36,16 +36,7 @@ Scheduled messages are defined under the `schedules` key as an array of schedule
       "start_from": "lmp_date",
       "messages": [
         {
-          "message": [
-            {
-              "content": "Please remind Jane to visit the health facility for ANC visit this week. Thanks!",
-              "locale": "en"
-            },
-            {
-              "content": "Tafadhali mkumbushe Jane ahudhurie kliniki kwa ANC wiki hii. Akishafanya hivyo tujulishe kwa kutuma ripoti ya kuhakiki kliniki ya ANC. Asante!",
-              "locale": "sw"
-            }
-          ],
+          "translation_key": "messages.schedule.registration.followup_anc_pnc",
           "group": 1,
           "offset": "4 weeks",
           "send_day": "monday",
@@ -67,14 +58,20 @@ Scheduled messages are defined under the `schedules` key as an array of schedule
 ]
 ```
 
-|Setting|Mandatory|Description|
+|property|description|required|
 |-------|---------|----------|
-|name|yes|A unique string label that is used to identify the schedule. Spaces are allowed.|
-|summary|no|Short description of the of the schedule.|
-|description|no|A narrative for the schedule.|
-|start_from|no|A date field from which exact scheduled message dates will be calculated. If not specified, the reported date will be used instead. A field from the report is usually used to determine when scheduled messages will go out.|
-|messages|yes|This is an array of settings for each message going out.<ul><li>"message": These are the actual messages set to go out in future. To achieve multiple language support, they can be set as an array of content locale pairs as in the example above, or if using version 2.15+, translation strings can be used as the message text.</li><li>"group": An integer used to categorize messages when displayed on the webapp.</li><li>"offset": A time interval from the "start_from" date that defines when the message should be sent. It can be in days or weeks.</li><li>"send_day": Day of the week the message should be sent.</li><li>"send_time": Time of day that the message should be sent in 24 hour format.</li><li>"recipient": Recipient of the message. It can be set to:<br/>'reporting_unit' - sender of the form<br/>'clinic' - clinic that the sender of the form is attached to<br/>'parent' - parent of the sender of the form.</li></ul>|
-
+|`name`|A unique string label that is used to identify the schedule. Spaces are allowed.|yes|
+|`summary`|Short description of the of the schedule.|no|
+|`description`|A narrative for the schedule.|no|
+|`start_from`|The base date from which the `messages[].offset` is added to determine when to send individual messages. You could specify any property on the report that contains a date value. The default is `reported_date`, which is when the report was submitted.|no|
+|`messages`|Array of objects, each containing a message to send out and its properties.|yes|
+|`messages[].translation_key`|The translation key of the message to send out. Available in 2.15+.|yes|
+|`messages[].messages`| Array of message objects, each with `content` and `locale` properties. From 2.15 on use `translation_key` instead.|no|
+|`messages[].group`|Integer identifier to group messages that belong together so that they can be cleared together as a group by future reports. For instance a series of messages announcing a visit, and following up for a missed visit could be grouped together and cleared by a single visit report. |yes|
+|`messages[].offset`| Time interval from the `start_from` date for when the message should be sent. It is structured as a string with an integer value followed by a space and the time unit. For instance `8 weeks` or `2 days`. The units available are `seconds`, `minutes`, `hours`, `days`, `weeks`, `months`, `years`, and their singular forms as well. Note that although you can specify `seconds`, the accuracy of the sending time will be determined by delays in the processing the message on the server and on the gateway.|yes|
+|`messages[].send_day`| String value of the day of the week on which the message should be sent. For instance, to send a message at the beginning of the week setting it to `"Monday"` will make sure the message goes out on the closest Monday _after_ the `start_date` + `offset`. `|no|
+|`messages[].send_time`| Time of day that the message should be sent in 24 hour format.|no|
+|`messages[].recipient`| Recipient of the message. It can be set to `reporting_unit` (sender of the form), 'clinic' (clinic that the sender of the form is attached to), 'parent' (parent of the sender of the form), or a specific phone number.|no|
 
 #### 2. Set up schedule triggers
 
@@ -90,7 +87,7 @@ Under the registrations key in app_settings, we can setup triggers for scheduled
           "name": "on_create",
           "trigger": "assign_schedule",
           "params": "ANC Visit Reminders",
-          "bool_expr": "doc.fields.weeks_lmp"
+          "bool_expr": "doc.fields.last_menstrual_period"
         }
       ],
       "validations": {},
@@ -100,7 +97,11 @@ Under the registrations key in app_settings, we can setup triggers for scheduled
 
 ```
 
-|Setting|Mandatory|Description|
+|property|description|required|
 |-------|---------|----------|
-|form|yes|Form ID that should trigger the schedule.|
-|events|yes|An array of event object definitions of what should happen when this form is received.<ul><li>'name': Name of the event that has happened. In our case, on_create happens when the form is received.</li><li>'trigger': What should happen after the named event. assign_schedule will assign the schedule named in params to this report.</li><li>'params': Any useful information for the event. In our case, it holds the name of the schedule to be triggered.</li><li>'bool_expr': A logical expression that qualifies execution of the event. In our example above, we're making sure the form has an LMP date.</li></ul>|
+|`form`|Form ID that should trigger the schedule.|yes|
+|`events`|An array of event object definitions of what should happen when this form is received.|yes|
+|`event[].name`|Name of the event that has happened. The only supported event is `on_create` which happens when a form is received.|yes|
+|`event[].trigger`|What should happen after the named event. `assign_schedule` will assign the schedule named in `params` to this report. The full set of trigger configuration directives are described [here](https://github.com/medic/medic-docs/blob/master/configuration/transitions.md#triggers).|yes|
+|`event[].params`|Any useful information for the event. In our case, it holds the name of the schedule to be triggered.|no|
+|`event[].bool_expr`|A JavaScript expression that will be cast to boolean to qualify execution of the event. Leaving blank will default to always true. CouchDB document fields can be accessed using `doc.key.subkey`. Regular expressions can be tested using `pattern.test(value)` e.g. /^[0-9]+$/.test(doc.fields.last_menstrual_period). In our example above, we're making sure the form has an LMP date.|no|
