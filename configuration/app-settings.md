@@ -94,12 +94,12 @@ Under the `registrations` key in app_settings, we can setup triggers for schedul
 |`event[].trigger`|What should happen after the named event. `assign_schedule` will assign the schedule named in `params` to this report. Similarly `clear_schedule` will permanently clear all messages for a patient that are part of schedules listed in the `params` field. The full set of trigger configuration directives are described [here](https://github.com/medic/medic-docs/blob/master/configuration/transitions.md#triggers).|yes|
 |`event[].params`|Any useful information for the event. In our case, it holds the name of the schedule to be triggered.|no|
 |`event[].bool_expr`|A JavaScript expression that will be cast to boolean to qualify execution of the event. Leaving blank will default to always true. CouchDB document fields can be accessed using `doc.key.subkey`. Regular expressions can be tested using `pattern.test(value)` e.g. /^[0-9]+$/.test(doc.fields.last_menstrual_period). In our example above, we're making sure the form has an LMP date.|no|
-|`validations`|A set of validations to perform on incoming reports. More information about validation rules can be found [here](app-settings-validations.md)|no|
+|`validations`|A set of validations to perform on incoming reports. More information about validation rules can be found [here](app-settings-validations.md).|no|
 |`validations.join_responses`|A boolean specifying whether validation messages should be combined into one message.|no|
 |`validations.list[]`|An array of validation rules a report should pass to be considered valid.|no|
 |`validations.list[].property`|Report field for which this validation rule will be applied.|no|
 |`validations.list[].rule`|Validation condition to be applied to the property field. More information about rules can be found [here](app-settings-validations.md#rules).|no|
-|`validations.list[].translation_key`|Translation key for the message reply to be sent if a report fails this rule|no|
+|`validations.list[].translation_key`|Translation key for the message reply to be sent if a report fails this rule.|no|
 |`messages`|An array of automated responses to incoming reports.|no|
 |`messages[].translation_key`|Translation key for the message text associated with this event.|no|
 |`messages[].event_type`|An event that will trigger sending of this message. Typical values are: `report_accepted` when the report has been successfully validated and `registration_not_found` when the patient ID supplied in the report doesn't match any patient ID issued by Medic.|no|
@@ -157,13 +157,13 @@ Under the `patient_reports` key in app_settings, we can setup actions to take fo
 |`silence_type`|A comma separated list of schedules to mute.|no|
 |`silence_for`|Duration from when the report was submitted for which messages should be muted. It is structured as a string with an integer value followed by a space and the time unit. For instance `8 weeks` or `2 days`. The units available are `seconds`, `minutes`, `hours`, `days`, `weeks`, `months`, `years`, and their singular forms as well. When a message is muted all messages belonging to the same group will be muted, even if it falls outside of this time period. See `messages[].group` in _Schedules_ for related info.|no|
 |`fields`|Descriptive list of form fields. This is not currently used in the app, but can be a helpful annotation.|no|
-|`validations`|A set of validations to perform on incoming reports. More information about validation rules can be found [here](app-settings-validations.md)|no|
+|`validations`|A set of validations to perform on incoming reports. More information about validation rules can be found [here](app-settings-validations.md).|no|
 |`validations.join_responses`|A boolean specifying whether validation messages should be combined into one message.|no|
 |`validations.list[]`|An array of validation rules a report should pass to be considered valid.|no|
 |`validations.list[].property`|Report field for which this validation rule will be applied.|no|
 |`validations.list[].rule`|Validation condition to be applied to the property field. More information about rules can be found [here](app-settings-validations.md#rules).|no|
-|`validations.list[].translation_key`|Translation key for the message reply to be sent if a report fails this rule|no|
+|`validations.list[].translation_key`|Translation key for the message reply to be sent if a report fails this rule.|no|
 |`messages`|An array of automated responses to incoming reports.|no|
-|`messages[].translation_key`|Translation key for the message text associated with this event|no|
+|`messages[].translation_key`|Translation key for the message text associated with this event.|no|
 |`messages[].event_type`|An event that will trigger sending of this message. Typical values are: `report_accepted` when the report has been successfully validated and `registration_not_found` when the patient ID supplied in the report doesn't match any patient ID issued by Medic.|no|
 |`messages[].recipient`|Who the message should be sent to. Use `reporting_unit` for the sender of the report, `clinic` for clinic contact, and `parent` for the parent contact.|no|
