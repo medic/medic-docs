@@ -97,7 +97,7 @@ Under the `registrations` key in app_settings, we can setup triggers for schedul
 |`validations`|A set of validations to perform on incoming reports. More information about validation rules can be found [here](app-settings-validations.md)|no|
 |`validations.join_responses`|A boolean specifying whether validation messages should be combined into one message.|no|
 |`validations.list[]`|An array of validation rules a report should pass to be considered valid.|no|
-|`validations.list[].property`|Report field for which this validation rule will be applied|no|
+|`validations.list[].property`|Report field for which this validation rule will be applied.|no|
 |`validations.list[].rule`|Validation condition to be applied to the property field. More information about rules can be found [here](app-settings-validations.md#rules).|no|
 |`validations.list[].translation_key`|Translation key for the message reply to be sent if a report fails this rule|no|
 |`messages`|An array of automated responses to incoming reports.|no|
