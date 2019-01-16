@@ -60,7 +60,7 @@ Scheduled messages are defined under the `schedules` key as an array of schedule
 |`messages[].offset`| Time interval from the `start_from` date for when the message should be sent. It is structured as a string with an integer value followed by a space and the time unit. For instance `8 weeks` or `2 days`. The units available are `seconds`, `minutes`, `hours`, `days`, `weeks`, `months`, `years`, and their singular forms as well. Note that although you can specify `seconds`, the accuracy of the sending time will be determined by delays in the processing the message on the server and on the gateway.|yes|
 |`messages[].send_day`| String value of the day of the week on which the message should be sent. For instance, to send a message at the beginning of the week setting it to `"Monday"` will make sure the message goes out on the closest Monday _after_ the `start_date` + `offset`. `|no|
 |`messages[].send_time`| Time of day that the message should be sent in 24 hour format.|no|
-|`messages[].recipient`| Recipient of the message. It can be set to `reporting_unit` (sender of the form), 'clinic' (clinic that the sender of the form is attached to), 'parent' (parent of the sender of the form), or a specific phone number.|no|
+|`messages[].recipient`| Recipient of the message. It can be set to `reporting_unit` (sender of the form), `clinic` (clinic that the sender of the form is attached to), `parent` (parent of the sender of the form), or a specific phone number.|no|
 
 #### Registrations
 
@@ -107,7 +107,7 @@ Under the `registrations` key in app_settings, we can setup triggers for schedul
 
 #### Patient Reports
 
-Under the `patient_reports` key in app_settings, we can setup actions to take for other form submissions. A above can be defined as shown below:
+Under the `patient_reports` key in app_settings, we can setup actions to take for other form submissions. A patient report can be defined as shown below:
 
 ```json
   "patient_reports": [
@@ -164,6 +164,6 @@ Under the `patient_reports` key in app_settings, we can setup actions to take fo
 |`validations.list[].rule`|Validation condition to be applied to the property field. More information about rules can be found [here](app-settings-validations.md#rules).|no|
 |`validations.list[].translation_key`|Translation key for the message reply to be sent if a report fails this rule.|no|
 |`messages`|An array of automated responses to incoming reports.|no|
-|`messages[].translation_key`|Translation key for the message text associated with this event.|no|
-|`messages[].event_type`|An event that will trigger sending of this message. Typical values are: `report_accepted` when the report has been successfully validated and `registration_not_found` when the patient ID supplied in the report doesn't match any patient ID issued by Medic.|no|
+|`messages[].translation_key`|Translation key for the message text associated with this event|no|
+|`messages[].event_type`|An event that will trigger sending of this message. Typical values are: `report_accepted` when the report has been successfully validated, `registration_not_found` when the patient ID supplied in the report doesn't match any patient ID issued by Medic. `on_mute` and `on_unmute` are used in the context of muting as described [here](transitions.md#muting)|no|
 |`messages[].recipient`|Who the message should be sent to. Use `reporting_unit` for the sender of the report, `clinic` for clinic contact, and `parent` for the parent contact.|no|
