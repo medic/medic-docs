@@ -12,7 +12,7 @@ Purging is disabled by default, and is enabled if you define a purge function in
 {
     "//": "other app_settings settings",
     "purge": {
-        "fn": "function(contact, reports) { const old = Date.now() - (1000 * 60 * 60 * 24 * 365); return reports.filter(r => r.reported_date < old).map(r => r_.id);}"
+        "fn": "function(userCtx, contact, reports) { const old = Date.now() - (1000 * 60 * 60 * 24 * 365); return reports.filter(r => r.reported_date < old).map(r => r_.id);}"
     }
 }
 ```
@@ -45,13 +45,14 @@ To enable purging, create a purge function and write it into `app_settings.json`
 ```json
     "//": "other app_settings settings",
     "purge": {
-        "fn": "function(contact, reports) { /*your logic goes here*/ }"
+        "fn": "function(userCtx, contact, reports) { /*your logic goes here*/ }"
     }
 ```
 
-This function takes two parameters:
- - `contact`, the contact document of a patient or other contact who has reports about them
- - `reports`, an array of all reports for that patient that are present on the device (if you have already purged a report it will not show up here)
+This function takes three parameters:
+ - `userCtx`, an object with the user's `name` and `roles` as fields, which is particularly useful to configure different purging functions for different roles.
+ - `contact`, the contact document of a patient or other contact who has reports about them.
+ - `reports`, an array of all reports for that patient that are present on the device (if you have already purged a report it will not show up here).
 
 And should return an array of `_id` values for reports you would like to be purged (or `undefined` / nothing if you don't wish to purge anything). Only ids of reports that were passed to the function are valid for purging: you are not allowed to purge contacts, other reports or any other documents.
 
