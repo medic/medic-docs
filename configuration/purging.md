@@ -50,7 +50,7 @@ To enable purging, create a purge function and write it into `app_settings.json`
 ```
 
 This function takes three parameters:
- - `userCtx`, an object with the user's `name` and `roles` as fields, which is particularly useful to configure different purging functions for different roles.
+ - `userCtx`, an object with the user's `name` and `roles` as fields, which is particularly useful to configure different purging functions for different roles. For more information read the [documentation for the User Context Object](https://docs.couchdb.org/en/stable/json-structure.html#userctx-object).
  - `contact`, the contact document of a patient or other contact who has reports about them.
  - `reports`, an array of all reports for that patient that are present on the device (if you have already purged a report it will not show up here).
 
