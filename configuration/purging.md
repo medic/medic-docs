@@ -6,7 +6,9 @@ Purging is a tool that allows you to increase performance and available disk spa
 
 As users continually generate new reports their performance may naturally degrade as a result. You can use purging to remove older documents that are no longer relevant from their devices. Purging only removes documents from user's devices: these reports are still available for online analytics and impact metrics.
 
-Purging is disabled by default, and is enabled if you define a purge function in `app_settings.json`. The following example would purge all reports that were created more than a year ago:
+Purging is disabled by default, and is enabled if a purge function is specified in `app_settings.json`.
+
+The following example would purge all reports that were created more than a year ago:
 
 ```json
 {
@@ -40,14 +42,19 @@ When purging runs, it walks through every single person in the user's DB that ha
 
 ## Purging function configuration
 
-To enable purging, create a purge function and write it into `app_settings.json` **as a string**:
+To enable purging, write your purging function to `purging.js` in your project root:
 
-```json
-    "//": "other app_settings settings",
-    "purge": {
-        "fn": "function(userCtx, contact, reports) { /*your logic goes here*/ }"
-    }
+```js
+function(userCtx, contact, reports) {
+  const old = Date.now() - (1000 * 60 * 60 * 24 * 365);
+
+  return reports
+    .filter(r => r.reported_date < old)
+    .map(r => r_.id);
+}
 ```
+
+As shown above, you should be declaring an _anonymous_ function (with no name).
 
 This function takes three parameters:
  - `userCtx`, an object with the user's `name` and `roles` as fields, which is particularly useful to configure different purging functions for different roles. For more information read the [documentation for the User Context Object](https://docs.couchdb.org/en/stable/json-structure.html#userctx-object).
@@ -55,10 +62,6 @@ This function takes three parameters:
  - `reports`, an array of all reports for that patient that are present on the device (if you have already purged a report it will not show up here).
 
 And should return an array of `_id` values for reports you would like to be purged (or `undefined` / nothing if you don't wish to purge anything). Only ids of reports that were passed to the function are valid for purging: you are not allowed to purge contacts, other reports or any other documents.
-
-This function is just a JavaScript function, and so can do everything JavaScript can do!
-
-Unfortunately at the moment there is no utility for converting a real JavaScript function into a string, so you'll need to do that yourself. In the future this should be more convenient.
 
 ## Other configuration
 
@@ -102,11 +105,23 @@ Unfortunately there is no testing framework, yet!
 
 It is up to you to be careful with the purging rules you create, and manually test them against your real configuration (and real data) thoroughly.
 
+As the function is anonymous it's harder to test than a normal javascript file with exports might be. You can easily solve this by loading the file as a string, wrapping it in parenthesis and then `eval`ing the result.
+
+Here is an example in Node:
+
+```js
+const fs = require('fs');
+const purgeFnStr = `(${fs.readFileSync('./purging.js', 'utf8')})`;
+const fn = eval(purgeFnStr);
+
+const results = fn(userCtx, contact, reports);
+```
+
 Here are some quick tips and things to think about:
  - Don't use JavaScript features that we do not support. See the [support matrix](../installation/supported-software.md) to determine what the minimum browser version you're allowed to use is, and use tools such as [caniuse](https://caniuse.com/) to determine if the feature you wish to use is supported.
  - Have the browser development tools open when starting the app, as any errors which may occur are written to the console
  - It is recommended you test against real data as part of your testing strategy. Once you've made sure your development environment is a suitably secure location to hold real data, you can follow [the guide to replicating production data locally](../troubleshooting/replicating-production-locally.md)
- - If the function doesn't parse (eg it's not valid JS, check your JS feature support) an error will be thrown and the app will not start at all.
+ - If the function doesn't parse (eg it's not valid JS, check your JS feature support) an error will be thrown and the app will not start at all. If you are using [medic-conf](https://github.com/medic/medic-conf/) (and you should be!) your function will fail to upload if it cannot be compiled.
  - The simplest way of getting purging to run consistently is to wipe your local application data, reload and re-login. In Chrom(e|ium), use "Clear Site Data" under the Application tab of the dev tools.
  - Test purging both when you have something to purge, as well as when there is nothing to purge. To trick purging into happening every time (provided everything is synced upward) you can set `run_every_days` to `0`. Do not do this in production.
  - Write your function defensively. You do not want it to crash.
