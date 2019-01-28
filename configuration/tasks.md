@@ -203,7 +203,7 @@ Some utility functions are available to your rule configuration and have been in
 | now() | Returns the current Date. |
 | MS_IN_DAY | A constant for the number of milliseconds in a day. |
 
-If you can think of any others you'd like to be included raise an issue in [medic/medic-webapp](https://github.com/medic/medic-webapp/issues).
+If you can think of any others you'd like to be included raise an issue in [medic/medic](https://github.com/medic/medic/issues).
 
 #### Examples
 

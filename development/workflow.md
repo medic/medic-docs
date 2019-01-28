@@ -54,9 +54,9 @@ For more help with Git see: [Using Git](./using-git.md).
 
 ## Issues
 
-Issues are managed in Github. Issues should be created in the repository where the changes need to be made. If it is not clear in which repo to open an issue the default should be the `medic-webapp` repository. If it is a security or sensitive issue it should be opened in the private `medic-projects` repository.
+Issues are managed in Github. Issues should be created in the repository where the changes need to be made. If it is not clear in which repo to open an issue the default should be the `medic` repository. If it is a security or sensitive issue it should be opened in the private `medic-projects` repository.
 
-When creating issues add the appropriate [Priority](https://github.com/medic/medic-webapp/labels?utf8=%E2%9C%93&q=Priority%3A+) and [Type](https://github.com/medic/medic-webapp/labels?utf8=%E2%9C%93&q=Type%3A+) labels.
+When creating issues add the appropriate [Priority](https://github.com/medic/medic/labels?utf8=%E2%9C%93&q=Priority%3A+) and [Type](https://github.com/medic/medic/labels?utf8=%E2%9C%93&q=Type%3A+) labels.
 
 ### Project States
 
@@ -73,7 +73,7 @@ Issues in this column are being actively worked on, which includes development, 
 Any code should be in a feature branch in each of the repositories you update. The name of the feature branch should be in the form `<issue-number>-<readable-name>`, for example `1104-inclusive-export`. Once you're satisfied with your changes:
 
 1. Submit a PR for each of the repositories.
-2. Link from the PR to the issue by referencing the number in the PR description, eg: "medic/medic-webapp#123"
+2. Link from the PR to the issue by referencing the number in the PR description, eg: "medic/medic#123"
 3. Wait for the builds to succeed and ensure there are no conflicts with the `master` branch so the PR can be merged.
 4. Pick at least one Reviewer for the PR and work with them until the code passes review.
 5. "Squash and Merge" the PRs into `master` and backport this commit to previous release branches if required.
@@ -94,7 +94,7 @@ Issues in this column have passed acceptance testing and are ready for release.
 
 ## Triaging old tickets
 
-We periodically run a [script](https://github.com/medic/github-issue-roulette) against medic-webapp tickets. We do this to catch two situations:
+We periodically run a [script](https://github.com/medic/github-issue-roulette) against medic tickets. We do this to catch two situations:
  - Tickets that do not have the three labels they need (Type, Priority and Status)
  - Tickets that have not been touched in 90 days
  

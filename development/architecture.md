@@ -12,11 +12,11 @@ This page gives details on the different pieces of a Medic Mobile project, how t
 
 A free and open source NoSQL database we use to store all our data, configuration, and even the application code. CouchDB is really good at replication which is the process of sending the data to another database and back again.
 
-### [api](https://github.com/medic/medic-webapp/tree/master/api)
+### [api](https://github.com/medic/medic/tree/master/api)
 
 A NodeJS service which runs on the server as a wrapper around CouchDB. It provides some security, auditing, and integration APIs. It also includes a custom implementation of filtered replication to allow it to support more concurrent users.
 
-### [sentinel](https://github.com/medic/medic-webapp/tree/master/sentinel)
+### [sentinel](https://github.com/medic/medic/tree/master/sentinel)
 
 Another NodeJS service running on the server, sentinel performs actions called transitions every time a document in CouchDB is added or modified. Some examples are validations, generating scheduled messages, automatic responses, creating patients, and sending alerts.
 
@@ -30,7 +30,7 @@ nginx proxies all requests to api and adds encryption and compression.
 
 ## Client side
 
-### [medic-webapp](https://github.com/medic/medic-webapp)
+### [medic](https://github.com/medic/medic)
 
 This is the application that most users interact with. It's an [AngularJS](https://angularjs.org) single page responsive web application.
 

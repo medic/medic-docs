@@ -45,7 +45,7 @@ In "filter" include only the JSON forms used for your use cases. Most of the cha
 | gateway_number | can be set later, but better to include early on |
 | district_admins_access_unallocated_messages | set to true if you want users to see all messages from unknown numbers, like those from the gateway | 
 
-3. Copy [package.json](https://github.com/medic/medic-webapp/blob/master/config/standard/package.json) and [package-lock.json](https://github.com/medic/medic-webapp/blob/master/config/standard/package-lock.json) to the {partner-name}-{country-code} directory
+3. Copy [package.json](https://github.com/medic/medic/blob/master/config/standard/package.json) and [package-lock.json](https://github.com/medic/medic/blob/master/config/standard/package-lock.json) to the {partner-name}-{country-code} directory
 
 4. Compile `app_settings` for that project: 
 `medic-conf compile-app-settings`
@@ -103,6 +103,6 @@ Solution: Try exectuing `npm install`.
 Solution: Install  [pyxform](https://github.com/medic/pyxform) 
 
 3. If you get following error: 
-`npm ERR! /usr/bin/git ls-remote -h -t ssh://git@github.com/medic/medic-webapp.git`
+`npm ERR! /usr/bin/git ls-remote -h -t ssh://git@github.com/medic/medic.git`
 `npm ERR! git@github.com: Permission denied (publickey).`
 Solution: Add your [SSH key to github](https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/)

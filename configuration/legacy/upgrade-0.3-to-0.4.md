@@ -3,7 +3,7 @@
 This document should help you upgrade an existing install of Kujua Lite 0.3 to
 Medic Mobile 0.4.  There were some major changes in 0.4, you can read more in
 the [Release
-Notes](https://github.com/medic/medic-webapp/blob/master/Changes.md#upgrade-notes).
+Notes](https://github.com/medic/medic/blob/master/Changes.md#upgrade-notes).
 
 ## Export 0.3 Configuration
 
@@ -32,7 +32,7 @@ Get your forms into a configuration format that can be uploaded and configured a
 
 ## Download latest operating system
 
-There are changes on 0.4 dependent on CouchDB Lucene, Nginx and Gardener.  See the [Release Notes](https://github.com/medic/medic-webapp/blob/master/Changes.md#upgrade-notes) for more information.  
+There are changes on 0.4 dependent on CouchDB Lucene, Nginx and Gardener.  See the [Release Notes](https://github.com/medic/medic/blob/master/Changes.md#upgrade-notes) for more information.  
 
 Download and create a virtual machine instance using the latest Medic-OS bootable ISO:
 

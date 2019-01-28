@@ -12,15 +12,15 @@ npm install --save google-libphonenumber@latest
 ```
   - [Import translations keys](translations.md#adding-new-keys) into POE and make sure the #translations Slack channel is notified to translate new and updated values.
 
-  - Create a new release branch from `master` named `<major>.<minor>.x` in medic-webapp.
-3. Set the version number from step 1 in medic-webapp kanso.json, package.json, and npm-shrinkwrap.json. If releasing a new major or minor, also set the versions in `master` to be the next version (e.g. `<major>.<minor+1>.0`), so that the alpha builds will have the right version.
+  - Create a new release branch from `master` named `<major>.<minor>.x` in medic.
+3. Set the version number from step 1 in kanso.json (if it exists), package.json, and npm-shrinkwrap.json / package-lock.json (whichever is used in this version). If releasing a new major or minor, also set the versions in `master` to be the next version (e.g. `<major>.<minor+1>.0`), so that the alpha builds will have the right version.
 4. If releasing a service pack use `git cherry-pick` to merge the relevant commits into the release branch.
-5. Create a new document in the [release-notes folder](https://github.com/medic/medic-webapp/tree/master/release-notes). Ensure all issues are in the GH Project, that they're correct labelled, and have human readable descriptions. Use [this script](https://github.com/medic/medic-webapp/blob/master/scripts/changelog-generator) to export the issues into our changelog format. Manually document any known migration steps and known issues. Provide description, screenshots, videos, and anything else to help communicate particularly important changes.
+5. Create a new document in the [release-notes folder](https://github.com/medic/medic/tree/master/release-notes). Ensure all issues are in the GH Project, that they're correct labelled, and have human readable descriptions. Use [this script](https://github.com/medic/medic/blob/master/scripts/changelog-generator) to export the issues into our changelog format. Manually document any known migration steps and known issues. Provide description, screenshots, videos, and anything else to help communicate particularly important changes.
 6. Commit and push the above changes.
 7. Release a beta for the new version by tagging the release branch, ie: `git tag <version>-beta.<beta-number> && git push --tags`
 8. Wait for the build to succeed then notify developers, testers, and product managers to begin release testing. Until release testing passes, fix the issues in `master`, and go back to step 4.
 9. [Export the translations](translations.md#exporting-changes-from-poeditor-to-github) to your git clone and commit to `master` and your release branch.
-10. Create a release in GitHub so it shows up under the [Releases tab](https://github.com/medic/medic-webapp/releases) with the naming convention `<major>.<minor>.<patch>`. This will create the git tag automatically. Link to the release notes created in step 5 in the description of the release.
+10. Create a release in GitHub so it shows up under the [Releases tab](https://github.com/medic/medic/releases) with the naming convention `<major>.<minor>.<patch>`. This will create the git tag automatically. Link to the release notes created in step 5 in the description of the release.
 11. Confirm the release build completes successfully and the new release is available on the [market](https://staging.dev.medicmobile.org).
 12. Let the product manager know to announce the release.
 13. :beer:

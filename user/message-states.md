@@ -1,7 +1,7 @@
 # SMS message states/statuses
 
-## Interaction between medic-webapp and medic-gateway
-[Medic-webapp](https://github.com/medic/medic-webapp) uses [medic-gateway](https://github.com/medic/medic-gateway)
+## Interaction between medic and medic-gateway
+[Medic](https://github.com/medic/medic) uses [medic-gateway](https://github.com/medic/medic-gateway)
 to send and receive SMS messages.
 
 When an SMS report comes in from a user, [medic-sentinel](https://github.com/medic/medic-sentinel) adds the appropriate list of
@@ -21,7 +21,7 @@ They each have their set of statuses, which sometimes are called the same but do
 ### Message statuses in medic-gateway
 See [https://github.com/medic/medic-gateway#content](https://github.com/medic/medic-gateway#content)
 
-### Message states in medic-webapp
+### Message states in medic
 
 | State | Description |
 |------|------|
