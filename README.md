@@ -9,8 +9,9 @@
 
 ### Medic Gateway
 
-* [Medic gateway configuration](configuration/gateway-config.md)
-* [Medic gateway recommended phones](configuration/gateway-phones.md)
+* [Configuration](configuration/gateway-config.md)
+* [Testing](configuration/gateway-testing.md)
+* [Recommended phones](configuration/gateway-phones.md)
 
 ### Standard
 
