@@ -375,7 +375,7 @@ First, create a doc in couchdb to store the z-score tables you want to use, for 
 }
 ```
 
-This creates a `weight-for-age` table which shows for a male aged 0 at 2.08kg their z-score is -3. Your doc will be much larger than this. To help convert from z-score tables to this doc format use the [conversation script](https://github.com/medic/medic-webapp/blob/master/scripts/zscore-table-to-json.js).
+This creates a `weight-for-age` table which shows for a male aged 0 at 2.08kg their z-score is -3. Your doc will be much larger than this. To help convert from z-score tables to this doc format use the [conversation script](https://github.com/medic/medic/blob/master/scripts/zscore-table-to-json.js).
 
 ##### Form configuration
 
@@ -385,7 +385,7 @@ Next you can configure the form to calculate the z-score for a patient using the
 <bind nodeset="/data/wfa" type="string" calculate="z-score('weight-for-age', ../my_sex, ../my_age, ../my_weight)" readonly="true()"/>
 ```
 
-[Full example form](https://github.com/medic/medic-webapp/blob/master/demo-forms/z-score.xml).
+[Full example form](https://github.com/medic/medic/blob/master/demo-forms/z-score.xml).
 
 ## Sending reports as SMS
 

@@ -1,9 +1,9 @@
 This guide is intended to help anyone updating Collect forms for the Standard config. A similar procedure applies for updating App and Contact forms, so instructions for those are included as well. These steps use [`medic-conf`](https://github.com/medic/medic-conf) so you must first have it installed. Once you have it installed, navigate to your folder with the Medic Mobile configuration.
 ```
-cd {path-to-medic-webapp}/config/standard
+cd {path-to-medic}/config/standard
 ```
 
-Standard forms are created as Google Sheets to make collaborative translations easier to manage. These XLSForm files are stored in a Google Drive folder [here](https://drive.google.com/drive/folders/0B49l2yegOFn7czYtZU1ncGEzYkU), and exported as XLS files using `medic-conf`. The files to download are listed in [forms-on-google-drive.json](https://github.com/medic/medic-webapp/blob/master/config/standard/forms-on-google-drive.json).  Use the `fetch-forms-from-google-drive` action in medic-conf to get the forms, then follow the instructions to authenticate accordingly.
+Standard forms are created as Google Sheets to make collaborative translations easier to manage. These XLSForm files are stored in a Google Drive folder [here](https://drive.google.com/drive/folders/0B49l2yegOFn7czYtZU1ncGEzYkU), and exported as XLS files using `medic-conf`. The files to download are listed in [forms-on-google-drive.json](https://github.com/medic/medic/blob/master/config/standard/forms-on-google-drive.json).  Use the `fetch-forms-from-google-drive` action in medic-conf to get the forms, then follow the instructions to authenticate accordingly.
 
 ```
 medic-conf fetch-forms-from-google-drive

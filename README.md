@@ -4,7 +4,7 @@
 
 ### Release Notes
 
-* [Changelog](https://github.com/medic/medic-webapp/blob/master/Changes.md)
+* [Changelog](https://github.com/medic/medic/blob/master/Changes.md)
 * [Supported software](installation/supported-software.md)
 
 ### Medic Gateway
@@ -48,7 +48,7 @@
 
 * [Architecture](development/architecture.md)
 * [DB schema](development/db-schema.md)
-* [Developer environment setup](https://github.com/medic/medic-webapp/blob/master/README.md)
+* [Developer environment setup](https://github.com/medic/medic/blob/master/README.md)
 * [Style guide](development/style-guide.md)
 * [Updating translations](development/translations.md)
 * [Our workflow](development/workflow.md)

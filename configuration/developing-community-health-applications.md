@@ -27,7 +27,7 @@ This document is meant to be a introduction and reference for developing forms, 
 ## Prerequisites
 
 ### Test Instance
-To build your own application using the framework you will need an instance set up for testing. You can set up a local instance by [following these instructions](https://github.com/medic/medic-webapp#easy-local-deployment).
+To build your own application using the framework you will need an instance set up for testing. You can set up a local instance by [following these instructions](https://github.com/medic/medic#easy-local-deployment).
 
 ### Build tool
 The build tool for applications using the framework is `medic-conf`. Follow the installation instructions [here](https://github.com/medic/medic-conf/blob/master/README.md). To properly use the tool you will need your application files in set locations within a folder. Once you are set up with the basic file structure you can edit the files and rebuild the application by compiling or converting components as needed, and uploading them to your test instance.
@@ -546,7 +546,7 @@ Each field that can be shown on a contact's profile is defined as an objects in 
 | `translate` | Whether or not to translate the value. Defaults to false. <!-- TODO: VERIFY IMPLEMENTED --> | no |
 | `context` |  The fields available in the value's translation. eg {} | no | 
 | `icon` | The name of the icon to display beside this field, as defined through the Configuration > Icons page. | no |
-| `filter` | The display filter to apply to the value, eg: `{ value: '2005-10-09', filter: 'age' }` will render as "11 years". Common filters are: `age`, `phone`, `weeksPregnant`, `relativeDate`, `relativeDay`, `fullDate`, `simpleDate`, `simpleDateTime`, `lineage`, `resourceIcon`. For the complete list of filters, and more details on what each does, check out the code in [`medic-webapp/static/js/filters` dir](https://github.com/medic/medic-webapp/tree/master/static/js/filters). | no |
+| `filter` | The display filter to apply to the value, eg: `{ value: '2005-10-09', filter: 'age' }` will render as "11 years". Common filters are: `age`, `phone`, `weeksPregnant`, `relativeDate`, `relativeDay`, `fullDate`, `simpleDate`, `simpleDateTime`, `lineage`, `resourceIcon`. For the complete list of filters, and more details on what each does, check out the code in [`medic/static/js/filters` dir](https://github.com/medic/medic/tree/master/static/js/filters). | no |
 
 ### Cards
 An array of cards to show below the summary on the profile page. Each card has its own header and arrays of fields.
@@ -686,7 +686,7 @@ Utility functions in the application framework can make common tasks much easier
 | now() | Returns the current Date. |
 | MS_IN_DAY | A constant for the number of milliseconds in a day. |
 
-If you can think of any others you'd like to be included raise an issue in [medic/medic-webapp](https://github.com/medic/medic-webapp/issues).
+If you can think of any others you'd like to be included raise an issue in [medic/medic](https://github.com/medic/medic/issues).
 
 ## Localization
 Given that apps built using the Community Health Application Framework are used around the world, the framework was designed with localization in mind. The framework itself is available in English, French, Hindi, Nepali, Spanish, Swahili, and Indonesian. In the `app_settings.json` file you'll see the default language for the application, and a separate default language for outgoing messages that are sent via SMS. Please contact the Medic Mobile team (hello@medicmobile.org) if you are interested in translating the app into a different language, as we can work together to make that language available to the community.

@@ -2,7 +2,7 @@
 
 Much of the configuration of the app is stored in the database in a document with id "settings". To update settings use the [medic-conf](https://github.com/medic/medic-conf) command line tool.
 
-For more details on what you can use in settings, check out the [superset of supported settings](https://github.com/medic/medic-webapp/blob/master/config/standard/app_settings.json).
+For more details on what you can use in settings, check out the [superset of supported settings](https://github.com/medic/medic/blob/master/config/standard/app_settings.json).
 
 ### Optional Settings
 

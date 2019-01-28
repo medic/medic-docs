@@ -7,7 +7,7 @@ Medic gateway supports Android 4.1 and above. To have it up and fully working, f
 - Open the app.
 You will get a ```Warning:medic-gateway is not set as the default messaging app on this device``` if you are installing the app for the first time or afresh. Select ```HELP ME CHANGE``` and agree to the folloup system prompt about changing the default messaging app.
 
-- If you're configuring medic-gateway(v1.00 and above) for use with hosted medic-webapp, with a URL of e.g. ```https://myproject.dev.medicmobile.org``` and a username of ```my_gateway_user``` and a password of ```topSecret```, fill in the settings as follows:
+- If you're configuring medic-gateway(v1.00 and above) for use with hosted medic, with a URL of e.g. ```https://myproject.dev.medicmobile.org``` and a username of ```my_gateway_user``` and a password of ```topSecret```, fill in the settings as follows:
 
 >***Instance name***: myproject [dev]   (if ```https://myproject.app...```, select 'app')
 ***Username:*** my_gateway_user

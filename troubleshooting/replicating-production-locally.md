@@ -56,7 +56,7 @@ A local development environment will be useful to you if:
 
 ### Option 1, local development environment
 
-If you don't already have a local dev env, follow the instructions on the [medic-webapp repo](https://github.com/medic/medic-webapp).
+If you don't already have a local dev env, follow the instructions on the [medic repo](https://github.com/medic/medic).
 
 Now you need to:
  - **Clear your db** by stopping everything and deleting the `medic` DB
@@ -70,7 +70,7 @@ Once you've done all of that you should be able to log in with your user.
 
 ### Option 2, horticulturalist
 
-Follow the instructions on the [medic-webapp repo](https://github.com/medic/horticuluralist) to get it installed.
+Follow the instructions on the [medic repo](https://github.com/medic/horticuluralist) to get it installed.
 
 Then:
  - Make sure that the `medic` DB doesn't exist, so that you have a fresh database

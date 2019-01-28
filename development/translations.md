@@ -12,9 +12,9 @@ Note that "keys" in .properties files are referred to as `terms` in POEditor.
 ## Adding new languages
 New languages must be added and configured in several places:
 - *In GitHub*
-  - Create a new [medic-webapp/translations/messages-XX.properties](https://github.com/medic/medic-webapp/blob/master/translations/) file, replacing XX with the 2 or 3 letter language code.
+  - Create a new [medic/translations/messages-XX.properties](https://github.com/medic/medic/blob/master/translations/) file, replacing XX with the 2 or 3 letter language code.
   - Add the language to the [LOCAL_NAME_MAP in api](https://github.com/medic/medic-api/blob/master/translations.js#L10). Use the language code for the key, and the local name followed by the English name for the language in brackets, eg: "fr: 'Français (French)'".
-  - Import the moment language pack in the [root app.js file](https://github.com/medic/medic-webapp/blob/master/static/js/app.js#L25). If moment doesn't provide the required language pack you may need to contribute it upstream to the moment library.
+  - Import the moment language pack in the [root app.js file](https://github.com/medic/medic/blob/master/static/js/app.js#L25). If moment doesn't provide the required language pack you may need to contribute it upstream to the moment library.
 - *In POEditor*
   - In the [Medic Mobile project](https://poeditor.com/projects/view?id=33025), add the language
   - Add translations for a new language in the POEditor app
@@ -24,7 +24,7 @@ New languages must be added and configured in several places:
 ## Adding new keys
 In order to trace the addition of new terms and also updates to existing translations,
 the default translation file (messages-en.properties) must be updated directly.
-Our GitHub repo provides with a [command line tool (CLI)](https://github.com/medic/medic-webapp/blob/scripts/poe) to
+Our GitHub repo provides with a [command line tool (CLI)](https://github.com/medic/medic/blob/scripts/poe) to
 import updates into the POEditor app.
 If you don't have an API token, please contact a Medic Mobile developer, product manager, or CTO. Please do not disclose this API token to anyone else.
 
@@ -33,7 +33,7 @@ If you don't have an API token, please contact a Medic Mobile developer, product
 All text in the app is internationalised.
 
 - Pick a key.
-  - First check if an appropriate key already exists in messages-en.properties (medic-webapp/config/standard/translations).
+  - First check if an appropriate key already exists in messages-en.properties (medic/config/standard/translations).
   - Otherwise create a new key and default English value. Keys must be all lower case, dot separated, and descriptive but not verbose. The values should include as much text as possible (eg: trailing punctuation), and must not contain any markup. Don't add any values for other languages as this will be done later in the POEditor app.
 - Use the translation. In angular this is done using angular-translate, and ideally using the [translate directive](http://angular-translate.github.io/docs/#/guide/05_using-translate-directive) to reduce the number of watchers, eg: `<h3 translate>date.incorrect.title</h3>`.
 
