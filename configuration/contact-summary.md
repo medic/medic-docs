@@ -44,7 +44,7 @@ Each field is an object with the following properties:
 - `icon` is the name of the icon to display beside this field which is defined through the Configuration > Icons page.
 - `filter` (optional) is the name of the display filter to apply to the value, eg: `{ value: '2005-10-09', filter: 'age' }` will render as "11 years". 
 Common filters are: `age`, `phone`, `weeksPregnant`, `relativeDate`, `relativeDay`, `fullDate`, `simpleDate`, `simpleDateTime`, `lineage`, `resourceIcon`. 
-For the complete list of filters, and more details on what each does, check out the code in [`medic/static/js/filters` dir](https://github.com/medic/medic/tree/master/static/js/filters).
+For the complete list of filters, and more details on what each does, check out the code in [`medic/static/js/filters` dir](https://github.com/medic/medic/tree/master/webapp/src/js/filters).
 
 In 2.13.0 and later the configured function `return`s to supply the output as in the following example. Prior to 2.13.0 to return the result you needed to declare the object on the last line of the script.
 
