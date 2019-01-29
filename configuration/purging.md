@@ -90,6 +90,7 @@ The key thing to keep in mind while purging is that **documents that you purge n
  - Any **rules** you have written that presume that the document exists may break. For example, if the document completes a task, purging it will reopen that task, unless you *also* purge the document that created the task in the first place (while making sure that purging _that_ report doesn't break more things!)
  - Similarly **targets** won't be able to use the report to generate values, so counts may go down or become inaccurate
  - Additionally, the **contact summary** will also lose out on being able to use that report
+ - Chanes to the app settings will trigger a purge to run when the user gets the update message. 
 
 More subtly, you may also confuse your users!
 
