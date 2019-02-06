@@ -47,6 +47,14 @@ Used for SMS interfaces such as formatted SMS, SIM applications, and Medic Colle
 }
 ```
 
+## Supported data types
+
+We currently support the following data types:
+ - `"integer"`: a whole number
+ - `"string"`: any collection of characters
+ - `"date"`: a date in the format `YYYY-mm-dd`, for example "2019-01-28"
+ - `"boolean"`: true or false, represented by the digit `1` and `0` respectively.
+
 # XForms
 The XForms are used for all Actions, Tasks, and Contact Creation/Edit forms within the web app, whether it is accessed in browser or via the Android app. We generally create these in Excel using the [XLSForm standard](http://xlsform.org/), and then convert them using the configurer tool ([medic-conf](https://github.com/medic/medic-conf)). You can view the list of XForms and upload new ones through the webapp's Configuration pages as well. Each form has meta information which defines in which context the form is accessible. Using `medic-config` this info is in a `{name}.properties.json` file. XML forms with IDs starting with `forms:contact:` will customize the edit/create page for the given contact (person or place) type.
 
