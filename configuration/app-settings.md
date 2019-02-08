@@ -33,6 +33,7 @@ Scheduled messages are defined under the `schedules` key as an array of schedule
       "summary": "",
       "description": "",
       "start_from": "lmp_date",
+      "start_mid_group": true,
       "messages": [
         {
           "translation_key": "messages.schedule.registration.followup_anc_pnc",
@@ -53,6 +54,7 @@ Scheduled messages are defined under the `schedules` key as an array of schedule
 |`summary`|Short description of the of the schedule.|no|
 |`description`|A narrative for the schedule.|no|
 |`start_from`|The base date from which the `messages[].offset` is added to determine when to send individual messages. You could specify any property on the report that contains a date value. The default is `reported_date`, which is when the report was submitted.|no|
+|`start_mid_group`|Whether or not a schedule can start mid-group. If not present, the schedule will not start mid-group. In other terms, the default value is `false`|no|
 |`messages`|Array of objects, each containing a message to send out and its properties.|yes|
 |`messages[].translation_key`|The translation key of the message to send out. Available in 2.15+.|yes|
 |`messages[].messages`| Array of message objects, each with `content` and `locale` properties. From 2.15 on use `translation_key` instead.|no|
