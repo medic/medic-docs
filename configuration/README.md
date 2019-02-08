@@ -14,18 +14,29 @@ Workflows that use SMS are defined in the file `app_settings.json`. The followin
 # Additional Features
 Here are some guides on additional features that can be used within your applications: 
 - [Advanced form features](forms.md)
-- [Optional Settings](https://github.com/medic/medic-docs/blob/master/configuration/app-settings.md#optional-settings)
+- [Optional settings](https://github.com/medic/medic-docs/blob/master/configuration/app-settings.md#optional-settings)
 - [Purging](purging.md)
+- [Replication](replication.md)
 - [Sentinel transitions](transitions.md)
 
 # Other components
 ## Medic Gateway
 - [Medic Mobile Gateway Configuration](gateway-config.md)
 - [List of Phones that Work Well with Medic Gateway](gateway-phones.md)
+- 
 
 ## Medic Collect
 - [Creating XForms for Medic Collect](create-xforms-for-medic-collect.md)
 - [Updating Collect forms over the air](collect-form-update-over-the-air.md)
+
+# Support Guides
+- [CouchDB Authentication](couchdb-authentication.md)
+- [Connecting to RDBMS in Windows](connecting-to-rdbms-in-windows.md)
+- [Importing data from CSVs](csv-to-docs.md)
+- [Accessing DB of production instance](direct-access.md)
+- [Configuring the automated short ID](shortcode-identifiers.md)
+- [Installing the Standard configuration](installing-a-standard-project.md)
+- [Updating the Standard forms](update-standard-forms.md)
 
 # Legacy Documentation
 - [Installing TRB files to Turbo Sim on Windows](legacy/installing-trb-windows.md) → No longer deployed
@@ -38,4 +49,5 @@ Here are some guides on additional features that can be used within your applica
 - [Supervisor creation](legacy/supervisor-creation.md) → To be moved to `medic-conf` if still useful.
 - [Data deletion](legacy/data-deletion.md) → To be moved to `medic-conf` if still useful.
 - [Revalidate Invalidated Reports](legacy/revalidate-invalidated-report.md) → To be moved to `medic-conf` if still useful.
-
+- [Garden](legacy/garden.md) → Obsolete instructions on Kujua Lite.
+- [Gateway Testing](legacy/gateway-testing.md) → Obsolete project instructions for testing gateway
