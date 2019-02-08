@@ -1,44 +1,41 @@
-### Table of Contents
+# Overview
+Documentation within this directory covers developing and configuring community health applications using the Medic Mobile framework. Setting up the core framework itself is covered in the [medic repo](https://github.com/medic/medic#easy-deployment). 
 
-This ToC is only for documentation within configuration. For more docs go to [medic-docs README](https://github.com/medic/medic-docs/blob/master/README.md)
+# Getting Started
+An introduction and reference for developing community health applications is provided in [Developing Community Health Applications](https://github.com/medic/medic-docs/blob/master/configuration/developing-community-health-applications.md), which also covers building forms, tasks, targets, and contact profiles.
 
-Tech leads please read the [documentation guidelines](configuration-documentation-guidelines-for-techleads.md) before adding documentation.
-
-1. Text Forms, SIM Apps, and Medic Collect
-
-- [Installing TRB files to Turbo Sim on Windows](installing-trb-windows.md)
+# SMS Workflows
+Workflows that use SMS are defined in the file `app_settings.json`. The following guides should help with setting that up.
+- [Defining SMS Forms](https://github.com/medic/medic-docs/blob/master/configuration/forms.md#json-forms)
+- [Configuring SMS responses](app-settings.md)
+- [SMS Form Validations](app-settings-validations.md)
 - [Variables in outgoing SMS](variables-in-messages.md)
-- [Creating XForms for Medic Collect](create-xforms-for-medic-collect.md)
-- [Updating Collect forms over the air](collect-form-update-over-the-air.md)
 
-2. Medic Mobile App
-
-- [Targets](targets.md)
-- [Tasks](tasks.md)
-- [Contact Summary](contact-summary.md)
+# Additional Features
+Here are some guides on additional features that can be used within your applications: 
+- [Advanced form features](forms.md)
+- [Optional Settings](https://github.com/medic/medic-docs/blob/master/configuration/app-settings.md#optional-settings)
 - [Purging](purging.md)
-- [Setting up XForms in V2 (MM App)](setting-up-xforms-for-mm-app.md)
-
-3. Configuring the Webapp
-
-- [App Settings](app-settings.md)
-- [Forms](forms.md)
-- [App Settings Validations](app-settings-validations.md)
 - [Sentinel transitions](transitions.md)
 
-4. Medic Gateway
-
+# Other components
+## Medic Gateway
 - [Medic Mobile Gateway Configuration](gateway-config.md)
 - [List of Phones that Work Well with Medic Gateway](gateway-phones.md)
 
-5. Medic-Os
-- [Install SSL Cerificates to VM](install-ssl-certificates-to-vm.md)
+## Medic Collect
+- [Creating XForms for Medic Collect](create-xforms-for-medic-collect.md)
+- [Updating Collect forms over the air](collect-form-update-over-the-air.md)
 
-6. Users
-- [Pyxform](pyxform.md)
-- [Supervisor creation](supervisor-creation.md)
-
-7. Data
-- [Data deletion](data-deletion.md)
-- [Revalidate Invalidated Reports](revalidate-invalidated-report.md)
+# Legacy Documentation
+- [Installing TRB files to Turbo Sim on Windows](installing-trb-windows.md) → No longer deployed
+- [Targets](targets.md) → Replaced by declarative Targets section in [this guide](https://github.com/medic/medic-docs/blob/master/configuration/developing-community-health-applications.md#targets)
+- [Tasks](tasks.md) → Replaced by declarative Tasks section in [this guide](https://github.com/medic/medic-docs/blob/master/configuration/developing-community-health-applications.md#tasks)
+- [Contact Summary](contact-summary.md) → Replaced by declarative Contacts section in [this guide](https://github.com/medic/medic-docs/blob/master/configuration/developing-community-health-applications.md#contacts)
+- [Setting up XForms in V2 (MM App)](setting-up-xforms-for-mm-app.md) → Replaced by Forms section in [this guide](https://github.com/medic/medic-docs/blob/master/configuration/developing-community-health-applications.md#forms)
+- [Install SSL Cerificates to VM](install-ssl-certificates-to-vm.md) → Not supported for Medic projects. Self hosting instructions to come in CHT
+- [Pyxform](pyxform.md) → Should now use [medic-conf](https://github.com/medic/medic-conf#installation)
+- [Supervisor creation](supervisor-creation.md) → To be moved to `medic-conf` if still useful.
+- [Data deletion](data-deletion.md) → To be moved to `medic-conf` if still useful.
+- [Revalidate Invalidated Reports](revalidate-invalidated-report.md) → To be moved to `medic-conf` if still useful.
 
