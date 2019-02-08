@@ -28,14 +28,14 @@ Here are some guides on additional features that can be used within your applica
 - [Updating Collect forms over the air](collect-form-update-over-the-air.md)
 
 # Legacy Documentation
-- [Installing TRB files to Turbo Sim on Windows](installing-trb-windows.md) → No longer deployed
-- [Targets](targets.md) → Replaced by declarative Targets section in [this guide](https://github.com/medic/medic-docs/blob/master/configuration/developing-community-health-applications.md#targets)
-- [Tasks](tasks.md) → Replaced by declarative Tasks section in [this guide](https://github.com/medic/medic-docs/blob/master/configuration/developing-community-health-applications.md#tasks)
-- [Contact Summary](contact-summary.md) → Replaced by declarative Contacts section in [this guide](https://github.com/medic/medic-docs/blob/master/configuration/developing-community-health-applications.md#contacts)
-- [Setting up XForms in V2 (MM App)](setting-up-xforms-for-mm-app.md) → Replaced by Forms section in [this guide](https://github.com/medic/medic-docs/blob/master/configuration/developing-community-health-applications.md#forms)
-- [Install SSL Cerificates to VM](install-ssl-certificates-to-vm.md) → Not supported for Medic projects. Self hosting instructions to come in CHT
-- [Pyxform](pyxform.md) → Should now use [medic-conf](https://github.com/medic/medic-conf#installation)
-- [Supervisor creation](supervisor-creation.md) → To be moved to `medic-conf` if still useful.
-- [Data deletion](data-deletion.md) → To be moved to `medic-conf` if still useful.
-- [Revalidate Invalidated Reports](revalidate-invalidated-report.md) → To be moved to `medic-conf` if still useful.
+- [Installing TRB files to Turbo Sim on Windows](legacy/installing-trb-windows.md) → No longer deployed
+- [Targets](legacy/targets.md) → Replaced by declarative Targets section in [this guide](https://github.com/medic/medic-docs/blob/master/configuration/developing-community-health-applications.md#targets)
+- [Tasks](legacy/tasks.md) → Replaced by declarative Tasks section in [this guide](https://github.com/medic/medic-docs/blob/master/configuration/developing-community-health-applications.md#tasks)
+- [Contact Summary](legacy/contact-summary.md) → Replaced by declarative Contacts section in [this guide](https://github.com/medic/medic-docs/blob/master/configuration/developing-community-health-applications.md#contacts)
+- [Setting up XForms in V2 (MM App)](legacy/setting-up-xforms-for-mm-app.md) → Replaced by Forms section in [this guide](https://github.com/medic/medic-docs/blob/master/configuration/developing-community-health-applications.md#forms)
+- [Install SSL Cerificates to VM](legacy/install-ssl-certificates-to-vm.md) → Not supported for Medic projects. Self hosting instructions to come in CHT
+- [Pyxform](legacy/pyxform.md) → Should now use [medic-conf](https://github.com/medic/medic-conf#installation)
+- [Supervisor creation](legacy/supervisor-creation.md) → To be moved to `medic-conf` if still useful.
+- [Data deletion](legacy/data-deletion.md) → To be moved to `medic-conf` if still useful.
+- [Revalidate Invalidated Reports](legacy/revalidate-invalidated-report.md) → To be moved to `medic-conf` if still useful.
 
