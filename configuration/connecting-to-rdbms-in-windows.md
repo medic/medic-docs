@@ -1,5 +1,5 @@
 # Connecting to RDBMS in Windows 
-Connecting to the postgres server is pretty stratightforward in nix systems. In windows there are a copule of things you need to do to get it up and running. 
+Connecting to the postgres server is pretty stratightforward in nix systems. In windows there are a couple of things you need to do to get it up and running. 
 
 ## SSH Key Generation and Importing
 
