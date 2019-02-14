@@ -34,7 +34,7 @@ The goal here is to get a subset of data from prod into a DB on your local Couch
  - Make sure your local CouchDB has CORS enabled: http://docs.couchdb.org/en/2.1.1/config/http.html?highlight=CORs
  - Open your browsers console and use PouchDB to replicate from your browser to your local CouchDB: `PouchDB.replicate('medic-user-XXX', 'http://your:admin@localhost:5984/YYY');`. Here `XXX` is the name you logged in as, and `YYY` is where you want to put that data.
    - **NB**: If your browser complains about mixed content or unsafe scripts you'll need to work out how to bypass that. For Chrome there is a shield on the far right of the address bar which lets you reload the page and allow unsafe scripts.
-   - **NB**: If you get 401s and you're sure that your CouchDB credentials are right, make sure you don't have a local session in the same browser already, as the session cookie you have will take precidence over the basic auth and fail.
+   - **NB**: If you get 401s make sure that: your CouchDB credentials are right; you don't have a local session in the same browser already (session cookies can take precedence over basic auth);  and if you're running CouchDB in Docker you have exposed both `5984` and `5986` to localhost.
  - You can then log out of prod and clear your data from the developer console (Application -> Clear storage)
 
 ### Regardless, do this too
