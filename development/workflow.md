@@ -76,21 +76,28 @@ Any code should be in a feature branch in each of the repositories you update. T
 2. Link from the PR to the issue by referencing the number in the PR description, eg: "medic/medic#123"
 3. Wait for the builds to succeed and ensure there are no conflicts with the `master` branch so the PR can be merged.
 4. Pick at least one Reviewer for the PR and work with them until the code passes review.
-5. "Squash and Merge" the PRs into `master` and backport this commit to previous release branches if required.
-6. Unassign yourself from the Issue.
-7. Move the issue to "In AT".
+5. Once the issue has passed code review move the issue to "In AT" for QA to test. Do not merge the code until it has passed AT.
 
 #### In AT
 
 Issues in this column are ready to be Acceptance Tested by a Quality Assurance engineer. When picking up an issue for AT:
 
 1. Assign it to yourself.
-2. If the issue fails AT then notify the original developer, unassign yourself, and move the issue back to "In progress".
-3. If the issue passes AT then close the issue which will automatically move it to "Done".
+2. Install the PR branch to test against.
+3. If the issue fails AT then notify the original developer and move the issue back to "In progress".
+4. If the issue passes AT then assign the original developer that it's ready to merge.
+
+Once the issue has passed AT the original developer is to:
+
+1. Resolve any code conflicts.
+2. "Squash and Merge" the PRs into `master`.
+3. Backport to release branches if necessary.
+4. Close the issue which will automatically move it to "Done".
+5. Unassign yourself from the issue.
 
 #### Done
 
-Issues in this column have passed acceptance testing and are ready for release.
+Issues in this column have passed acceptance testing and been merged into `master` and/or release branches ready for release.
 
 ## Triaging old tickets
 
