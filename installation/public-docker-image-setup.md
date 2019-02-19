@@ -27,7 +27,17 @@ CPUs: 2
 Open your terminal and run this command:
 
 ```
-docker pull medicmobile/medic-os
+# Current image build
+docker pull medicmobile/medic-os:3.2.1-rc.4
+
+# Latest tag
+# Ensure your local system does not include a previously downloaded medic-os image with the latest tag
+docker pull medicmobile/medic-os:latest
+
+# Pull down our haproxy image
+docker pull medicmobile/haproxy:rc-1.15
+or
+docker pull medicmobile/haproxy:latest
 ```
 
 ## Usage
