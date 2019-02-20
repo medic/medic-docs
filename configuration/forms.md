@@ -415,13 +415,13 @@ To configure a form to send using Medic's custom SMS definition, add the field `
 
 * `...args`: 0 or more values to be concatenated.
 
-        concat('A', 'bee', 'Sea') => 'AbeeSea')
+        concat('A', 'bee', 'Sea') => 'AbeeSea'
 
 ##### `spaced(...args)`
 
 * `...args`: 0 or more values to be concatenated with spaces between them.
 
-        spaced('A', 'bee', 'Sea') => 'A bee Sea')
+        spaced('A', 'bee', 'Sea') => 'A bee Sea'
 
 ##### `match(val, matchers)`
 
