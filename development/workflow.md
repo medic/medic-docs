@@ -1,20 +1,6 @@
 # Development Workflow
 
-## Daily Stand
-
-Each day developers post our objectives in the #dailies Slack channel for the previous and current day and discuss any potential blockers. If a issue will not be completed within an iteration time frame that should be discussed.
-
-There are optional daily standup meetings twice a day roughly 12 hours apart. Show up to whichever one fits with your timezone. It's a good place to check in and discuss issues.
-
-## Weekly Call
-
-Each week the team meets on a call to discuss progress and plans for the next week. Notes are taken in the [agenda doc](https://docs.google.com/document/d/14AuJ7SerLuOPESBjQlJqpBtzwSAoVf5ykTT7fjyJBT0/edit#). Someone reports back so our progress can be reported in #medic-news for the wider team.
-
-## Monthly Goals
-
-At the end of each month we review progress and plan the goals for the next month.
-
-## Coding
+## Code
 
 ### Writing
 
@@ -52,21 +38,21 @@ For more help with Git see: [Using Git](./using-git.md).
 - Release branches have the form `<major>.<minor>.x` and should be stable.
 - Feature branches have the form `<issue-number>-<issue-description>` and are work in progress.
 
-## Issues
+# Issues
 
 Issues are managed in Github. Issues should be created in the repository where the changes need to be made. If it is not clear in which repo to open an issue the default should be the `medic` repository. If it is a security or sensitive issue it should be opened in the private `medic-projects` repository.
 
 When creating issues add the appropriate [Priority](https://github.com/medic/medic/labels?utf8=%E2%9C%93&q=Priority%3A+) and [Type](https://github.com/medic/medic/labels?utf8=%E2%9C%93&q=Type%3A+) labels.
 
-### Project States
+## Project States
 
 When the issue is scheduled for development it will be added to the appropriate [organisation project](https://github.com/orgs/medic/projects?query=is%3Aopen+sort%3Aname-asc) named after the webapp version it will be released with. Each column in the project represents the state the issue is in.
 
-#### To do
+### To do
 
 Issues in this column have been scheduled to be released with this webapp version. The issue has all the detail needed to begin design and development and it is free for anyone to start work on. If you start work on an issue assign it to yourself and move it to "In progress".
 
-#### In progress
+### In progress
 
 Issues in this column are being actively worked on, which includes development, design, and code reviews.
 
@@ -78,7 +64,7 @@ Any code should be in a feature branch in each of the repositories you update. T
 4. Pick at least one Reviewer for the PR and work with them until the code passes review.
 5. Once the issue has passed code review move the issue to "In AT" for QA to test. Do not merge the code until it has passed AT.
 
-#### In AT
+### In AT
 
 Issues in this column are ready to be Acceptance Tested by a Quality Assurance engineer. When picking up an issue for AT:
 
@@ -95,30 +81,30 @@ Once the issue has passed AT the original developer is to:
 4. Close the issue which will automatically move it to "Done".
 5. Unassign yourself from the issue.
 
-#### Done
+### Done
 
 Issues in this column have passed acceptance testing and been merged into `master` and/or release branches ready for release.
 
-## Triaging old tickets
+## Triaging old issues
 
-We periodically run a [script](https://github.com/medic/github-issue-roulette) against medic tickets. We do this to catch two situations:
- - Tickets that do not have the three labels they need (Type, Priority and Status)
- - Tickets that have not been touched in 90 days
+We periodically run a [script](https://github.com/medic/github-issue-roulette) against medic issues. We do this to catch two situations:
+ - Issues that do not have the three labels they need (Type, Priority and Status)
+ - Issues that have not been touched in 90 days
  
-The plan is to keep cruft in our ticket DB to a minimum, and have them curated into a colletion of detailed clear tickets that can and should be actionable in the near to mid future.
+The plan is to keep cruft in our issue DB to a minimum, and have them curated into a colletion of detailed clear issues that can and should be actionable in the near to mid future.
 
-You will occasionally get assigned tickets and asked to deal with one or both of the above problems.
+You will occasionally get assigned issues and asked to deal with one or both of the above problems.
 
-### What do I do when I get one of these tickets?
+### What do I do when I get one of these issues?
 
-Use your judgement (or someone else's, feel free to pull in others either directly on the ticket or via Slack etc) to decide:
+Use your judgement (or someone else's, feel free to pull in others either directly on the issue or via Slack etc) to decide:
  - Is its description too vague? Is it detailed enough to be actionable?
  - Is this something we want to do **in the near future**? Does it fit with our product etc?
- - If this is an older ticket, do you think it is still relevant? Is there still interest? (If there is no interest it can be closed: it can always be re-opened or re-written in the future)
- - Is this covered by existing tickets, or existing plans?
+ - If this is an older issue, do you think it is still relevant? Is there still interest? (If there is no interest it can be closed: it can always be re-opened or re-written in the future)
+ - Is this covered by existing issues, or existing plans?
  - If it's a bug, does it have: steps to reproduce; expected behaviour; actual behaviour; server info, browser info, screenshots etc where applicable?
 
-From this decide if you need to go back to the ticket creator for more information, or close the ticket (using one of the `Won't Fix` labels), or keep it.
+From this decide if you need to go back to the issue creator for more information, or close the issue (using one of the `Won't Fix` labels), or keep it.
 
 Additionally, if there are missing labels:
  - Type should be reasonably obvious: which of those labels most fits the issue
@@ -127,7 +113,6 @@ Additionally, if there are missing labels:
  
 ### Anything else?
 
-Regardless of what you do with the ticket, please:
+Regardless of what you do with the issue, please:
  - Remove the `Needs Triage` label once triage is complete
  - Document the reasoning by commenting in the issue. This will help reduce mistakes, as the reasoning will be available for everyone to read, and any mistakes there can be rectified.
-
