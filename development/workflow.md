@@ -4,6 +4,8 @@
 
 ### Writing
 
+Where possible, follow our coding [style guide](https://github.com/medic/medic-docs/blob/master/development/style-guide.md).
+
 Aim for self-documenting code. Where code cannot be made self-documenting add commenting. Unnecessary comments and hard to read code fail a code review.
 
 ### Testing
