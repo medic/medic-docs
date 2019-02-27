@@ -17,13 +17,14 @@ npm install --save google-libphonenumber@latest
 4. If releasing a service pack use `git cherry-pick` to merge the relevant commits into the release branch.
 5. Create a new document in the [release-notes folder](https://github.com/medic/medic/tree/master/release-notes). Ensure all issues are in the GH Project, that they're correct labelled, and have human readable descriptions. Use [this script](https://github.com/medic/medic/blob/master/scripts/changelog-generator) to export the issues into our changelog format. Manually document any known migration steps and known issues. Provide description, screenshots, videos, and anything else to help communicate particularly important changes.
 6. Commit and push the above changes.
-7. Release a beta for the new version by tagging the release branch, ie: `git tag <version>-beta.<beta-number> && git push --tags`
-8. Wait for the build to succeed then notify developers, testers, and product managers to begin release testing. Until release testing passes, fix the issues in `master`, and go back to step 4.
-9. [Export the translations](translations.md#exporting-changes-from-poeditor-to-github) to your git clone and commit to `master` and your release branch.
-10. Create a release in GitHub so it shows up under the [Releases tab](https://github.com/medic/medic/releases) with the naming convention `<major>.<minor>.<patch>`. This will create the git tag automatically. Link to the release notes created in step 5 in the description of the release.
-11. Confirm the release build completes successfully and the new release is available on the [market](https://staging.dev.medicmobile.org).
-12. Let the product manager know to announce the release.
-13. :beer:
+7. Create a Google Doc in the [blog posts folder](https://drive.google.com/drive/u/0/folders/0B2PTUNZFwxEvMHRWNTBjY2ZHNHc) with the draft of a blog post promoting the release based on the release notes above. Once it's ready ask Alix to review it.
+8. Release a beta for the new version by tagging the release branch, ie: `git tag <version>-beta.<beta-number> && git push --tags`
+9. Wait for the build to succeed then notify developers, testers, and product managers to begin release testing. Until release testing passes, fix the issues in `master`, and go back to step 4.
+10. [Export the translations](translations.md#exporting-changes-from-poeditor-to-github) to your git clone and commit to `master` and your release branch.
+11. Create a release in GitHub so it shows up under the [Releases tab](https://github.com/medic/medic/releases) with the naming convention `<major>.<minor>.<patch>`. This will create the git tag automatically. Link to the release notes created in step 5 in the description of the release.
+12. Confirm the release build completes successfully and the new release is available on the [market](https://staging.dev.medicmobile.org).
+13. Let the product manager know to announce the release in #products
+14. :beer:
 
 ## Android apps
 
