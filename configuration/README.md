@@ -23,7 +23,6 @@ Here are some guides on additional features that can be used within your applica
 ## Medic Gateway
 - [Medic Mobile Gateway Configuration](gateway-config.md)
 - [List of Phones that Work Well with Medic Gateway](gateway-phones.md)
-- 
 
 ## Medic Collect
 - [Creating XForms for Medic Collect](create-xforms-for-medic-collect.md)
