@@ -22,9 +22,7 @@ The following guides should help orient developers interested in the core framew
 ## Building Community Health Applications
 An introduction and reference for developing community health applications is provided in [Developing Community Health Applications](https://github.com/medic/medic-docs/blob/master/configuration/developing-community-health-applications.md). This overview covers building forms, tasks, targets, and contact profiles.
 
-Additional topics for building apps using the framework are available [here](https://github.com/medic/medic-docs/blob/master/configuration/README.md).
-
-Guides for additional components are available [here](https://github.com/medic/medic-docs/blob/master/configuration/README.md#other-components).
+Read more about [building apps with the framework](https://github.com/medic/medic-docs/blob/master/configuration/README.md), and [using other components](https://github.com/medic/medic-docs/blob/master/configuration/README.md#other-components).
 
 ## Maintenance, Support, and Troubleshooting
 * [Release notes](https://github.com/medic/medic/tree/master/release-notes)
