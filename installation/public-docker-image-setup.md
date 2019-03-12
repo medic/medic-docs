@@ -25,6 +25,7 @@ CPUs: 2
 ## Use Docker-Compose:
 
 In the location you would like to host your configuration files, create a file titled <project_name>-medic-os-compose.yml with the following contents:
+
 ```
 version: '3.1'
 
@@ -38,20 +39,36 @@ services:
       - 80:80
     working_dir: /srv
     network_mode: host
+    depends_on:
+      - haproxy
     
   haproxy:
     image: medicmobile/haproxy:rc-1.16
     volumes:
       - /srv:/srv    
-    depends_on:
-      - medic-os
+    #depends_on:
+    #  - medic-os
     network_mode: host
     environment:
       - COUCHDB_HOST=localhost
       - HA_PASSWORD=${HA_PASSWORD}
 ```
 
-## Download Medic Mobile Image:
+If you already have a previous couchDB admin password from an existing medic-os installation, export that password as a variable `HA_PASSWORD` into your shell.
+```
+export HA_PASSWORD=<existing_couchdb_admin_user_pw>
+```
+
+If this is a fresh install, you can generate a password and export it as `HA_PASSWORD` prior to launching the containers.
+
+### Launch docker-compose containers
+
+Inside the directory that you saved the above <project_name>-medic-os-compose.yml, run:
+```
+$ docker-compose -f <project_name>-medic-os-compose.yml up -d
+```
+
+## Download Medic Mobile Image & Setup Custom Docker Network:
 
 Open your terminal and run this command:
 
@@ -72,6 +89,14 @@ docker pull medicmobile/haproxy:latest
 ## Usage
 
 To run the docker container, simply enter this command:
+
+```
+export HA_PASSWORD=<random_gen_pw | existing_couchdb_admin>
+
+docker run --network="host" -t medicmobile/haproxy:latest
+
+docker run --network="host" -t medicmobile/medic-os:latest 
+```
 
 ```
 docker run -t -p 5988:5988 -p 80:80 -p 443:443 medicmobile/medic-os
