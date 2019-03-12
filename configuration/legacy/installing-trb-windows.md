@@ -5,7 +5,6 @@
 - Open the command line in that folder/Navigate to that folder in the commandline
 - Connect your Bladox Programmer Board via USB to the computer
 - Open the Windows Device manager([how?](https://www.lifewire.com/how-to-open-device-manager-2626075)) and locate the COM Number of the bladox board under `ports(COM & LPT)` in the below image it is `COM7`. We will use `COM7` for the commands below - substitute it with the one provided by your system.
-![Device Manager](img/Sim-get-com.png)
 - Run the following commands in order :
 	- `cemu.exe -d COM7 --info`
 	- `cemu.exe -d COM7 --rm--apps`
