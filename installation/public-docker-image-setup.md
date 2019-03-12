@@ -22,6 +22,35 @@ Performance Settings that can be changed:
 Memory: 4 GiB
 CPUs: 2
 
+## Use Docker-Compose:
+
+In the location you would like to host your configuration files, create a file titled <project_name>-medic-os-compose.yml with the following contents:
+```
+version: '3.1'
+
+services:
+  medic-os:
+    image: medicmobile/medic-os:3.2.1-rc.4
+    volumes:
+      - /srv:/srv
+    ports:
+      - 443:443
+      - 80:80
+    working_dir: /srv
+    network_mode: host
+    
+  haproxy:
+    image: medicmobile/haproxy:rc-1.16
+    volumes:
+      - /srv:/srv    
+    depends_on:
+      - medic-os
+    network_mode: host
+    environment:
+      - COUCHDB_HOST=localhost
+      - HA_PASSWORD=${HA_PASSWORD}
+```
+
 ## Download Medic Mobile Image:
 
 Open your terminal and run this command:
@@ -35,7 +64,7 @@ docker pull medicmobile/medic-os:3.2.1-rc.4
 docker pull medicmobile/medic-os:latest
 
 # Pull down our haproxy image
-docker pull medicmobile/haproxy:rc-1.15
+docker pull medicmobile/haproxy:rc-1.16
 or
 docker pull medicmobile/haproxy:latest
 ```
