@@ -48,6 +48,6 @@ This script can be used to delete different types of CouchDB data using the belo
 4. Now you can delete documents of  type `person`, `clinic`, `health_center`, `district_hospital`  using this command:
 ```node delete_contacts_for_place.js <branch_id|area_id|health_center_id|user_id>```
 4. All data would be deleted depending of the type of the id that was supplied in the above command (see the output below)
-![Output of deletion](img/data-deletion.png)
+![Output of deletion](../img/data-deletion.png)
 
 

@@ -11,10 +11,10 @@
 	- `cemu.exe -d COM7 --reset`
 	- `cemu.exe -d COM7 --app myTrbs/trb-name.trb`
 	
-	![Cemu Info](img/cemu-info.png)
-	![Cemu Remove Apps](img/cemu-reset.png)
-	![Cemu upload TRB](img/cemu-load-app.png)
-	![When Cemu is done](img/cemu-done.png)
+	![Cemu Info](../img/cemu-info.png)
+	![Cemu Remove Apps](../img/cemu-reset.png)
+	![Cemu upload TRB](../img/cemu-load-app.png)
+	![When Cemu is done](../img/cemu-done.png)
 	
 		- This command will start uploading the trb to the turbo sim like below
 		

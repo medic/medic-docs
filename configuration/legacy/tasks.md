@@ -14,23 +14,23 @@ The main two types of tasks we have are normal tasks and high priority tasks.
 
 A normal task has an icon, a title and a due date.
 
-![Normal task](img/normal_task.png)
+![Normal task](../img/normal_task.png)
 
 ### High Priority Task
 
 A high priority task has an icon, a title, and a due date, just like a normal task. In addition, it has the high risk icon and a descriptive message on the second line.
 
-![High priority task](img/high_priority_task.png)
+![High priority task](../img/high_priority_task.png)
 
 ### Task Summary Screen
 
 When a user clicks on a task in the task list, the app can either take them to the task summary screen...
 
-![Task summary screen](img/task_summary_screen.png)
+![Task summary screen](../img/task_summary_screen.png)
 
 ...or directly to the action (form) they need to complete.
 
-![Task form](img/task_form.png)
+![Task form](../img/task_form.png)
 
 ## Using Tasks
 
@@ -106,7 +106,7 @@ Tasks are configured in two places: `rules.nools.js` and `tasks.json`. `rules.no
 
 Each task needs a due date, window, icon and title to be defined so that the app knows how to render it. The diagram below explains where each of the properties will appear. You will need to include the properties listed after the diagram for each of your task schedules.
 
-![Task description](img/task_with_description.png)
+![Task description](../img/task_with_description.png)
 
 * `name`: This is the name of the task schedule. It's used when retrieving a particular task schedule from `tasks.json` for use in `rules.nools.js`.
 * `events`: These are the individual tasks in the schedule. You may have one or more tasks in your schedule.
