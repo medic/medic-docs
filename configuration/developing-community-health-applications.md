@@ -188,7 +188,9 @@ For example, if you register a pregnancy and include the last menstrual period (
 <!-- TODO: Update annotated screenshots -->
 ![Task description](img/task_with_description.png)
 
-Here is an example which generates two `postnatal-visit` tasks for every `delivery` form:
+Previously, the code to generate tasks would iterate through an object with all contacts accompanied by their reports. When the code identified a condition that needs tasks, it generated a series of tasks based on templates in `tasks.json`. The tasks emitted by the rules engine code were then handled by the app. With the new declarative style all tasks are now defined in the `tasks.js` file, which contains a JavaScript array of objects. Each object corresponds to a set of task events that the app automatically shows in the Tasks tab and on contact profiles. These are automatically removed from the app when they are completed. The properties for the object are used to define when the task's events can show, and what they should look like.
+
+Although the file contains JavaScript, its modular and declarative nature makes it much easier to manage. For instance, here is a simple example that generates two `postnatal-visit` tasks for each `delivery` form:
 
 ```js
 module.exports = [
