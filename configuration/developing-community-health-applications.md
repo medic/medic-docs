@@ -170,11 +170,11 @@ In this example properties file, the associated form would only show on a person
 Forms are converted with the `convert-app-forms` or `convert-contact-forms` actions in `medic-conf`, and added to your application with the corresponding upload actions.
 
 ## Tasks
-Tasks guide health workers through their days and weeks. Each generated task prompts a preconfigured workflow, ensuring that the right actions are taken for the people at the right time.
+Tasks guide health workers through their days and weeks. Each task drives a workflow, ensuring that the right actions are taken for people at the right time. Tasks indicate a recommended action to the user. They indicate who the user should perform the action with and the recommended timeframe of that action. When the user taps the task, they are directed to a form where the details of the action are captured. 
 
-In order for Tasks to work while a user is offline, the app needs to generate Tasks in a way that accounts for Reports that have been submitted since the last time a user synced with the server. To address this requirement, Tasks are generated on-the-fly on the users device, based entirely on reports that are stored on the users’ device. As a result, Tasks are available only for users of type "restricted to their place", because this implies that their data is stored and queried locally on their device. When defining tasks, you have access to all the contacts (people and places) that the logged in user can view, along with all the reports about them. Tasks can also pull in fields from the reports that trigger them and pass these fields in as inputs to the form that opens when you click on the task. For example, if you register a pregnancy and include the LMP, this generates follow-up tasks for ANC visits. When you click on an ANC visit task, it will open the ANC visit form and this form could "know" the LMP of the woman. In this section we will discuss how to configure such tasks.
+Tasks are configured in the `tasks.js` file. This file is a JavaScript module which defines an array of objects conforming to the Task schema detailed below. Although the file contains JavaScript, its modular and declarative nature makes it easy to manage. Each object corresponds to a task that the app shows in the Tasks tab and on contact profiles. The properties for the object define when the task appears, how it behaves, and what it looks like. When defining tasks, you have access to all the contacts on the device (both people and places) along with all the reports about them. Tasks are available only for users of type "restricted to their place". Tasks can pull in fields from reports and pass data as inputs to the form that opens when you select the task, enabling richer user experiences.
 
-A rules engine is used to generate the tasks using the data available in the client app. The data, comprised of docs for people, places, and the reports about them, are processed by rules engine code to emit tasks like this one:
+For example, if you register a pregnancy and include the last menstrual period (LMP), you may want to generate follow-up tasks for ANC visits. When you click on an ANC visit task, it will open the ANC visit form and this form could "know" the LMP of the woman. In this section we will discuss how to configure such tasks. This is what that task might look like in the Medic Webapp:
 
 <!-- TODO: Update annotated screenshots -->
 ![Task description](img/task_with_description.png)
@@ -385,9 +385,9 @@ To build your tasks into your app, you must compile them into app-settings, then
     medic-conf --local compile-app-settings backup-app-settings upload-app-settings 
 
 ## Targets
-Health workers can easily view their goals and progress for the month, even while offline. Targets refers to the in-app analytics widgets. These widgets can be set to track metrics for an individual CHW or for an entire health facility, depending on what data the logged in user has access to. Targets can be seen by users that have offline access (user type is "restricted to their place"). When defining targets, you have access to all the contacts (people and places) that the logged in user would view, along with all the reports about them.
+Health workers can easily view their goals and progress for the month, even while offline. Targets refer to in-app analytics widgets. These widgets can be set to track metrics for an individual CHW or for an entire health facility, depending on what data the logged in user has access to. Targets can only be seen by users that have offline access (user type is "restricted to their place"). When defining targets, you have access to all the contacts (people and places) that the logged in user has on their device, along with all the reports about them.
 
-Like Tasks, a rules engine is used to generate the targets using the data available in the client app. The data, comprised of docs for people, places, and the reports about them, are processed by rules engine code to emit data for widgets like these:
+Here are some example targets:
 
 <!-- TODO: Update annotated screenshots -->
 
@@ -407,11 +407,9 @@ Like Tasks, a rules engine is used to generate the targets using the data availa
 
 ![Percentage with goal](img/target_percent_with_goal.png)
 
-The target instances emitted by the rules engine code are handled by the app. The app takes care of showing the target instances in the appropriate widgets of the Targets tab, updating counts and percentages automatically. Previously the application code for Targets would iterate through an object with all contacts accompanied by their reports. When the code identified a condition related to a target widget in `targets.json`, it created data for the widget as a _target instance_. 
+The app takes care of showing the targets in the Targets tab, and updating counts and percentages automatically. With the new declarative style, all targets are now defined in the `targets.js` file. In this file we define an array of objects which match the Target schema defined below. Each object corresponds to a target widget that could show in the app. The properties of the object are used to define when the target widget should appear, what it should look like, and what to values are. 
 
-With the new declarative style all targets are now defined in the `targets.js` file. In this file we define a JavaScript variable `targets` as an array of objects. Each object corresponds to a target widget that could show in the app. The properties for the object are used to define when the target widget can show, what it should look like, and what to values to include. 
-
-Like `tasks.js`, the Targets file contains JavaScript but its modular and declarative nature makes it much easier to manage. For instance, here is a simple example that generates two `postnatal-visit` tasks for each `delivery` form:
+Like `tasks.js`, the Targets file contains JavaScript but its modular and declarative nature makes it easy to manage. For instance, here is a simple example that tracks the number of healthy births per month:
 
 ```js
 var targets = [
