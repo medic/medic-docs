@@ -191,7 +191,7 @@ For example, if you register a pregnancy and include the last menstrual period (
 Here is an example which generates two `postnatal-visit` tasks for every `delivery` form:
 
 ```js
-[
+module.exports = [
   {
     icon: 'mother-child',
     title: 'task.postnatal_followup',
@@ -207,7 +207,7 @@ Here is an example which generates two `postnatal-visit` tasks for every `delive
       }
     ]
   }
-]
+];
 ```
 
 ### Task schema
