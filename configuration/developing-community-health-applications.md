@@ -33,7 +33,7 @@ This document is meant to be a introduction and reference for developing forms, 
 To build your own application using the framework you will need an instance set up for testing. You can set up a local instance by [following these instructions](https://github.com/medic/medic#easy-local-deployment).
 
 ### Build tool
-The build tool for applications using the framework is `medic-conf`. Follow the installation instructions [here](https://github.com/medic/medic-conf/blob/master/README.md). To properly use the tool you will need your application files in set locations within a folder. Once you are set up with the basic file structure you can edit the files and rebuild the application by compiling or converting components as needed, and uploading them to your test instance.
+The build tool for applications using the framework is `medic-conf`. Follow the installation instructions [here](https://github.com/medic/medic-conf/blob/master/README.md). To properly use the tool you will need your application files in set locations within a folder. Once you are set up with the basic file structure you can edit the files, and rebuild the application by compiling or converting components as needed, and uploading them to your test instance.
 
 ### Background skills
 To build applications with the Community Health Application Framework the follow skills are helpful, ordered by importance:
@@ -99,9 +99,9 @@ Convert and build the contact forms into your application using the `convert-con
 
 
 ### App Forms
-Workflows within your app rely heavily care guides, decision support, and surveys, which are collectively referred to as "app forms". App developers use the XForms standard to define app forms. When a user completes an app form, the contents are saved in the database with the type `data_record`. These docs are known as _Reports_. 
+Workflows within your app rely heavily on care guides, decision support, and surveys, which are collectively referred to as "app forms". App developers use the XForms standard to define app forms. When a user completes an app form, the contents are saved in the database with the type `data_record`. These docs are known as _Reports_. 
 
- Each form can have the following files:
+Each form can have the following files:
 
 - A XLSForm form definition, converted to the XForm (optional) 
 - A XML form definition using the ODK XForm format
@@ -144,33 +144,39 @@ The meta information in the `{form_name}.properties.json` file defines the form'
 | `context` | The context defines when and where the form should be available in the app | no |
 | `context.person` | Boolean determining if the form can be seen in the Action list for a person's profile. This is still subject to the `expression`. | no |
 | `context.place` | Boolean determining if the form can be seen in the Action list for a person's profile. This is still subject to the `expression`. | no |
-| `context.expression` | Condition needs to evaluate to true for form to show on a profile or in reports tab. By default reports are not shown on the reports tab. On the reports tab there is no `contact` object available, therefore `"expression": "!contact"` would show the form on the Reports tab. | no |
+| `context.expression` | A JavaScript expression which is evaluated when a contact profile or the reports tab is viewed. If the expression evaluates to true, the form will be listed as an available action. The inputs `contact`, `user`, and `summary` are available.
+
+By default, forms are not shown on the reports tab, use `"expression": "!contact"` to show the form on the Reports tab since there is no contact for this scenario. | no |
 
 
 In this example properties file, the associated form would only show on a person's page, and only if their sex is unspecified or female and they are between 10 and 65 years old:
 
-    {
-      "title": [
-        {
-          "locale": "en",
-          "content": "New Pregnancy"
-        },
-        {
-          "locale": "hi",
-          "content": "नई गर्भावस्था"
-        }
-      ],
-      "icon": "pregnancy-1",
-      "context": {
-        "person": true,
-        "place": false,
-        "expression": "contact.type === 'person' && (!contact.sex || contact.sex === 'female') && (!contact.date_of_birth || (ageInYears(contact) >= 10 && ageInYears(contact) < 65))"
+```json
+  {
+    "title": [
+      {
+        "locale": "en",
+        "content": "New Pregnancy"
+      },
+      {
+        "locale": "hi",
+        "content": "नई गर्भावस्था"
       }
+    ],
+    "icon": "pregnancy-1",
+    "context": {
+      "person": true,
+      "place": false,
+      "expression": "contact.type === 'person' && (!contact.sex || contact.sex === 'female') && (!contact.date_of_birth || (ageInYears(contact) >= 10 && ageInYears(contact) < 65))"
     }
+  }
+```
 
 #### Build
     
 Forms are converted with the `convert-app-forms` or `convert-contact-forms` actions in `medic-conf`, and added to your application with the corresponding upload actions.
+
+    medic-conf --local convert-app-forms upload-app-form
 
 ## Tasks
 Tasks guide health workers through their days and weeks. Each task drives a workflow, ensuring that the right actions are taken for people at the right time. Tasks indicate a recommended action to the user. They indicate who the user should perform the action with and the recommended timeframe of that action. When the user taps the task, they are directed to a form where the details of the action are captured. 
@@ -182,25 +188,21 @@ For example, if you register a pregnancy and include the last menstrual period (
 <!-- TODO: Update annotated screenshots -->
 ![Task description](img/task_with_description.png)
 
-Previously, the code to generate tasks would iterate through an object with all contacts accompanied by their reports. When the code identified a condition that needs tasks, it generated a series of tasks based on templates in `tasks.json`. The tasks emitted by the rules engine code were then handled by the app. With the new declarative style all tasks are now defined in the `tasks.js` file, which contains a JavaScript array of objects. Each object corresponds to a set of task events that the app automatically shows in the Tasks tab and on contact profiles. These are automatically removed from the app when they are completed. The properties for the object are used to define when the task's events can show, and what they should look like.
-
-Although the file contains JavaScript, its modular and declarative nature makes it much easier to manage. For instance, here is a simple example that generates two `postnatal-visit` tasks for each `delivery` form:
+Here is an example which generates two `postnatal-visit` tasks for every `delivery` form:
 
 ```js
 [
   {
     icon: 'mother-child',
-    title: [ { locale:'en', content:'Postnatal visit needed' } ],
+    title: 'task.postnatal_followup',
     appliesTo: 'reports',
     appliesToType: [ 'delivery' ],
-    actions: [ { form:'postnatal_visit' } ],
+    actions: [ { form: 'postnatal_visit' } ],
     events: [
       {
-        id: 'postnatal-visit-1',
         days:7, start:2, end:2,
       },
       {
-        id: 'postnatal-visit-2',
         days:14, start:2, end:2,
       }
     ]
@@ -208,42 +210,44 @@ Although the file contains JavaScript, its modular and declarative nature makes 
 ]
 ```
 
-### Task properties
+### Task schema
 
 More complex tasks can be written using the full set of properties for tasks, as detailed in the following table.
 
-| property | description | required |
-|---|---|---|
-| `name`| Unique identifier for the task. | no |
-| `icon` | The icon to show alongside the task. | no |
-| `title` | The title of the task when shown in the app. Structured as a localization label array or a translation. | yes |
-| `appliesTo` | `'contacts'`, `'reports'`, or `'scheduled_tasks'`. The items on which the task is applied. | yes |
-| `appliesToType` | Array of report or contact types. The types of contacts (eg `['person']`, `['clinic', 'health_center']`) or form codes (eg `['pregnancy']`, `['P', 'pregnancy']`) for which this task should be associated. | yes |
-| `appliesIf` | function(contact, report, scheduledTaskIndex). The task can only be created for items where this function returns true. `scheduledTaskIndex` will be null for contacts and reports. | no |
-| `resolvedIf` | function(contact, report, event, dueDate, index). Resolve the task only if this function returns true. | yes |
-| `events` | An array of task events. The event's properties are used to specify the timeline of when a task will appear and disappear from the user interface. | yes |
-| `events[n].id` | Unique ID for this task event. Helps when this is a descriptive id, eg `pregnancy-high-risk` | yes |
-| `events[n].days` | Number of days after the doc's `reported_date` that the event is due | yes, if `dueDate` is not set |
-| `events[n].start` | Number of days to show the task before it is due | yes |
-| `events[n].end` | Number of days to show the task after it is due | yes |
-| `events[n].dueDate` | function(report, event, scheduledTaskIdx). A date object of the day when the task event is due. If set this will override the `days` value. | yes, if `days` is not set |
-| `actions` | This is an array of the actions (forms) that a user can access after clicking on a task. If you put multiple forms here, then the user will see a task summary screen where they can select which action they would like to complete. Within your array of `actions` there are some additional properties that you can define. | yes |
-| `actions[n].type` | Type of action, usually `'report'`. | yes |
-| `actions[n].form` | The form that should open when you click on the action. | yes |
-| `actions[n].label`|  The label that should appear on the button to start this action on the task summary page ('Click here to begin the follow up' in our example summary screen above). | no |
-| `actions[n].content`|  Contains fields that you want to pass into the form that will open when you click on the task or action. | no |
-| `priority` | Object with the priority `level` and `label`. Can alternatively be a function that, given the contact and report an object with the priority `level` and `label`. | no |
-| `priority.level` | Can be `high`, `medium` (default). Tasks that are high risk will display a high risk icon with the task. | no |
-| `priority.label` | Text shown with the task associated to the risk level. | no |
+| property | type | description | required |
+|---|---|---|---|
+| `name`| string | A unique identifier for the task. Not displayed. | no |
+| `icon` | string | The icon to show alongside the task. Should correspond with a value defined in `resources.json`. | no |
+| `title` | `translation key` or `translation array` | The title of the task (labeled above). | yes |
+| `appliesTo` | `'contacts'` or `'reports'` | Do you want to emit one task per report, or one task per contact? This attribute controls the behavior of other properties herein. | yes |
+| `appliesIf` | `function(contact, report)` | If `appliesTo: 'contacts'`, this function is invoked once per contact and `report` is undefined. If `appliesTo: 'reports'`, this function is invoked once per report. Return true if the task should appear for the given documents. | no |
+| `appliesToType` | If `appliesTo: 'reports'`, an array of form codes. If `appliesTo: 'contacts'`, an array of contact types. | Filters the contacts or reports for which `appliesIf` will be evaluated. For example, `['person']` or `['clinic', 'health_center']`. For example, `['pregnancy']` or `['P', 'pregnancy']`. | no |
+| `resolvedIf` | `function(contact, report, event, dueDate)` | Return true to mark the task as "resolved". A resolved task uses memory on the phone, but is not displayed. | yes |
+| `events` | Array of events | An event is used to specify the timing of the task. | yes |
+| `events[n].id` | string | Can help as a descriptive name (eg `pregnancy-high-risk`). One task will appear per unique id, so re-using ids can be useful to avoid duplicate tasks appearing. | no |
+| `events[n].days` | int | Number of days after the doc's `reported_date` that the event is due | yes, if `dueDate` is not set |
+| `events[n].dueDate` | `function(event, contact, report)` | Returns a `Date` object for the day when this event is due. | yes, if `days` is not set |
+| `events[n].start` | int | Number of days to show the task before it is due | yes |
+| `events[n].end` | int | Number of days to show the task after it is due | yes |
+| `actions` | Array of actions | The actions (forms) that a user can access after clicking on a task. If you put multiple forms here, the user will see a task summary screen where they can select which action they would like to complete. | yes |
+| `actions[n].type` | `'report'` or `'contact'` | When `'report'`, the action opens the given form. When `'contact'`, the action redirects to a contact's profile page. Defaults to 'report'. | no |
+| `actions[n].form` | string | The code of the form that should open when you select the action. | yes |
+| `actions[n].label`| `translation key` or `translation array` | The label that should appear on the task summary screen if multiple actions are present. | no |
+| `actions[n].modifyContent`| `function (content, contact, report)` | Set the values on the content object to control the data which will be passed as `inputs` to the form which opens when the action is selected. | no |
+| `priority` | Controls the "high risk" line seen above | | no |
+| `priority.level` | `high` or `medium` | Tasks that are `high` will display a high risk icon with the task. Default: `medium` | no |
+| `priority.label` | `translation key` or `translation array` | Text shown with the task associated to the risk level. | no |
 
 ### Additional code
-Helper variables and functions can be defined in `nools-extras.js` to keep the task definitions easy to read and manage. To enable reuse of common code, `nools-extras.js` file is shared by both the Tasks and Targets.
+Helper variables and functions can be defined in `nools-extras.js` and will be visible through the variable `extras`. This helps to keep the task definitions easy to read and manage. To enable reuse of common code, `nools-extras.js` file is shared by both the Tasks and Targets.
 
 ### Examples
 
 #### tasks.js
 ```js
-[
+var isFormFromArraySubmittedInWindow = extras.isFormFromArraySubmittedInWindow;
+
+module.exports = [
   // PNC TASK 1: If a home delivery, needs clinic tasks
   {
     icon: 'mother-child',
@@ -259,12 +263,11 @@ Helper variables and functions can be defined in `nools-extras.js` to keep the t
     actions: [{ 
       form:'postnatal_visit',
       // Pass content that will be used within the task form
-      modifyContent: function(r, content) {
+      modifyContent: function(content, c, r) {
         content.delivery_place = 'home';
       }
     }],
     events: [ {
-      id: 'postnatal-home-birth',
       days:0, start:0, end:4,
     } ],
     priority: {
@@ -273,9 +276,9 @@ Helper variables and functions can be defined in `nools-extras.js` to keep the t
     },
     resolvedIf: function(c, r, event, dueDate) {
       // Resolved if there a visit report received in time window or a newer pregnancy
-      return r.reported_date < getNewestDeliveryTimestamp(c) ||
-             r.reported_date < getNewestPregnancyTimestamp(c) ||
-             isFormFromArraySubmittedInWindow(c.reports, postnatalForms,
+      return r.reported_date < extras.getNewestDeliveryTimestamp(c) ||
+             r.reported_date < extras.getNewestPregnancyTimestamp(c) ||
+             isFormFromArraySubmittedInWindow(c.reports, extras.postnatalForms,
                  Utils.addDate(dueDate, -event.start).getTime(),
                  Utils.addDate(dueDate,  event.end+1).getTime());
     },
@@ -299,6 +302,7 @@ Helper variables and functions can be defined in `nools-extras.js` to keep the t
                  Utils.addDate(dueDate,  event.end+1).getTime());
     },
   },
+
   // Regular check for infants
   {
     icon: 'infant',
@@ -332,12 +336,12 @@ Helper variables and functions can be defined in `nools-extras.js` to keep the t
     title: 'task.family_survey.title',
     appliesTo: 'contacts',
     appliesToType: [ 'clinic' ],
-    appliesIf: needsFamilySurvey, // function returns true if family doesn't have survey in previous 6 months
+    appliesIf: extras.needsFamilySurvey, // function returns true if family doesn't have survey in previous 6 months
     actions: [ { form:'family_survey' } ],
     events: [ {
       id: 'family-survey',
       start:0, end:14,
-      dueDate: getNextFamilySurveyDate  // function gets expected date of next family survey 
+      dueDate: extras.getNextFamilySurveyDate  // function gets expected date of next family survey 
     } ],
     resolvedIf: function(c, r, event, dueDate) {
       // Resolved if there a family survey received in time window
@@ -352,18 +356,20 @@ Helper variables and functions can be defined in `nools-extras.js` to keep the t
 
 #### nools-extras.js
 ```js
-function isCoveredByUseCase(contact, usecase) {
-    // ...
-}
-function getNewestDeliveryTimestamp(c) {
-    // ...
-}
-function getNewestPregnancyTimestamp(c) {
-    // ...
-}
-function isFormFromArraySubmittedInWindow(reports, formsArray, startTime, endTime) {
-    // ...
-}
+module.exports = {
+  isCoveredByUseCase: function (contact, usecase) {
+      // ...
+  },
+  getNewestDeliveryTimestamp: function (c) {
+      // ...
+  },
+  getNewestPregnancyTimestamp: function (c) {
+      // ...
+  },
+  isFormFromArraySubmittedInWindow: function (reports, formsArray, startTime, endTime) {
+      // ...
+  },
+};
 ```
 
 #### What to put in appliesIf vs resolvedIf
@@ -388,6 +394,7 @@ Logic to test if a contact has a form x existing before any form y, or testing i
 
 ![Task summary screen](img/task_summary_screen.png)
 
+1. If the same task is appearing multiple times, try using duplicated event ids. Only one task per unique event id will be displayed.
 
 #### Troubleshooting
 1. Cannot see tasks: Makes sure in the Admin Console that the user is an offline user that is "restricted to their place".
@@ -426,7 +433,7 @@ The app takes care of showing the targets in the Targets tab, and updating count
 Like `tasks.js`, the Targets file contains JavaScript but its modular and declarative nature makes it easy to manage. Here is a simple example that tracks the number of healthy births per month:
 
 ```js
-var targets = [
+module.exports = [
   // BIRTHS THIS MONTH
   {
     id: 'births-this-month',
@@ -438,28 +445,26 @@ var targets = [
     appliesIf: isHealthyDelivery,
   },
 ```
-
-### Target properties
+### Target schema
 
 More complex targets can be written using the full set of properties for targets, as detailed in the following table: 
 
-| property | description | required |
-|---|---|---|
-| `id` |Unique identifier for the target | yes |
-| `type` |The type of widget to show, either `count` or `percent`. | yes |
-| `icon` |Icon to show with the target, matching the name in the resources file. | no, but recommended |
-| `goal` |For percentage targets, you must put a positive number. For `count` targets, put a positive number if there is a goal. If there is no goal, put -1. | yes |
-| `context` |The context in which this widget is relevant to the `user`. This widget will only be shown if the expression evaluates to true. | no |
-| `translation_key` |Translation key for the title of this target. | no, but recommended |
-| `subtitle_translation_key` |Translation key for the subtitle of this target. If none supplied the subtitle will be blank. | no |
-| `percentage_count_translation_key` |Translation key for the percentage value detail shown at the bottom of the target, eg |"(5 of 6 deliveries)". The translation context has `pass` and `total` variables available. If none supplied this defaults to `targets.count.default`. | no |
-| `appliesTo` | `'contacts'` or `'reports'`. The items which apply for this target widget. | yes |
-| `appliesToType` | Array of report or contact types. The types of contacts (eg `['person']`, `['clinic', 'health_center']`) or form codes (eg `['pregnancy']`, `['P', 'pregnancy']`) for which this target is relevant. | yes |
-| `appliesIf` | function(contact, report, scheduledTaskIndex). The target is relevant only for items where this function returns true. `scheduledTaskIndex` will be null for contacts and reports. | no |
-| `date` | By default only values for this month are shown in targets. Set to `'now'` if doing an all time count. Set to `'reported'` for time relevant counts, which relies on the doc's `reported_date`. | no |
-| `emitCustom` | function(contact, report). Each defined target emits one target instance per doc. A function can be defined here to emit a custom target instance, or multiple instances. | no |
-| `idType` | By default only one target instance is counted per contact. When multiple reports should be counted, eg counting multiple visits for a person, this property must be set to `'report'`. | no |
-| `passesIf` | function(contact, report). Evaluated to determine if instance counts towards the value. For percent widgets this affects whether the instance is included in the numerator. | yes, if `type` is `'percent'` |
+| property | type | description | required |
+|---|---|---|---|
+| `id` | string | An identifier for the target. Not functional or displayed | no |
+| `icon` | string | The icon to show alongside the task. Should correspond with a value defined in `resources.json`. | no |
+| `translation_key` | `translation key` | Translation key for the title of this target. | no, but recommended |
+| `subtitle_translation_key` | `translation key` | Translation key for the subtitle of this target. If none supplied the subtitle will be blank. | no |
+| `percentage_count_translation_key` | Translation key for the percentage value detail shown at the bottom of the target, eg "(5 of 6 deliveries)". The translation context has `pass` and `total` variables available. If none supplied this defaults to `targets.count.default`. | no |
+| `context` | JavaScript expression | A string containing a JavaScript expression. This widget will only be shown if the expression evaluates to true. Details of the current user is available through the variable `user`. | no |
+| `type` | `'count'` or `'percent'` | The type of the widget. | yes |
+| `goal` | integer | For targets with `type='percent'`, an integer from 0 to 100. For `type='count'`, any positive number. If there is no goal, put -1. | yes |
+| `appliesTo` | `'contacts'` or `'reports'` | Do you want to count reports or contacts? This attribute controls the behavior of other attributes herein. | yes |
+| `appliesToType` | If `appliesTo: 'reports'`, an array of form codes. If `appliesTo: 'contacts'`, an array of contact types. | Filters the contacts or reports for which `appliesIf` will be evaluated. For example, `['person']` or `['clinic', 'health_center']`. For example, `['pregnancy']` or `['P', 'pregnancy']`. | no |
+| `appliesIf` | `function(contact, report)` | If `appliesTo: 'contacts'`, this function is invoked once per contact and `report` is undefined. If `appliesTo: 'reports'`, this function is invoked once per report. Return true to count this document. For `type='percent'`, this controls the denominator. | no |
+| `passesIf` | `function(contact, report)` | For `type='percent'`, return true to increment the numerator. | yes, if `type='percent'` |
+| `date` | `'reported'` or `'now'` | When `'reported'`, the target will include documents with a `reported_date` within the current month. When `'now'`, target includes all documents. Default is  `'reported'`. | no |
+| `idType` | `'report'` or `'contact'` | The target's values are incremented once per unique id. To count one report per contact, use `'contact'`. When multiple reports should be counted, eg counting multiple visits for a person, use `'report'`. | no |
 
 ### Additional code
 Helper variables and functions can be defined in `nools-extras.js` to keep the target definitions easy to read and manage. To enable reuse of common code, `nools-extras.js` file is shared by both the Tasks and Targets.
@@ -468,7 +473,7 @@ Helper variables and functions can be defined in `nools-extras.js` to keep the t
 
 #### targets.js
 ```js
-var targets = [
+module.exports = [
   // BIRTHS THIS MONTH
   {
     id: 'births-this-month',
@@ -479,7 +484,7 @@ var targets = [
     subtitle_translation_key: 'targets.this_month.subtitle',
 
     appliesTo: 'reports',
-    appliesIf: isHealthyDelivery,
+    appliesIf: extras.isHealthyDelivery,
     date: 'reported',
   },
 
@@ -494,9 +499,9 @@ var targets = [
 
     appliesTo: 'reports',
     idType: 'report',
-    appliesIf: isHealthyDelivery,
+    appliesIf: extras.isHealthyDelivery,
     passesIf: function(c, r) {
-      var visits = countReportsSubmittedInWindow(c.reports, antenatalForms, r.reported_date - MAX_DAYS_IN_PREGNANCY*MS_IN_DAY, r.reported_date);
+      var visits = extras.countReportsSubmittedInWindow(c.reports, antenatalForms, r.reported_date - MAX_DAYS_IN_PREGNANCY*MS_IN_DAY, r.reported_date);
       return visits > 0;
     },
     date: 'now',
@@ -506,22 +511,24 @@ var targets = [
 
 #### nools-extras.js
 ```js
-function isHealthyDelivery(c, r) {
-  return r.form === 'D' ||
-      (r.form === 'delivery' && r.fields.pregnancy_outcome === 'healthy');
-}
+module.exports = {
+  isHealthyDelivery(c, r) {
+    return r.form === 'D' ||
+        (r.form === 'delivery' && r.fields.pregnancy_outcome === 'healthy');
+  },
 
-function countReportsSubmittedInWindow(reports, form, start, end) {
-  var reportsFound = 0;
-  reports.forEach(function(r) {
-    if (form.indexOf(r.form) >= 0) {
-      if (r.reported_date >= start && r.reported_date <= end) {
-        reportsFound++;
+  countReportsSubmittedInWindow(reports, form, start, end) {
+    var reportsFound = 0;
+    reports.forEach(function(r) {
+      if (form.indexOf(r.form) >= 0) {
+        if (r.reported_date >= start && r.reported_date <= end) {
+          reportsFound++;
+        }
       }
-    }
-  });
-  return reportsFound;
-}
+    });
+    return reportsFound;
+  },
+};
 
 ```
 
@@ -532,13 +539,13 @@ To build your targets into your app, you must compile them into app-settings, th
     medic-conf --local compile-app-settings backup-app-settings upload-app-settings 
 
 
-## Contacts
-In the `app_settings.contact_summary` you can write a script to output fields for the contact info pane and help decide which reports should be able to be filed against a contact. The script is evaluated as JavaScript so all the standard language features are available. To make this easier to write and maintain, a declarative format is also available. In the `contact_summary.templated.js` file you specify three variables: `context`, `fields`, and `cards`.
+## Contact Summaries
+In the `contact-summary.templated.js` file, write a script to control how a contact's profile page will appear by defining three outputs: `context`, `fields`, and `cards`.
 
 <!-- TODO: Add annotated screenshot of a contact page showing structure -->
 
 ### Context
-This object provides context information to Actions (aka "app forms") on the contact's profile page. The app form's `expression` can use the context to determine whether or not to show the form in the "New action" menu. When opening the action from the contact profile the context data is also available within the XForm.
+This object provides context information to Actions (aka "app forms") which are initiated from the contact's profile page. The app form's `expression` (which determines when to show the form in the "New action" menu) can access this context information via the variable `summary`. When opening the action from the contact's profile, the context data is also available in the app form's XForm via `inputs`.
 
 ### Fields
 An array of fields are defined to show a summary of the contact at the top of their profile page.
@@ -546,111 +553,108 @@ An array of fields are defined to show a summary of the contact at the top of th
 ![Summary card](img/summary-card.png)
 <!-- TODO: Add updated annotated screenshot of summary card -->
 
-Each field that can be shown on a contact's profile is defined as an objects in the `fields` array. The properties for each object determine how and when the field is shown.
+Each field that can be shown on a contact's profile is defined as an object in the `fields` array. The properties for each object determine how and when the field is shown.
 
-| property | description | required |
-|---|---|---|
-| `appliesToType` | The type of contact with which this field should show. Set to `'person'` for person profile, or `'!person'` a place. | no | 
-| `label` | Label shown with the field. Can be a translation key.  | yes |
-| `value` | `function(r)`. The value shown for the field. Can be a property of the contact, eg `contact.date_of_birth`. | yes |
-| `width` | The horizontal space for the field. Common values are 12 for full width, 6 for half width, or 3 for quarter width.| |
-| `appliesIf` | A function that determines when the field should be shown. | no |
-| `translate` | Whether or not to translate the value. Defaults to false. <!-- TODO: VERIFY IMPLEMENTED --> | no |
-| `context` |  The fields available in the value's translation. eg {} | no | 
-| `icon` | The name of the icon to display beside this field, as defined through the Configuration > Icons page. | no |
+| property | type | description | required |
+|---|---|---|---|
+| `label` | `translation key` | Label shown with the field | yes |
+| `icon` | string | The name of the icon to display beside this field, as defined through the Configuration > Icons page. | no |
+| `value` | string | The value shown for the field | yes |
+| `width` | integer | The horizontal space for the field. Common values are 12 for full width, 6 for half width, or 3 for quarter width. Default 12 | no |
+| `translate` | boolean | Whether or not to translate the value. Defaults to false. | no |
+| `appliesIf` | boolean | True if the field should be shown. | no |
+| `appliesToType` | Array of contact types | Filters the contacts for which `appliesIf` will be evaluated. For example, `['person']` or `['clinic', 'health_center']`. | no |
 | `filter` | The display filter to apply to the value, eg: `{ value: '2005-10-09', filter: 'age' }` will render as "11 years". Common filters are: `age`, `phone`, `weeksPregnant`, `relativeDate`, `relativeDay`, `fullDate`, `simpleDate`, `simpleDateTime`, `lineage`, `resourceIcon`. For the complete list of filters, and more details on what each does, check out the code in [`medic/webapp/src/js/filters` dir](https://github.com/medic/medic/tree/master/webapp/src/js/filters). | no |
 
 ### Cards
-An array of cards to show below the summary on the profile page. Each card has its own header and arrays of fields.
+An array of cards to show below the summary on the profile page. Each card has its own header and array of fields.
 
 ![Pregnancy card](img/pregnancy-card.png)
 <!-- TODO: Add updated annotated screenshot of a profile card -->
 
-| property | description | required |
-|---|---|---|
-| `label` | Label on top of card | yes |
-| `appliesToType` | Type of contact where the card could show | no |
-| `appliesIf` | Function that determines if the card should show | no |
-| `fields` | Object for each field to show in the card | yes |
-| `fields.label` | Label shown with the field. Can be a translation key.  | yes |
-| `fields.value` | `function(r)`. The value shown for the field. Can be a property of the contact, eg `contact.date_of_birth`. | yes |
-| `fields.width` | The horizontal space for the field. Common values are 12 for full width, 6 for half width, or 3 for quarter width.| |
-| `fields.appliesIf` | A function that determines when the field should be shown. | no |
-| `fields.translate` | Whether or not to translate the value. Defaults to false. <!--TODO: VERIFY IMPLEMENTED--> | no |
-| `fields.context` |  The fields available in the value's translation. eg {} | no | 
-| `fields.icon` | The name of the icon to display beside this field, as defined through the Configuration > Icons page. | no |
-| `modifyContext` | function(ctx) | Used to modify or add values of the `context` | no |
+| property | type | description | required |
+|---|---|---|--|
+| `label` | `translation key` | Label on top of card | yes |
+| `fields` | Array of `Fields` | The content of the card | yes |
+| `appliesToType` | Array of contact types | Only calls `appliesIf` if the contact is a match. For example, `['person']`. | no |
+| `appliesIf` | boolean | True if the field should be shown. | no |
+| `modifyContext` | `function(context)` | Used to modify or add values of the `context` | no |
 
 ### Examples
 
 #### contact-summary.templated.js
 ```js
-context = {
-  use_cases: {
-    anc: isCoveredByUseCaseInLineage(lineage, 'anc'),
-    pnc: isCoveredByUseCaseInLineage(lineage, 'pnc'),
-  },
-};
-
-fields = [
-  { appliesToType:'person',  label:'patient_id', value:contact.patient_id, width: 4 },
-  { appliesToType:'person',  label:'contact.age', value:contact.date_of_birth, width: 4, filter: 'age' },
-  { appliesToType:'person',  label:'contact.parent', value:lineage, filter: 'lineage' },
-  { appliesToType:'!person', appliesIf:function() { return contact.parent && lineage[0]; }, label:'contact.parent', value:lineage, filter:'lineage' },
-];
-
-cards = [
-  {
-    label: 'contact.profile.pregnancy',
-    appliesToType: 'report',
-    appliesIf: isActivePregnancy,
-    fields: [
-      {
-        label: 'contact.profile.edd',
-        value: function(r) { return r.fields.edd_8601; },
-        filter: 'relativeDay',
-        width: 12
-      },
-      {
-        label: 'contact.profile.visit',
-        value: 'contact.profile.visits.of',
-        translate: true,
-        context: {
-          count: function(r) { return getSubsequentVisits(r).length; },
-          total: 4,
-        },
-        width: 6,
-      },
-      {
-        label: 'contact.profile.risk.title',
-        value: function(r) { return isHighRiskPregnancy(r) ? 'high':'normal';
-        },
-        translate: true,
-        width: 5,
-        icon: function(r) { return isHighRiskPregnancy(r) ? 'risk' : ''; },
-      },
-    ],
-    modifyContext: function(ctx) {
-      ctx.pregnant = true; // don't show Create Pregnancy Report button
+module.exports = {
+  context: {
+    use_cases: {
+      anc: isCoveredByUseCaseInLineage(lineage, 'anc'),
+      pnc: isCoveredByUseCaseInLineage(lineage, 'pnc'),
     },
   },
+
+  fields: [
+    { appliesToType:'person',  label:'patient_id', value:contact.patient_id, width: 4 },
+    { appliesToType:'person',  label:'contact.age', value:contact.date_of_birth, width: 4, filter: 'age' },
+    { appliesToType:'person',  label:'contact.parent', value:lineage, filter: 'lineage' },
+    { appliesToType:'!person', appliesIf:function() { return contact.parent && lineage[0]; }, label:'contact.parent', value:lineage, filter:'lineage' },
+  ],
+
+  cards: [
+    {
+      label: 'contact.profile.pregnancy',
+      appliesToType: 'report',
+      appliesIf: extras.isActivePregnancy,
+      fields: [
+        {
+          label: 'contact.profile.edd',
+          value: function(r) { return r.fields.edd_8601; },
+          filter: 'relativeDay',
+          width: 12
+        },
+        {
+          label: 'contact.profile.visit',
+          value: 'contact.profile.visits.of',
+          translate: true,
+          context: {
+            count: function(r) { return extras.getSubsequentVisits(r).length; },
+            total: 4,
+          },
+          width: 6,
+        },
+        {
+          label: 'contact.profile.risk.title',
+          value: function(r) { return extras.isHighRiskPregnancy(r) ? 'high':'normal';
+          },
+          translate: true,
+          width: 5,
+          icon: function(r) { return extras.isHighRiskPregnancy(r) ? 'risk' : ''; },
+        },
+      ],
+      modifyContext: function(ctx) {
+        ctx.pregnant = true; // don't show Create Pregnancy Report button
+      },
+    },
+  ],
+};
 
 ```
 
 #### contact-summary-extras.js
 ```js
-function isActivePregnancy(r) {
-  // ...
-}
-var isCoveredByUseCaseInLineage = function(lineage, usecase) {
-  // ...
+module.exports = {
+  isActivePregnancy : function (r) {
+    // ...
+  },
+  isCoveredByUseCaseInLineage: function(lineage, usecase) {
+    // ...
+  },
+  isHighRiskPregnancy: function(pregnancy) {
+    // ...
+  },
+  getSubsequentVisits: function (r) {
+    // ...
+  },
 };
-var isHighRiskPregnancy = function(pregnancy) {
-  // ...
-}
-function getSubsequentVisits(r) {
-  // ...
-}
 ```
 
 #### Build
@@ -686,17 +690,17 @@ Utility functions in the application framework can make common tasks much easier
 
 | Name | Description |
 |---|---|
-| isTimely(date, event) | Returns true if the given date is after the start date and before the end date of the event. |
-| addDate(date, days) | Returns a new Date set to midnight the given number of days after the given date. If no date is given the date defaults to today. |
-| getLmpDate(doc) | Attempts to work out the LMP from the given doc. If no LMP is given it defaults to four weeks before the reported_date. |
-| getSchedule(name) | Returns the task schedule with the given name from the configuration. |
-| getMostRecentTimestamp(reports, form) | Returns the reported_date of the most recent of the reports with form ID matching the given form. |
-| getMostRecentReport(reports, form) | Like `getMostRecentTimestamp` but returns the report, not just the reported_date. |
-| isFormSubmittedInWindow(reports, form, start, end) | Returns true if any of the given reports are for the given form and were reported after start and before end. |
-| isFirstReportNewer(firstReport, secondReport) | Returns true if the firstReport was reported before the secondReport. |
-| isDateValid(date) | Returns true if the given date is a validate JavaScript Date. |
-| now() | Returns the current Date. |
-| MS_IN_DAY | A constant for the number of milliseconds in a day. |
+| `isTimely(date, event)` | Returns true if the given date is after the start date and before the end date of the event. |
+| `addDate(date, days)` | Returns a new Date set to midnight the given number of days after the given date. If no date is given the date defaults to today. |
+| `getLmpDate(doc)` | Attempts to work out the LMP from the given doc. If no LMP is given it defaults to four weeks before the reported_date. |
+| `getSchedule(name)` | Returns the task schedule with the given name from the configuration. |
+| `getMostRecentTimestamp(reports, form)` | Returns the reported_date of the most recent of the reports with form ID matching the given form. |
+| `getMostRecentReport(reports, form)` | Like `getMostRecentTimestamp` but returns the report, not just the reported_date. |
+| `isFormSubmittedInWindow(reports, form, start, end)` | Returns true if any of the given reports are for the given form and were reported after start and before end. |
+| `isFirstReportNewer(firstReport, secondReport)` | Returns true if the firstReport was reported before the secondReport. |
+| `isDateValid(date)` | Returns true if the given date is a validate JavaScript Date. |
+| `now()` | Returns the current Date. |
+| `MS_IN_DAY` | A constant for the number of milliseconds in a day. |
 
 If you can think of any others you'd like to be included raise an issue in [medic/medic](https://github.com/medic/medic/issues).
 
