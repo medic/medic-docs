@@ -174,7 +174,7 @@ In this example properties file, the associated form would only show on a person
 
 #### Build
     
-Forms are converted with the `convert-app-forms` or `convert-contact-forms` actions in `medic-conf`, and added to your application with the corresponding upload actions.
+Convert and build the app forms into your application using the `convert-app-forms` and `upload-app-forms` actions in `medic-conf`.
 
     medic-conf --local convert-app-forms upload-app-forms
 
