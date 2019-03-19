@@ -542,7 +542,7 @@ To build your targets into your app, you must compile them into app-settings, th
 
 
 ## Contact Summaries
-In the `contact-summary.templated.js` file, write a script to control how a contact's profile page will appear by defining three outputs: `context`, `fields`, and `cards`.
+Health workers can easily access and manage the families and people they serve as profile pages in the People tab. These contact profiles display basic information about the contact along with their history and upcoming tasks. You can control how a contact's profile page will appear and behave by defining these three outputs in the `contact-summary.templated.js` file: `context`, `fields`, and `cards`.
 
 <!-- TODO: Add annotated screenshot of a contact page showing structure -->
 
