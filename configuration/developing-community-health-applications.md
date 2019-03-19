@@ -174,7 +174,7 @@ Tasks guide health workers through their days and weeks. Each task drives a work
 
 Tasks are configured in the `tasks.js` file. This file is a JavaScript module which defines an array of objects conforming to the Task schema detailed below. Although the file contains JavaScript, its modular and declarative nature makes it easy to manage. Each object corresponds to a task that the app shows in the Tasks tab and on contact profiles. The properties for the object define when the task appears, how it behaves, and what it looks like. When defining tasks, you have access to all the contacts on the device (both people and places) along with all the reports about them. Tasks are available only for users of type "restricted to their place". Tasks can pull in fields from reports and pass data as inputs to the form that opens when you select the task, enabling richer user experiences.
 
-For example, if you register a pregnancy and include the last menstrual period (LMP), you may want to generate follow-up tasks for ANC visits. When you click on an ANC visit task, it will open the ANC visit form and this form could "know" the LMP of the woman. In this section we will discuss how to configure such tasks. This is what that task might look like in the Medic Webapp:
+For example, if you register a pregnancy and include the last menstrual period (LMP), you may want to generate follow-up tasks for antenatal care (ANC) visits. When you click on an ANC visit task, it will open the ANC visit form and this form could "know" the LMP of the woman. In this section we will discuss how to configure such tasks. This is what that task might look like in the Medic Webapp:
 
 <!-- TODO: Update annotated screenshots -->
 ![Task description](img/task_with_description.png)
