@@ -236,7 +236,7 @@ More complex tasks can be written using the full set of properties for tasks, as
 | `actions[n].form` | string | The code of the form that should open when you select the action. | yes |
 | `actions[n].label`| `translation key` or `translation array` | The label that should appear on the task summary screen if multiple actions are present. | no |
 | `actions[n].modifyContent`| `function (content, contact, report)` | Set the values on the content object to control the data which will be passed as `inputs` to the form which opens when the action is selected. | no |
-| `priority` | Controls the "high risk" line seen above | | no |
+| `priority` | Object | Controls the "high risk" line seen above | no |
 | `priority.level` | `high` or `medium` | Tasks that are `high` will display a high risk icon with the task. Default: `medium` | no |
 | `priority.label` | `translation key` or `translation array` | Text shown with the task associated to the risk level. | no |
 
