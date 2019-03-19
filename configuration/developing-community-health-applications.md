@@ -176,7 +176,7 @@ In this example properties file, the associated form would only show on a person
     
 Forms are converted with the `convert-app-forms` or `convert-contact-forms` actions in `medic-conf`, and added to your application with the corresponding upload actions.
 
-    medic-conf --local convert-app-forms upload-app-form
+    medic-conf --local convert-app-forms upload-app-forms
 
 ## Tasks
 Tasks guide health workers through their days and weeks. Each task drives a workflow, ensuring that the right actions are taken for people at the right time. Tasks indicate a recommended action to the user. They indicate who the user should perform the action with and the recommended timeframe of that action. When the user taps the task, they are directed to a form where the details of the action are captured. 
