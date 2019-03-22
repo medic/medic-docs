@@ -6,12 +6,12 @@ There are two types of forms:
 - **JSON forms**: used for SMS interfaces such as formatted SMS, SIM applications, and Medic Collect*
 - **XForms**: used for forms used within the web app, whether it is accessed in browser or via the Android app.
 
-## JSON forms
+# JSON forms
 Used for SMS interfaces such as formatted SMS, SIM applications, and Medic Collect. You can view the list of JSON forms and load new ones through the webapp's Configuration pages, or via the `forms` field of `app_settings.json`. Each form has fields defined in our specific JSON format, eg:
 
 ```js
 {
-  "F": {
+  {
     "meta": {
       "code": "F",
       "icon": "risk",
@@ -46,6 +46,26 @@ Used for SMS interfaces such as formatted SMS, SIM applications, and Medic Colle
   }
 }
 ```
+## JSON Form Schema
+| property | type | description | required |
+|---|---|---|---|
+| `meta` | object | Information about the report | yes |
+| `meta.code` | string | The unique form identifier, which will be sent with all reports of this form | yes |
+| `meta.icon` | string | Name of the icon resource shown in the app. | no |
+| `meta.translation_key` | string | Name of the form shown in the app. | no |
+| `fields`| object | Collection of field objects included in the form. | yes |
+| `fields.${field}` | object | Field that is part of the form. | yes |
+| `fields.${field}.type` | string | Data type of field. See [supported data types](#supported-data-types). | yes |
+| `fields.${field}.labels` | object | | no |
+| `fields.${field}.labels.short` | string, object with `translation_key` field, or translation object | Label shown for field in the app, seen when report is viewed in Reports tab. If missing, label will default to a translation key of `report.${form_name}.${field_name}` (eg `report.f.patient_id`) which can be translated in the app languages. | no |
+| `fields.${field}.labels.tiny` | string | Unique identifier within the form for this field. Used in form submission to bind values to fields. Not required for all submission formats. | no |
+| `fields.${field}.position` | integer | Zero based order of this field for incoming reports. | no |
+| `fields.${field}.flags` | object | Additional instructions that could be used by form renderers. For instance `{ "input_digits_only": true }` indicated to SIM applications to show the number keyboard. Obsolete. | no |
+| `fields.${field}.length` | array with two integers | Inclusive range accepted for length of the field. | no |
+| `fields.${field}.required` | boolean | Determines if a report without this field is considered valid. | no |
+| `public_form` | boolean | Determines if reports will be accepted from phone numbers not associated to a contact. Set to false if you want to reject reports from unknown senders. Default: true | no |
+| `facility_reference` | string | The form field whose value is to be used to match the incoming report to a contact's `rc_code`. Useful when reports are sent on behalf of a facility by unknown or various phone numbers. | no |
+
 
 ## Supported data types
 
@@ -54,6 +74,7 @@ We currently support the following data types:
  - `"string"`: any collection of characters
  - `"date"`: a date in the format `YYYY-mm-dd`, for example "2019-01-28"
  - `"boolean"`: true or false, represented by the digit `1` and `0` respectively.
+
 
 # XForms
 The XForms are used for all Actions, Tasks, and Contact Creation/Edit forms within the web app, whether it is accessed in browser or via the Android app. We generally create these in Excel using the [XLSForm standard](http://xlsform.org/), and then convert them using the configurer tool ([medic-conf](https://github.com/medic/medic-conf)). You can view the list of XForms and upload new ones through the webapp's Configuration pages as well. Each form has meta information which defines in which context the form is accessible. Using `medic-config` this info is in a `{name}.properties.json` file. XML forms with IDs starting with `forms:contact:` will customize the edit/create page for the given contact (person or place) type.
