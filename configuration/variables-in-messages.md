@@ -18,7 +18,7 @@ Displays dates according to the [`reported_date_format` specified in app_setting
 
  - `bikram_sambat_date` 
  
- Displays dates in Bikram Sambat calendar (most commonly used calendar in Nepal). Currently display format is hardocded to e.g. "१५ चैत २०७३", see [code](https://github.com/medic/medic-sentinel/blob/master/lib/template.js#L21).
+ Displays dates in Bikram Sambat calendar (most commonly used calendar in Nepal). Currently display format is hardcoded to e.g. "१५ चैत २०७३", see [code](https://github.com/medic/medic-sentinel/blob/master/lib/template.js#L21).
 
 
 ## Variables you can use (TODO)
