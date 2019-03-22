@@ -344,6 +344,17 @@ Forms can include arbitrary binary data which is submitted and included in the d
 
 To mark an element as having binary data add an extra column in the XLSForm called `instance::type` and specify `binary` in the element's row.
 
+## Custom XForm Widgets
+
+Some XForm widgets have been added or modified for use in the app:
+- **Bikram Sambat Datepicker**: Calendar widget using Bikram Sambat calendar. Used by default for appropriate languages.
+- **Countdown Timer**: Set appearance of a `note` field to `countdown-timer`
+- **Contact Selector**: Create a field of type `db:${contact_type}` (eg `db:person`, `db:clinic`) with appearance `db-object`
+- **Rapid Diagnostic Test capture**: Create a string field with appearance `mrdt-verify`. Works with [rdt-capture Android application](https://github.com/medic/rdt-capture/).
+- **Biometric registration**: Create a string field with appearance `simprints-reg`. Requires Simprints app connected with hardware, or [mock app](https://github.com/medic/mocksimprints). Demo only, not ready for production since API key is hardcoded.
+
+The code for these widgets can be found in the [Medic repo](https://github.com/medic/medic/tree/master/webapp/src/js/enketo/widgets).
+
 ## Custom XPath Functions
 
 ### Z-Score
