@@ -3,7 +3,7 @@
 Forms define information flows. Users can fill in forms by SMS, SIM applications, Medic Collect, or via the webapp in a browser or the Android app. Forms can be used for a vairety of purposes, including creating new patients, registering them for SMS reminders, reporting a patient visit or status. 
 
 There are two types of forms: 
-- **JSON forms**: used for SMS interfaces such as formatted SMS, SIM applications, and Medic Collect*
+- **JSON forms**: used for SMS interfaces such as formatted SMS, SIM applications, and Medic Collect. Forms for Medic Collect must also have a corresponding XForm definition to be rendered on Android devices.
 - **XForms**: used for forms used within the web app, whether it is accessed in browser or via the Android app.
 
 ## JSON forms
