@@ -81,9 +81,9 @@ A typical Action or Task form starts with an `inputs` group which contains prepo
 | note | r_followup_note | ${r_followup_instructions} |
 | end group| | |
 
-## Accessing data from the contact-summary
+## Accessing Data From Contact
 
-xforms have the ability to access the output of the [configured contact-summary script](https://github.com/medic/medic-docs/blob/master/configuration/contact-summary.md). This means you can have different fields, state, or information based on any known information about the contact.
+XForms have the ability to access the output of the [configured contact-summary script](https://github.com/medic/medic-docs/blob/master/configuration/contact-summary.md). This means you can have different fields, state, or information based on any known information about the contact.
 
 To configure this, add a new instance with the id "contact-summary" to your xform somewhere below your primary instance, then bind values where you need them. Note that medic-configurer automatically adds this instance to every form so you shouldn't need to do this manually. Example:
 
@@ -123,11 +123,11 @@ return result;
 
 Note that you can pass a large object to the form, which can then read any value, but doing so does noticeably slow the loading of the form. Because of this it is preferable to remove from the context any fields that are not being used. It is a good idea to future proof by maintaining the same structure so that fields can be added without needing to modify existing form calculations.
 
-## Creating additional docs from an xform
+## Creating Additional Docs
 
 In version 2.13.0 and higher, you can configure your app forms to generate additional docs upon submission. You can create one or more docs using variations on the configuration described below. One case where this can be used is to register a newborn from a delivery report, as shown below. First, here is an overview of what you can do and how the configuration should look in XML:
 
-### Extra docs
+### Extra Docs
 
 - Extra docs can be added by defining structures in the model with the attribute db-doc="true". **Note that you must have lower-case `true` in your XLSform, even though Excel will default to `TRUE`.**
 
@@ -143,7 +143,7 @@ In version 2.13.0 and higher, you can configure your app forms to generate addit
 </data>
 ```
 
-#### Resulting docs
+#### Resulting Docs
 
 Report (as before):
 
@@ -170,7 +170,7 @@ Other doc:
 }
 ```
 
-### Linked docs
+### Linked Docs
 
 - Linked docs can be referred to using the doc-ref attribute, with an xpath. This can be done at any point in the model, e.g.:
 
@@ -187,7 +187,7 @@ Other doc:
 </sickness>
 ```
 
-#### Resulting docs
+#### Resulting Docs
 
 Report:
 
@@ -214,7 +214,7 @@ Other doc:
 }
 ```
 
-### Repeated docs
+### Repeated Docs
 
 - Can have references to other docs, including the parent
 - These currently cannot be linked from other docs, as no provision is made for indexing these docs
@@ -237,7 +237,7 @@ Other doc:
 </artist>
 ```
 
-#### Resulting docs
+#### Resulting Docs
 
 Report:
 
@@ -274,7 +274,7 @@ Other docs:
 }
 ```
 
-### Linked docs example
+### Linked Docs Example
 This example shows how you would register a single newborn from a delivery report.
 
 First, the relevant section of the delivery report XLSForm file:
@@ -308,7 +308,7 @@ Here is the corresponding portion of XML generated after converting the form:
 
 If you've done your configuration correctly, all you should see when you click on the submitted report from the Reports tab is the `child_doc` field with an `_id` that corresponds to the linked doc. In this case, you could look for that `_id` on the People tab or in the DB itself to confirm that the resulting doc looks correct.
 
-### Repeated docs example
+### Repeated Docs Example
 This example extends the above example to show how you would register one or multiple newborns from a delivery report. This allows you to handle multiple births.
 
 First, the relevant section of the delivery report XLSForm file:
@@ -338,19 +338,19 @@ Here is the corresponding portion of XML generated after converting the form:
 
 If you've done your configuration correctly, all you should see when you click on the submitted report from the Reports tab is the `child_doc` field with an `_id` that corresponds to the first doc that was created. The other docs will have a link to the report that created them but the report will not link directly to them. Again, you could look for that `_id` on the People tab or in the DB itself to confirm that the resulting docs look correct.
 
-### Uploading binary attachments
+## Uploading Binary Attachments
 
 Forms can include arbitrary binary data which is submitted and included in the doc as an attachment. If this is an image type it'll then be displayed inline in the report UI.
 
 To mark an element as having binary data add an extra column in the XLSForm called `instance::type` and specify `binary` in the element's row.
 
-### Custom xpath functions
+## Custom XPath Functions
 
-#### z-score
+### Z-Score
 
-In Enketo forms you have access to an xpath function to calculate the z-score value for a patient.
+In Enketo forms you have access to an XPath function to calculate the z-score value for a patient.
 
-##### Table data
+#### Table Data
 
 First, create a doc in couchdb to store the z-score tables you want to use, for example:
 
@@ -385,7 +385,7 @@ First, create a doc in couchdb to store the z-score tables you want to use, for 
 
 This creates a `weight-for-age` table which shows for a male aged 0 at 2.08kg their z-score is -3. Your doc will be much larger than this. To help convert from z-score tables to this doc format use the [conversation script](https://github.com/medic/medic/blob/master/scripts/zscore-table-to-json.js).
 
-##### Form configuration
+#### Form Configuration
 
 Next you can configure the form to calculate the z-score for a patient using the data above. The `z-score` function takes four parameters: the name of z-score table to use, patient's sex, and the two parameters for the table lookup (eg: age and weight). For example, to calculate the z-score for a patient given their sex, age, and weight your form configuration might look like this:
 
@@ -405,11 +405,11 @@ There are two formats available - either using the [ODK's compact record represe
 
 To get forms sent in this format, follow the [ODK documentation](https://opendatakit.github.io/xforms-spec/#compact-record-representation-(for-sms)).
 
-### Medic custom SMS representation
+### Medic Custom SMS representation
 
 To configure a form to send using Medic's custom SMS definition, add the field `report2sms` to the form's CouchDB doc.  The value of this field is an [Angular expression](https://docs.angularjs.org/guide/expression), and allows access to the `fields` property of the `data_record` doc created when saving the form submission to the database.  Extra functions are also provided to make compiling a form submission more simple.
 
-#### Special functions
+#### Special Functions
 
 ##### `concat(...args)`
 
@@ -434,7 +434,7 @@ To configure a form to send using Medic's custom SMS definition, add the field `
 
 #### Examples
 
-##### Form submission JSON
+##### Form Submission JSON
 
 	doc.fields = {
 	  s_acc_danger_signs: {
