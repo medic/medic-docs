@@ -346,7 +346,11 @@ To mark an element as having binary data add an extra column in the XLSForm call
 
 ## Custom XPath Functions
 
-### Z-Score
+### `difference-in-months`
+
+Calculates the number of whole calendar months between two dates. This is often used when determining a child's age for immunizations or assessments.
+
+### `z-score`
 
 In Enketo forms you have access to an XPath function to calculate the z-score value for a patient.
 
