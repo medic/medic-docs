@@ -13,7 +13,10 @@
   - [Cards](#cards)
 - [Functions](#functions)
 - [Localization](#localization)
-- [Icons](#icons)
+- [Graphics](#graphics)
+  - [Icons](#icons)
+  - [Branding](#branding)
+  - [Partner Logos](#partner-logos)
 
 ## Overview
 The _Community Health Application Framework_ was designed and built for a new wave of community health workers and integrated health systems. With it you can build applications for community health workers, nurses or skilled birth attendants in communities or facilities, managers on supervisory visits, and other people who deliver care and support. The framework supports any language and works with or without internet connectivity, running on basic phones, smartphones, tablets, and computers. We are committed to developing open-source software, sharing learnings, and lowering barriers to adoption, scale, and reach for these tools.
@@ -714,6 +717,8 @@ Updated translations from forms need to be added with the actions to upload form
     medic-conf --local upload-contact-forms upload-app-forms
 
 
+# Graphics
+
 ## Icons
 You can customize your app with your own icons, or reuse some from Medic Mobile's [Icon Library](https://github.com/medic/icon-library). To do so, add icons to the `resources` folder, and include them by name in the resources.json file. 
 
@@ -729,4 +734,13 @@ You can customize your app with your own icons, or reuse some from Medic Mobile'
 You can then add them to your application with the `upload-resources` action in `medic-conf`.
 
     medic-conf --local upload-resources 
+
+## Branding
+
+The site title, favicon, and header logo are configurable. The location to change these are in the Admin console on the images page under the branding tab. 
+
+
+## Partner logos
+
+Adding your partner logos can be done in the Admin console on the images page under the Partners tab. This will add partner logos on the about page. 
 
