@@ -717,7 +717,7 @@ Updated translations from forms need to be added with the actions to upload form
     medic-conf --local upload-contact-forms upload-app-forms
 
 
-#Graphics
+# Graphics
 
 ## Icons
 You can customize your app with your own icons, or reuse some from Medic Mobile's [Icon Library](https://github.com/medic/icon-library). To do so, add icons to the `resources` folder, and include them by name in the resources.json file. 
