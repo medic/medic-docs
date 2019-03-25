@@ -11,7 +11,7 @@ Used for SMS interfaces such as formatted SMS, SIM applications, and Medic Colle
 
 ```js
 {
-  {
+  "F": {
     "meta": {
       "code": "F",
       "icon": "risk",
@@ -49,8 +49,8 @@ Used for SMS interfaces such as formatted SMS, SIM applications, and Medic Colle
 ## JSON Form Schema
 | property | type | description | required |
 |---|---|---|---|
-| `meta` | object | Information about the report | yes |
-| `meta.code` | string | The unique form identifier, which will be sent with all reports of this form | yes |
+| `meta` | object | Information about the report. | yes |
+| `meta.code` | string | The unique form identifier, which will be sent with all reports of this form. Must be the same as the form's key. | yes |
 | `meta.icon` | string | Name of the icon resource shown in the app. | no |
 | `meta.translation_key` | string | Name of the form shown in the app. | no |
 | `fields`| object | Collection of field objects included in the form. | yes |
@@ -63,7 +63,7 @@ Used for SMS interfaces such as formatted SMS, SIM applications, and Medic Colle
 | `fields.${field}.flags` | object | Additional instructions that could be used by form renderers. For instance `{ "input_digits_only": true }` indicated to SIM applications to show the number keyboard. Obsolete. | no |
 | `fields.${field}.length` | array with two integers | Inclusive range accepted for length of the field. | no |
 | `fields.${field}.required` | boolean | Determines if a report without this field is considered valid. | no |
-| `public_form` | boolean | Determines if reports will be accepted from phone numbers not associated to a contact. Set to false if you want to reject reports from unknown senders. Default: true | no |
+| `public_form` | boolean | Determines if reports will be accepted from phone numbers not associated to a contact. Set to false if you want to reject reports from unknown senders. Default: true. | no |
 | `facility_reference` | string | The form field whose value is to be used to match the incoming report to a contact's `rc_code`. Useful when reports are sent on behalf of a facility by unknown or various phone numbers. Requires the [`update_clinics` transition](transitions.md#available-transitions). | no |
 
 
