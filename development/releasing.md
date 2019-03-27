@@ -4,7 +4,7 @@
 
 ### Planning
 
-1. Create an [organisation wide project](https://github.com/orgs/medic/projects?query=is%3Aopen+sort%3Aname-asc). We use [semver](http://semver.org) so if there are breaking changes increment the major, otherwise if there are new features increment the minor, otherwise increment the service pack. Breaking changes in our case relate to updated software requirements (egs: CouchDB, node, minimum browser versions) or broken backwards compatibility in an api.
+1. Create an [organisation wide project](https://github.com/orgs/medic/projects?query=is%3Aopen+sort%3Aname-asc). We use [semver](http://semver.org) so if there are breaking changes increment the major, otherwise if there are new features increment the minor, otherwise increment the service pack. Breaking changes in our case relate to updated software requirements (egs: CouchDB, node, minimum browser versions), broken backwards compatibility in an api, or a major visual update that requires user retraining.
 2. Add all the issues to be worked on to the project. Ideally each minor release will have one or two features, a handful of improvements, and plenty of bugs.
 
 ### Development
@@ -18,9 +18,15 @@
 
 Once all issues have passed acceptance testing and have been merged into `master` release testing can begin.
 
-1. Create a new release branch from `master` named `<major>.<minor>.x` in medic. Notify all developers that any further commits for this release will need to be backported to the branch.
+1. Create a new release branch from `master` named `<major>.<minor>.x` in medic. Post a message to #development using this template:
+  ```
+@core_devs I've just created the `<major>.<minor>.x` feature branch. Please be aware that any further changes intended for this release will have to be merged to `master` then backported. Thanks!
+  ```
 2. Build a beta named `<major>.<minor>.<patch>-beta.1` by pushing a git tag and when CI completes successfully notify the QA team that it's ready for release testing.
-3. [Import translations keys](translations.md#adding-new-keys) into POE and notify the #translations Slack channel translate new and updated values.
+3. [Import translations keys](translations.md#adding-new-keys) into POE and notify the #translations Slack channel translate new and updated values, for example:
+  ```
+@channel I've just updated the translations in POE. These keys have been added: "<added-list>", and these keys have been updated: "<updated-list>"
+  ```
 4. Create a new document in the [release-notes folder](https://github.com/medic/medic/tree/master/release-notes) in `master`. Ensure all issues are in the GH Project, that they're correct labelled, and have human readable descriptions. Use [this script](https://github.com/medic/medic/blob/master/scripts/changelog-generator) to export the issues into our changelog format. Manually document any known migration steps and known issues. Provide description, screenshots, videos, and anything else to help communicate particularly important changes.
 5. Create a Google Doc in the [blog posts folder](https://drive.google.com/drive/u/0/folders/0B2PTUNZFwxEvMHRWNTBjY2ZHNHc) with the draft of a blog post promoting the release based on the release notes above. Once it's ready ask Alix to review it.
 6. Until release testing passes, make sure regressions are fixed in `master`, cherry-pick them into the release branch, and release another beta.
