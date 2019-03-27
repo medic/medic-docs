@@ -27,15 +27,13 @@ Once all issues have passed acceptance testing and have been merged into `master
 7. [Export the translations](translations.md#exporting-changes-from-poeditor-to-github) and commit to `master` and the release branch.
 8. Create a release in GitHub from the release branch so it shows up under the [Releases tab](https://github.com/medic/medic/releases) with the naming convention `<major>.<minor>.<patch>`. This will create the git tag automatically. Link to the release notes in the description of the release.
 9. Confirm the release build completes successfully and the new release is available on the [market](https://staging.dev.medicmobile.org).
-10. Announce the release in #products using this template:
+10. Announce the release in #products and #cht-contributors using this template:
 ```
 @channel *We're excited to announce the release of {{version}}*
 
 New features include {{key_features}}. We've also implemented loads of other improvements and fixed a heap of bugs.
 
 Read the release notes for full details: {{url}}
-
-Contact your friendly SRE to schedule your upgrade today.
 
 To see what's scheduled for the next releases have a read of the product roadmap: https://github.com/orgs/medic/projects?query=is%3Aopen+sort%3Aname-asc
 ```
