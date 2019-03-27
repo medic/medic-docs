@@ -25,7 +25,7 @@ Here are some guides on additional features that can be used within your applica
 - [List of Phones that Work Well with Medic Gateway](gateway-phones.md)
 
 ## Medic Collect
-- [Creating XForms for Medic Collect](create-xforms-for-medic-collect.md)
+- [Creating XForms for Medic Collect](forms.md#xforms-for-medic-collect)
 - [Updating Collect forms over the air](collect-form-update-over-the-air.md)
 
 # Support Guides

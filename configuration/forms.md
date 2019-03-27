@@ -2,9 +2,9 @@
 
 Forms define information flows. Users can fill in forms by SMS, SIM applications, Medic Collect, or via the webapp in a browser or the Android app. Forms can be used for a vairety of purposes, including creating new patients, registering them for SMS reminders, reporting a patient visit or status. 
 
-There are two types of forms: 
-- **JSON forms**: used for SMS interfaces such as formatted SMS, SIM applications, and Medic Collect. Forms for Medic Collect must also have a corresponding XForm definition to be rendered on Android devices.
-- **XForms**: used for forms used within the web app, whether it is accessed in browser or via the Android app.
+There are two types of form definitions: 
+- **JSON forms**: used for parsing reports from formatted SMS, SIM applications, and Medic Collect. Forms for Medic Collect must also have a corresponding XForm definition to be rendered on Android devices.
+- **XForms**: used for forms within the web app, whether accessed in browser or via the Android app. XForms are also used to render the form in Medic Collect.
 
 # JSON forms
 Used for SMS interfaces such as formatted SMS, SIM applications, and Medic Collect. You can view the list of JSON forms and load new ones through the webapp's Configuration pages, or via the `forms` field of `app_settings.json`. Each form has fields defined in our specific JSON format, eg:
@@ -80,8 +80,6 @@ We currently support the following data types:
 The XForms are used for all Actions, Tasks, and Contact Creation/Edit forms within the web app, whether it is accessed in browser or via the Android app. We generally create these in Excel using the [XLSForm standard](http://xlsform.org/), and then convert them using the configurer tool ([medic-conf](https://github.com/medic/medic-conf)). You can view the list of XForms and upload new ones through the webapp's Configuration pages as well. Each form has meta information which defines in which context the form is accessible. Using `medic-config` this info is in a `{name}.properties.json` file. XML forms with IDs starting with `forms:contact:` will customize the edit/create page for the given contact (person or place) type.
 
 ![XML forms](img/xml_forms.png)
-
-_*Note that although Medic Collect uses XForms in the Android app, for now it still needs a corresponding JSON form in the webapp to interpret the incoming report._
 
 ## General Structure
 A typical Action or Task form starts with an `inputs` group which contains prepopulated fields that may be needed during the completion of the form (eg patient's name, prior information), and ends with a summary group (eg `group_summary`, or `group_review`) where important information is shown to the user before they submit the form. In between these two is the form flow, usually a collection of questions grouped into pages. All data fields submitted with a form are stored, but often important information that will need to be accessed from the form is brought to the top level.
@@ -507,3 +505,31 @@ To configure a form to send using Medic's custom SMS definition, add the field `
 ##### SMS content
 
 	U5 DANGER LCIB
+
+## XForms for Medic Collect
+
+ODK XForms are used to render forms in the Medic Collect Android app. These forms cannot use any Medic-specific notations described above. All Medic Collect forms are processed as SMS (even when submitted over a wifi) therefore a corresponding JSON form with matching fields is used to interpret the incoming report.
+
+Collect forms must be in the `forms/collect` folder to be processed by [`medic-conf`](https://github.com/medic/medic-conf)'s `convert-collect-forms` and `upload-collect-forms` actions. Once uploaded to the server, they can be downloaded by the Medic Collect app. These forms can also be included in Medic Collect builds for users without a data connection to get forms.
+
+XForms require a couple minor changes to be compatible with Medic Collect so that they can properly be received by a Medic instance. The changes can be done either manually in the XForm's XML, or automatically with XLSForm forms.
+
+### Manual changes in XForm
+We need to manually add the `prefix` and `delimiter` to the XForm's XML. This is done where the form ID is declared in the instance's data model. For example, the following:
+```
+<instance>
+   <data id="myform" >
+   ...
+```
+
+becomes:
+```
+<instance>
+   <data id="myform" prefix="J1!FORM_CODE!" delimiter="#">
+   ...
+```
+
+Note that `FORM_CODE` should be replaced with the form code as defined in the JSON forms version of the form. If the form code is `ABCD` the prefix value would be `J1!ABCD!`, resulting in `prefix="J1!ABCD!"`. In case you are curious, the `J1` lets the Medic Mobile server know that version 1 of the JavaRosa parser should be used on the incoming SMS.
+
+### Automatic changes with XLSForms
+If using a [XLSForm](http://xlsform.org/) and using [`medic-conf`](https://github.com/medic/medic-conf) to convert to XForm, the necessary fields will be automatically added to the resulting XForm. You can override the default prefix and separator by declaring `sms_keyword` and `sms_seperator` respectively in the Settings tab.
