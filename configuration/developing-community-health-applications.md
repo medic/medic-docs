@@ -371,7 +371,7 @@ Both functions `appliesIf` and `resolvedIf` capture logic for when your task sho
 
 Generally:
 
-* `appliesIf` should contain your immutable expectations for the task - conditions that are needed for the task to appear, but that you don't expect to change once they are met. If this function returns `true` today and then returns `false` tomorrow for the same input, it will block you from correctly resolving the emitted tasks.
+* `appliesIf` should contain your immutable expectations for the task - conditions that are needed for the task to appear, but that you don't expect to change once they are met. If this function returns `true` today and then returns `false` tomorrow for the same contact, you will be blocked from correctly resolving the emitted tasks.
 * `resolvedIf` should capture the change in state which (in addition to the logic in appliesIf being true) causes the task to resolve.
 
 So why not put everything in `resolvedIf` and this will always work without thinking? You can. But there are negative performance implications of doing this, and you should endeavour to capture all that you can in `appliesIf` without breaking things. This performance concern is particularly important for tasks with `appliesTo: 'reports'`.
