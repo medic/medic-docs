@@ -376,7 +376,7 @@ Generally:
 
 So why not put everything in `resolvedIf` and this will always work without thinking? You can. But there are negative performance implications of doing this, and you should endeavour to capture all that you can in `appliesIf` without breaking things. This performance concern is particularly important for tasks with `appliesTo: 'reports'`.
 
-Checking if a patient is younger than 5 years of age, or logic to test if a contact has form x existing before any form y - these are examples of bad things to put in `appliesIf` functions.
+Logic to test if a contact has a form x existing before any form y, or testing if the task's action form is present within the event window - these are examples of bad things to put in `appliesIf` functions.
 
 #### Tips & Tricks
 1. There are some use cases where information collected during an action within a task schedule may mean that the task schedule must change. For example, if you register a child for malnutrition follow-ups, you collect the height and weight during registration and tasks for follow-ups are created based on the registration. At the next visit (first follow-up), you collect the height and weight again and you want to update these so that future tasks reference this new height and weight. You can either clear and regenerate the schedule after each follow-up visit is done, or you can create only one follow-up at a time so that height and weight are always referencing the most recent visit.
