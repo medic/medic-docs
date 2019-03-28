@@ -218,26 +218,26 @@ More complex tasks can be written using the full set of properties for tasks, as
 
 | property | type | description | required |
 |---|---|---|---|
-| `name`| string | A unique identifier for the task. Not displayed. | no |
-| `icon` | string | The icon to show alongside the task. Should correspond with a value defined in `resources.json`. | no |
+| `name`| `string` | A unique identifier for the task. Not displayed. | no |
+| `icon` | `string` | The icon to show alongside the task. Should correspond with a value defined in `resources.json`. | no |
 | `title` | `translation key` or `translation array` | The title of the task (labeled above). | yes |
 | `appliesTo` | `'contacts'` or `'reports'` | Do you want to emit one task per report, or one task per contact? This attribute controls the behavior of other properties herein. | yes |
 | `appliesIf` | `function(contact, report)` | If `appliesTo: 'contacts'`, this function is invoked once per contact and `report` is undefined. If `appliesTo: 'reports'`, this function is invoked once per report. Return true if the task should appear for the given documents. | no |
 | `appliesToType` | `string[]` | Filters the contacts or reports for which `appliesIf` will be evaluated. If `appliesTo: 'reports'`, this is an array of form codes. If `appliesTo: 'contacts'`, this is an array of contact types. For example, `['person']` or `['clinic', 'health_center']`. For example, `['pregnancy']` or `['P', 'pregnancy']`. | no |
 | `resolvedIf` | `function(contact, report, event, dueDate)` | Return true to mark the task as "resolved". A resolved task uses memory on the phone, but is not displayed. | yes |
-| `events` | Array of events | An event is used to specify the timing of the task. | yes |
-| `events[n].id` | string | Can help as a descriptive name (eg `pregnancy-high-risk`). One task will appear per unique id, so re-using ids can be useful to avoid duplicate tasks appearing. | no |
-| `events[n].days` | int | Number of days after the doc's `reported_date` that the event is due | yes, if `dueDate` is not set |
+| `events` | `object[]` | An event is used to specify the timing of the task. | yes |
+| `events[n].id` | `string` | Can help as a descriptive name (eg `pregnancy-high-risk`). One task will appear per unique id, so re-using ids can be useful to avoid duplicate tasks appearing. | no |
+| `events[n].days` | `integer` | Number of days after the doc's `reported_date` that the event is due | yes, if `dueDate` is not set |
 | `events[n].dueDate` | `function(event, contact, report)` | Returns a `Date` object for the day when this event is due. | yes, if `days` is not set |
-| `events[n].start` | int | Number of days to show the task before it is due | yes |
-| `events[n].end` | int | Number of days to show the task after it is due | yes |
-| `actions` | Array of actions | The actions (forms) that a user can access after clicking on a task. If you put multiple forms here, the user will see a task summary screen where they can select which action they would like to complete. | yes |
+| `events[n].start` | `integer` | Number of days to show the task before it is due. | yes |
+| `events[n].end` | `integer` | Number of days to show the task after it is due. | yes |
+| `actions` | `object[]` | The actions (forms) that a user can access after clicking on a task. If you put multiple forms here, the user will see a task summary screen where they can select which action they would like to complete. | yes |
 | `actions[n].type` | `'report'` or `'contact'` | When `'report'`, the action opens the given form. When `'contact'`, the action redirects to a contact's profile page. Defaults to 'report'. | no |
-| `actions[n].form` | string | The code of the form that should open when you select the action. | yes |
+| `actions[n].form` | `string` | The code of the form that should open when you select the action. | yes |
 | `actions[n].label`| `translation key` or `translation array` | The label that should appear on the task summary screen if multiple actions are present. | no |
 | `actions[n].modifyContent`| `function (content, contact, report)` | Set the values on the content object to control the data which will be passed as `inputs` to the form which opens when the action is selected. | no |
-| `priority` | Object | Controls the "high risk" line seen above | no |
-| `priority.level` | `high` or `medium` | Tasks that are `high` will display a high risk icon with the task. Default: `medium` | no |
+| `priority` | `object` | Controls the "high risk" line seen above. | no |
+| `priority.level` | `high` or `medium` | Tasks that are `high` will display a high risk icon with the task. Default: `medium`. | no |
 | `priority.label` | `translation key` or `translation array` | Text shown with the task associated to the risk level. | no |
 
 ### Additional code
@@ -453,14 +453,14 @@ More complex targets can be written using the full set of properties for targets
 
 | property | type | description | required |
 |---|---|---|---|
-| `id` | string | An identifier for the target. Not functional or displayed | no |
-| `icon` | string | The icon to show alongside the task. Should correspond with a value defined in `resources.json`. | no |
+| `id` | `string` | An identifier for the target. Not functional or displayed. | no |
+| `icon` | `string` | The icon to show alongside the task. Should correspond with a value defined in `resources.json`. | no |
 | `translation_key` | `translation key` | Translation key for the title of this target. | no, but recommended |
 | `subtitle_translation_key` | `translation key` | Translation key for the subtitle of this target. If none supplied the subtitle will be blank. | no |
 | `percentage_count_translation_key` | Translation key for the percentage value detail shown at the bottom of the target, eg "(5 of 6 deliveries)". The translation context has `pass` and `total` variables available. If none supplied this defaults to `targets.count.default`. | no |
-| `context` | JavaScript expression | A string containing a JavaScript expression. This widget will only be shown if the expression evaluates to true. Details of the current user is available through the variable `user`. | no |
+| `context` | `string` | A string containing a JavaScript expression. This widget will only be shown if the expression evaluates to true. Details of the current user is available through the variable `user`. | no |
 | `type` | `'count'` or `'percent'` | The type of the widget. | yes |
-| `goal` | integer | For targets with `type: 'percent'`, an integer from 0 to 100. For `type: 'count'`, any positive number. If there is no goal, put -1. | yes |
+| `goal` | `integer` | For targets with `type: 'percent'`, an integer from 0 to 100. For `type: 'count'`, any positive number. If there is no goal, put -1. | yes |
 | `appliesTo` | `'contacts'` or `'reports'` | Do you want to count reports or contacts? This attribute controls the behavior of other attributes herein. | yes |
 | `appliesToType` | If `appliesTo: 'reports'`, an array of form codes. If `appliesTo: 'contacts'`, an array of contact types. | Filters the contacts or reports for which `appliesIf` will be evaluated. For example, `['person']` or `['clinic', 'health_center']`. For example, `['pregnancy']` or `['P', 'pregnancy']`. | no |
 | `appliesIf` | `function(contact, report)` | If `appliesTo: 'contacts'`, this function is invoked once per contact and `report` is undefined. If `appliesTo: 'reports'`, this function is invoked once per report. Return true to count this document. For `type: 'percent'`, this controls the denominator. | no |
@@ -559,14 +559,14 @@ Each field that can be shown on a contact's profile is defined as an object in t
 
 | property | type | description | required |
 |---|---|---|---|
-| `label` | `string` | A translation key which is shown with the field | yes |
+| `label` | `string` | A translation key which is shown with the field. | yes |
 | `icon` | `string` | The name of the icon to display beside this field, as defined through the Configuration > Icons page. | no |
-| `value` | `string` | The value shown for the field | yes |
+| `value` | `string` | The value shown for the field. | yes |
 | `filter` | `string` | The display filter to apply to the value, eg: `{ value: '2005-10-09', filter: 'age' }` will render as "11 years". Common filters are: `age`, `phone`, `weeksPregnant`, `relativeDate`, `relativeDay`, `fullDate`, `simpleDate`, `simpleDateTime`, `lineage`, `resourceIcon`. For the complete list of filters, and more details on what each does, check out the code in [`medic/webapp/src/js/filters` dir](https://github.com/medic/medic/tree/master/webapp/src/js/filters). | no |
 <!-- If you change this table, update the duplicate descriptions in ### Cards -->
-| `width` | `integer` | The horizontal space for the field. Common values are 12 for full width, 6 for half width, or 3 for quarter width. Default 12 | no |
+| `width` | `integer` | The horizontal space for the field. Common values are 12 for full width, 6 for half width, or 3 for quarter width. Default 12. | no |
 | `translate` | `boolean` | Whether or not to translate the `value`. Defaults to false. | no |
-| `context` | `object` | When `translate: true` and `value` uses [translation variables](https://angular-translate.github.io/docs/#/guide/06_variable-replacement), this value should provide the translation variables | no |
+| `context` | `object` | When `translate: true` and `value` uses [translation variables](https://angular-translate.github.io/docs/#/guide/06_variable-replacement), this value should provide the translation variables. | no |
 | `appliesIf` | `function()` or `boolean` | Return true if the field should be shown. | no |
 | `appliesToType` | `string[]` | Filters the contacts for which `appliesIf` will be evaluated. For example, `['person']` or `['clinic', 'health_center']`. | no |
 
@@ -578,18 +578,18 @@ An array of cards to show below the summary on the profile page. Each card has i
 
 | property | type | description | required |
 |---|---|---|--|
-| `label` | `translation key` | Label on top of card | yes |
+| `label` | `translation key` | Label on top of card. | yes |
 | `appliesToType` | `string[]` | A filter, so `appliesIf` is called only if the contact's type matches one or more of the elements. For example, `['person']`. | no |
 | `appliesIf` | `function()` or `boolean` | Return true if the field should be shown. | no |
-| `modifyContext` | `function(context)` | Used to modify or add data which is passed as input to forms filled from the contact page | no |
-| `fields` | `Array[]` of [fields](#fields) | The content of the card | yes |
-| `fields[n].appliesIf` | `boolean` or `function(report)` | Same as Fields.appliesIf above | |
-| `fields[n].label` | `string` or `function(report)` | Label shown with the field | yes |
+| `modifyContext` | `function(context)` | Used to modify or add data which is passed as input to forms filled from the contact page. | no |
+| `fields` | `Array[]` of [fields](#fields) | The content of the card. | yes |
+| `fields[n].appliesIf` | `boolean` or `function(report)` | Same as Fields.appliesIf above. | |
+| `fields[n].label` | `string` or `function(report)` | Label shown with the field. | yes |
 | `fields[n].icon` | `string` or `function(report)` | The name of the icon to display beside this field, as defined through the Configuration > Icons page. | no |
-| `fields[n].value` | `string` or `function(report)` | The value shown for the field | yes |
+| `fields[n].value` | `string` or `function(report)` | The value shown for the field. | yes |
 | `fields[n].filter` | `string` or `function(report)` | The display filter to apply to the value, eg: `{ value: '2005-10-09', filter: 'age' }` will render as "11 years". Common filters are: `age`, `phone`, `weeksPregnant`, `relativeDate`, `relativeDay`, `fullDate`, `simpleDate`, `simpleDateTime`, `lineage`, `resourceIcon`. For the complete list of filters, and more details on what each does, check out the code in [`medic/webapp/src/js/filters` dir](https://github.com/medic/medic/tree/master/webapp/src/js/filters). | no |
 <!-- If you change the field data in this table, update the duplicate descriptions in ### Fields -->
-| `fields[n].width` | `integer` or `function(report)` | The horizontal space for the field. Common values are 12 for full width, 6 for half width, or 3 for quarter width. Default 12 | no |
+| `fields[n].width` | `integer` or `function(report)` | The horizontal space for the field. Common values are 12 for full width, 6 for half width, or 3 for quarter width. Default 12. | no |
 | `fields[n].translate` | `boolean` or `function(report)` | Whether or not to translate the `value`. Defaults to false. | no |
 | `fields[n].context` | `object` | When `translate: true` and `value` uses [translation variables](https://angular-translate.github.io/docs/#/guide/06_variable-replacement), this value should provide the translation variables. Only supports properties `count` and `total` on cards. | no |
 
