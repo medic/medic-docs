@@ -223,7 +223,7 @@ More complex tasks can be written using the full set of properties for tasks, as
 | `title` | `translation key` or `translation array` | The title of the task (labeled above). | yes |
 | `appliesTo` | `'contacts'` or `'reports'` | Do you want to emit one task per report, or one task per contact? This attribute controls the behavior of other properties herein. | yes |
 | `appliesIf` | `function(contact, report)` | If `appliesTo: 'contacts'`, this function is invoked once per contact and `report` is undefined. If `appliesTo: 'reports'`, this function is invoked once per report. Return true if the task should appear for the given documents. | no |
-| `appliesToType` | If `appliesTo: 'reports'`, an array of form codes. If `appliesTo: 'contacts'`, an array of contact types. | Filters the contacts or reports for which `appliesIf` will be evaluated. For example, `['person']` or `['clinic', 'health_center']`. For example, `['pregnancy']` or `['P', 'pregnancy']`. | no |
+| `appliesToType` | `string[]` | Filters the contacts or reports for which `appliesIf` will be evaluated. If `appliesTo: 'reports'`, this is an array of form codes. If `appliesTo: 'contacts'`, this is an array of contact types. For example, `['person']` or `['clinic', 'health_center']`. For example, `['pregnancy']` or `['P', 'pregnancy']`. | no |
 | `resolvedIf` | `function(contact, report, event, dueDate)` | Return true to mark the task as "resolved". A resolved task uses memory on the phone, but is not displayed. | yes |
 | `events` | Array of events | An event is used to specify the timing of the task. | yes |
 | `events[n].id` | string | Can help as a descriptive name (eg `pregnancy-high-risk`). One task will appear per unique id, so re-using ids can be useful to avoid duplicate tasks appearing. | no |
@@ -559,14 +559,15 @@ Each field that can be shown on a contact's profile is defined as an object in t
 
 | property | type | description | required |
 |---|---|---|---|
-| `label` | `translation key` | Label shown with the field | yes |
+| `label` | `string` | A translation key which is shown with the field | yes |
 | `icon` | `string` | The name of the icon to display beside this field, as defined through the Configuration > Icons page. | no |
 | `value` | `string` | The value shown for the field | yes |
 | `filter` | `string` | The display filter to apply to the value, eg: `{ value: '2005-10-09', filter: 'age' }` will render as "11 years". Common filters are: `age`, `phone`, `weeksPregnant`, `relativeDate`, `relativeDay`, `fullDate`, `simpleDate`, `simpleDateTime`, `lineage`, `resourceIcon`. For the complete list of filters, and more details on what each does, check out the code in [`medic/webapp/src/js/filters` dir](https://github.com/medic/medic/tree/master/webapp/src/js/filters). | no |
+<!-- If you change this table, update the duplicate descriptions in ### Cards -->
 | `width` | `integer` | The horizontal space for the field. Common values are 12 for full width, 6 for half width, or 3 for quarter width. Default 12 | no |
-| `translate` | `boolean` | Whether or not to translate the value. Defaults to false. | no |
-| `context` | `object` | [Translation variables](https://angular-translate.github.io/docs/#/guide/06_variable-replacement) | no |
-| `appliesIf` | `boolean` | True if the field should be shown. | no |
+| `translate` | `boolean` | Whether or not to translate the `value`. Defaults to false. | no |
+| `context` | `object` | When `translate: true` and `value` uses [translation variables](https://angular-translate.github.io/docs/#/guide/06_variable-replacement), this value should provide the translation variables | no |
+| `appliesIf` | `function()` or `boolean` | Return true if the field should be shown. | no |
 | `appliesToType` | `string[]` | Filters the contacts for which `appliesIf` will be evaluated. For example, `['person']` or `['clinic', 'health_center']`. | no |
 
 ### Cards
@@ -578,18 +579,19 @@ An array of cards to show below the summary on the profile page. Each card has i
 | property | type | description | required |
 |---|---|---|--|
 | `label` | `translation key` | Label on top of card | yes |
-| `appliesToType` | Array of contact types `string` | Only calls `appliesIf` if the contact's type matches one or more of the array elements. For example, `['person']`. | no |
-| `appliesIf` | `boolean` | True if the field should be shown. | no |
-| `modifyContext` | `function(context)` | Used to modify or add values of the data which is passed as input to forms filled from the contact page | no |
+| `appliesToType` | `string[]` | A filter, so `appliesIf` is called only if the contact's type matches one or more of the elements. For example, `['person']`. | no |
+| `appliesIf` | `function()` or `boolean` | Return true if the field should be shown. | no |
+| `modifyContext` | `function(context)` | Used to modify or add data which is passed as input to forms filled from the contact page | no |
 | `fields` | `Array[]` of [fields](#fields) | The content of the card | yes |
 | `fields[n].appliesIf` | `boolean` or `function(report)` | Same as Fields.appliesIf above | |
-| `fields[n].label` | `string` or `function(report)` | Same as Fields.label above | |
-| `fields[n].value` | `string` or `function(report)` | Same as Fields.value above | |
-| `fields[n].translate` | `boolean` or `function(report)` | Same as Fields.translate above | |
-| `fields[n].filter` | `string` or `function(report)` | Same as Fields.filter above | |
-| `fields[n].width` | `integer` or `function(report)` | Same as Fields.width above | |
-| `fields[n].icon` | `string` or `function(report)` | Same as Fields.icon above | |
-| `fields[n].context` | `object` | Same as Fields.icon | no |
+| `fields[n].label` | `string` or `function(report)` | Label shown with the field | yes |
+| `fields[n].icon` | `string` or `function(report)` | The name of the icon to display beside this field, as defined through the Configuration > Icons page. | no |
+| `fields[n].value` | `string` or `function(report)` | The value shown for the field | yes |
+| `fields[n].filter` | `string` or `function(report)` | The display filter to apply to the value, eg: `{ value: '2005-10-09', filter: 'age' }` will render as "11 years". Common filters are: `age`, `phone`, `weeksPregnant`, `relativeDate`, `relativeDay`, `fullDate`, `simpleDate`, `simpleDateTime`, `lineage`, `resourceIcon`. For the complete list of filters, and more details on what each does, check out the code in [`medic/webapp/src/js/filters` dir](https://github.com/medic/medic/tree/master/webapp/src/js/filters). | no |
+<!-- If you change the field data in this table, update the duplicate descriptions in ### Fields -->
+| `fields[n].width` | `integer` or `function(report)` | The horizontal space for the field. Common values are 12 for full width, 6 for half width, or 3 for quarter width. Default 12 | no |
+| `fields[n].translate` | `boolean` or `function(report)` | Whether or not to translate the `value`. Defaults to false. | no |
+| `fields[n].context` | `object` | When `translate: true` and `value` uses [translation variables](https://angular-translate.github.io/docs/#/guide/06_variable-replacement), this value should provide the translation variables. Only supports properties `count` and `total` on cards. | no |
 
 ### Examples
 
