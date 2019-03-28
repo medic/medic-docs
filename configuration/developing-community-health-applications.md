@@ -367,16 +367,16 @@ function isFormFromArraySubmittedInWindow(reports, formsArray, startTime, endTim
 ```
 
 #### What to put in appliesIf vs resolvedIf
-Both functions `appliesIf` and `resolvedIf` capture logic for when your task should appear for the user. So why are there two functions which seemingly result in the same behaviour? The answer is that once a task appears (`appliesIf: true`, `resolvedIf: false`), that task will not disappear until it is explicitly told to resolve (`appliesIf: true`, `resolvedIf: true`). If you're seeing your task not disappear as expected, but it does disappear when you reload the page (refresh the browser) - you probably need to move logic from `appliesIf` into `resolvedIf`.
+Both functions `appliesIf` and `resolvedIf` capture logic for when your task should appear to the user. So why are there two functions which seemingly result in the same behaviour? The answer is that once a task appears (`appliesIf: true`, `resolvedIf: false`), that task will not disappear until it is explicitly told to resolve (`appliesIf: true`, `resolvedIf: true`). If you're seeing your task linger when you expect it to disappear, but it does disappear when you reload the page (refresh the browser) - you probably need to move logic from `appliesIf` into `resolvedIf`.
 
 Generally:
 
-* `appliesIf` should contain your immutable expectations for the task - conditions that are expected for the task to appear but that you don't expect to change once they are met. If this function returns `true` today and then returns `false` tomorrow for the same input, you will not be able to resolve any emitted tasks.
-* `resolvedIf` should capture the change in state which you expect to complete the task.
+* `appliesIf` should contain your immutable expectations for the task - conditions that are needed for the task to appear, but that you don't expect to change once they are met. If this function returns `true` today and then returns `false` tomorrow for the same input, it will block you from correctly resolving the emitted tasks.
+* `resolvedIf` should capture the change in state which (in addition to the logic in appliesIf being true) causes the task to resolve.
 
-So why not put everything in `resolvedIf` and this will work all the time without thinking? You can. But there are negative performance implications of doing this, and you should endeavour to capture all that you can in `appliesIf` without breaking things. This performance concern is particularly important for tasks with `appliesTo: 'reports'`.
+So why not put everything in `resolvedIf` and this will always work without thinking? You can. But there are negative performance implications of doing this, and you should endeavour to capture all that you can in `appliesIf` without breaking things. This performance concern is particularly important for tasks with `appliesTo: 'reports'`.
 
-Time-sensitive logic (age of patient being younger than x), or logic to test if a contact's form x exists before any form y are examples of bad things to put in `appliesIf` functions.
+Checking if a patient is younger than 5 years of age, or logic to test if a contact has form x existing before any form y - these are examples of bad things to put in `appliesIf` functions.
 
 #### Tips & Tricks
 1. There are some use cases where information collected during an action within a task schedule may mean that the task schedule must change. For example, if you register a child for malnutrition follow-ups, you collect the height and weight during registration and tasks for follow-ups are created based on the registration. At the next visit (first follow-up), you collect the height and weight again and you want to update these so that future tasks reference this new height and weight. You can either clear and regenerate the schedule after each follow-up visit is done, or you can create only one follow-up at a time so that height and weight are always referencing the most recent visit.
