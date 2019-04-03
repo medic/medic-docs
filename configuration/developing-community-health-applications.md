@@ -218,7 +218,7 @@ More complex tasks can be written using the full set of properties for tasks, as
 | `icon` | The icon to show alongside the task. | no |
 | `title` | The title of the task when shown in the app. Structured as a localization label array or a translation. | yes |
 | `appliesTo` | `'contacts'`, `'reports'`, or `'scheduled_tasks'`. The items on which the task is applied. | yes |
-| `appliesToType` | Array of report or contact types. The types of contacts (eg `['person']`, `['clinic', 'health_center']`) or form codes (eg `['pregnancy']`, `['P', 'pregnancy']`) for which this task should be associated. | yes |
+| `appliesToType` | Array of report or contact types. The types of contacts (eg `['person']`, `['clinic', 'health_center']`) or form codes (eg `['pregnancy']`, `['P', 'pregnancy']`) for which this task should be associated. | no |
 | `appliesIf` | function(contact, report, scheduledTaskIndex). The task can only be created for items where this function returns true. `scheduledTaskIndex` will be null for contacts and reports. | no |
 | `resolvedIf` | function(contact, report, event, dueDate, index). Resolve the task only if this function returns true. | yes |
 | `events` | An array of task events. The event's properties are used to specify the timeline of when a task will appear and disappear from the user interface. | yes |
@@ -454,7 +454,7 @@ More complex targets can be written using the full set of properties for targets
 | `subtitle_translation_key` |Translation key for the subtitle of this target. If none supplied the subtitle will be blank. | no |
 | `percentage_count_translation_key` |Translation key for the percentage value detail shown at the bottom of the target, eg |"(5 of 6 deliveries)". The translation context has `pass` and `total` variables available. If none supplied this defaults to `targets.count.default`. | no |
 | `appliesTo` | `'contacts'` or `'reports'`. The items which apply for this target widget. | yes |
-| `appliesToType` | Array of report or contact types. The types of contacts (eg `['person']`, `['clinic', 'health_center']`) or form codes (eg `['pregnancy']`, `['P', 'pregnancy']`) for which this target is relevant. | yes |
+| `appliesToType` | Array of report or contact types. The types of contacts (eg `['person']`, `['clinic', 'health_center']`) or form codes (eg `['pregnancy']`, `['P', 'pregnancy']`) for which this target is relevant. | no |
 | `appliesIf` | function(contact, report, scheduledTaskIndex). The target is relevant only for items where this function returns true. `scheduledTaskIndex` will be null for contacts and reports. | no |
 | `date` | By default only values for this month are shown in targets. Set to `'now'` if doing an all time count. Set to `'reported'` for time relevant counts, which relies on the doc's `reported_date`. | no |
 | `emitCustom` | function(contact, report). Each defined target emits one target instance per doc. A function can be defined here to emit a custom target instance, or multiple instances. | no |
