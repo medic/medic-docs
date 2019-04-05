@@ -363,6 +363,26 @@ Forms can include arbitrary binary data which is submitted and included in the d
 
 To mark an element as having binary data add an extra column in the XLSForm called `instance::type` and specify `binary` in the element's row.
 
+## Triggering Calls and SMS
+
+When a XForm is loaded on a phone you can start a phone call or trigger the sending of an SMS within the form itself. This can be useful if within a task or assessment you want to tell the user to contact a patient, or perhaps a health worker at a facility. 
+
+To set up the call or SMS you'll need to create a link with `tel:` or `sms:` within a `note` field. To create the link, use the markup link format, eg `[Call Patient](tel:+2547009875000)`. You can specify the content of the SMS by using the body parameter, eg `[Send SMS](sms://+25470098765000?body=Hello World!)`.
+
+The phone number and message can be generated from fields within the XForm. For instance, if you have `patient_name`, `patient_phone` and `message` fields, you can generate the SMS as follows:
+- **XLSForm**
+`[Send SMS to ${patient_name}](sms://${patient_phone}?body=${message})`
+
+- **XForm**
+`[Send SMS to <output value=" /data/patient_name "/>](sms://<output value=" /data/patient_phone "/>?body=<output value=" /data/message "/>)`
+
+If you want to use a button to make the action more obvious, this can be done using HTML and CSS within the note: 
+```
+[<span style='background-color: #CC0000; color:white; padding: 1em; text-decoration: none; '>Call the patient</span>](tel:${patient_phone})
+```
+
+Note that the SMS link notation can be interpreted differently from one phone to another. Some devices work well with `sms:${phone}?body=${message}`, others with `sms://${phone}?body=${message}`. You may find [these SMS link tests](https://bradorego.com/test/sms.html) helpful in determining what works on devices for your deployment.
+
 ## Custom XForm Widgets
 
 Some XForm widgets have been added or modified for use in the app:
