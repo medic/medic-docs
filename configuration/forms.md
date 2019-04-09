@@ -367,7 +367,7 @@ To mark an element as having binary data add an extra column in the XLSForm call
 
 When a XForm is loaded on a phone you can start a phone call or trigger the sending of an SMS within the form itself. This can be useful if within a task or assessment you want to tell the user to contact a patient, or perhaps a health worker at a facility. 
 
-To set up the call or SMS you'll need to create a link with `tel:` or `sms:` within a `note` field. To create the link, use the markup link format, eg `[Call Patient](tel:+2547009875000)`. You can specify the content of the SMS by using the body parameter, eg `[Send SMS](sms://+25470098765000?body=Hello World!)`.
+To set up the call or SMS you'll need to create a link with `tel:` or `sms:` within a `note` field. To create the link, use the markdown link format, eg `[Call Patient](tel:+2547009875000)`. You can specify the content of the SMS by using the body parameter, eg `[Send SMS](sms://+25470098765000?body=Hello World!)`.
 
 The phone number and message can be generated from fields within the XForm. For instance, if you have `patient_name`, `patient_phone` and `message` fields, you can generate the SMS as follows:
 - **XLSForm**
