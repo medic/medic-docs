@@ -40,6 +40,7 @@ The following transitions are available and executed in order.
 | update_scheduled_reports | If a report has a month/week/week_number, year and clinic then look for duplicates and update those instead. |
 | resolve_pending | Sets the state of pending messages to sent. It is useful during builds where we don't want any outgoing messages queued for sending. |
 | [muting](#muting) | Implements muting/unmuting actions of people and places. Available since 3.2.x. |
+| [mark_for_outbound](./outbound) | Enables outbound pushes. Available since 3.5.x |
 
 ## Transition Configuration Guide
 
@@ -206,7 +207,7 @@ No custom configuration for `generate_patient_id_on_people`.
 
 ### update_notifications
 
-**Deprecated in favor of [Muting](#muting)** 
+**Deprecated in favor of [Muting](#muting)**
 
 #### Configuration
 
@@ -240,7 +241,7 @@ No custom configuration for `generate_patient_id_on_people`.
 
 ### Muting
 
-Implements muting/unmuting of persons and places. Supports multiple forms for each action, for webapp and sms workflows. 
+Implements muting/unmuting of persons and places. Supports multiple forms for each action, for webapp and sms workflows.
 
 Muting action:
 
@@ -254,19 +255,19 @@ Unmuting action:
 - adds a `muting_history` entry to Sentinel `info` docs for every updated contact<sup>[7]</sup>
 - updates all connected registrations<sup>[3]</sup>, changing the state of all present/future<sup>[6]</sup> `muted` `scheduled_tasks` to `scheduled`
 
-[1] Contacts that are already in the correct state are skipped. This applies to updates to the contact itself, updates to the Sentinel `muting_history` and to the connected registrations (registrations of a contact that is already in the correct state will not be updated).    
-[2] The date represents the moment Sentinel has processed the muting action   
-[3] target contact and descendants' registrations  
-[4] `scheduled_tasks` being in either `scheduled` or `pending` state  
-[5] Because the muted state is inherited, unmuting cascades upwards to the highest level muted ancestor. If none of the ancestors is muted, unmuting cascades downwards only.  
-[6] `scheduled_tasks` which are due today or in the future. All `scheduled_tasks` with a due date in the past will remain unchanged.    
+[1] Contacts that are already in the correct state are skipped. This applies to updates to the contact itself, updates to the Sentinel `muting_history` and to the connected registrations (registrations of a contact that is already in the correct state will not be updated).
+[2] The date represents the moment Sentinel has processed the muting action
+[3] target contact and descendants' registrations
+[4] `scheduled_tasks` being in either `scheduled` or `pending` state
+[5] Because the muted state is inherited, unmuting cascades upwards to the highest level muted ancestor. If none of the ancestors is muted, unmuting cascades downwards only.
+[6] `scheduled_tasks` which are due today or in the future. All `scheduled_tasks` with a due date in the past will remain unchanged.
 
 ##### [7] Muting history
-Each time the `muted` state of a contact changes, an entry is added to a `muting_history` list saved in Sentinel `info` docs (stored as an array property with the same name).     
+Each time the `muted` state of a contact changes, an entry is added to a `muting_history` list saved in Sentinel `info` docs (stored as an array property with the same name).
 Entries in `muting_history` contain the following information:
 
 | Property | Description |
-| --- | --- | 
+| --- | --- |
 | muted | Boolean representing the muted state |
 | date | Date in ISO Format |
 | report_id | An `_id` reference to the report that triggered the action |
@@ -281,16 +282,16 @@ Configuration is stored in the `muting` field of `app_settings.json`.
 | `validations` | List of form fields validations. All mute & unmute forms will be subjected to these validation rules. Invalid forms will not trigger muting/unmuting actions. Optional. |
 | `messages` | List of tasks/errors that will be created, determined by `event_type`. Optional. |
 
-Supported `events_types` are: 
+Supported `events_types` are:
 
-| Event Type | Trigger | 
+| Event Type | Trigger |
 |---|---|
-| `mute` | On successful `mute` action | 
+| `mute` | On successful `mute` action |
 | `unmute` | On successful `unmute` action |
 | `already_muted` | On `mute` action, when target contact is already muted |
-| `already_unmuted` | On `unmute` action, when target contact is already unmuted | 
-| `contact_not_found` | Either mute or unmute actions when target contact is not found | 
- 
+| `already_unmuted` | On `unmute` action, when target contact is already unmuted |
+| `contact_not_found` | Either mute or unmute actions when target contact is not found |
+
 
 ##### Example
 
@@ -317,12 +318,12 @@ Supported `events_types` are:
         "translation_key": "",
         "event_type": "already_muted",
         "recipient": "reporting_unit"
-      },      
+      },
       {
         "translation_key": "",
         "event_type": "already_unmuted",
         "recipient": "reporting_unit"
-      },            
+      },
       {
         "translation_key": "",
         "event_type": "contact_not_found",
@@ -330,4 +331,4 @@ Supported `events_types` are:
       }
     ]
   }
-``` 
+```
