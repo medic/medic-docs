@@ -38,7 +38,7 @@ Reasons why purging would **not** run on startup:
  - If we detect that the user has not fully replicated upwards. That is to say, that we think there may be a chance there are reports on the device that are not on the server
  - Purging already happened recently (eg in the last 30 days)
 
-When purging runs, it walks through every single person in the user's DB that has reports about them (eg patients), and runs your configured function against each set of person and reports to determine if any reports should be purged. This is idential to the scoping your may have encountered when configuring [tasks](./tasks.md) and [targets](./targets.md).
+When purging runs, it walks through every single person in the user's DB that has reports about them (eg patients), and runs your configured function against each set of person and reports to determine if any reports should be purged. This is identical to the scoping you may have encountered when configuring [tasks](./tasks.md) and [targets](./targets.md).
 
 ## Purging function configuration
 
@@ -65,7 +65,7 @@ And should return an array of `_id` values for reports you would like to be purg
 
 ## Other configuration
 
-You can also change the frequency in which purging occurs. However, we recommend that you leave it as the default. Purging is not free, and purging more frequently is almost certainly not going to help performance.
+You can also change the frequency with which purging occurs. However, we recommend that you leave it as the default. Purging is not free, and purging more frequently is almost certainly not going to help performance.
 
 Specifically, purging slows down boot time considerably, and forces PouchDB to re-index views, which is specifically a major source of performance problems on many devices.
 
