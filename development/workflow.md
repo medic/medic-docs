@@ -60,28 +60,22 @@ Issues in this column are being actively worked on, which includes development, 
 
 Any code should be in a feature branch in each of the repositories you update. The name of the feature branch should be in the form `<issue-number>-<readable-name>`, for example `1104-inclusive-export`. Once you're satisfied with your changes:
 
-1. Submit a PR for each of the repositories.
-2. Link from the PR to the issue by referencing the number in the PR description, eg: "medic/medic#123"
+1. Submit a PR for each of the repositories. Each PR message and description will become the commit message and description so keep the message consise, describe what and why rather than how, and link to the issue in the description (eg: "medic/medic#123").
+2. If AT is required update the issue with AT instructions.
 3. Wait for the builds to succeed and ensure there are no conflicts with the `master` branch so the PR can be merged.
 4. Pick at least one Reviewer for the PR and work with them until the code passes review.
-5. Once the issue has passed code review move the issue to "In AT" for QA to test. Do not merge the code until it has passed AT.
+5. If the issue requires AT then move the issue to "In AT" for QA to test. Otherwise merge the PR, delete the branch, and close the issue.
 
 ### In AT
 
 Issues in this column are ready to be Acceptance Tested by a Quality Assurance engineer. When picking up an issue for AT:
 
-1. Assign it to yourself.
-2. Install the PR branch to test against.
-3. If the issue fails AT then notify the original developer and move the issue back to "In progress".
-4. If the issue passes AT then assign the original developer that it's ready to merge.
-
-Once the issue has passed AT the original developer is to:
-
-1. Resolve any code conflicts.
-2. "Squash and Merge" the PRs into `master`.
-3. Backport to release branches if necessary.
-4. Close the issue which will automatically move it to "Done".
-5. Unassign yourself from the issue.
+1. Check that the PR has no merge conflicts with `master` and all required builds have passed. If not, notify the original developer to fix the branch and find another issue to AT.
+2. Assign it to yourself.
+3. Install the PR branch to test against.
+4. If the issue fails AT then notify the original developer and move the issue back to "In progress".
+5. Once the issue passes AT then "Squash and Merge" the PR and delete the PR branch. If a backport is required cherry-pick the merged commit back to the release branches it's required in.
+6. Close the issue which will move it to Done.
 
 ### Done
 
