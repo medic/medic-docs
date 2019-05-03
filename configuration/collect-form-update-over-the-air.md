@@ -10,7 +10,7 @@ To do over the air Medic Collect form updates via HTTP rather than sending APKs 
 
 2. Upload the forms to the instance using `Medic-Conf` Using the `upload-collect-forms` [action](https://github.com/medic/medic-conf/blob/master/src/cli/supported-actions.js) as shown below.
 ```
-medic-conf --instance user:pass@instancename.app.medicmobile.org upload-collect-forms
+medic-conf --instance=user:pass@instancename.app.medicmobile.org upload-collect-forms
 ```
 3. Go to the Collect App. Delete All forms then go to `Get Blank Form` and select all the forms you need.
 
