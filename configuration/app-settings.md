@@ -60,7 +60,7 @@ Scheduled messages are defined under the `schedules` key as an array of schedule
 |`messages[].messages`| Array of message objects, each with `content` and `locale` properties. From 2.15 on use `translation_key` instead.|no|
 |`messages[].group`|Integer identifier to group messages that belong together so that they can be cleared together as a group by future reports. For instance a series of messages announcing a visit, and following up for a missed visit could be grouped together and cleared by a single visit report. |yes|
 |`messages[].offset`| Time interval from the `start_from` date for when the message should be sent. It is structured as a string with an integer value followed by a space and the time unit. For instance `8 weeks` or `2 days`. The units available are `seconds`, `minutes`, `hours`, `days`, `weeks`, `months`, `years`, and their singular forms as well. Note that although you can specify `seconds`, the accuracy of the sending time will be determined by delays in the processing the message on the server and on the gateway.|yes|
-|`messages[].send_day`| String value of the day of the week on which the message should be sent. For instance, to send a message at the beginning of the week setting it to `"Monday"` will make sure the message goes out on the closest Monday _after_ the `start_date` + `offset`. `|no|
+|`messages[].send_day`| String value of the day of the week on which the message should be sent. For instance, to send a message at the beginning of the week setting it to `"Monday"` will make sure the message goes out on the closest Monday _after_ the `start_date` + `offset`. |no|
 |`messages[].send_time`| Time of day that the message should be sent in 24 hour format.|no|
 |`messages[].recipient`| Recipient of the message. It can be set to `reporting_unit` (sender of the form), `clinic` (clinic that the sender of the form is attached to), `parent` (parent of the sender of the form), or a specific phone number.|no|
 
@@ -71,19 +71,19 @@ Under the `registrations` key in app_settings, we can setup triggers for schedul
 ```json
 
 "registrations": [
-{
-      "form": "PR",
-      "events": [
-        {
-          "name": "on_create",
-          "trigger": "assign_schedule",
-          "params": "ANC Visit Reminders",
-          "bool_expr": "doc.fields.last_menstrual_period"
-        }
-      ],
-      "validations": {},
-      "messages": []
-    }
+  {
+    "form": "PR",
+    "events": [
+      {
+        "name": "on_create",
+        "trigger": "assign_schedule",
+        "params": "ANC Visit Reminders",
+        "bool_expr": "doc.fields.last_menstrual_period"
+      }
+    ],
+    "validations": {},
+    "messages": []
+  }
 ]
 
 ```
@@ -170,6 +170,7 @@ Under the `patient_reports` key in app_settings, we can setup actions to take fo
 |`messages[].event_type`|An event that will trigger sending of this message. Typical values are: `report_accepted` when the report has been successfully validated, `registration_not_found` when the patient ID supplied in the report doesn't match any patient ID issued by Medic. `on_mute` and `on_unmute` are used in the context of muting as described [here](transitions.md#muting)|no|
 |`messages[].recipient`|Who the message should be sent to. Use `reporting_unit` for the sender of the report, `clinic` for clinic contact, and `parent` for the parent contact.|no|
 
+
 #### Replications
 
 Replications are defined under the `replications` key as an array of replication objects. The definition takes the typical form below:
@@ -193,3 +194,30 @@ Replications are defined under the `replications` key as an array of replication
 |`toSuffix`|The suffix of the target table.|yes|
 |`text_expression`|Any valid text expression. For more information, see [LaterJS](https://bunkat.github.io/later/parsers.html#text)|no if `cron` provided|
 |`cron`|Any valid Cron expression. For more information, see [LaterJS](https://bunkat.github.io/later/parsers.html#cron)|no if `text_expression` provided|
+
+### Configuring place hierarchy
+
+From 3.6.0 it is possible to configure what types of places and people are available by modifying the `contact_types` array in the app settings. Each type has the following properties.
+
+|Property|Description|Required|
+|-------|---------|----------|
+| `id` | String identifier for the type. At some times this will be used to sort the contacts in the UI so it is recommended to using a number prefix with gaps between numbers, eg: `10-district`, `20-region`, etc. | Yes. |
+| `name_key` | The translation key used for the title for the contact profile. | No, defaults to 'contact.profile'. |
+| `group_key` | The translation key used for the title of a list of contacts of this type. | Yes. |
+| `create_key` | The translation key used on the button for creating new contacts of this type. | Yes. |
+| `edit_key` | The translation key used on the button for editing contacts of this type. | Yes. |
+| `primary_contact_key` | The translation key used to identify a person as the primary contact of contacts of this type. | No, defaults to 'Primary contact'. |
+| `parents` | An array of strings of IDs of parent types. If more than one then this type can appear in different places in the hierarchy. If more than one type lists the same type as a parent then a user will get a dropdown of places to create. | No, defaults to no parents. |
+| `icon` | The string ID for the icon to show beside contacts of this type. | Yes. |
+| `create_form` | The string ID for the xform used to create contacts of this type. | Yes. |
+| `edit_form` | The string ID for the xform used to edit contacts of this type. | No, defaults to the create_form. |
+| `count_visits` | Whether or not to show a count of visits for contacts of this type. Requires UHC to be enabled. | No, defaults to `false`. |
+| `person` | Whether this is a person type or a place type. | No, defaults to `false`. |
+
+#### Forms
+
+When creating contacts the type will be automatically assigned based on the button the user clicked. However if the form also creates sibling or child contacts these nested sections must specify a `type` field with a hardcoded value of "contact" and a `contact_type` field with the ID of the desired contact type.
+
+#### Migration
+
+You can change any contact type configuration easily except for the IDs. To change the ID of a contact type in configuration of a project which already has contact data the contact docs will also have be updated to have a `type` of "contact" and a `contact_type` with the new ID of the contact type.

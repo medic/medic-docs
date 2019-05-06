@@ -136,7 +136,7 @@ This is the only supported event.
 
 ##### `add_patient`
 
-Generates a patient id--or if configured to uses a provided one--, sets it onto the root of the registration document, as well as creating (if required) a person document for that patient.
+Sets the `patient_id` on the root of the registration document and creates the person doc if required. Can be configured to either use a provided ID or generate a new unique one.
 
 ###### External Patient ID
 
@@ -178,14 +178,15 @@ To provide an alternative location for the patient name, either provide a `patie
 }
 ```
 
-The first format is required if you wish to also provide an external patient id:
+The first format is required if you wish to also provide other params:
+
+###### Contact Type
+
+If you have changed from the default contact hierarchy you will need to specify which type of contact the registration should create.
 
 ```json
 {
-    "params": "{
-        \"patient_name_field\": \"full_name\",
-        \"patient_id_field\": \"external_id\"
-    }",
+    "params": "{ \"contact_type\": \"patient\" }"
 }
 ```
 
