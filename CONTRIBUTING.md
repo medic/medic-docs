@@ -11,5 +11,5 @@ If you have an idea or a question we'd love to hear from you! The easiest way to
 ### Submitting changes
 
 1. Before starting on changes we recommend you raise an issue or message us on [Slack](https://communityhealthtoolkit.org/slack).
-2. When submiting a PR with a full description of the issue you're solving and if possible including a link to the GitHub issue.
+2. When submitting a PR include a full description of the issue you're solving and if possible include a link to the GitHub issue.
 3. Your PR will be reviewed by a Medic team member. Most PRs have at least one change requested before they're merged so don't be offended if your change doesn't get accepted on the first try!
