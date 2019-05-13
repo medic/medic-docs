@@ -55,7 +55,7 @@ In "filter" include only the JSON forms used for your use cases. Most of the cha
 5. Commit your changes to GitHub
 
 6. Upload config to the new instance
-`medic-conf --instance {project-url-prefix}` 
+`medic-conf --instance={project-url-prefix}` 
 It will run the following:
      - compile-app-settings
      - backup-app-settings
@@ -74,22 +74,22 @@ It will run the following:
      - upload-docs
 
     A quicker upload would be:
-`medic-conf --instance {project-url-prefix} compile-app-settings backup-app-settings upload-app-settings backup-all-forms delete-all-forms upload-app-forms upload-collect-forms upload-contact-forms upload-resources upload-custom-translations`
+`medic-conf --instance={project-url-prefix} compile-app-settings backup-app-settings upload-app-settings backup-all-forms delete-all-forms upload-app-forms upload-collect-forms upload-contact-forms upload-resources upload-custom-translations`
 
 7. Delete unused app forms from instance: 
     You can delete forms that are not needed for that deployment. This is helpful to a) make it easier for those using Collect to avoid downloading forms they won’t use, and b) avoid showing app forms in the forms filter in the Reports tab.
 
     Remove app forms for PNC:
-`medic-conf --instance {project-url-prefix} delete-forms -- postnatal_visit`
+`medic-conf --instance={project-url-prefix} delete-forms -- postnatal_visit`
 
     Remove app forms for Immunization:
-`medic-conf --instance {project-url-prefix} delete-forms -- immunization_visit`
+`medic-conf --instance={project-url-prefix} delete-forms -- immunization_visit`
 
     Remove Collect PNC forms:
-`medic-conf --instance {project-url-prefix} delete-forms -- m`
+`medic-conf --instance={project-url-prefix} delete-forms -- m`
 
     Remove Collect IMM forms:
-`medic-conf --instance {project-url-prefix} delete-forms -- child imm`
+`medic-conf --instance={project-url-prefix} delete-forms -- child imm`
 
 8. Sanity checks: click through all tabs, and submit forms, etc.  
 
