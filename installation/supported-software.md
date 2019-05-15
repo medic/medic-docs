@@ -5,7 +5,7 @@ Medic Mobile supports the latest patch of minor versions of the CHT for three mo
 Once a version is no longer supported it will not receive any further releases and upgrading may be required before Medic Mobile can investigate any issues.
 
 | Version | Status | Release date | End of life |
-|----|----|----|
+|----|----|----|----|
 | 3.4.0 | Current | 27-Mar-2019 | TBA |
 | 3.3.0 | Supported | 22-Feb-2019 | 27-Jun-2019 |
 | 3.2.1 | EOL | 23-Jan-2019 | 22-May-2019 |
