@@ -59,7 +59,7 @@ Example:
     "auth": {
       "type": "basic",
       "username": "admin",
-      "password_key": "example.com
+      "password_key": "example.com"
     },
     "path": "/api/v1/referral"
   }
