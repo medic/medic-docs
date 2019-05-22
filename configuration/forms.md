@@ -1,8 +1,8 @@
 # Forms
 
-Forms define information flows. Users can fill in forms by SMS, SIM applications, Medic Collect, or via the webapp in a browser or the Android app. Forms can be used for a vairety of purposes, including creating new patients, registering them for SMS reminders, reporting a patient visit or status. 
+Forms define information flows. Users can fill in forms by SMS, SIM applications, Medic Collect, or via the webapp in a browser or the Android app. Forms can be used for a vairety of purposes, including creating new patients, registering them for SMS reminders, reporting a patient visit or status.
 
-There are two types of form definitions: 
+There are two types of form definitions:
 - **JSON forms**: used for parsing reports from formatted SMS, SIM applications, and Medic Collect. Forms for Medic Collect must also have a corresponding XForm definition to be rendered on Android devices.
 - **XForms**: used for forms within the web app, whether accessed in browser or via the Android app. XForms are also used to render the form in Medic Collect.
 
@@ -73,7 +73,8 @@ We currently support the following data types:
  - `"integer"`: a whole number
  - `"string"`: any collection of characters
  - `"date"`: a date in the format `YYYY-mm-dd`, for example "2019-01-28"
- - `"boolean"`: true or false, represented by the digit `1` and `0` respectively.
+ - `"boolean"`: true or false, represented by the digit `1` and `0` respectively if sent via SMS
+ - `"custom"`: Only possible for JSON forms that are passed as actual JSON (not an SMS that gets parsed into JSON). Effectively any non-specific data structure, which will be taken without validation.
 
 
 # XForms
@@ -365,7 +366,7 @@ To mark an element as having binary data add an extra column in the XLSForm call
 
 ## Triggering Calls and SMS
 
-When a XForm is loaded on a phone you can start a phone call or trigger the sending of an SMS within the form itself. This can be useful if within a task or assessment you want to tell the user to contact a patient, or perhaps a health worker at a facility. 
+When a XForm is loaded on a phone you can start a phone call or trigger the sending of an SMS within the form itself. This can be useful if within a task or assessment you want to tell the user to contact a patient, or perhaps a health worker at a facility.
 
 To set up the call or SMS you'll need to create a link with `tel:` or `sms:` within a `note` field. To create the link, use the markdown link format, eg `[Call Patient](tel:+2547009875000)`. You can specify the content of the SMS by using the body parameter, eg `[Send SMS](sms://+25470098765000?body=Hello World!)`.
 
@@ -376,7 +377,7 @@ The phone number and message can be generated from fields within the XForm. For 
 - **XForm**
 `[Send SMS to <output value=" /data/patient_name "/>](sms://<output value=" /data/patient_phone "/>?body=<output value=" /data/message "/>)`
 
-If you want to use a button to make the action more obvious, this can be done using HTML and CSS within the note: 
+If you want to use a button to make the action more obvious, this can be done using HTML and CSS within the note:
 ```
 [<span style='background-color: #CC0000; color:white; padding: 1em; text-decoration: none; '>Call the patient</span>](tel:${patient_phone})
 ```
