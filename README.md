@@ -32,3 +32,5 @@ Read more about [building apps with the framework](https://github.com/medic/medi
 * [Replicating production data locally](troubleshooting/replicating-production-locally.md)
 * [Obtaining production logs](troubleshooting/obtaining-logs.md)
 
+## License 
+The software is provided under AGPL-3.0. Contributions to this project are accepted under the same license.
