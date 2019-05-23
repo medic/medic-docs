@@ -14,6 +14,6 @@ If you have an idea or a question we'd love to hear from you! The easiest way to
 2. When submitting a PR include a full description of the issue you're solving and if possible include a link to the GitHub issue.
 3. Your PR will be reviewed by a Medic team member. Most PRs have at least one change requested before they're merged so don't be offended if your change doesn't get accepted on the first try!
 
-###
+### License
 
 The software is provided under AGPL-3.0. Contributions to this project are accepted under the same license.
