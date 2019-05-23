@@ -1,24 +1,10 @@
 # Development Workflow
 
-## Daily Stand
-
-Each day developers post our objectives in the #dailies Slack channel for the previous and current day and discuss any potential blockers. If a issue will not be completed within an iteration time frame that should be discussed.
-
-There are optional daily standup meetings, at 9am UTC (10am CEST) and 8pm UTC (9am NZST). Show up if you want, it's a good place to check in and discuss issues.
-
-## Weekly Call
-
-Each week the team meets on a call to discuss progress and plans for the next week. Someone reports back to #weeklies to update the wider team.
-
-## Fortnightly Iterations
-
-We strive to do fortnightly iterations with feature reviews and deployment to our beta/testing market. An iteration begins with a meeting where the relevant issues are discussed, prioritized and assigned.
-
-At the end of each iteration we have a meeting where working code is demonstrated and acceptance by stake holders is confirmed. Issues are closed or moved to a ready or released state and new issues are potentially opened if unfinished work or new issues are discovered.
-
-## Coding
+## Code
 
 ### Writing
+
+Where possible, follow our coding [style guide](https://github.com/medic/medic-docs/blob/master/development/style-guide.md).
 
 Aim for self-documenting code. Where code cannot be made self-documenting add commenting. Unnecessary comments and hard to read code fail a code review.
 
@@ -54,69 +40,75 @@ For more help with Git see: [Using Git](./using-git.md).
 - Release branches have the form `<major>.<minor>.x` and should be stable.
 - Feature branches have the form `<issue-number>-<issue-description>` and are work in progress.
 
-## Issues
+# Issues
 
-Issues are managed in Github. When creating issues assign a status value by choosing a label. This is used to track progress, so we have some idea what work is being handled. All issues are created in the medic-webapp repository so they can be tracked in one place.
+Issues are managed in Github. Issues should be created in the repository where the changes need to be made. If it is not clear in which repo to open an issue the default should be the `medic` repository. If it is a security or sensitive issue it should be opened in the private `medic-projects` repository.
 
-### States
+When creating issues add the appropriate [Priority](https://github.com/medic/medic/labels?utf8=%E2%9C%93&q=Priority%3A+) and [Type](https://github.com/medic/medic/labels?utf8=%E2%9C%93&q=Type%3A+) labels.
 
-#### Nothing
+## Project States
 
-If an issue has no status label at all then it needs to be triaged to work out the scheduled and priority.
+When the issue is scheduled for development it will be added to the appropriate [organisation project](https://github.com/orgs/medic/projects?query=is%3Aopen+sort%3Aname-asc) named after the webapp version it will be released with. Each column in the project represents the state the issue is in.
 
-#### 1 - Triaged
+### To do
 
-We have all the design and detail we need to begin development. Once issues are in this state they can be selected for inclusion in a milestone and can be assigned to a developer for Active Work.
+Issues in this column have been scheduled to be released with this webapp version. The issue has all the detail needed to begin design and development and it is free for anyone to start work on. If you start work on an issue assign it to yourself and move it to "In progress".
 
-#### 2 - Active work
+### In progress
 
-In development and being worked on. Issues in this state must be assigned to a developer and be in the current milestone.
+Issues in this column are being actively worked on, which includes development, design, and code reviews.
 
-Create one feature branch in each of the repositories you update. The name of the feature branch should be in the form `<issue-number>-<readable-name>`, for example `1104-inclusive-export`. Once you're satisfied with your changes:
+Any code should be in a feature branch in each of the repositories you update. The name of the feature branch should be in the form `<issue-number>-<readable-name>`, for example `1104-inclusive-export`. Once you're satisfied with your changes:
 
-1. Submit a PR for each of the branches.
-2. Link from the PR to the original issue or vice versa.
-3. Assign the original issue to another developer for review, the PR can be left unassigned since it's linked on the original issue.
+1. Submit a PR for each of the repositories. Each PR message and description will become the commit message and description so keep the message consise, describe what and why rather than how, and link to the issue in the description (eg: "medic/medic#123").
+2. If AT is required update the issue with AT instructions.
+3. Wait for the builds to succeed and ensure there are no conflicts with the `master` branch so the PR can be merged.
+4. Pick at least one Reviewer for the PR and work with them until the code passes review.
+5. If the issue requires AT then move the issue to "In AT" for QA to test. Otherwise merge the PR, delete the branch, and close the issue.
 
-#### 3 - Code review
+### In AT
 
-All non-trivial commits should be reviewed by another developer. Reviews should focus on code readability, test quality and coverage, and looking for obvious bugs.
+Issues in this column are ready to be Acceptance Tested by a Quality Assurance engineer. When picking up an issue for AT:
 
-If the code fails review then comment on the issue, apply the Active Work tag, and assign back to the original developer.
+1. Check that the PR has no merge conflicts with `master` and all required builds have passed. If not, notify the original developer to fix the branch and find another issue to AT.
+2. Assign it to yourself.
+3. Install the PR branch to test against.
+4. If the issue fails AT then notify the original developer and move the issue back to "In progress".
+5. Once the issue passes AT then "Squash and Merge" the PR and delete the PR branch. If a backport is required cherry-pick the merged commit back to the release branches it's required in.
+6. Close the issue which will move it to Done.
 
-Once the code passes review:
+### Done
 
-1. Merge the Pull Request. Most of the time we use the Squash and Merge technique to make the git history as clean as possible.
-2. Apply the Acceptance Testing tag.
-3. Clear your assignment.
-
-#### 4 - Acceptance testing
-
-Ready to be user acceptance tested. If the issue passes acceptance testing then apply the Ready state tag and close the issue. However if the issue fails then add the Active Work and Returned tags, assigned back to the developer who worked on it, and move it to the current milestone.
-
-#### 5 - Ready
-
-Passed acceptance testing and ready for release.
-
-#### 6 - Released
-
-The code to resolve the issue has been released to the market.
+Issues in this column have passed acceptance testing and been merged into `master` and/or release branches ready for release.
 
 ## Triaging old issues
 
-There is a [script](https://github.com/SCdF/github-issue-roulette) that can be configured to run against medic-webapp.
+We periodically run a [script](https://github.com/medic/github-issue-roulette) against medic issues. We do this to catch two situations:
+ - Issues that do not have the three labels they need (Type, Priority and Status)
+ - Issues that have not been touched in 90 days
+ 
+The plan is to keep cruft in our issue DB to a minimum, and have them curated into a colletion of detailed clear issues that can and should be actionable in the near to mid future.
 
-This script is meant to randomly assign old untriaged issues to devs in the sprint.
+You will occasionally get assigned issues and asked to deal with one or both of the above problems.
 
-At the time of writing it will be run once every sprint, and will assign 2 issues per developer.
+### What do I do when I get one of these issues?
 
-### What do I do with one of these tickets?
+Use your judgement (or someone else's, feel free to pull in others either directly on the issue or via Slack etc) to decide:
+ - Is its description too vague? Is it detailed enough to be actionable?
+ - Is this something we want to do **in the near future**? Does it fit with our product etc?
+ - If this is an older issue, do you think it is still relevant? Is there still interest? (If there is no interest it can be closed: it can always be re-opened or re-written in the future)
+ - Is this covered by existing issues, or existing plans?
+ - If it's a bug, does it have: steps to reproduce; expected behaviour; actual behaviour; server info, browser info, screenshots etc where applicable?
 
-We are trying to cut down on a giant unmanagable backlog of possibly irrelevant tickets.
+From this decide if you need to go back to the issue creator for more information, or close the issue (using one of the `Won't Fix` labels), or keep it.
 
-Before the end of the sprint, you must, for each ticket assigned to you, work out if that ticket should be scheduled or closed. You may need to ask other relevant people about it, so you probably won't want to leave it until the last day. You can either :
+Additionally, if there are missing labels:
+ - Type should be reasonably obvious: which of those labels most fits the issue
+ - Status should almost certainly be `Status: 1 - Triaged`
+ - Priority is dependent on the severity of the problem: if it's a production issue it's probably high, if it's a minor thing it's probably low, medium for everything else (but use your judgement)
+ 
+### Anything else?
 
- - **schedule it**: the issue is currently relevant and should be done as soon as time and priorities allow. Label it `1 - Triaged`, pick only one of the type labels, and one of the priority labels. No need to put it in current sprint - it will be considered for future sprints.
- - **close it**: if it is not that relevant, or might be interesting deep in the future, or is interesting but maybe not a big deal: **just close it**! Add the relevant "Won't fix" label. If it's really that important it will come up again.
-
-Regardless of what you do with the ticket, please document the reasoning by commenting in the issue. This will help reduce mistakes, as the reasoning will be available for everyone to read, and any mistakes there can be rectified.
+Regardless of what you do with the issue, please:
+ - Remove the `Needs Triage` label once triage is complete
+ - Document the reasoning by commenting in the issue. This will help reduce mistakes, as the reasoning will be available for everyone to read, and any mistakes there can be rectified.

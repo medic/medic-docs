@@ -1,7 +1,7 @@
 # SMS message states/statuses
 
-## Interaction between medic-webapp and medic-gateway
-[Medic-webapp](https://github.com/medic/medic-webapp) uses [medic-gateway](https://github.com/medic/medic-gateway)
+## Interaction between medic and medic-gateway
+[Medic](https://github.com/medic/medic) uses [medic-gateway](https://github.com/medic/medic-gateway)
 to send and receive SMS messages.
 
 When an SMS report comes in from a user, [medic-sentinel](https://github.com/medic/medic-sentinel) adds the appropriate list of
@@ -21,7 +21,7 @@ They each have their set of statuses, which sometimes are called the same but do
 ### Message statuses in medic-gateway
 See [https://github.com/medic/medic-gateway#content](https://github.com/medic/medic-gateway#content)
 
-### Message states in medic-webapp
+### Message states in medic
 
 | State | Description |
 |------|------|
@@ -33,7 +33,7 @@ See [https://github.com/medic/medic-gateway#content](https://github.com/medic/me
 | sent | Successfully delivered to the sms network. |
 | delivered | Successfully received by the recipient's device. |
 | failed | The sending attempt failed. Sending will not be retried without user intervention. |
-| denied | This will not be sent as the recipient phone number is configured in the `outgoing_deny_list`. |
+| denied | This will not be sent. The recipient phone number is configured to be denied via `outgoing_deny_list`, `outgoing_deny_with_alphas`, or `outgoing_deny_shorter_than`. |
 | cleared | This will not be sent as a report has triggered an event to stop it. This can happen if a patient visit has occurred before the visit reminder is sent. |
 | muted | This will not be sent as the task has been deliberately stopped. Messages in this state can be unmuted by user action. |
 

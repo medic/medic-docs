@@ -23,7 +23,7 @@ There are **4 levels of place types** : `national_office`, `district_hospital`, 
 (At this point the names don't really make any sense (they are legacy), and ultimately we want to allow an arbitrary number of place types in the hierarchy.  In the future they might get replaced with `place-level-n` where n is a number that starts at 0 for the top level.)
 
 The 4 levels are used differently depending on project configuration and translations.
- - Projects whose CHWs are on SMS (‘SMS projects') usually use the 3 lower levels as as District > Health Center > CHW area/Catchment area/Area.
+ - Projects whose CHWs are on SMS (‘SMS projects') usually use the 3 lower levels as District > Health Center > CHW area/Catchment area/Area.
  - Projects whose CHWs are on android (‘android projects') usually use the 3 lower levels as Branch > CHW Area > Family/Household (which means CHWs can sort their patients in families/households, which the SMS users can't do)
 
 ![DB docs representing places](img/places.png)

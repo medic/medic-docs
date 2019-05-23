@@ -26,19 +26,19 @@ Published a commit by mistake?  GitHub has a decent writeup on that:
 
 ## How To Extract a Module From an Existing Repo
 
-The following are the steps I used for creating [medic-smsparser](https://github.com/medic/medic-smsparser) based off medic-webapp.
+The following are the steps I used for creating [medic-smsparser](https://github.com/medic/medic-smsparser) based off medic.
 
 First git clone using a URL scheme rather than plain file system path otherwise
 you will get hard links instead of a copy.
 
 ```
-git clone git@github.com:medic/medic-webapp.git 
+git clone git@github.com:medic/medic.git 
 ```
 
 <p style="text-align:center">or</p>
 
 ```
-git clone file:///home/linus/dev/medic-webapp
+git clone file:///home/linus/dev/medic
 ```
 
 Then compile a list of files you are interested in.  If you only have a single directory

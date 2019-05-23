@@ -329,32 +329,6 @@ function isPercentage(val) {
 }
 ```
 
-## No nested closures
-
-Use closures, but don't nest them. Otherwise your code will become a mess.
-
-*Right:*
-
-```js
-setTimeout(function() {
-  client.connect(afterConnect);
-}, 1000);
-
-function afterConnect() {
-  console.log('winning');
-}
-```
-
-*Wrong:*
-
-```js
-setTimeout(function() {
-  client.connect(function() {
-    console.log('losing');
-  });
-}, 1000);
-```
-
 ## Use slashes for comments
 
 Use slashes for both single line and multi line comments. Try to write

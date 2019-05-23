@@ -6,19 +6,19 @@ Targets refers to our in-app analytics widgets. These widgets can be configured 
 
 ### Plain count with no goal
 
-![Count no goal](img/target_count_no_goal.png)
+![Count no goal](../img/target_count_no_goal.png)
 
 ### Count with a goal
 
-![Count with goal](img/target_count_with_goal.png)
+![Count with goal](../img/target_count_with_goal.png)
 
 ### Percentage with no goal
 
-![Percentage no goal](img/target_percent_no_goal.png)
+![Percentage no goal](../img/target_percent_no_goal.png)
 
 ### Percentage with a goal
 
-![Percentage with goal](img/target_percent_with_goal.png)
+![Percentage with goal](../img/target_percent_with_goal.png)
 
 ## Using Targets
 

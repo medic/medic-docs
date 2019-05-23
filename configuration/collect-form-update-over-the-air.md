@@ -8,11 +8,9 @@ To do over the air Medic Collect form updates via HTTP rather than sending APKs 
 
 ![Name property](img/xform_name_settings.png)
 
-2. Send the forms to the instance using the latest convert.sh from `medic-projects/scripts` using the below command.
-Make sure you have the latest `upload_xform.sh` from `medic-webapps/scripts`.
-Convert.sh will convert it to xml and upload it to the instance as long as you specify `COUCH_URL` environment variable.
+2. Upload the forms to the instance using `Medic-Conf` Using the `upload-collect-forms` [action](https://github.com/medic/medic-conf/blob/master/src/cli/supported-actions.js) as shown below.
 ```
-convert.sh -uf form_name.xlsx
+medic-conf --instance=user:pass@instancename.app.medicmobile.org upload-collect-forms
 ```
 3. Go to the Collect App. Delete All forms then go to `Get Blank Form` and select all the forms you need.
 
@@ -35,5 +33,5 @@ Should bring a list like this one
 ![Xform List](img/xform_list.png)
 
 
-Go through the list and see which form has  a missing `<name>` or `<formID>` property. Add it and reupload it using `convert.sh`
+Go through the list and see which form has  a missing `<name>` or `<formID>` property. Add it and reuploadthe forms using `medic-conf` again.
 

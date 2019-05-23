@@ -14,27 +14,27 @@ The main two types of tasks we have are normal tasks and high priority tasks.
 
 A normal task has an icon, a title and a due date.
 
-![Normal task](img/normal_task.png)
+![Normal task](../img/normal_task.png)
 
 ### High Priority Task
 
 A high priority task has an icon, a title, and a due date, just like a normal task. In addition, it has the high risk icon and a descriptive message on the second line.
 
-![High priority task](img/high_priority_task.png)
+![High priority task](../img/high_priority_task.png)
 
 ### Task Summary Screen
 
 When a user clicks on a task in the task list, the app can either take them to the task summary screen...
 
-![Task summary screen](img/task_summary_screen.png)
+![Task summary screen](../img/task_summary_screen.png)
 
 ...or directly to the action (form) they need to complete.
 
-![Task form](img/task_form.png)
+![Task form](../img/task_form.png)
 
 ## Using Tasks
 
-As you'll see in the `task-rules.js` files for existing projects, in order to make tasks work, you have to first create the task and then emit the task. There are functions for both of these steps already written. You can also create custom task creation functions if it is useful.
+As you'll see in the `rules.nools.js` files for existing projects, in order to make tasks work, you have to first create the task and then emit the task. There are functions for both of these steps already written. You can also create custom task creation functions if it is useful.
 
 ### Creating a Task
 
@@ -71,15 +71,15 @@ var emitTask = function(task, scheduleEvent) {
 
 When creating a task, you are required to pass in a contact, a schedule and a report (see above function). Tasks have many properties:
 
-* `_id`: By default, the `_id` is set to [contact ID]-[schedule ID]. [contact ID] is the `_id` of the contact that you passed in. [schedule ID] is the `id` of the particular task that you indicated in your `task-schedules.json` file.
+* `_id`: By default, the `_id` is set to [contact ID]-[schedule ID]. [contact ID] is the `_id` of the contact that you passed in. [schedule ID] is the `id` of the particular task that you indicated in your `tasks.json` file.
 * `deleted`: Set based on whether the report that generated the task is deleted.
 * `doc`: Set to the contact you passed in and includes their contact info and an array of the reports about that contact
 * `contact`: Set to the contact you passed in. Has contact information only.
-* `icon`: Set to the `icon` specified for the task in `task-schedules.json`.
-* `priority`: Set to high priority if there is a description for the task in `task-schedules.json`. High priority means that the task has the high risk icon on the right hand side.
-* `priorityLabel`: Set to the `description` listed in `task-schedules.json` for the task if there is a description.
+* `icon`: Set to the `icon` specified for the task in `tasks.json`.
+* `priority`: Set to high priority if there is a description for the task in `tasks.json`. High priority means that the task has the high risk icon on the right hand side.
+* `priorityLabel`: Set to the `description` listed in `tasks.json` for the task if there is a description. Use a translation key for internationalisation support.
 * `date`: This is the due date of the task. It is left null during task creation and set later.
-* `title`: Set to the `title` that you indicated in your `task-schedules.json` file. The title is the text that appears in the UI on the task.
+* `title`: Set to the `title` that you indicated in your `tasks.json` file. The title is the text that appears in the UI on the task. Use a translation key for internationalisation support.
 * `fields`: Fields are pieces of data that display on the task summary screen. List a label and value for each field you want to display on the summary screen.
 * `resolved`: This tracks whether or not the task has been completed. It is set to false initially and then updated to a condition later.
 * `actions`: This is an array of the actions (forms) that a user can access after clicking on a task. If you put multiple forms here, then the user will see a task summary screen where they can select which action they would like to complete.
@@ -98,17 +98,17 @@ Within your array of `actions` there are some additional properties that you can
 
 ## Configuring Tasks
 
-Tasks are configured in two places: `task-rules.js` and `task-schedules.json`. `task-rules.js` is where you define which form submissions trigger tasks and set the rules for creation and emission of tasks, including which types of users will see which tasks. This is also where you can pull information from the form that triggers the task schedule and pass it to the form that the user needs to fill to complete the tasks. More information on this is below. 
+Tasks are configured in two places: `rules.nools.js` and `tasks.json`. `rules.nools.js` is where you define which form submissions trigger tasks and set the rules for creation and emission of tasks, including which types of users will see which tasks. This is also where you can pull information from the form that triggers the task schedule and pass it to the form that the user needs to fill to complete the tasks. More information on this is below.
 
-`task-schedules.json` is where you define all of the different tasks in each of your task schedules. You set the due date and task window, the icon and the task title.
+`tasks.json` is where you define all of the different tasks in each of your task schedules. You set the due date and task window, the icon and the task title.
 
-### `task-schedules.json`
+### `tasks.json`
 
 Each task needs a due date, window, icon and title to be defined so that the app knows how to render it. The diagram below explains where each of the properties will appear. You will need to include the properties listed after the diagram for each of your task schedules.
 
-![Task description](img/task_with_description.png)
+![Task description](../img/task_with_description.png)
 
-* `name`: This is the name of the task schedule. It's used when retrieving a particular task schedule from `task-schedules.json` for use in `task-rules.js`.
+* `name`: This is the name of the task schedule. It's used when retrieving a particular task schedule from `tasks.json` for use in `rules.nools.js`.
 * `events`: These are the individual tasks in the schedule. You may have one or more tasks in your schedule.
 
 For each event, you need to include the following:
@@ -177,9 +177,9 @@ This example shows one task in the schedule. For schedules with multiple tasks, 
 }
 ```
 
-### `task-rules.js`
+### `rules.nools.js`
 
-Each task must also be created and emitted, as discussed above. The creation and emission of tasks happens in `task-rules.js`. This is also where you will define when a task should be generated and for which types of users. Depending on how many types of tasks you have in your project, you may choose to use a switch statement with a case for each type of report.
+Each task must also be created and emitted, as discussed above. The creation and emission of tasks happens in `rules.nools.js`. This is also where you will define when a task should be generated and for which types of users. Depending on how many types of tasks you have in your project, you may choose to use a switch statement with a case for each type of report.
 
 #### Nools
 
@@ -203,7 +203,7 @@ Some utility functions are available to your rule configuration and have been in
 | now() | Returns the current Date. |
 | MS_IN_DAY | A constant for the number of milliseconds in a day. |
 
-If you can think of any others you'd like to be included raise an issue in medic/medic-webapp.
+If you can think of any others you'd like to be included raise an issue in [medic/medic](https://github.com/medic/medic/issues).
 
 #### Examples
 
@@ -230,7 +230,7 @@ case 'assessment':
       scheduleName = 'assessment-referral';
     }
 
-    // Get the task schedule that you specified in `task-schedules.json`
+    // Get the task schedule that you specified in `tasks.json`
     var schedule = Utils.getSchedule(scheduleName);
 
     if (schedule) {

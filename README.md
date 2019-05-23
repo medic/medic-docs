@@ -1,67 +1,34 @@
 # Documentation
 
-## Installation
+## Core Development
+The following guides should help orient developers interested in the core framework used for building community health applications. Setting up the core framework itself is covered in the [medic repo](https://github.com/medic/medic#easy-deployment).
 
-### Release Notes
-
-* [Changelog](https://github.com/medic/medic-webapp/blob/master/Changes.md)
-* [Supported software](installation/supported-software.md)
-
-### Setup Medic OS
-
-Pick your VM software:
-
-* [VMWare player](installation/mmva-vmware.md)
-* [Virtual box](installation/mmva-vbox.md)
-* [VMWare fusion](installation/mmva-vmware-fusion.md)
-
-Then if needed, install apps:
-
-* [Installing apps](installation/garden.md)
-
-### Medic Gateway
-
-* [Medic gateway configuration](configuration/gateway-config.md)
-* [Medic gateway recommended phones](configuration/gateway-phones.md)
-
-## Configuration
-
-* [Forms](configuration/forms.md)
-* [App settings](configuration/app-settings.md)
-* [Replication](configuration/replication.md)
-* [Contact summary cards](configuration/contact-summary.md)
-* [Sentinel transitions](configuration/transitions.md)
-* [CouchDB authentication](configuration/couchdb-authentication.md)
-* [Garden](configuration/garden.md)
-* [Replicating with Futon](configuration/replicate.md)
-* [Variables in messages](configuration/variables-in-messages.md)
-* [Configuring patient shortcode length](configuration/shortcode-identifiers.md)
-* [Accessing CouchDB directly](configuration/direct-access.md)
-
-## Support and Troubleshooting
-
-* [Dealing with conflicts](troubleshooting/conflicts.md)
-
-## Development
-
-### Code
-
-* [Architecture](development/architecture.md)
-* [DB schema](development/db-schema.md)
-* [Developer environment setup](https://github.com/medic/medic-webapp/blob/master/README.md)
-* [Style guide](development/style-guide.md)
-* [Updating translations](development/translations.md)
-* [Our workflow](development/workflow.md)
-* [Releasing our app](development/releasing.md)
-* [Virtual appliance build environment](development/mmva-build.md)
-* [How to migrate dashboard to SSL](development/update-markets.md)
+### How we work
+* [Developer environment setup](https://github.com/medic/medic/blob/master/README.md)
 * [Using Git](development/using-git.md)
 * [Using npm](development/using-npm.md)
-
-### Culture
-
+* [Our workflow](development/workflow.md)
 * [Culture](development/culture.md)
+* [Style guide](development/style-guide.md)
+* [Updating translations](development/translations.md)
+* [Releasing our app](development/releasing.md)
 
-## User
-
+### Technical overviews
+* [Architecture](development/architecture.md)
+* [DB schema](development/db-schema.md)
 * [Message states](user/message-states.md)
+* [How to migrate dashboard to SSL](development/update-markets.md)
+
+## Building Community Health Applications
+An introduction and reference for developing community health applications is provided in [Developing Community Health Applications](https://github.com/medic/medic-docs/blob/master/configuration/developing-community-health-applications.md). This overview covers building forms, tasks, targets, and contact profiles.
+
+Read more about [building apps with the framework](https://github.com/medic/medic-docs/blob/master/configuration/README.md), and [using other components](https://github.com/medic/medic-docs/blob/master/configuration/README.md#other-components).
+
+## Maintenance, Support, and Troubleshooting
+* [Release notes](https://github.com/medic/medic/tree/master/release-notes)
+* [Software compatibility matrix](installation/supported-software.md)
+* [Troubleshooting - Quick Pointers and Tips](troubleshooting/troubleshooting-quick-pointers.md)
+* [Dealing with conflicts](troubleshooting/conflicts.md)
+* [Replicating production data locally](troubleshooting/replicating-production-locally.md)
+* [Obtaining production logs](troubleshooting/obtaining-logs.md)
+

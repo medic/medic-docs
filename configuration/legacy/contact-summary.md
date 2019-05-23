@@ -4,7 +4,7 @@ In the `app_settings.contact_summary` you can write a script to output fields fo
 
 ## Inputs
 
-There are two variables available to you to inspect to generate the summary information:
+There are several variables available to you to inspect to generate the summary information:
 
 - `contact` which is the currently selected contact. This has minimal stubs for the `contact.parent`, so if you want to refer to a property on the parent use `lineage` below.
 - `reports` which is an array of reports for the contact.
@@ -18,19 +18,19 @@ The output of your script is an object with three properties:
 
 An array of fields which summarize the contact and will be shown at the top of the contact pane.
 
-![Summary card](img/summary-card.png)
+![Summary card](../img/summary-card.png)
 
 ### `cards`
 
 An array of cards to show below the summary, each with their own header and arrays of fields.
 
-![Pregnancy card](img/pregnancy-card.png)
+![Pregnancy card](../img/pregnancy-card.png)
 
 ### `context`
 
 An object which is used to to encapsulate information about this contact. This is to passed to each forms `expression` to give more information to decide whether or not to show the form in the "New action" menu, and also passed to each xform which can then use the information in field calculations.
 
-![New action menu](img/new-action-menu.png)
+![New action menu](../img/new-action-menu.png)
 
 ## Configuration
 
@@ -44,7 +44,7 @@ Each field is an object with the following properties:
 - `icon` is the name of the icon to display beside this field which is defined through the Configuration > Icons page.
 - `filter` (optional) is the name of the display filter to apply to the value, eg: `{ value: '2005-10-09', filter: 'age' }` will render as "11 years". 
 Common filters are: `age`, `phone`, `weeksPregnant`, `relativeDate`, `relativeDay`, `fullDate`, `simpleDate`, `simpleDateTime`, `lineage`, `resourceIcon`. 
-For the complete list of filters, and more details on what each does, check out the code in [`medic-webapp/static/js/filters` dir](https://github.com/medic/medic-webapp/tree/master/static/js/filters).
+For the complete list of filters, and more details on what each does, check out the code in [`medic/webapp/src/js/filters` dir](https://github.com/medic/medic/tree/master/webapp/src/js/filters).
 
 In 2.13.0 and later the configured function `return`s to supply the output as in the following example. Prior to 2.13.0 to return the result you needed to declare the object on the last line of the script.
 

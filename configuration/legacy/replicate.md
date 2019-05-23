@@ -14,4 +14,4 @@ You will have your own unique seed data URL, this is an example.
 * Click Replicate and wait or spinner to complete
 * Verify some documents were written
 
-![CouchDB Vals](img/futon/replicate_ohw_seed.png)
+![CouchDB Vals](../img/futon/replicate_ohw_seed.png)
