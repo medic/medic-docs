@@ -36,9 +36,9 @@ Each outbound push configuration contains the following properties: `relevant_to
 
 ### relevant_to
 
-An "expression" (some JS code that resolves to a truthy or falsy value) that determines whether this configuration is relevant to the document that is being tested. The document is passed to the expression is `doc`, and is fully hydrated before being passed.
+An "expression" (some JS code that resolves to a truthy or falsy value) that determines whether this configuration is relevant to a document. The document is passed to the expression as `doc`, and is fully hydrated before being passed (i.e. the attached contact, its parents etc are fully attached instead of just being stubs).
 
-Example: you want to send a referral to an external facility tool when a CHW refers a patient:
+Example: you want to send a referral to a facility's EMR system when a CHW refers a patient:
 
 ```json
 {
@@ -48,7 +48,7 @@ Example: you want to send a referral to an external facility tool when a CHW ref
 
 ### destination
 
-A complex property that declares how the data should be passed to the external service. It currently supports two authentication types, Basic Auth and a custom authentication mode for Muso SIH.
+A complex property that defines the details of the connection to the external service. It currently supports two authentication types, Basic Auth and a custom authentication mode for Muso SIH.
 
 Example:
 
@@ -139,9 +139,9 @@ Would create the following JSON payload to send:
 This example makes a few points:
  - The report that is being used to generate the outbound push is referenced as `doc` in both `path` and `expr` properties
  - To define a property that is itself an object, you can make the mapping key a JSON path.
- - If you define a property as `optional`, it won't exist at all in the payload if the resulting value is `undefined`, either because that is result of executing the `expr`, or the `path` doesn't exist. Note that if the `event.in_danger` expression was instead `doc.fields.danger_signs.length >= 3` the property `in_danger` would always exist and would either be `true` or `false`
+ - If you define a property as `optional`, it won't exist at all in the payload if the resulting value is `undefined`, either because that is the result of executing the `expr`, or the `path` doesn't exist. Note that if the `event.in_danger` expression was instead `doc.fields.danger_signs.length >= 3` the property `in_danger` would always exist and would either be `true` or `false`
 
-Other notes:
+#### Other Notes
  - Your report will be hydrated before being passed to the mapper. This gives you access to the contact and its parents
  - JSON paths that may have undefined properties need to be dealt with differently depending on if you are using a `path` or an `expr`. Given `doc.foo.bar.smang` as a path where any of those properties may not exist in the doc:
   - If you're using `path` just use the path as is, if any part of the path is `undefined` the resulting value will safely be `undefined`
@@ -151,7 +151,7 @@ Other notes:
 
 ## Credentials
 
-To securely store credentials, we'll be using CouchDB's config storage, as this is a convenient place that only CouchDB admins can access.
+To securely store credentials, we'll be using CouchDB's [config storage](https://docs.couchdb.org/en/stable/api/server/configuration.html), as this is a convenient location that only CouchDB administrators can access.
 
 Passwords are stored under the `medic-credentials` section, under the key declared in config.
 
@@ -193,8 +193,8 @@ You can also add it via Fauxton:
 Outbound pushes happen in two stages:
  - Sentinel picks up the report and runs transitions over it. Any outbound configuration that is relevant (via executing the `relevant_to` expression) will be added to a task queue
  - Every 5 minutes sentinel will check its task queue. For each outbound push that is queued, sentinel will perform the mapping and attempt to send the resulting payload (via POST) to the configured web address
- - If the push succeeds it will be taken out of the task queue
- - If the push fails (i.e. the response is not 2xx) it remains in the task queue, to be tried again in 5 minutes
+   - If the push succeeds it will be taken out of the task queue
+   - If the push fails (i.e. the response is not 2xx) it remains in the task queue, to be tried again in 5 minutes
 
 ## Inbound?
 
