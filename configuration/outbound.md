@@ -74,9 +74,9 @@ If you don't provide an authentication parameter then the request will be sent w
 
 A complex property that declares how the payload to be sent to the `destination` should be created.
 
-Each key is a JSON path to a location in the payload, and each value is either:
- - a string JSON path to the location of the source data in the report being processed, where the value is required to exist
- - an object with either a `path` property that represents a JSON path as above, or an `expr` property which is an expression similar to `relevant_to` to determine the resulting value. If you wish for the value to be optional (that is to say it's OK if `path` or `expr` evaluate to `undefined`) you may also set `optional` to `true`
+Each key is a string [object path]('https://github.com/mariocasciaro/object-path#usage') to a location in the payload, and each value is either:
+ - a string object path to the location of the source data in the report being processed, where the value is required to exist
+ - an object with either a `path` property that represents a string object path as above, or an `expr` property which is an expression similar to `relevant_to` to determine the resulting value. If you wish for the value to be optional (that is to say it's OK if `path` or `expr` evaluate to `undefined`) you may also set `optional` to `true`
 
 #### A mapping example
 
@@ -143,7 +143,7 @@ This example makes a few points:
 
 #### Other Notes
  - Your report will be hydrated before being passed to the mapper. This gives you access to the contact and its parents
- - JSON paths that may have undefined properties need to be dealt with differently depending on if you are using a `path` or an `expr`. Given `doc.foo.bar.smang` as a path where any of those properties may not exist in the doc:
+ - object paths that may have undefined properties need to be dealt with differently depending on if you are using a `path` or an `expr`. Given `doc.foo.bar.smang` as a path where any of those properties may not exist in the doc:
   - If you're using `path` just use the path as is, if any part of the path is `undefined` the resulting value will safely be `undefined`
   - However, in `expr` you **do** need to handle this situation: `doc.foo && doc.foo.bar && doc.foo.bar.smang`
 - If any of your `expr` expressions throw an exception (for example because you didn't handle potentially `undefined` properties as noted above) your push will fail
