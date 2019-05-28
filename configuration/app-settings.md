@@ -170,7 +170,6 @@ Under the `patient_reports` key in app_settings, we can setup actions to take fo
 |`messages[].event_type`|An event that will trigger sending of this message. Typical values are: `report_accepted` when the report has been successfully validated, `registration_not_found` when the patient ID supplied in the report doesn't match any patient ID issued by Medic. `on_mute` and `on_unmute` are used in the context of muting as described [here](transitions.md#muting)|no|
 |`messages[].recipient`|Who the message should be sent to. Use `reporting_unit` for the sender of the report, `clinic` for clinic contact, and `parent` for the parent contact.|no|
 
-
 #### Replications
 
 Replications are defined under the `replications` key as an array of replication objects. The definition takes the typical form below:
