@@ -73,7 +73,7 @@ We currently support the following data types:
  - `"integer"`: a whole number
  - `"string"`: any collection of characters
  - `"date"`: a date in the format `YYYY-mm-dd`, for example "2019-01-28"
- - `"boolean"`: true or false, represented by the digit `1` and `0` respectively if sent via SMS
+ - `"boolean"`: true or false, represented by the digit `1` and `0` respectively (native JSON booleans are also supported if sending via JSON)
  - `"custom"`: Only possible for JSON forms that are passed as actual JSON (not an SMS that gets parsed into JSON). Effectively any non-specific data structure, which will be taken without validation.
 
 
