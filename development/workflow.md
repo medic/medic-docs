@@ -112,3 +112,10 @@ Additionally, if there are missing labels:
 Regardless of what you do with the issue, please:
  - Remove the `Needs Triage` label once triage is complete
  - Document the reasoning by commenting in the issue. This will help reduce mistakes, as the reasoning will be available for everyone to read, and any mistakes there can be rectified.
+ 
+# Workflow for contributing to medic-docs
+Unlike the above development workflow, the workflow for contributing to [medic-docs](https://github.com/medic/medic-docs) does not involve release management and Acceptance Testing. In order to streamline the process of contributing to docs while still maintaining quality, please submit a pull request with any changes to medic-docs. One of the repository's maintainers will review the PR, request additional changes as needed, and merge the PR when it is ready. 
+
+Where possible, please follow our [docs style guide](https://github.com/medic/medic-docs/blob/master/development/docs-style-guide.md).
+
+
