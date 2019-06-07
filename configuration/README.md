@@ -11,6 +11,15 @@ Workflows that use SMS are defined in the file `app_settings.json`. The followin
 - [SMS Form Validations](app-settings-validations.md)
 - [Variables in outgoing SMS](variables-in-messages.md)
 
+# SMS Integration
+
+## Medic Gateway
+- [Medic Mobile Gateway Configuration](gateway-config.md)
+- [List of Phones that Work Well with Medic Gateway](gateway-phones.md)
+
+## Third Party Aggregators
+- [Africa's Talking](africas-talking.md)
+
 # Additional Features
 Here are some guides on additional features that can be used within your applications: 
 - [Advanced form features](forms.md)
@@ -20,9 +29,6 @@ Here are some guides on additional features that can be used within your applica
 - [Sentinel transitions](transitions.md)
 
 # Other components
-## Medic Gateway
-- [Medic Mobile Gateway Configuration](gateway-config.md)
-- [List of Phones that Work Well with Medic Gateway](gateway-phones.md)
 
 ## Medic Collect
 - [Creating XForms for Medic Collect](forms.md#xforms-for-medic-collect)
