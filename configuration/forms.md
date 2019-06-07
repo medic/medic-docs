@@ -452,9 +452,10 @@ Next you can configure the form to calculate the z-score for a patient using the
 
 ## Sending reports as SMS
 
-You can configure specific forms so that their reports are forwarded as SMS messages in addition to the standard XML storage in the database.
+When submitting an XForm, along with creating the report document, the app will try to compact the report's content into an SMS that would be sent to the configured Gateway phone number.  
 
 There are two formats available - either using the [ODK's compact record representation for SMS](https://opendatakit.github.io/xforms-spec/#compact-record-representation-(for-sms)), or Medic's custom format.
+When the form compaction fails or returns no content, no SMS will be sent.
 
 ### ODK compact record representation for SMS
 
@@ -462,7 +463,8 @@ To get forms sent in this format, follow the [ODK documentation](https://opendat
 
 ### Medic Custom SMS representation
 
-To configure a form to send using Medic's custom SMS definition, add the field `report2sms` to the form's CouchDB doc.  The value of this field is an [Angular expression](https://docs.angularjs.org/guide/expression), and allows access to the `fields` property of the `data_record` doc created when saving the form submission to the database.  Extra functions are also provided to make compiling a form submission more simple.
+To configure a form to send using Medic's custom SMS definition, add the field `xml2sms` to the form's CouchDB doc.  The value of this field is an [Angular expression](https://docs.angularjs.org/guide/expression), and allows access to the `fields` property of the `data_record` doc created when saving the form submission to the database.  Extra functions are also provided to make compiling a form submission more simple.
+_When `xml2sms` is not set or falsy, ODK compact record representation will be used by default._
 
 #### Special Functions
 
