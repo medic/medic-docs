@@ -134,11 +134,11 @@ After bootstrap, visit: https://localhost and accept the self-signed SSL certifi
 docker ps
 
 # ssh into container/application
-docker exec -it <container_name> /bin/bash
+docker exec -it <container_id> /bin/bash
 
 
 # View container stderr/stdout logs:
-docker logs <container_name>
+docker logs <container_id>
 ```
 
 ## Clean Up
@@ -151,10 +151,10 @@ docker ps
 sudo docker ps -a
 
 # stop container
-docker stop <container ID>
+docker stop <container_id>
 
 # start container
-docker start <container ID>
+docker start <container_id>
 
 # list all stoped containers 
 docker ps -f "status=exited"
