@@ -148,23 +148,27 @@ module.exports = function(callback) {
 ```javascript
 #!/usr/bin/env node
 
-var url = require('url'),
+const url = require('url'),
     csv = require('fast-csv'),
-    PouchDB = require('pouchdb')
-    _ = require('underscore');
+    PouchDB = require('pouchdb-core')
+_ = require('underscore');
+
+PouchDB.plugin(require('pouchdb-adapter-http'));
 
 var importer,
+    prefReqOpts,
+    userReqOpts,
     options = {
       wait: 500, // wait between requests
     },
     stats = {rows: 0, requests:0, responses:{}};
     
 
-var outputError = function() {
-  var RED = '\033[0;31m';
-  var NC = '\033[0m';
+const outputError = () => {
+  const RED = '\033[0;31m';
+  const NC = '\033[0m';
 
-  var args = Array.prototype.slice.call(arguments);
+  const args = Array.prototype.slice.call(arguments);
 
   args[0] = RED + arguments[0] + NC;
 
@@ -178,13 +182,17 @@ if (process.version.match(/^v(\d+\.\d+)/)[1] < 4) {
 }
 
 if (process.env.COUCH_URL) {
-  reqOpts = url.parse(process.env.COUCH_URL);
+  userReqOpts = url.parse(process.env.COUCH_URL);
+  prefReqOpts = url.parse(process.env.COUCH_URL);
+  userReqOpts.pathname = '/_users';
+  prefReqOpts.pathname = '/medic';
+
 } else {
   console.error('Missing COUCH_URL');
-  usage();
+  process.exit();
 }
 
-var recordStat = function(obj) {
+const recordStat = obj => {
   var resCode = obj.ok? 200: obj.status;
   if (resCode) {
     if (typeof stats.responses[resCode] === 'undefined') {
@@ -194,21 +202,22 @@ var recordStat = function(obj) {
   }
 };
 
-var roleUpdater = function(db, obj, task_key){
-  return db.get('org.couchdb.user:' + obj.username)
-    .then(function(doc){
+const roleUpdater = (db, obj, task_key) => {
+  return db.get(`org.couchdb.user:${obj.username}`)
+    .then((doc) => {
       console.log('Now updating ' + task_key + ' for ' + obj.username);
       if (doc.roles.indexOf("branch_manager") === -1){
         doc.roles.push("branch_manager");
-      }
-      return db.put(doc);
+        return db.put(doc);
+      }      
+      return {ok: true, id:`org.couchdb.user:${obj.username}`};
     })
-    .then(function(res){  
+    .then((res) => {  
       console.log(res);
       recordStat(res);
       return Promise.resolve();
     })
-    .catch(function(err) {
+    .catch((err) => {
       recordStat(err);
       outputError(
         'failed to update user %s status: %s reason: %s',
@@ -219,16 +228,14 @@ var roleUpdater = function(db, obj, task_key){
     });
 };
 
-var updateUser = function(obj) {
-  var prefs_db = new PouchDB(url.format(reqOpts), {
+const updateUser = obj => {
+  const prefs_db = new PouchDB(url.format(prefReqOpts), {
     ajax: {
       timeout:false
     }
   });
-  
-  reqOpts.pathname = '/_users';
-      
-  var user_db = new PouchDB(url.format(reqOpts), {
+ 
+  const user_db = new PouchDB(url.format(userReqOpts), {
     ajax: {
       timeout:false
     }
@@ -236,11 +243,11 @@ var updateUser = function(obj) {
   stats.requests++;
   
   Promise.resolve()
-    .then(_.partial(roleUpdater, user_db, obj,'users'))
-    .then(_.partial(roleUpdater, prefs_db, obj,'user_prefs'));
+  .then(_.partial(roleUpdater, user_db, obj,'users'))
+  .then(_.partial(roleUpdater, prefs_db, obj,'user_prefs'));
 };
 
-var onDataHandler = function(obj) {
+const onDataHandler = (obj) => {
   stats.rows++;
   console.log('Now processing user: ' + obj.username);
   updateUser(obj);
@@ -257,13 +264,13 @@ csv
     );
   });
 
-var responsesContainErrors = function(responses) {
-  return Object.keys(responses).some(function(key) {
+const responsesContainErrors = (responses) => {
+  return Object.keys(responses).some((key) => {
     return !key.startsWith('2');
   });
 };
 
-process.on('exit', function() {
+process.on('exit', () => {
   console.info('');
   console.info(stats);
   if (stats.responses && responsesContainErrors(stats.responses)) {
@@ -271,9 +278,10 @@ process.on('exit', function() {
   }
 });
 
-process.on('SIGINT', function() {
+process.on('SIGINT', () => {
   process.exit();
 });
+
 ```
 
 **sample Branches.csv**
