@@ -74,7 +74,7 @@ If you don't provide an authentication parameter then the request will be sent w
 
 A complex property that declares how the payload to be sent to the `destination` should be created.
 
-Each key is a string [object path]('https://github.com/mariocasciaro/object-path#usage') to a location in the payload, and each value is either:
+Each key is a string [object path](https://github.com/mariocasciaro/object-path#usage) to a location in the payload, and each value is either:
  - a string object path to the location of the source data in the report being processed, where the value is required to exist
  - an object with either a `path` property that represents a string object path as above, or an `expr` property which is an expression similar to `relevant_to` to determine the resulting value. If you wish for the value to be optional (that is to say it's OK if `path` or `expr` evaluate to `undefined`) you may also set `optional` to `true`
 
