@@ -6,7 +6,8 @@ Once a version is no longer supported it will not receive any further releases a
 
 | Version | Status | Release date | End of life |
 |----|----|----|----|
-| 3.4.0 | Current | 27-Mar-2019 | TBA |
+| 3.4.1 | Current | 5-Jun-2019 | TBA |
+| 3.4.0 | Supported | 27-Mar-2019 | 5-Sep-2019 |
 | 3.3.0 | Supported | 22-Feb-2019 | 27-Jun-2019 |
 | 3.2.1 | EOL | 23-Jan-2019 | 22-May-2019 |
 | 3.2.0 | EOL | 23-Jan-2019 | 23-Jan-2019 |
