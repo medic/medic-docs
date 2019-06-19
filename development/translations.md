@@ -24,7 +24,7 @@ New languages must be added and configured in several places:
 ## Adding new keys
 In order to trace the addition of new terms and also updates to existing translations,
 the default translation file (messages-en.properties) must be updated directly.
-Our GitHub repo provides with a [command line tool (CLI)](https://github.com/medic/medic/blob/scripts/poe) to
+Our GitHub repo provides with a [command line tool (CLI)](https://github.com/medic/medic/tree/master/scripts/poe) to
 import updates into the POEditor app.
 If you don't have an API token, please contact a Medic Mobile developer, product manager, or CTO. Please do not disclose this API token to anyone else.
 
