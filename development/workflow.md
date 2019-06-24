@@ -40,6 +40,8 @@ For more help with Git see: [Using Git](./using-git.md).
 - Release branches have the form `<major>.<minor>.x` and should be stable.
 - Feature branches have the form `<issue-number>-<issue-description>` and are work in progress.
 
+**Note**: When backporting changes to an earlier release branch you should cherry pick the appropriate commits from `master` into the release branch, submit a pull request, and make sure tests pass on Travis before merging.
+
 # Issues
 
 Issues are managed in Github. Issues should be created in the repository where the changes need to be made. If it is not clear in which repo to open an issue the default should be the `medic` repository. If it is a security or sensitive issue it should be opened in the private `medic-projects` repository.
