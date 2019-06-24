@@ -48,15 +48,14 @@ To see what's scheduled for the next releases have a read of the product roadmap
 
 ## Android apps
 
-Publishing the Android apps for **Medic Mobile** (`medic-android`) and **Collect** (`medic-collect`) and **Gateway** (`medic-gateway`) to the Google Play Store:
+All medic android projects automatically build, sign, and publish builds via Travis. To create a new release:
 
-* Connect to the Medic Mobile build server using Remote Desktop Connection.
-* Go to the Jenkins project for [medic-android](http://localhost:8080/job/medic-android/) or [medic-collect](http://localhost:8080/job/medic-collect/), and then `Build with Parameters`:
-  * `VERSION_TO_BUILD` = Complete numerical version number:
-    * Medic Mobile: `a.b.c` format. Eg `0.1.71`
-    * Collect: `a.b.c.d` format. Eg `1.4.5.1100` where `1.4.5` is the base Collect version and `1100` is the build number.
-* Go to the Jenkins project for [medic-android-publish](http://localhost:8080/job/medic-android-publish/) or [medic-collect-publish](http://localhost:8080/job/medic-collect-publish/) or [medic-gateway-publish](http://localhost:8080/job/medic-gateway-publish/), and then `Build with Parameters`:
-  * `VERSION_TO_PUBLISH` = Use the same medic-android or medic-collect version that was just built.
-  * `RELEASE_TRACK` = Select `alpha`, `beta`, or `production` as needed.
-  * `BRANDING` = Choose the "product flavor" to publish.
-* Check the Google Play Store developer console to make sure that the version matches the updated app's build number.
+1. Determine what version the build will be. This should be a valid semver (eg. `v1.1.1`). Increment the semver appropriately based on the latest release version:
+    * [medic-android](https://github.com/medic/medic-android/releases)
+    * [medic-gateway](https://github.com/medic/medic-gateway/releases)
+    * [medic-collect](https://github.com/medic/medic-collect/releases)
+    * [rdt-capture](https://github.com/medic/rdt-capture/releases)
+1. Tag the commit in `master` which you'd like to release. Use `git tag v1.1.1` with the version from above and then run `git push --tags`.
+1. Wait for the build to complete. You can monitor the build via travis-ci.org.
+1. **To Release via the Play Store** - Login to the [Google Play Console](https://play.google.com/apps/publish/) and select the app flavor for release. Navigate to "Release Management > Alpha" and click "Release to Beta". Repeat this for each flavor.
+1. **To Side-Load** (for Collect and Gateway) - Navigate to the GitHub Releases page (linked above) and download the relevant APKs for distribution.
