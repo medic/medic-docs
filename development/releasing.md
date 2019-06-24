@@ -48,7 +48,7 @@ To see what's scheduled for the next releases have a read of the product roadmap
 
 ## Android apps
 
-All medic android projects automatically build, sign, and publish builds via Travis. To create a new release:
+All medic Android projects automatically build, sign, and publish builds via Travis. To create a new release:
 
 1. Determine what version the build will be. This should be a valid semver (eg. `v1.1.1`). Increment the semver appropriately based on the latest release version:
     * [medic-android](https://github.com/medic/medic-android/releases)
