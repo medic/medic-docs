@@ -1,8 +1,8 @@
 # Forms
 
-Forms define information flows. Users can fill in forms by SMS, SIM applications, Medic Collect, or via the webapp in a browser or the Android app. Forms can be used for a vairety of purposes, including creating new patients, registering them for SMS reminders, reporting a patient visit or status. 
+Forms define information flows. Users can fill in forms by SMS, SIM applications, Medic Collect, or via the webapp in a browser or the Android app. Forms can be used for a vairety of purposes, including creating new patients, registering them for SMS reminders, reporting a patient visit or status.
 
-There are two types of form definitions: 
+There are two types of form definitions:
 - **JSON forms**: used for parsing reports from formatted SMS, SIM applications, and Medic Collect. Forms for Medic Collect must also have a corresponding XForm definition to be rendered on Android devices.
 - **XForms**: used for forms within the web app, whether accessed in browser or via the Android app. XForms are also used to render the form in Medic Collect.
 
@@ -82,6 +82,7 @@ The XForms are used for all Actions, Tasks, and Contact Creation/Edit forms with
 ![XML forms](img/xml_forms.png)
 
 ## General Structure
+
 A typical Action or Task form starts with an `inputs` group which contains prepopulated fields that may be needed during the completion of the form (eg patient's name, prior information), and ends with a summary group (eg `group_summary`, or `group_review`) where important information is shown to the user before they submit the form. In between these two is the form flow, usually a collection of questions grouped into pages. All data fields submitted with a form are stored, but often important information that will need to be accessed from the form is brought to the top level.
 
 | **type** | **name** | **label** | ... |
@@ -99,6 +100,12 @@ A typical Action or Task form starts with an `inputs` group which contains prepo
 | note | r_followup | Follow Up <i class="fa fa-flag"></i> |
 | note | r_followup_note | ${r_followup_instructions} |
 | end group| | |
+
+To understand more about how to create forms:
+ - Read the [XLSForm standard](http://xlsform.org/) documentation
+ - Take a look at the forms in our [default configuration](https://github.com/medic/medic/blob/master/config/standard/forms/) for real-world examples
+
+Read on more Medic-specific additions and features.
 
 ## Accessing Data From Contact
 
@@ -142,58 +149,93 @@ return result;
 
 Note that you can pass a large object to the form, which can then read any value, but doing so does noticeably slow the loading of the form. Because of this it is preferable to remove from the context any fields that are not being used. It is a good idea to future proof by maintaining the same structure so that fields can be added without needing to modify existing form calculations.
 
-## Creating Additional Docs
+## Creating SD_XYZ Documents
 
-In version 2.13.0 and higher, you can configure your app forms to generate additional docs upon submission. You can create one or more docs using variations on the configuration described below. One case where this can be used is to register a newborn from a delivery report, as shown below. First, here is an overview of what you can do and how the configuration should look in XML:
+**TODO** decide what SD_XYZ should be to get our language consistent. Read how it is used everywhere below and determine what to call it. Options could be `secondary`, `additional`, `extra`, or something else!
 
-### Extra Docs
+In version 2.13.0 and higher, you can configure your app forms to generate SD_XYZ docs upon submission. These documents are created in addition to the main report that will be generated, using data captured in that report.
 
-- Extra docs can be added by defining structures in the model with the attribute db-doc="true". **Note that you must have lower-case `true` in your XLSform, even though Excel will default to `TRUE`.**
+### Declaring a SD_XYZ document
 
-#### Example Form Model
+SD_XYZ docs can be extracted by tagging a structure in the model with the attribute `db-doc="true". This data structure will then be pulled out as its own document.
+
+To add the new attribute in the spreadsheet, add a new column titled `instance::db-doc`:
+
+**TODO: EXAMPLE IMAGE / EXCEL CONFIGURATION**
+
+**Note that you must have lower-case `true` in your XLSform, even though Excel will default to `TRUE`.**
+
+#### Example
+
+In the example XForm snippet below we are tagging the `other_doc` element as an SD_XYZ doc.
 
 ```xml
-<data>
-  <root_prop_1>val A</root_prop_1>
-  <other_doc db-doc="true">
-    <type>whatever</type>
-    <other_prop>val B</other_prop>
-  </other_doc>
-</data>
+<instance>
+  <data>
+    <root_prop_1>val A</root_prop_1>
+    <other_doc db-doc="true">
+      <type>whatever</type>
+      <other_prop>val B</other_prop>
+    </other_doc>
+    ...
+  </data>
+</instance>
 ```
 
-#### Resulting Docs
+This will create two reports. First, the normal report containing all of the data gathered, _excluding the data in the tagged element_:
 
-Report (as before):
-
-```
+```json
 {
-  _id: '...',
-  _rev: '...',
-  type: 'report',
-  _attachments: { xml: ... ],
-  fields: {
-    root_prop_1: 'val A',
+  "_id": "...",
+  "_rev": "...",
+  "type": "data_record",
+  "content_type": "xml",
+  "reported_date": 1561040099709,
+  "fields": {
+    "root_prop_1": "val A",
   }
 }
 ```
 
-Other doc:
+Second, another record in the database based on data in the tagged element:
 
 ```json
 {
   "_id": "...",
   "_rev": "...",
   "type": "whatever",
-  "other_prop": "val B"
+  "other_prop": "val B",
+  "reported_date": 1561040099709
 }
 ```
 
-### Linked Docs
+Note that while the `reported_date` will be added automatically, and the `_id` and `_rev` are generated, no other properties are.
 
-- Linked docs can be referred to using the doc-ref attribute, with an xpath. This can be done at any point in the model, e.g.:
+To have this SD_XYZ report act as a data record you will need the following template:
 
-#### Example Form Model
+```xml
+<!--
+  TODO: work out what you need to display as a report
+-->
+```
+
+To have it act as a contact (such as a newborn) use:
+
+```xml
+<!--
+  TODO: work out what you need to display as a contact
+-->
+```
+
+### Linking Between Docs
+
+You can record links between the SD_XYZ doc and the main doc and vice versa with the `db-doc-ref` attribute. The value in configuration is an XPath value that points to the root of the document you want to link to, and the value in the resulting report is that document's `_id`.
+
+**TODO: EXAMPLE IMAGE / EXCEL CONFIGURATION**
+
+#### Example
+
+In the example XForm snippet below our main document links to the extracted doc's id in the `sufferer` element, and the secondary doc links to the main document in the `original_report` element:
 
 ```xml
 <sickness>
@@ -206,9 +248,7 @@ Other doc:
 </sickness>
 ```
 
-#### Resulting Docs
-
-Report:
+Main doc:
 
 ```json
 {
@@ -221,9 +261,9 @@ Report:
 }
 ```
 
-Other doc:
+SD_XYZ doc:
 
-```
+```json
 {
   "_id": "def-456",
   "_rev": "...",
@@ -235,10 +275,15 @@ Other doc:
 
 ### Repeated Docs
 
-- Can have references to other docs, including the parent
-- These currently cannot be linked from other docs, as no provision is made for indexing these docs
+You can extract multiple SD_XYZ docs by adding the `db-doc` flag to a repeating element.
 
-#### Example Form
+Note that while your repeating SD_XYZ docs can reference the main document as noted in the Linking Between Docs section, the main document cannot reference the SD_XYZ doc ids..
+
+**TODO: EXAMPLE IMAGE / EXCEL CONFIGURATION**
+
+#### Example
+
+Below is an example of the XML generated from a filled-in Xform where `related` has been configured as a repeating element:
 
 ```xml
 <thing>
@@ -256,9 +301,7 @@ Other doc:
 </artist>
 ```
 
-#### Resulting Docs
-
-Report:
+The normal report:
 
 ```json
 {
@@ -271,7 +314,7 @@ Report:
 }
 ```
 
-Other docs:
+And the two SD_XYZ data records that would be generated:
 
 ```json
 {
@@ -293,13 +336,14 @@ Other docs:
 }
 ```
 
-### Linked Docs Example
-This example shows how you would register a single newborn from a delivery report.
+### A Detailed Example
+
+This example shows how you would register a single newborn as part of filling in a delivery report.
 
 First, the relevant section of the delivery report XLSForm file:
 ![Delivery report](img/linked_docs_xlsform.png)
 
-Here is the corresponding portion of XML generated after converting the form:
+Here is the corresponding portion of XForm XML generated after converting the form:
 
 ```xml
 <repeat>
@@ -333,7 +377,7 @@ This example extends the above example to show how you would register one or mul
 First, the relevant section of the delivery report XLSForm file:
 ![Delivery report](img/repeated_docs_xlsform.png)
 
-Here is the corresponding portion of XML generated after converting the form:
+Here is the corresponding portion of XForm XML generated after converting the form:
 
 ```xml
 <child_doc db-doc-ref=" /postnatal_care/child "/>
@@ -365,7 +409,7 @@ To mark an element as having binary data add an extra column in the XLSForm call
 
 ## Triggering Calls and SMS
 
-When a XForm is loaded on a phone you can start a phone call or trigger the sending of an SMS within the form itself. This can be useful if within a task or assessment you want to tell the user to contact a patient, or perhaps a health worker at a facility. 
+When a XForm is loaded on a phone you can start a phone call or trigger the sending of an SMS within the form itself. This can be useful if within a task or assessment you want to tell the user to contact a patient, or perhaps a health worker at a facility.
 
 To set up the call or SMS you'll need to create a link with `tel:` or `sms:` within a `note` field. To create the link, use the markdown link format, eg `[Call Patient](tel:+2547009875000)`. You can specify the content of the SMS by using the body parameter, eg `[Send SMS](sms://+25470098765000?body=Hello World!)`.
 
@@ -376,7 +420,7 @@ The phone number and message can be generated from fields within the XForm. For 
 - **XForm**
 `[Send SMS to <output value=" /data/patient_name "/>](sms://<output value=" /data/patient_phone "/>?body=<output value=" /data/message "/>)`
 
-If you want to use a button to make the action more obvious, this can be done using HTML and CSS within the note: 
+If you want to use a button to make the action more obvious, this can be done using HTML and CSS within the note:
 ```
 [<span style='background-color: #CC0000; color:white; padding: 1em; text-decoration: none; '>Call the patient</span>](tel:${patient_phone})
 ```
