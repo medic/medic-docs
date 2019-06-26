@@ -1,7 +1,4 @@
-
----
-title: Documentation Style Guide
----
+# Documentation Style Guide
 
 This page gives writing style guidelines for the Medic Mobile documentation.
 These are guidelines, not rules. Use your best judgment, and feel free to
@@ -45,7 +42,7 @@ represents.
   <tr><td>Create <code>medic/translations/messages-en.properties</code> file.</td><td>Create medic/translations/messages-en.properties file.</td></tr>
 </table>
 
-### International standard for punctuation inside quotes
+### US standard for punctuation inside quotes
 
 <table>
   <tr><th>Do</th><th>Don't</th></tr>
