@@ -42,6 +42,8 @@ New features include {{key_features}}. We've also implemented loads of other imp
 
 Read the release notes for full details: {{url}}
 
+Following our support policy, versions {{versions}} are no longer supported. Projects running these versions should start planning to upgrade in the near future. For more details read our software support documentation: https://github.com/medic/medic-docs/blob/master/installation/supported-software.md#supported-versions
+
 To see what's scheduled for the next releases have a read of the product roadmap: https://github.com/orgs/medic/projects?query=is%3Aopen+sort%3Aname-asc
 ```
 12. :beer:
