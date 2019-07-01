@@ -42,7 +42,7 @@ represents.
   <tr><td>Create <code>medic/translations/messages-en.properties</code> file.</td><td>Create medic/translations/messages-en.properties file.</td></tr>
 </table>
 
-### US standard for punctuation inside quotes
+### British standard for punctuation inside quotes
 
 <table>
   <tr><th>Do</th><th>Don't</th></tr>
