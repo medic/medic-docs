@@ -42,7 +42,7 @@ Update your app settings as follows.
 {
   "sms": {
     "outgoing_service": "africas-talking",
-    "reply_to": "<phone number that messages will be from>",
+    "reply_to": "<africa's talking shortcode>",
     "africas_talking": {
       "username": "<africa's talking username>",
       "allowed_ips": [ "164.177.141.82", "164.177.141.83" ]
@@ -50,8 +50,6 @@ Update your app settings as follows.
   }
 }
 ```
-
-During integration testing use "sandbox" as the username.
 
 The `allowed_ips` is hardcoded to the Africa's Talking server's IPs. Use the ones above unless AT change their addresses.
 
