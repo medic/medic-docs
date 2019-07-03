@@ -466,7 +466,7 @@ More complex targets can be written using the full set of properties for targets
 | `appliesIf` | `function(contact, report)` | If `appliesTo: 'contacts'`, this function is invoked once per contact and `report` is undefined. If `appliesTo: 'reports'`, this function is invoked once per report. Return true to count this document. For `type: 'percent'`, this controls the denominator. | no |
 | `passesIf` | `function(contact, report)` | For `type: 'percent'`, return true to increment the numerator. | yes, if `type: 'percent'` |
 | `date` | `'reported'` or `'now'` | When `'reported'`, the target will include documents with a `reported_date` within the current month. When `'now'`, target includes all documents. Default is `'reported'`. | no |
-| `idType` | `'report'` or `'contact'` or `function(contact, report)` | The target's values are incremented once per unique id. To count one report per contact, use `'contact'`. To count multiple visits for a person, use `'report'`. To count one visit per parent, use `c => c.parent._id` | no |
+| `idType` | `'report'` or `'contact'` or `function(contact, report)` | The target's values are incremented once per unique ID. To count individual contacts that meet the criteria, use `'contact'`. To count multiple reports per contact, use `'report'`. If neither keyword suits your needs you can write your own function to provide the ID. | no |
 
 ### Additional code
 Helper variables and functions can be defined in `nools-extras.js` to keep the target definitions easy to read and manage. To enable reuse of common code, `nools-extras.js` file is shared by both the Tasks and Targets.
