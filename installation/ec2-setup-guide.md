@@ -28,7 +28,7 @@ sudo chmod 0600 ~/Downloads/name_of_file.pem
 `Goal`: Mount EBS volume to /srv
 
 ### 3. Provision Docker server
-- Follow README & Run scripts: https://github.com/medic/medic-infrastructure/tree/master/self-hosting/prepare-system
+- Follow README & Run scripts: [https://github.com/medic/medic-infrastructure/tree/master/self-hosting/prepare-system](Self-Host Prepare System)
 - A zip will be shared via Slack until the scripts are moved to a public repo
 
 `Goal`: CHT Application bootstraps and comes online
