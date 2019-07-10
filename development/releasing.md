@@ -20,7 +20,7 @@ Once all issues have passed acceptance testing and have been merged into `master
 
 1. Create a new release branch from `master` named `<major>.<minor>.x` in medic. Post a message to #development using this template:
   ```
-@core_devs I've just created the `<major>.<minor>.x` feature branch. Please be aware that any further changes intended for this release will have to be merged to `master` then backported. Thanks!
+@core_devs I've just created the `<major>.<minor>.x` release branch. Please be aware that any further changes intended for this release will have to be merged to `master` then backported. Thanks!
   ```
 2. Build a beta named `<major>.<minor>.<patch>-beta.1` by pushing a git tag and when CI completes successfully notify the QA team that it's ready for release testing.
 3. [Import translations keys](translations.md#adding-new-keys) into POE and notify the #translations Slack channel translate new and updated values, for example:
