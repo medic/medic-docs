@@ -1,11 +1,31 @@
 # Setup guide on EC2
 ## Activity: Configure self-hosting
-### 1. Review server requirements & best practices
-### 2. Restore EBS/ Data from backup
+### 1. Create EC2 (use security best practices)
 
-- Restore - https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ebs-restoring-volume.html
+```
+Be sure to change the file permissions to 0600 or lower
+for the .pem file:
+sudo chmod 0600 ~/Downloads/name_of_file.pem
+```
+
+- [Create Elastic IP and Associate EIP to EC2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html)
+
+`Goal`: SSH into instance
+
+### 2. Create or Restore EBS Volume
+- Create EBS Volume
+    - Be sure to tag appropriately
+- [Restore EBS Volume](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ebs-restoring-volume.html)
 - Attach volume to EC2 instance
-- (Optional): Increase disk size - https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/recognize-expanded-volume-linux.html
+- (Optional): [Increase disk size](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/recognize-expanded-volume-linux.html)
+
+- If you are using a newly created EBS Volume, you will have to format the disk approriately:
+    1) SSH into instance
+    2) Follow the instructions here: [Using EBS Volumes](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-using-volumes.html)
+    3) Use `sudo mkfs -t ext4 <location>` in step 4
+    4) Mount disk to /srv
+
+`Goal`: Mount EBS volume to /srv
 
 ### 3. Provision Docker server
 - Run scripts: https://github.com/medic/medic-infrastructure/tree/master/self-hosting/prepare-system
