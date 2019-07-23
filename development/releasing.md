@@ -30,9 +30,9 @@ Once all issues have passed acceptance testing and have been merged into `master
 4. Create a new document in the [release-notes folder](https://github.com/medic/medic/tree/master/release-notes) in `master`. Ensure all issues are in the GH Project, that they're correct labelled, and have human readable descriptions. Use [this script](https://github.com/medic/medic/blob/master/scripts/changelog-generator) to export the issues into our changelog format. Manually document any known migration steps and known issues. Provide description, screenshots, videos, and anything else to help communicate particularly important changes.
 5. Create a Google Doc in the [blog posts folder](https://drive.google.com/drive/u/0/folders/0B2PTUNZFwxEvMHRWNTBjY2ZHNHc) with the draft of a blog post promoting the release based on the release notes above. Once it's ready ask Alix to review it.
 6. Until release testing passes, make sure regressions are fixed in `master`, cherry-pick them into the release branch, and release another beta.
-7. [Export the translations](translations.md#exporting-changes-from-poeditor-to-github) and commit to `master` and the release branch.
+7. [Export the translations](translations.md#exporting-changes-from-poeditor-to-github), delete empty translation files and commit to `master`. Cherry-pick the commit into the release branch. 
 8. Create a release in GitHub from the release branch so it shows up under the [Releases tab](https://github.com/medic/medic/releases) with the naming convention `<major>.<minor>.<patch>`. This will create the git tag automatically. Link to the release notes in the description of the release.
-9. Confirm the release build completes successfully and the new release is available on the [market](https://staging.dev.medicmobile.org).
+9. Confirm the release build completes successfully and the new release is available on the [market](https://staging.dev.medicmobile.org/builds/releases). Make sure that the document has new entry with `id: medic:medic:<major>.<minor>.<patch>`
 10. Add the release to the [Supported versions](../installation/supported-software.md#supported-versions) and update the EOL date and status of previous releases.
 11. Announce the release in #products and #cht-contributors using this template:
 ```
@@ -46,7 +46,8 @@ Following our support policy, versions {{versions}} are no longer supported. Pro
 
 To see what's scheduled for the next releases have a read of the product roadmap: https://github.com/orgs/medic/projects?query=is%3Aopen+sort%3Aname-asc
 ```
-12. :beer:
+12. Announce the release on the [CHT forum](https://forum.communityhealthtoolkit.org/), under the Development category. You can use the previous message and omit `@channel`.
+13. :beer:
 
 ## Android apps
 
