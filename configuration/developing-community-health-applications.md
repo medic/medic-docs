@@ -224,7 +224,7 @@ More complex tasks can be written using the full set of properties for tasks, as
 | `appliesTo` | `'contacts'` or `'reports'` | Do you want to emit one task per report, or one task per contact? This attribute controls the behavior of other properties herein. | yes |
 | `appliesIf` | `function(contact, report)` | If `appliesTo: 'contacts'`, this function is invoked once per contact and `report` is undefined. If `appliesTo: 'reports'`, this function is invoked once per report. Return true if the task should appear for the given documents. | no |
 | `appliesToType` | `string[]` | Filters the contacts or reports for which `appliesIf` will be evaluated. If `appliesTo: 'reports'`, this is an array of form codes. If `appliesTo: 'contacts'`, this is an array of contact types. For example, `['person']` or `['clinic', 'health_center']`. For example, `['pregnancy']` or `['P', 'pregnancy']`. | no |
-| `heading` | `string` or `function(contact, report)` | Controls the label describing the task. Defaults to contact.contact.name. | No |
+| `contactLabel` | `string` or `function(contact, report)` | Controls the label describing the subject of the task. Defaults to the name of the contact (contact.contact.name). | No |
 | `resolvedIf` | `function(contact, report, event, dueDate)` | Return true to mark the task as "resolved". A resolved task uses memory on the phone, but is not displayed. | yes |
 | `events` | `object[]` | An event is used to specify the timing of the task. | yes |
 | `events[n].id` | `string` | Can help as a descriptive name (eg `pregnancy-high-risk`). One task will appear per unique id, so re-using ids can be useful to avoid duplicate tasks appearing. | no |
