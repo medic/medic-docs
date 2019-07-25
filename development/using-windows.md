@@ -27,7 +27,7 @@ Luckily, there is a perfectly working CouchDB installation for Windows:
 Then go to `http://localhost:5984/_utils/#/setup` in Windows and do the single node setup. Once done head back to linux and confirm it works:
 
 ```
-scdf@EDGELORD:/mnt/c/Users/stefa/Code/medic$ curl http://localhost:5984/
+scdf@PC:/mnt/c/Users/stefa/Code/medic$ curl http://localhost:5984/
 {"couchdb":"Welcome","version":"2.3.1","git_sha":"c298091a4","uuid":"5f60350abaaa11c0131a5630e83ae979","features":["pluggable-storage-engines","scheduler"],"vendor":{"name":"The Apache Software Foundation"}}
 ```
 
@@ -46,11 +46,11 @@ I used linux's git to check out the code, though presumably git in Windows works
 You can access you c drive (and other Window's drives) from `/mnt`. To make life easier consider a symlink in your linux home directory to your code in Windows. In your linux home directory:
 
 ```
-scdf@EDGELORD:~$ mkdir /mnt/c/Users/<username>/Code
-scdf@EDGELORD:~$ ln -s /mnt/c/Users/<username>/Code
-scdf@EDGELORD:~$ cd Code
-scdf@EDGELORD:~$ git clone git@github.com:medic/medic.git
-scdf@EDGELORD:~$ cd medic
+scdf@PC:~$ mkdir /mnt/c/Users/<username>/Code
+scdf@PC:~$ ln -s /mnt/c/Users/<username>/Code
+scdf@PC:~$ cd Code
+scdf@PC:~$ git clone git@github.com:medic/medic.git
+scdf@PC:~$ cd medic
 ```
 
 ## Everything else
