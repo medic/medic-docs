@@ -37,7 +37,7 @@ The default `npm` in linux is really old and doesn't have `npm ci`, which we nee
 
 Instead use [nvm](https://github.com/nvm-sh/nvm) to install a later version.
 
-Once you've installed nvm: `nvm install 8` (or a later or earlier version if you like, minimum 6).
+Once you've installed nvm: `nvm install 8` (or a later version).
 
 ## Checking out the code
 
