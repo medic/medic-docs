@@ -24,8 +24,8 @@ The API keys should be treated as securely as a password as anyone with access t
 To add the credentials to the admin config you need to either [PUT the value using curl](https://docs.couchdb.org/en/stable/api/server/configuration.html#put--_node-node-name-_config-section-key) or similar:
 
 ```sh
-curl -x PUT http://admin:pass@localhost:5984/_node/couchdb@127.0.0.1/_config/medic-credentials/africastalking.com:incoming -d "<medic-api-key>"
-curl -x PUT http://admin:pass@localhost:5984/_node/couchdb@127.0.0.1/_config/medic-credentials/africastalking.com:outgoing -d "<at-api-key>"
+curl -X PUT https://<user>:<pass>@<domain>/_node/couchdb@127.0.0.1/_config/medic-credentials/africastalking.com:incoming -d '"<medic-api-key>"'
+curl -X PUT https://<user>:<pass>@<domain>/_node/couchdb@127.0.0.1/_config/medic-credentials/africastalking.com:outgoing -d '"<at-api-key>"'
 ```
 
 _(Note that `couchdb@127.0.0.1` is the local node name, and may be different for you depending on your setup.)_
