@@ -180,7 +180,7 @@ We have our key configured to `example.com`. This means that in CouchDB's admin 
 To add the credential to the admin config you need to either [PUT the value using curl](https://docs.couchdb.org/en/stable/api/server/configuration.html#put--_node-node-name-_config-section-key) or similar:
 
 ```sh
-curl -x PUT http://admin:pass@localhost:5984/_node/couchdb@127.0.0.1/_config/medic-credentials/example.com -d "the-real-password"
+curl -X PUT https://<user>:<pass>@<domain>/_node/couchdb@127.0.0.1/_config/medic-credentials/example.com -d '"the-real-password"'
 ```
 
 _(Note that `couchdb@127.0.0.1` is the local node name, and may be different for you depending on your setup.)_
