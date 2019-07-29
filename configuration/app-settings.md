@@ -200,7 +200,7 @@ From 3.7.0 it is possible to configure what types of places and people are avail
 
 |Property|Description|Required|
 |-------|---------|----------|
-| `id` | String identifier for the type. At some times this will be used to sort the contacts in the UI so it is recommended to using a number prefix with gaps between numbers, eg: `10-district`, `20-region`, etc. | Yes. |
+| `id` | String identifier for the type. At times this will be used to sort the contacts in the UI so it is recommended to using a number prefix with gaps between numbers, eg: `10-district`, `20-region`, etc. | Yes. |
 | `name_key` | The translation key used for the title for the contact profile. | No, defaults to 'contact.profile'. |
 | `group_key` | The translation key used for the title of a list of contacts of this type. | Yes. |
 | `create_key` | The translation key used on the button for creating new contacts of this type. | Yes. |
