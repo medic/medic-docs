@@ -1,6 +1,6 @@
 
 ---
-Documentation Style Guide
+title: Documentation Style Guide
 ---
 
 This style guide provides a set of editorial guidelines for anyone writing developer documentation for Medic Mobile or Community Health Toolkit projects. These are guidelines, not rules. Use your best judgment. 
