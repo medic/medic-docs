@@ -1,17 +1,136 @@
 
 ---
-title: Documentation Style Guide
+Documentation Style Guide
 ---
 
-This page gives writing style guidelines for the Medic Mobile documentation.
-These are guidelines, not rules. Use your best judgment, and feel free to
+This style guide provides a set of editorial guidelines for anyone writing developer documentation for Medic Mobile or Community Health Toolkit projects. These are guidelines, not rules. Use your best judgment, and feel free to
 propose changes to this document in a pull request.
+
+## Table of Contents
+- [Language](#language)
+- [General guidelines and best practices](#general-guidelines-and-best-practices)
+    - [Present tense](#present-tense)
+    - [Active voice](#active-voice)
+    - [Simple and direct language](#simple-and-direct-language)
+    - [Address the reader as "you"](#address-the-reader-as-you)
+    - [Latin phrases](#latin-phrases)
+- [Practices to avoid](#practices-to-avoid)
+    - [Using "we"](#using-we)
+    - [Using jargon and idioms](#using-jargon-and-idioms)
+    - [Using statements about the future](#using-statements-about-the-future)
+    - [Using statements that will soon be out of date](#using-statements-that-will-soon-be-out-of-date)
+- [Formatting standards](#formatting-standards)
+    - [Angle brackets for placeholders](#angle-brackets-for-placeholders)
+    - [Bold for user interface elements](#bold-for-user-interface-elements)
+    - [Italics to define or introduce new terms](#italics-to-define-or-introduce-new-terms)
+    - [Code style For filenames, directories, and paths](#code-style-for-filenames-directories-and-paths)
+    - [International standard for punctuation inside quotes](#international-standard-for-punctuation-inside-quotes)
+    - [Inline code formatting](#inline-code-formatting)
+    - [Code snippet formatting](#code-snippet-formatting)
+    - [Medic Mobile word list](#medic-mobile-word-list)
 
 ## Language
 
-Medic Mobile documentation uses US English.
+Documentation for Medic Mobile and Community Health Toolkit projects is written is American English.
 
-## Documentation formatting standards
+## General guidelines and best practices
+
+This section contains suggested best practices for clear, concise, and consistent content.
+
+### Present tense
+
+<table>
+  <tr><th>Do</th><th>Don't</th></tr>
+  <tr><td>CouchDB converts this to a properly hashed password when you save.</td><td>CouchDB will convert this to a properly hashed password on save.</td></tr>
+</table>
+
+Exception: Use future or past tense if it is required to convey the correct meaning.
+
+### Active voice
+
+<table>
+  <tr><th>Do</th><th>Don't</th></tr>
+  <tr><td>Stop everything and delete the medic DB to clear your database.</td><td>Clear your db by stopping everything and deleting the medic DB.</td></tr>
+  <tr><td>Replicate your local production database into a new medic database to bootstrap your data.</td><td>Bootstrap your data by replicating your local PROD DB into a new medic database.</td></tr>
+</table>
+
+Exception: Use passive voice if active voice leads to an awkward construction.
+
+### Simple and direct language
+
+Use simple and direct language. Avoid using unnecessary phrases, such as saying "please."
+
+<table>
+  <tr><th>Do</th><th>Don't</th></tr>
+  <tr><td>To create a database, ...</td><td>In order to create a database, ...</td></tr>
+  <tr><td>See the configuration file.</td><td>Please see the configuration file.</td></tr>
+  <tr><td>View the logs.</td><td>With this next command, we'll view the logs.</td></tr>
+
+</table>
+
+### Address the reader as "you"
+
+<table>
+  <tr><th>Do</th><th>Don't</th></tr>
+  <tr><td>You can create a database by ...</td><td>We'll create a database by ...</td></tr>
+    <tr><td>In the preceding output, you can see...</td><td>In the preceding output, we can see ...</td></tr>
+</table>
+
+### Latin phrases
+
+Prefer English terms over Latin abbreviations.
+
+<table>
+  <tr><th>Do</th><th>Don't</th></tr>
+  <tr><td>For example, ...</td><td>e.g., ...</td></tr>
+  <tr><td>That is, ...</td><td>i.e., ...</td></tr>
+</table>
+
+Exception: Use "etc." for et cetera.
+
+## Practices to avoid
+
+### Using "we"
+
+Using "we" in a sentence can be confusing, because the reader might not know
+whether they're part of the "we" you're describing.
+
+<table>
+  <tr><th>Do</th><th>Don't</th></tr>
+  <tr><td>Version 3.0 includes ...</td><td>In version 3.0, we have added ...</td></tr>
+  <tr><td>Medic Mobile provides a new feature to reduce the time to load contacts.</td><td>We made several changes to reduce the time to load contacts.</td></tr>
+  <tr><td>This page teaches you how to use medic-gateway.</td><td>In this page, we are going to learn about medic-gateway.</td></tr>
+</table>
+
+### Using jargon and idioms
+
+Some readers speak English as a second language. Avoid jargon and idioms to help them understand better.
+
+<table>
+  <tr><th>Do</th><th>Don't</th></tr>
+  <tr><td>To get started, ...</td><td>To get up and running with no fuss, ...</td></tr>
+  <tr><td>Internally, ...</td><td>Under the hood, ...</td></tr>
+    <tr><td>Create a new database.</td><td>Turn up a new database.</td></tr>
+</table>
+
+### Using statements about the future
+
+Avoid giving hints about the future. If you need to talk about
+an alpha or beta feature, put the text under a heading that identifies it as alpha or beta
+information.
+
+### Using statements that will soon be out of date
+
+Avoid words like "currently" and "new." A feature that is new today might not be
+considered new in a few months.
+
+<table>
+  <tr><th>Do</th><th>Don't</th></tr>
+  <tr><td>In version 3.4, ...</td><td>In the current version, ...</td></tr>
+    <tr><td>The Log user statistics feature provides ...</td><td>The new Log user statistics feature provides ...</td></tr>
+</table>
+
+## Formatting standards
 
 ### Angle brackets for placeholders
 
@@ -100,104 +219,6 @@ A list of Medic Mobile-specific terms and words to be used consistently across t
   <tr><td>Docker</td><td>Docker should always be capitalized.</td></tr>
   <tr><td>Medic Mobile</td><td>Medic Mobile should always be capitalized.</td></tr>
   <tr><td>CouchDB</td><td>No space between Couch and DB. Do not use Couchdb, Couch DB or other variations.</td></tr>
-</table>
-
-## Content best practices
-
-This section contains suggested best practices for clear, concise, and consistent content.
-
-### Present tense
-
-<table>
-  <tr><th>Do</th><th>Don't</th></tr>
-  <tr><td>CouchDB converts this to a properly hashed password when you save.</td><td>CouchDB will convert this to a properly hashed password on save.</td></tr>
-</table>
-
-Exception: Use future or past tense if it is required to convey the correct
-meaning.
-
-### Active voice
-
-<table>
-  <tr><th>Do</th><th>Don't</th></tr>
-  <tr><td>Stop everything and delete the medic DB to clear your database.</td><td>Clear your db by stopping everything and deleting the medic DB.</td></tr>
-  <tr><td>Replicate your local production database into a new medic database to bootstrap your data.</td><td>Bootstrap your data by replicating your local PROD DB into a new medic database.</td></tr>
-</table>
-
-Exception: Use passive voice if active voice leads to an awkward construction.
-
-### Simple and direct language
-
-Use simple and direct language. Avoid using unnecessary phrases, such as saying "please."
-
-<table>
-  <tr><th>Do</th><th>Don't</th></tr>
-  <tr><td>To create a database, ...</td><td>In order to create a database, ...</td></tr>
-  <tr><td>See the configuration file.</td><td>Please see the configuration file.</td></tr>
-  <tr><td>View the logs.</td><td>With this next command, we'll view the logs.</td></tr>
-
-</table>
-
-### Address the reader as "you"
-
-<table>
-  <tr><th>Do</th><th>Don't</th></tr>
-  <tr><td>You can create a database by ...</td><td>We'll create a database by ...</td></tr>
-    <tr><td>In the preceding output, you can see...</td><td>In the preceding output, we can see ...</td></tr>
-</table>
-
-### Latin phrases
-
-Prefer English terms over Latin abbreviations.
-
-<table>
-  <tr><th>Do</th><th>Don't</th></tr>
-  <tr><td>For example, ...</td><td>e.g., ...</td></tr>
-  <tr><td>That is, ...</td><td>i.e., ...</td></tr>
-</table>
-
-Exception: Use "etc." for et cetera.
-
-## Patterns to avoid
-
-### Using "we"
-
-Using "we" in a sentence can be confusing, because the reader might not know
-whether they're part of the "we" you're describing.
-
-<table>
-  <tr><th>Do</th><th>Don't</th></tr>
-  <tr><td>Version 3.0 includes ...</td><td>In version 3.0, we have added ...</td></tr>
-  <tr><td>Medic Mobile provides a new feature to reduce the time to load contacts.</td><td>We made several changes to reduce the time to load contacts.</td></tr>
-  <tr><td>This page teaches you how to use medic-gateway.</td><td>In this page, we are going to learn about medic-gateway.</td></tr>
-</table>
-
-### Using jargon and idioms
-
-Some readers speak English as a second language. Avoid jargon and idioms to help them understand better.
-
-<table>
-  <tr><th>Do</th><th>Don't</th></tr>
-  <tr><td>To get started, ...</td><td>To get up and running with no fuss, ...</td></tr>
-  <tr><td>Internally, ...</td><td>Under the hood, ...</td></tr>
-    <tr><td>Create a new database.</td><td>Turn up a new database.</td></tr>
-</table>
-
-### Using statements about the future
-
-Avoid giving hints about the future. If you need to talk about
-an alpha or beta feature, put the text under a heading that identifies it as alpha or beta
-information.
-
-### Using statements that will soon be out of date
-
-Avoid words like "currently" and "new." A feature that is new today might not be
-considered new in a few months.
-
-<table>
-  <tr><th>Do</th><th>Don't</th></tr>
-  <tr><td>In version 3.4, ...</td><td>In the current version, ...</td></tr>
-    <tr><td>The Log user statistics feature provides ...</td><td>The new Log user statistics feature provides ...</td></tr>
 </table>
 
 
