@@ -466,7 +466,7 @@ More complex targets can be written using the full set of properties for targets
 | `appliesIf` | `function(contact, report)` | If `appliesTo: 'contacts'`, this function is invoked once per contact and `report` is undefined. If `appliesTo: 'reports'`, this function is invoked once per report. Return true to count this document. For `type: 'percent'`, this controls the denominator. | no |
 | `passesIf` | `function(contact, report)` | For `type: 'percent'`, return true to increment the numerator. | yes, if `type: 'percent'` |
 | `date` | `'reported'` or `'now'` | When `'reported'`, the target will include documents with a `reported_date` within the current month. When `'now'`, target includes all documents. Default is `'reported'`. | no |
-| `idType` | `'report'` or `'contact'` | The target's values are incremented once per unique id. To count one report per contact, use `'contact'`. When multiple reports should be counted, eg counting multiple visits for a person, use `'report'`. | no |
+| `idType` | `'report'` or `'contact'` or `function(contact, report)` | The target's values are incremented once per unique ID. To count individual contacts that meet the criteria, use `'contact'`. To count multiple reports per contact, use `'report'`. If neither keyword suits your needs you can write your own function to provide the ID. | no |
 
 ### Additional code
 Helper variables and functions can be defined in `nools-extras.js` to keep the target definitions easy to read and manage. To enable reuse of common code, `nools-extras.js` file is shared by both the Tasks and Targets.
@@ -557,13 +557,13 @@ An array of fields are defined to show a summary of the contact at the top of th
 
 Each field that can be shown on a contact's profile is defined as an object in the `fields` array. The properties for each object determine how and when the field is shown.
 
+<!-- If you change this table, update the duplicate descriptions in ### Cards -->
 | property | type | description | required |
 |---|---|---|---|
 | `label` | `string` | A translation key which is shown with the field. | yes |
 | `icon` | `string` | The name of the icon to display beside this field, as defined through the Configuration > Icons page. | no |
 | `value` | `string` | The value shown for the field. | yes |
 | `filter` | `string` | The display filter to apply to the value, eg: `{ value: '2005-10-09', filter: 'age' }` will render as "11 years". Common filters are: `age`, `phone`, `weeksPregnant`, `relativeDate`, `relativeDay`, `fullDate`, `simpleDate`, `simpleDateTime`, `lineage`, `resourceIcon`. For the complete list of filters, and more details on what each does, check out the code in [`medic/webapp/src/js/filters` dir](https://github.com/medic/medic/tree/master/webapp/src/js/filters). | no |
-<!-- If you change this table, update the duplicate descriptions in ### Cards -->
 | `width` | `integer` | The horizontal space for the field. Common values are 12 for full width, 6 for half width, or 3 for quarter width. Default 12. | no |
 | `translate` | `boolean` | Whether or not to translate the `value`. Defaults to false. | no |
 | `context` | `object` | When `translate: true` and `value` uses [translation variables](https://angular-translate.github.io/docs/#/guide/06_variable-replacement), this value should provide the translation variables. | no |

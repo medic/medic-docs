@@ -1,22 +1,20 @@
 # SMS message states/statuses
 
-## Interaction between medic and medic-gateway
-[Medic](https://github.com/medic/medic) uses [medic-gateway](https://github.com/medic/medic-gateway)
-to send and receive SMS messages.
+## Interaction with SMS providers
 
-When an SMS report comes in from a user, [medic-sentinel](https://github.com/medic/medic-sentinel) adds the appropriate list of
-scheduled messages (to be sent at a future date) to the report doc.
+[Medic](https://github.com/medic/medic) can use [medic-gateway](https://github.com/medic/medic-gateway) and third party aggregators to send and receive SMS messages.
+
+When an SMS report comes in from a user, [medic-sentinel](https://github.com/medic/medic-sentinel) adds the appropriate list of scheduled messages (to be sent at a future date) to the report doc.
 
 Periodically, sentinel checks for messages that need to be sent, and [sets their state to `pending`](https://github.com/medic/medic-sentinel/blob/master/schedule/due_tasks.js) if their scheduled sending time has been reached or passed.
 
-Periodically, the gateway polls the medic-api over HTTP to get any messages that need to be sent (i.e. that are in `pending` state). At the same time it reports on the status of the messages it's trying to send and the messages it already sent for which it has delivery status updates.
+Periodically, the aggregator checks for messages that need to be sent (i.e. that are in `pending` state).
 
-Medic-api looks for messages with state `pending` and passes them along to gateway, and stores new states for messages based on gateway's status updates.
+The aggregator also reports on the status of the messages it's sending.
 
 ## Message statuses/states
 
-Both webapp and gateway store states/statuses of the messages to keep track of the exchange. Webapp calls them states, gateway calls them statuses.
-They each have their set of statuses, which sometimes are called the same but do not mean the same thing. Watch out.
+Both webapp and the aggregator store states/statuses of the messages to keep track of the exchange. They each have their set of statuses, which sometimes are called the same but do not mean the same thing. Watch out.
 
 ### Message statuses in medic-gateway
 See [https://github.com/medic/medic-gateway#content](https://github.com/medic/medic-gateway#content)
@@ -37,7 +35,7 @@ See [https://github.com/medic/medic-gateway#content](https://github.com/medic/me
 | cleared | This will not be sent as a report has triggered an event to stop it. This can happen if a patient visit has occurred before the visit reminder is sent. |
 | muted | This will not be sent as the task has been deliberately stopped. Messages in this state can be unmuted by user action. |
 
-## Timeline of the protocol, for Webapp-originating message
+## Timeline of the medic-gateway protocol for webapp-originating message
 
 Read the table below like a vertical timeline : each time an event happens, the states/statuses corresponding to the message get updated.
 
