@@ -194,7 +194,7 @@ Replications are defined under the `replications` key as an array of replication
 |`text_expression`|Any valid text expression. For more information, see [LaterJS](https://bunkat.github.io/later/parsers.html#text)|no if `cron` provided|
 |`cron`|Any valid Cron expression. For more information, see [LaterJS](https://bunkat.github.io/later/parsers.html#cron)|no if `text_expression` provided|
 
-### Configuring place hierarchy
+### Configuring the contact hierarchy
 
 From 3.7.0 it is possible to configure what types of places and people are available by modifying the `contact_types` array in the app settings. Each type has the following properties.
 
@@ -217,6 +217,10 @@ From 3.7.0 it is possible to configure what types of places and people are avail
 
 When creating contacts the type will be automatically assigned based on the button the user clicked. However if the form also creates sibling or child contacts these nested sections must specify a `type` field with a hardcoded value of "contact" and a `contact_type` field with the ID of the desired contact type.
 
-#### Migration
+#### Changing the configuration
 
 You can change any contact type configuration easily except for the IDs. To change the ID of a contact type in configuration of a project which already has contact data the contact docs will also have be updated to have a `type` of "contact" and a `contact_type` with the new ID of the contact type.
+
+#### Migration
+
+If you already have person and place documents, switching from using the fixed hierarchy requires that you also update all the exisitng docs. Each contact and report holds the IDs of ancestors in their hierarchy so they will all need to be updated to be consistent with the changes you've made. You can use the medic-conf `move-contacts` command to help with this migration.
