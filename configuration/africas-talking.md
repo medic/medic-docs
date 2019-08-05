@@ -33,7 +33,7 @@ _(Note that `couchdb@127.0.0.1` is the local node name, and may be different for
 You can also add it via Fauxton:
  - Navigate to [the Config screen](http://localhost:5984/_utils/#/_config)
  - Click `Add Option`
- - The `Section` should be `medic-credentials`, the `Name` should be `africastalking.com`, and the value should be the API key.
+ - The `Section` should be `medic-credentials`, the `Name` should be `africastalking.com:incoming` or `africastalking.com:outgoing`, and the value should be the relevant API key.
  - Click `Create`
  - You should then be able to see your credential in the list of configuration shown
 
