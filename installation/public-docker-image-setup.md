@@ -19,7 +19,7 @@ Windows:
 ` Docker for Windows` :
 [Docker for Windows](https://download.docker.com/win/stable/Docker%20for%20Windows%20Installer.exe)
 
-Run the installation and follow the instructions
+Run the installation and follow the instructions.
 
 Launch Docker. 
 
@@ -32,54 +32,89 @@ CPUs: 2
 In the location you would like to host your configuration files, create a file titled <project_name>-medic-os-compose.yml with the following contents:
 
 ```
-version: '3.1'
+version: '3.7'
 
 services:
   medic-os:
-    image: medicmobile/medic-os:3.2.1-rc.4
+    container_name: medic-os
+    image: medicmobile/medic-os:3.6.1-rc.4
     volumes:
-      - /srv:/srv
+      - medic-data:/srv
     ports:
-      - 443:443
-      - 80:80
+     - 80:80
+     - 443:443
     working_dir: /srv
-    network_mode: host
     depends_on:
       - haproxy
-    
+    networks:
+      - medic-net
+    environment:
+      - DOCKER_NETWORK_NAME=haproxy
+      - DOCKER_COUCHDB_ADMIN_PASSWORD=$DOCKER_COUCHDB_ADMIN_PASSWORD
+
   haproxy:
+    container_name: haproxy
     image: medicmobile/haproxy:rc-1.16
     volumes:
-      - /srv:/srv    
-    #depends_on:
-    #  - medic-os
-    network_mode: host
+      - medic-data:/srv    
     environment:
-      - COUCHDB_HOST=localhost
-      - HA_PASSWORD=${HA_PASSWORD}
+      - COUCHDB_HOST=medic-os
+      - HA_PASSWORD=$DOCKER_COUCHDB_ADMIN_PASSWORD
+    networks:
+      - medic-net
+
+volumes:
+  medic-data:
+    name: medic-data
+
+networks:
+  medic-net:
+    name: medic-net
 ```
 
-If you already have a previous couchDB admin password from an existing medic-os installation, export that password as a variable `HA_PASSWORD` into your shell.
+Export a password for admin user named `medic`:
 ```
-export HA_PASSWORD=<existing_couchdb_admin_user_pw>
+export DOCKER_COUCHDB_ADMIN_PASSWORD=<random_pw>
 ```
-
-If this is a fresh install, you can generate a password and export it as `HA_PASSWORD` prior to launching the containers.
 
 ### Launch docker-compose containers
 
 Inside the directory that you saved the above <project_name>-medic-os-compose.yml, run:
 ```
-$ docker-compose -f <project_name>-medic-os-compose.yml up -d
+$ docker-compose -f <project_name>-medic-os-compose.yml up
 ```
 
+Once containers are setup, please run the following command from your host terminal:
+```
+$ docker exec -it medic-os /bin/bash -c "sed -i 's/--install=3.6.1/--complete-install/g' /srv/scripts/horticulturalist/postrun/horticulturalist"
+$ docker exec -it medic-os /bin/bash -c "/boot/svc-stop medic-core openssh && /boot/svc-stop medic-rdbms && /boot/svc-stop medic-couch2pg"
+```
+
+### Container Manipulation
+
+Stop containers:
+`docker-compose down` || `docker stop medic-os && docker stop haproxy`
+
+Remove containers & clean data volume:
+`docker rm medic-os && docker rm haproxy && docker volume rm medic-data`
+
+After following the above two commands, you can re-run `docker-compose up` and create a fresh install (no previous data present)
+
+### Visit your project
+
+Open a browser to: https://localhost
+You will have to click to through the SSL Security warning. Click Advanced -> Continue to site.
+
+
 ## Download Medic Mobile Image & Setup Custom Docker Network:
+
+Legacy information is provided below. It is recommended to use the docker-compose file above.
 
 Open your terminal and run this command:
 
 ```
 # Current image build
-docker pull medicmobile/medic-os:3.2.1-rc.4
+docker pull medicmobile/medic-os:3.6.1-rc.4
 
 # Latest tag
 # Ensure your local system does not include a previously downloaded medic-os image with the latest tag
