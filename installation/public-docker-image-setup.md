@@ -14,9 +14,8 @@ Ubuntu:
 Mac OSX:
 - [Docker for Mac](https://download.docker.com/mac/stable/Docker.dmg)
 
-*Note*: In order to run Linux Containers on Windows, please ensure Hyper-V is enabled, and the host is running on bare-metal. You will not be able to run Linux Containers in Windows if the previous comments are not adhered due to nested virtualization. 
-
 Windows:
+- *Note*: In order to run Linux Containers on Windows, please ensure Hyper-V is enabled, and the host is running on bare-metal. You will not be able to run Linux Containers in Windows if the previous comments are not adhered due to nested virtualization. 
 - [Docker for Windows](https://download.docker.com/win/stable/Docker%20for%20Windows%20Installer.exe)
 
 Run the installation and follow the instructions.
