@@ -7,7 +7,9 @@ This document should help you quickly install the necessary tools to download an
 ## Download Docker
 
 Ubuntu:
-`Docker CE`:[Docker CE](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
+`Docker CE` :
+- [] [Docker CE](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
+- [] [Docker-Compose](https://docs.docker.com/compose/install/)
 
 Mac OSX:
 ` Docker for Mac` : 
@@ -83,6 +85,7 @@ Inside the directory that you saved the above <project_name>-medic-os-compose.ym
 ```
 $ docker-compose -f <project_name>-medic-os-compose.yml up
 ```
+*Note* In certain shells, docker-compose may not interpolate the admin password that was exported above. In that case, your admin user had a password automatically generated. You can find this in your terminal, or parsing the initial setup logs in via `docker logs medic-os`
 
 Once containers are setup, please run the following command from your host terminal:
 ```
@@ -93,7 +96,7 @@ $ docker exec -it medic-os /bin/bash -c "/boot/svc-stop medic-core openssh && /b
 ### Container Manipulation
 
 Stop containers:
-`docker-compose down` || `docker stop medic-os && docker stop haproxy`
+`docker-compose down` or `docker stop medic-os && docker stop haproxy`
 
 Remove containers & clean data volume:
 `docker rm medic-os && docker rm haproxy && docker volume rm medic-data`
