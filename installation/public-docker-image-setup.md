@@ -84,7 +84,7 @@ Inside the directory that you saved the above <project_name>-medic-os-compose.ym
 ```
 $ docker-compose -f <project_name>-medic-os-compose.yml up
 ```
-*Note* In certain shells, docker-compose may not interpolate the admin password that was exported above. In that case, your admin user had a password automatically generated. You can find this in your terminal, or parsing the initial setup logs in via `docker logs medic-os`
+*Note* In certain shells, docker-compose may not interpolate the admin password that was exported above. In that case, your admin user had a password automatically generated. Note the `New CouchDB Administrative User` and `New CouchDB Administrative Password` in the output terminal. You can retrieve these via running `docker logs medic-os` and searching the terminal.
 
 Once containers are setup, please run the following command from your host terminal:
 ```
@@ -92,15 +92,18 @@ $ docker exec -it medic-os /bin/bash -c "sed -i 's/--install=3.6.1/--complete-in
 $ docker exec -it medic-os /bin/bash -c "/boot/svc-stop medic-core openssh && /boot/svc-stop medic-rdbms && /boot/svc-stop medic-couch2pg"
 ```
 
-### Container Manipulation
+### Delete & Re-Install
 
 Stop containers:
 `docker-compose down` or `docker stop medic-os && docker stop haproxy`
 
-Remove containers & clean data volume:
-`docker rm medic-os && docker rm haproxy && docker volume rm medic-data`
+Remove containers:
+`docker-compose rm` or `docker rm medic-os && docker rm haproxy`
 
-After following the above two commands, you can re-run `docker-compose up` and create a fresh install (no previous data present)
+Clean data volume:
+`docker volume rm medic-data`
+
+After following the above three commands, you can re-run `docker-compose up` and create a fresh install (no previous data present)
 
 ### Visit your project
 
@@ -108,52 +111,11 @@ Open a browser to: https://localhost
 You will have to click to through the SSL Security warning. Click Advanced -> Continue to site.
 
 
-## Download Medic Mobile Image & Setup Custom Docker Network:
+## Port Conflicts
 
-Legacy information is provided below. It is recommended to use the docker-compose file above.
+In case you are already running services on HTTP(80) and HTTPS(443), you will have to map new ports to the medic-os container.
 
-Open your terminal and run this command:
-
-```
-# Current image build
-docker pull medicmobile/medic-os:3.6.1-rc.4
-
-# Latest tag
-# Ensure your local system does not include a previously downloaded medic-os image with the latest tag
-docker pull medicmobile/medic-os:latest
-
-# Pull down our haproxy image
-docker pull medicmobile/haproxy:rc-1.16
-or
-docker pull medicmobile/haproxy:latest
-```
-
-## Usage
-
-To run the docker container, simply enter this command:
-
-```
-export HA_PASSWORD=<random_gen_pw | existing_couchdb_admin>
-
-docker run --network="host" -t medicmobile/haproxy:latest
-
-docker run --network="host" -t medicmobile/medic-os:latest 
-```
-
-```
-docker run -t -p 5988:5988 -p 80:80 -p 443:443 medicmobile/medic-os
-```
-
-If you wish to run multiple projects, you will need to change the above ports:
-
-```
-docker run -t -p 5989:5988 -p 81:80 -p 444:443 medicmobile/medic-os
-```
-
-Note the `New CouchDB Administrative User` and `New CouchDB Administrative Password` in the output terminal. These are the login credentials to use in the next step.
-
-
-If you have any **port conflicts**, substitute with an unused local port. For reference, the port forwarding syntax is as follows `<forwarded-port>:<port-from-docker>`
+Turn down and remove all existing containers that were started: `docker-compose down && docker-compose rm`
 
 To find out which service is using a conflicting port:
 
@@ -167,20 +129,44 @@ On Mac (10.10 and above)
 sudo lsof -iTCP -sTCP:LISTEN -n -P | grep ':<port>'
 ```
 
-After bootstrap, visit: https://localhost and accept the self-signed SSL certificate warning.
-(Use the login credentials shown in the terminal output when the docker container was launched).
+You can either kill the service which is occupying HTTP/HTTPS ports, or run the container with forwarded ports that are free.
+
+In your compose file, change the ports under medic-os:
+```
+services:
+  medic-os:
+    container_name: medic-os
+    image: medicmobile/medic-os:3.6.1-rc.4
+    volumes:
+      - medic-data:/srv
+    ports:
+     - 8080:80
+     - 444:443
+```
+*Note*: You can substitute 8080, 444 with whichever ports are free on your host. You would now visit https://localhost:444 to visit your project.
+
 ## Helpful Docker commands
 
 ```
 # list running containers
 docker ps
 
-# ssh into container/application
-docker exec -it <container_id> /bin/bash
+# ssh into container/application & view specific service logs
+
+* ssh: `docker exec -it medic-os /bin/bash`
+
+Once inside container:
+* view couchdb logs: 
+  - #less /srv/storage/medic-core/couchdb/logs/startup.log
+* view medic-api logs: 
+  - #less /srv/storage/medic-api/logs/medic-api.log
+* view medic-sentinel logs: 
+  - #less /srv/storage/medic-sentinel/logs/medic-sentinel.log
 
 
 # View container stderr/stdout logs:
-docker logs <container_id>
+docker logs medic-os
+docker logs haproxy
 ```
 
 ## Clean Up
