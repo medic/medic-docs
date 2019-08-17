@@ -92,6 +92,12 @@ $ docker exec -it medic-os /bin/bash -c "sed -i 's/--install=3.6.1/--complete-in
 $ docker exec -it medic-os /bin/bash -c "/boot/svc-stop medic-core openssh && /boot/svc-stop medic-rdbms && /boot/svc-stop medic-couch2pg"
 ```
 
+### Visit your project
+
+Open a browser to: https://localhost
+
+You will have to click to through the SSL Security warning. Click Advanced -> Continue to site.
+
 ### Delete & Re-Install
 
 Stop containers:
@@ -104,13 +110,6 @@ Clean data volume:
 * `docker volume rm medic-data`
 
 After following the above three commands, you can re-run `docker-compose up` and create a fresh install (no previous data present)
-
-### Visit your project
-
-Open a browser to: https://localhost
-
-You will have to click to through the SSL Security warning. Click Advanced -> Continue to site.
-
 
 ## Port Conflicts
 
