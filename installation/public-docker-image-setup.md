@@ -95,19 +95,20 @@ $ docker exec -it medic-os /bin/bash -c "/boot/svc-stop medic-core openssh && /b
 ### Delete & Re-Install
 
 Stop containers:
-`docker-compose down` or `docker stop medic-os && docker stop haproxy`
+* `docker-compose down` or `docker stop medic-os && docker stop haproxy`
 
 Remove containers:
-`docker-compose rm` or `docker rm medic-os && docker rm haproxy`
+* `docker-compose rm` or `docker rm medic-os && docker rm haproxy`
 
 Clean data volume:
-`docker volume rm medic-data`
+* `docker volume rm medic-data`
 
 After following the above three commands, you can re-run `docker-compose up` and create a fresh install (no previous data present)
 
 ### Visit your project
 
 Open a browser to: https://localhost
+
 You will have to click to through the SSL Security warning. Click Advanced -> Continue to site.
 
 
@@ -115,22 +116,19 @@ You will have to click to through the SSL Security warning. Click Advanced -> Co
 
 In case you are already running services on HTTP(80) and HTTPS(443), you will have to map new ports to the medic-os container.
 
-Turn down and remove all existing containers that were started: `docker-compose down && docker-compose rm`
+Turn down and remove all existing containers that were started: 
+* `docker-compose down && docker-compose rm`
 
 To find out which service is using a conflicting port:
-
-On Linux
+On Linux:
 ```
 sudo netstat -plnt | grep ':<port>'
 ```
-
-On Mac (10.10 and above)
+On Mac (10.10 and above):
 ```
 sudo lsof -iTCP -sTCP:LISTEN -n -P | grep ':<port>'
 ```
-
 You can either kill the service which is occupying HTTP/HTTPS ports, or run the container with forwarded ports that are free.
-
 In your compose file, change the ports under medic-os:
 ```
 services:
@@ -147,15 +145,14 @@ services:
 
 ## Helpful Docker commands
 
-```
-# list running containers
-docker ps
+#### list running containers
+* docker ps
 
-# ssh into container/application & view specific service logs
+#### ssh into container/application & view specific service logs
 
 * ssh: `docker exec -it medic-os /bin/bash`
 
-Once inside container:
+#### Once inside container:
 * view couchdb logs: 
   - #less /srv/storage/medic-core/couchdb/logs/startup.log
 * view medic-api logs: 
@@ -164,10 +161,10 @@ Once inside container:
   - #less /srv/storage/medic-sentinel/logs/medic-sentinel.log
 
 
-# View container stderr/stdout logs:
-docker logs medic-os
-docker logs haproxy
-```
+#### View container stderr/stdout logs:
+* docker logs medic-os
+* docker logs haproxy
+
 
 ## Clean Up
 
