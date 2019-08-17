@@ -15,7 +15,7 @@ Mac OSX:
 - [Docker for Mac](https://download.docker.com/mac/stable/Docker.dmg)
 
 Windows:
-- *Note*: If you have Hyper-V Capability, please ensure it is enabled in order to run Linux Containers on Windows. If you are running your Windows Server in cloud services, please ensure it is running on bare-mental. You will not be able to run Linux Containers in Windows if the previous comments are not adhered due to nested virtualization. 
+- *Note*: If you have Hyper-V Capability, please ensure it is enabled in order to run Linux Containers on Windows. If you are running your Windows Server in cloud services, please ensure it is running on bare-metal. You will not be able to run Linux Containers in Windows if the previous comments are not adhered due to nested virtualization. 
 - [Docker for Windows](https://download.docker.com/win/stable/Docker%20for%20Windows%20Installer.exe)
 - *Note*: If you do not have Hyper-V capability, but your server still supports virtualization, ensure that is enabled in your BiOS, and install the following package:
 - [Docker Toolbox using VirtualBox](https://github.com/docker/toolbox/releases)
