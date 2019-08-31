@@ -1,7 +1,7 @@
 # Documentation
 
-## Core Development
-The following guides should help orient developers interested in the core framework used for building community health applications. Setting up the core framework itself is covered in the [medic repo](https://github.com/medic/medic#easy-deployment).
+## Core Framework Development
+The following guides should help orient developers interested in the Core Framework used to build community health apps. Setting up the Core Framework itself is covered in the [medic repo](https://github.com/medic/medic#easy-deployment).
 
 ### How we work
 * [Developer environment setup](https://github.com/medic/medic/blob/master/README.md)
@@ -19,12 +19,12 @@ The following guides should help orient developers interested in the core framew
 * [Message states](user/message-states.md)
 * [How to migrate dashboard to SSL](development/update-markets.md)
 
-## Building Community Health Applications
-An introduction and reference for developing community health applications is provided in [Developing Community Health Applications](https://github.com/medic/medic-docs/blob/master/configuration/developing-community-health-applications.md). This overview covers building forms, tasks, targets, and contact profiles.
+## Building community health apps
+An introduction and reference for building community health apps is provided in [Developing Community Health Apps](https://github.com/medic/medic-docs/blob/master/configuration/developing-community-health-applications.md). This overview covers building forms, tasks, targets, and contact profiles.
 
-Read more about [building apps with the framework](https://github.com/medic/medic-docs/blob/master/configuration/README.md), and [using other components](https://github.com/medic/medic-docs/blob/master/configuration/README.md#other-components).
+Read more about [building apps with the Core Framework](https://github.com/medic/medic-docs/blob/master/configuration/README.md), and [using other components](https://github.com/medic/medic-docs/blob/master/configuration/README.md#other-components).
 
-## Maintenance, Support, and Troubleshooting
+## Maintenance, support, and troubleshooting
 * [Release notes](https://github.com/medic/medic/tree/master/release-notes)
 * [Software compatibility matrix](installation/supported-software.md)
 * [Troubleshooting - Quick Pointers and Tips](troubleshooting/troubleshooting-quick-pointers.md)
