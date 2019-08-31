@@ -1,8 +1,8 @@
 # Overview
-Documentation within this directory covers developing and configuring community health applications using the Medic Mobile framework. Setting up the core framework itself is covered in the [medic repo](https://github.com/medic/medic#easy-deployment). 
+Documentation within this directory covers developing and configuring community health apps using the Core Framework. Setting up the Core Framework itself is covered in the [medic repo](https://github.com/medic/medic#easy-deployment). 
 
 # Getting Started
-An introduction and reference for developing community health applications is provided in [Developing Community Health Applications](https://github.com/medic/medic-docs/blob/master/configuration/developing-community-health-applications.md), which also covers building forms, tasks, targets, and contact profiles.
+An introduction and reference for developing community health apps is provided in [Developing Community Health Apps](https://github.com/medic/medic-docs/blob/master/configuration/developing-community-health-applications.md), which also covers building forms, tasks, targets, and contact profiles.
 
 # SMS Workflows
 Workflows that use SMS are defined in the file `app_settings.json`. The following guides should help with setting that up.
