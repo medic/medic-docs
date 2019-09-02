@@ -1,158 +1,150 @@
-# Database schema for v2
+# Database schema conventions
 
-* Dec 16, 2015: estelle, mandric, marc. 
-* Jan 2017: estelle, stefan, mandric.
+CouchDB (and PouchDB in the browser) is a JSON-based NoSQL datastore that we use to store our data. While unlike SQL databases there is no enforced schema, code still follows conventions, and this document aims to describe the schema as defined by how our code operates.
 
-We use CouchDB to store data, which is noSQL, so it's schemaless. This document aims to describe the different types of documents we store.
+In this document "record" means a JSON object that resides in CouchDB or PouchDB.
 
-## Take a look!
+## General record data structure
 
-Look inside a couchdb using Futon/Fauxton at <serverurl>/_utils.
+|Property|Description|Required by|
+|--|--|--|
+|`_id`|CouchDB's unique identifier of the record|all records|
+|`_rev`|CouchDB's revision marker|all records|
+|`type`|The general type of the document, see below|all user-created* documents|
+|`reported_date`|Numerical timestamp of when the document is first created|all user-created documents|
 
-E.g. http://localhost:5984/_utils/ or https://alpha.dev.medicmobile.org/_utils
+* User-created documents here generally means contactables and reports, but may extend further.
 
-Walk yourself through a couchdb tutorial if you're unfamiliar with it.
+## Contactables (Persons and Places)
 
-## Types
+Contactables are either places (e.g. clinic), groupings (e.g. family) or people (e.g. a patient or CHW).
 
-Each doc should have a `type` field.
+The `type` property of contactable records depends on the version of Medic you are running:
+ - If you are running 3.7 or later you get to [configure your contact hierarchy](https://github.com/medic/medic-docs/blob/master/configuration/app-settings.md#configuring-the-contact-hierarchy), and the `type` of contactables is `contact`, and the configured type is in the `contact_type` property.
+ - In earlier versions the type depended on hierarchical location of the contact. There are 3 hard coded place types: `district_hospital`, `health_centre` and `clinic` and one person type `people`. These place names are often meaningless (hence the configurable contact hierarchy in later versions) to the configured project, and are textually (ie in the UI not in data structures) renamed to mean other things. For example, as `clinic` is the lowest level it is often used to represent a family.
 
-## Places
+### Places
 
-There are **4 levels of place types** : `national_office`, `district_hospital`, `health_center` and `clinic`. Most projects only use the **3 levels : `district_hospital`, `health_center` and `clinic`**.
-(At this point the names don't really make any sense (they are legacy), and ultimately we want to allow an arbitrary number of place types in the hierarchy.  In the future they might get replaced with `place-level-n` where n is a number that starts at 0 for the top level.)
+Represent either an actual physical location such as a clinic, or a grouping such as a family or region.
 
-The 4 levels are used differently depending on project configuration and translations.
- - Projects whose CHWs are on SMS (‘SMS projects') usually use the 3 lower levels as District > Health Center > CHW area/Catchment area/Area.
- - Projects whose CHWs are on android (‘android projects') usually use the 3 lower levels as Branch > CHW Area > Family/Household (which means CHWs can sort their patients in families/households, which the SMS users can't do)
+Unless a place is at the top of the hierarchy it has a `parent` place.
 
-![DB docs representing places](img/places.png)
+Each location has a primary contact, which is a `person` contactable stored in the `contact` property.
 
-Each (non-top-level) place doc has a **`parent` field**, which stores a whole copy of the parent doc.
+### People
 
-![A place doc in Futon with its parent field](img/places_parents.png)
+People are both patients in the system and users of the system, such as CHWs or Nurses. Users have additional records marking them as users of the system (see [User](#users) below).
 
+People always have a `parent` place.
 
-Note : the parent field doesn't get updated when the parent doc gets updated. We will move away from this in 2017.
-E.g. After creation of the `clinic` above, if you edit its parent `health_center`, the `clinic` will not get updated with the change, and will continue storing an outdated version in the `parent` field.
+### Parent hierachy representation
 
-## Persons
+Contactables **store** their parent hierarchy as a "de-hydrated" hierarchical structure, which records the `_id` of each parent up until the top of the hierarchy:
 
-Docs of `type: person` represent, well, **people**. E.g. Patients, CHWs, Branch Managers, ...
-
-They **always belong to a place**. They have a `parent` field which stores a full copy of their parent doc.
-
-Each place doc can have multiple `type:person` docs belonging to it.
-E.g. A family has multiple family members.
-
-![DB docs representing persons](img/persons.png)
-
-Some `person`s are primary contacts for their place. The corresponding place doc has a **`contact` field**, which stores a full copy of a `type: person` doc.
-The contact field is displayed as the Primary Contact for the place in the UI
-E.g. the branch manager for the branch, the CHW for the CHW Area, …
-
-Note: the term “contact” can also be used for `place || person`. That's a legacy term. Sorry.
-
-## Users
-
-Users are different from `type:person` docs. They represent
- - **people who can log into the webapp or android app**. E.g. branch manager, CHW, …
- - or **computers that need to access the webapp** for specific tasks.
-
-![User types, in UI for editing/creating users](img/user_types.png)
-
-### People users
-
-Note: not all people interacting with Medic Mobile can log into the app!
-E.g. in an SMS project, CHWs are SMS-only and never log into the app. There is no user associated to them. In an android project, they do log into the android app, so they have an associated user.
-
-Most People users are **associated with a place** (in the UI: “Restricted to their place” users). They can only access docs within that place.
-E.g. a CHW is restricted to their CHW area, and can only see Family members belonging to their area, and the reports from these family members.
-
-![DB docs representing persons](img/persons.png)
-
-Users are represented by a **set of 3 docs** : a `type:person`, a `type:user-settings` and a `type:user`. The `type: user` doc is not in the main `medic` db, it's in the `_users` db (check out couchdb documentation about `_users` db)
-
-The user doc and the user-settings doc share the same `_id` field : `org.couchdb.user:<username>`.
-There is similar information in both.
-The `_user` doc holds the couchdb credentials. It lives on the couch server only.
-The `user-settings` doc is replicated to the clients, who can edit it (so can't be relied on for auth).
-
-### Computer users
-
-They have a doc in the `_users` db and a `type: user-settings` doc in the `medic` db, but no associated `person` or place.
-
-## Forms
-
-A form that users can submit as part of their workflow. Only XML forms are database objects. (JSON forms are part of the design doc.)
-E.g. `pregnancy` form for CHWs to signal a new pregnancy, `assessment` form to assess the health of a patient,
-
-Form id : `form:<formname>`
-
-The `type: form` doc has an attachment, the xml form.
-
-Forms have a `context`, which makes them displayed or not in various parts of the UI. ([documentation](http://medicmobile.cloud.answerhub.com/questions/72/what-determines-how-we-set-the-context-json-file-f.html))
-
-![DB docs representing forms](img/forms.png)
-
-## Reports
-
-When a user submits a form, it produces a `type: data_record` doc.  When a user submits a message it also gets parsed and creates reports.
-
-The word “report” is typically used for a form that is submitted.  We use “record” when referring to the doc in the database.  But sometimes these words are used interchangeably.
-
-There are two supported ways to parse reports, depending on how the form needs to be  submitted and app is configured. SMS uses a JSON form and the ODK API uses XML. Either way, at the time of record creation in the database a form is parsed and a record is created.  The parsed form fields are saved under the property name `fields` and there are a few other fields that are part of a standard record.
-
-Example of record that gets created from an SMS message, after a message is submitted and form is parsed:
-
-```json
+```js
 {
-  "_id": "3d9c7c94",
-  "_rev": "5-f49f0dbc",
-  "type": "data_record",
-  "from": "+9779988777766",
-  "form": "P",
-  "errors": [],
-  "tasks": [],
-  "reported_date": 1484308744000,
-  "sms_message": {
-    "secret": "",
-    "from": "+9779988777766",
-    "message": "P 15 लछुता",
-    "sent_timestamp": "1484308744000",
-    "message_id": "6de6bb42",
-    "type": "sms_message",
-    "form": "P",
-    "locale": "ne"
-  },
-  "fields": {
-    "last_menstrual_period": 15,
-    "patient_name": "लछुता",
+  type: 'person',
+  name: 'A patient',
+  parent: {
+    _id: 'clinic-id',
+    parent: {
+      _id: 'health_centre-id',
+      parent: {
+        _id: 'district_hospital-id'
+      }
+    }
   }
 }
 ```
 
-For SMS reports, after the report is initially saved other processes will come and modify it, typically the next thing that happens is medic-sentinel will populate the `place` and `contact` properties.  This requires a database query so is done as a separate process from the initial creation.
-SMS form definitions are part of application settings, on the design doc; so it can be used to parse data during initial record creation.
+Generally when contactables are **used** in the app they are first "hydrated", with the rest of the information filled in from their parent's place documents:
 
-For XML reports, the actual xml data is also saved in attachments to the doc. (*Legacy: The actual xml data is saved in doc, in `content` field.*)
+```js
+{
+  type: 'person',
+  name: 'A patient',
+  parent: {
+    _id: 'clinic-id',
+    name: 'A clinic',
+    reported_date: 1234,
+    ... // etc
+    parent: {
+      _id: 'health_centre-id',
+      name: 'A Health Centre',
+      reported_date: 1134,
+      ... // etc
+      parent: {
+        _id: 'district_hospital-id',
+        name: 'THE District Hospital',
+        reported_date: 1034,
+        ... // etc
+      }
+    }
+  }
+}
+```
 
-Data_record has the internalId of the form it comes from, in `form`.
-Data_record has a copy of the `type: person` doc that submitted it, in `contact` (SMS-generated reports may not have a contact)
-If sent by SMS, it can also have details of the SMS message, and the `scheduled_tasks` triggered by the form submission.
+## Reports
 
-## Meta
+Reports are created by users filling out and submitting forms, as well as sending in SMS.
 
-`type: meta` : for keeping track of which migrations have been run by `medic-api`. See migrations.js.
+All reports:
+ - Use the `data_record` type
+ - Have their fields stored in the `fields` property
+ - Have the report author's phone number (if it existsz) stored in the `from` field
+ - Store the form's identifier in the `form` field
+ - May have a `contact` property, which is a dehydrated version of the report author's contact and its hierarchy (see above)
 
-## Feedback
+Reports also have some kind of patient identifier, which describes which `person` this report is _about_. This value can be in a few different places:
+ - The patient's shortcode may be found at `doc.patient_id` or `doc.fields.patient_id`
+ - A patient record's `_id` may be found at `doc.patient_uuid` or `doc.fields.patient_uuid`, as well as potientially in the same locations as the shortcode.
 
-`type: feedback` : created when used clicks “Report bug”
+Additionally, SMS reports:
+ - have an `sms_message` property which contains, among other things, the raw SMS
+ - May not have a `contact` property if the SMS comes from a phone number that does not have an associated contact
 
-## Usage stats
+Additionally, XML reports:
+ - Has the XML file that Enketo (the XForm renderer used) generates as an attachment
+ - Have a `content_type` property of `xml`.
 
-`type: usage_stats`: ?
+## Forms
 
-## Audit db
-Any time a doc is modified, that action is saved in `medic-audit` db.
-*Legacy: audit docs of type `audit_record` are saved in `medic` db.*
+SMS forms are defined in [application config](https://github.com/medic/medic-docs/blob/master/configuration/app-settings.md#patient-reports).
+
+XML forms are stored in the database and have:
+ - An `_id` of `form:<formname>`
+ - The `type` of `form`
+ - The actual XML Xforms definition attached
+
+XML forms are defined as XForm XML files
+
+## Users
+
+Users represent credentials and roles / permissions for accessing the application. This can either be:
+ - people who can log into the application, such as CHWs or Nurses
+ - or credentials granting external software restricted permissions to perform certain tasks, such as allowing an external service permission to write reports via the api.
+
+User records have at least:
+ - An `_id` of `org.couchdb.user:<username>`
+ - A `name` which is the same as `<username>` above
+ - A `roles` array
+
+There are two slightly different copies of this record stored.
+
+The `_users` database additionally:
+ - The `type` of `user`
+ - The password hash and associated data
+ - and is a location that only administrative users can write to, and so is authoritive when it comes to roles and the like.
+ - It is also what CouchDB usess for authentication
+
+The `medic` database stores a copy of roles and permissions along with:
+ - The `type` of `user-settings`
+ - They may have a `contact_id` field that is the `_id` of the _person_ that the user is attached to
+ - They may also have a `facility_id` field that is the `_id` of the _place_ that the user is attached to
+
+Note that SMS users do not have a users record: their phone number will be attached to a `person` record, but they do not have a user because they do not access the application.
+
+Users then, can be represented by up to 3 docs:
+ - a `person` document that represents a physical human being in our hierarchy of places and people
+ - a `users` document that represents authorisation and authentication information for physical people or authenticated external services
+ - a `user-settings` document that ties the `user` and `person` documents together
