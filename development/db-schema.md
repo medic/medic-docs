@@ -95,9 +95,13 @@ All reports:
  - Store the form's identifier in the `form` field
  - May have a `contact` property, which is a minified version of the report author's contact and its hierarchy (see above)
 
-Reports also have some kind of patient identifier, which describes which `person` this report is _about_. This value can be in a few different places:
- - The patient's shortcode may be found at `doc.patient_id` or `doc.fields.patient_id`
- - A patient record's `_id` may be found at `doc.patient_uuid` or `doc.fields.patient_uuid`, as well as potientially in the same locations as the shortcode.
+Reports can be about people or places.
+
+Reports about people should have one or more of:
+ - A patient shortcode, found at `doc.patient_id` or `doc.fields.patient_id`
+ - A patient record's `_id`, found at `doc.patient_uuid` or `doc.fields.patient_uuid`, as well as potientially in the same locations as the shortcode
+
+Reports about places should have a `doc.place_id`.
 
 Additionally, SMS reports:
  - Have an `sms_message` property which contains, among other things, the raw SMS
@@ -105,7 +109,7 @@ Additionally, SMS reports:
 
 Additionally, XML reports:
  - Have the XML file that Enketo (the XForm renderer used) generates as an attachment
- - Have a `content_type` property of `xml`.
+ - Have a `content_type` property of `xml`
 
 ## Forms
 
@@ -134,8 +138,8 @@ There are two slightly different copies of this record stored.
 The record in the `_users` database includes:
  - The `type` of `user`
  - The password hash and associated data
- - and is a location that only administrative users can write to, and so is authoritive when it comes to roles and the like.
- - It is also what CouchDB usess for authentication
+
+The `_users` database is what CouchDB uses for authentication and is only editable by administrative users, so is authoritive when it comes to roles and the like.
 
 The `medic` database stores a copy of roles and permissions along with:
  - The `type` of `user-settings`
