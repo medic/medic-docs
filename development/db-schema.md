@@ -21,7 +21,7 @@ Contactables are either places (e.g. clinic), groupings (e.g. family) or people 
 
 The `type` property of contactable records depends on the version of Medic you are running:
  - If you are running 3.7 or later you get to [configure your contact hierarchy](https://github.com/medic/medic-docs/blob/master/configuration/app-settings.md#configuring-the-contact-hierarchy), and the `type` of contactables is `contact`, and the configured type is in the `contact_type` property.
- - In earlier versions the type depended on hierarchical location of the contact. There are 3 hard coded place types: `district_hospital`, `health_centre` and `clinic` and one person type `people`. These place names are often meaningless (hence the configurable contact hierarchy in later versions) to the configured project, and are textually (ie in the UI not in data structures) renamed to mean other things. For example, as `clinic` is the lowest level it is often used to represent a family.
+ - In earlier versions the type depended on hierarchical location of the contact. There are 3 hard coded place types: `district_hospital`, `health_centre` and `clinic` and one people type `person`. These place names are often meaningless (hence the configurable contact hierarchy in later versions) to the configured project, and are textually (ie in the UI not in data structures) renamed to mean other things. For example, as `clinic` is the lowest level it is often used to represent a family.
 
 ### Places
 
@@ -39,7 +39,7 @@ People always have a `parent` place.
 
 ### Parent hierachy representation
 
-Contactables **store** their parent hierarchy as a "de-hydrated" hierarchical structure, which records the `_id` of each parent up until the top of the hierarchy:
+Contactables **store** their parent hierarchy as a minified hierarchical structure, which records the `_id` of each parent up until the top of the hierarchy:
 
 ```js
 {
@@ -91,20 +91,20 @@ Reports are created by users filling out and submitting forms, as well as sendin
 All reports:
  - Use the `data_record` type
  - Have their fields stored in the `fields` property
- - Have the report author's phone number (if it existsz) stored in the `from` field
+ - Have the report author's phone number (if it exists) stored in the `from` field
  - Store the form's identifier in the `form` field
- - May have a `contact` property, which is a dehydrated version of the report author's contact and its hierarchy (see above)
+ - May have a `contact` property, which is a minified version of the report author's contact and its hierarchy (see above)
 
 Reports also have some kind of patient identifier, which describes which `person` this report is _about_. This value can be in a few different places:
  - The patient's shortcode may be found at `doc.patient_id` or `doc.fields.patient_id`
  - A patient record's `_id` may be found at `doc.patient_uuid` or `doc.fields.patient_uuid`, as well as potientially in the same locations as the shortcode.
 
 Additionally, SMS reports:
- - have an `sms_message` property which contains, among other things, the raw SMS
+ - Have an `sms_message` property which contains, among other things, the raw SMS
  - May not have a `contact` property if the SMS comes from a phone number that does not have an associated contact
 
 Additionally, XML reports:
- - Has the XML file that Enketo (the XForm renderer used) generates as an attachment
+ - Have the XML file that Enketo (the XForm renderer used) generates as an attachment
  - Have a `content_type` property of `xml`.
 
 ## Forms
@@ -131,7 +131,7 @@ User records have at least:
 
 There are two slightly different copies of this record stored.
 
-The `_users` database additionally:
+The record in the `_users` database includes:
  - The `type` of `user`
  - The password hash and associated data
  - and is a location that only administrative users can write to, and so is authoritive when it comes to roles and the like.
