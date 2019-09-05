@@ -559,6 +559,7 @@ If using a [XLSForm](http://xlsform.org/) and using [`medic-conf`](https://githu
 
 ## Supported XLSForm Meta Fields
 The following meta elements are supported:
+
 | element | type | description | value |
 |---|---|---|---|
 | `timeStart` | datetime | A timestamp of when the form entry was started. | now() |
@@ -567,6 +568,7 @@ The following meta elements are supported:
 These meta elements have corresponding `<bind>` elements with either a calculation or with `preload attributes`.
 
 Supported preload attribute combinations are:
+
 | jr:preloadParams | jr:preload | value |
 |---|---|---|
 | `start` | timestamp | see `timeStart` |
