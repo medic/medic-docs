@@ -31,7 +31,7 @@ Once a version is no longer supported it will not receive any further releases a
 
 ## Smartphones
 
-The following is the minimum specification recommendation for smartphones that to handle the typical workload of front line health workers. Users with particularly high workloads or facility or supervisor workloads will require more powerful devices.
+The following is the minimum specification recommendation for smartphones to handle the typical workload of front line health workers. Users with particularly high workloads or facility or supervisor workloads will require more powerful devices.
 
 | Specification | Minimum |
 |--|--|
