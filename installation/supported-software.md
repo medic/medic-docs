@@ -26,3 +26,16 @@ Once a version is no longer supported it will not receive any further releases a
 | **0.4** | 0.12+ | 1.6+ | Chrome 30+, Firefox latest | SMSSync | N/A | N/A | N/A |
 | **2.x** | 6+ | 1.6+ | Chrome 30+, Firefox latest | medic-gateway | 4.4+ | Any | 2.0 < 3.0 |
 | **3.x** | 8.11+ | 2.1+ | Chrome 53+, Firefox latest | medic-gateway | 4.4+ | 0.4.5+ | 3.0+
+
+# Hardware requirements
+
+## Smartphones
+
+The following is the minimum specification recommendation for smartphones to handle the typical workload of front line health workers. Users with particularly high workloads or facility or supervisor workloads will require more powerful devices.
+
+| Specification | Minimum |
+|--|--|
+| Android version | 5.0 |
+| Processor | 1.0GHz dual-core |
+| RAM | 1GB |
+| Storage | 8GB |
