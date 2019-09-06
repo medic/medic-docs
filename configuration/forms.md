@@ -558,18 +558,10 @@ Note that `FORM_CODE` should be replaced with the form code as defined in the JS
 If using a [XLSForm](http://xlsform.org/) and using [`medic-conf`](https://github.com/medic/medic-conf) to convert to XForm, the necessary fields will be automatically added to the resulting XForm. You can override the default prefix and separator by declaring `sms_keyword` and `sms_seperator` respectively in the Settings tab.
 
 ## Supported XLSForm Meta Fields
-The following meta elements are supported:
+[XLSForm](http://xlsform.org/) has a number of [data type options](https://xlsform.org/en/#metadata) available for meta data collection, of which the following are supported:
 
-| element | type | description | value |
-|---|---|---|---|
-| `timeStart` | datetime | A timestamp of when the form entry was started. | now() |
-| `timeEnd` | datetime | A timestamp of when the form entry ended. | now() |
-
-These meta elements have corresponding `<bind>` elements with either a calculation or with `preload attributes`.
-
-Supported preload attribute combinations are:
-
-| jr:preloadParams | jr:preload | value |
-|---|---|---|
-| `start` | timestamp | see `timeStart` |
-| `end` | timestamp | see `timeEnd` |
+| element | description |
+|---|---|
+| `start` | A timestamp of when the form entry was started. |
+| `end` | A timestamp of when the form entry ended. |
+| `today` | Day of the survey. |
