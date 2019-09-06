@@ -560,7 +560,8 @@ If using a [XLSForm](http://xlsform.org/) and using [`medic-conf`](https://githu
 ## Supported XLSForm Meta Fields
 [XLSForm](http://xlsform.org/) has a number of [data type options](https://xlsform.org/en/#metadata) available for meta data collection, of which the following are supported:
 
-| element | description | value |
-|---|---|---|
-| `start` | A timestamp of when the form entry was started. | now() |
-| `end` | A timestamp of when the form entry ended. | now() |
+| element | description |
+|---|---|
+| `start` | A timestamp of when the form entry was started. |
+| `end` | A timestamp of when the form entry ended. |
+| `today` | Day of the survey. |
