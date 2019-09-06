@@ -558,7 +558,7 @@ Note that `FORM_CODE` should be replaced with the form code as defined in the JS
 If using a [XLSForm](http://xlsform.org/) and using [`medic-conf`](https://github.com/medic/medic-conf) to convert to XForm, the necessary fields will be automatically added to the resulting XForm. You can override the default prefix and separator by declaring `sms_keyword` and `sms_seperator` respectively in the Settings tab.
 
 ## Supported XLSForm Meta Fields
-[XLSForm](http://xlsform.org/) has a number of [data type options](https://xlsform.org/en/#metadata) available for meta data collection. However, we only support the following metadata elements:
+[XLSForm](http://xlsform.org/) has a number of [data type options](https://xlsform.org/en/#metadata) available for meta data collection, of which the following are supported:
 
 | element | description | value |
 |---|---|---|
