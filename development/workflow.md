@@ -6,7 +6,11 @@
 
 Where possible, follow our coding [style guide](https://github.com/medic/medic-docs/blob/master/development/style-guide.md).
 
-Aim for self-documenting code. Where code cannot be made self-documenting add commenting. Unnecessary comments and hard to read code fail a code review.
+Aim for self-documenting code. Where code cannot be made self-documenting add commenting. Usually comments are useful when they explain why some code exists, and should not be explaining what some code is doing. 
+
+### Reviewing
+
+The author and reviewer should use this [guide to code reviewing](https://google.github.io/eng-practices/review/developer/).
 
 ### Testing
 
