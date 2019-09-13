@@ -142,6 +142,18 @@ You can also change the frequency of local purge downloads (default being every 
 |`text_expression`|Any valid text expression to describe the interval of running purge server-side. For more information, see [LaterJS](https://bunkat.github.io/later/parsers.html#text)|no if `cron` provided|
 |`cron`|Any valid Cron expression to describe the interval of running purge server-side. For more information, see [LaterJS](https://bunkat.github.io/later/parsers.html#cron)|no if `text_expression` provided|
 
+Example of purge configured in your app_settings:
+
+```json
+ "//": "other app_settings settings",
+ "purge": {
+    "fn": "function(userCtx, contact, reports, messages) { return  []; }",
+    "cron": "0 1 * * SUN",
+    "text_expression": "at 1:00 am on Sun",
+    "run_every_days": 5
+  }
+```
+
 ## Things to be aware of when purging
 
 ##### Purged documents server-side
