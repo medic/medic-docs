@@ -11,14 +11,15 @@ Purging only removes documents from user's devices: these reports are still avai
 online analytics and impact metrics.
 
 Purging is disabled by default, and is enabled if a purge function is specified in 
-`app_settings.json`.
+`app_settings.json`, along with a run schedule.
 
 The following example would purge all reports that were created more than a year ago:
 ```json
 {
     "//": "other app_settings settings",
     "purge": {
-        "fn": "function(userCtx, contact, reports, messages) { const old = Date.now() - (1000 * 60 * 60 * 24 * 365); return reports.filter(r => r.reported_date < old).map(r => r._id);}"
+        "fn": "function(userCtx, contact, reports, messages) { const old = Date.now() - (1000 * 60 * 60 * 24 * 365); return reports.filter(r => r.reported_date < old).map(r => r._id);}",
+        "text_expression": "at 12 am on Sunday"
     }
 }
 ```
@@ -80,27 +81,35 @@ downloaded and is used to get the next batch of ids.
 After receiving a batch of ids, the device simply deletes the indicated docs locally, 
 marking them with a `purged` flag. 
 
-## Purging function configuration
+## Purging configuration
 
-To enable purging, write your purging function to `purging.js` in your project root:
+To enable purging, write your purge configuration to `purge.js` in your project root:
 
 ```js
-function(userCtx, contact, reports, messages) {
-  const old = Date.now() - (1000 * 60 * 60 * 24 * 365);
-  const oldMessages = Date.now() - (1000 * 60 * 60 * 24 * 90);
-
-  const reportsToPurge = reports
-                           .filter(r => r.reported_date < old)
-                           .map(r => r._id);
-  const messagesToPurge = messages
-                           .filter(m => m.reported_date < oldMessages)
-                           .map(m => m._id);
-
-  return [...reportsToPurge, ...messagesToPurge];
-}
+module.exports = {
+  text_expression: 'at 9 am on Sunday',
+  run_every_days: 7,
+  cron: '0 1 * * SUN',
+  fn: function(userCtx, contact, reports, messages) {
+        const old = Date.now() - (1000 * 60 * 60 * 24 * 365);
+        const oldMessages = Date.now() - (1000 * 60 * 60 * 24 * 90);
+      
+        const reportsToPurge = reports
+                                 .filter(r => r.reported_date < old)
+                                 .map(r => r._id);
+        const messagesToPurge = messages
+                                 .filter(m => m.reported_date < oldMessages)
+                                 .map(m => m._id);
+      
+        return [...reportsToPurge, ...messagesToPurge];
+      } 
+};
 ```
 
-As shown above, you should be declaring an _anonymous_ function (with no name).
+##### Purge function configuration
+
+As shown above, you should be exporting a property `fn` defining a self a contained function: 
+it should have no outside dependencies - like used variables, required modules or call outside functions. 
 
 This function takes four parameters:
  - `userCtx`, an object with the user's `roles` as fields. For more information read the [documentation for the User Context Object](https://docs.couchdb.org/en/stable/json-structure.html#userctx-object).
@@ -117,7 +126,7 @@ will receive an empty object as `contact`.
 In the cases of reports about deleted patients, the `purge` function will receive a `{ _deleted: true }`
 object as the `contact`. 
 
-## Other configuration
+##### Schedule configuration
 
 You must set a schedule for purging to run server-side.
 Depending on the size of the database and server capacity, purging could be a lengthy and 
@@ -126,21 +135,9 @@ can sustain (for example at nighttime in the weekends).
 
 You can also change the frequency of local purge downloads (default being every 7 days).
 
-Example
-
-```json
- "//": "other app_settings settings",
- "purge": {
-    "fn": "function(userCtx, contact, reports, messages) { return  []; }",
-    "cron": "0 1 * * SUN",
-    "text_expression": "at 1:00 am on Sun",
-    "run_every_days": 5
-  }
-```
-
 |property|description|required|
 |-------|---------|----------|
-|`fn`|Anonymous purge function | yes|
+|`fn`|Self-contained purge function | yes|
 |`run_every_days`|The interval (in days) at which purges will be downloaded client-side. *Default 7*.|no|
 |`text_expression`|Any valid text expression to describe the interval of running purge server-side. For more information, see [LaterJS](https://bunkat.github.io/later/parsers.html#text)|no if `cron` provided|
 |`cron`|Any valid Cron expression to describe the interval of running purge server-side. For more information, see [LaterJS](https://bunkat.github.io/later/parsers.html#cron)|no if `text_expression` provided|
