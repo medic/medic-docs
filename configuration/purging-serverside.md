@@ -108,7 +108,7 @@ module.exports = {
 
 ##### Purge function configuration
 
-As shown above, you should be exporting a property `fn` defining a self a contained function: 
+As shown above, you should be exporting a property `fn` defining a self contained function: 
 it should have no outside dependencies - like used variables, required modules or call outside functions. 
 
 This function takes four parameters:
