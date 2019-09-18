@@ -586,16 +586,16 @@ To play multimedia from forms you need to add elements to your xml and upload th
 
   EX: 
   ```
-  				<text id="somevideo">
-						<value form="video">jr://video.mp4</value>
-					</text>
+  <text id="somevideo">
+	  <value form="video">jr://video.mp4</value>
+</text>
   ```
   Display EX:
 
   ```
-      <input ref="q2">
-				<label ref="jr:itext('somevideo')"/>
-			</input>
+  <input ref="q2">
+	  <label ref="jr:itext('somevideo')"/>
+</input>
   ```
 
 
