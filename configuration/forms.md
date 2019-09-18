@@ -601,7 +601,7 @@ To play multimedia from forms you need to add elements to your xml and upload th
 
   Here is a sample form that will display a video and/or image. When this form is opened a video player will be displayed so the user can watch the video. Forms support displaying of images and playing of audio files. 
 
-```
+```xml
   <h:html xmlns="http://www.w3.org/2002/xforms" 
 	xmlns:h="http://www.w3.org/1999/xhtml" 
 	xmlns:ev="http://www.w3.org/2001/xml-events" 
