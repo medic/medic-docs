@@ -571,7 +571,7 @@ If using a [XLSForm](http://xlsform.org/) and using [`medic-conf`](https://githu
 
 ## Multimedia Formats
 
-There are many supported formats for video, audio, and images. We recommend using h.264(mpeg) for video, jpeg for images, and mp3 for audio. When creating videos or images keep in mind the dimensions and storage capabilities on phones that may be used. Lower end phones have smaller storage and screen sizes. 
+There are many supported formats for video, audio, and images. We recommend using h.264(mpeg) for video, jpeg for images, and mp3 for audio. When creating videos or images keep in mind the dimensions and storage capabilities on phones that may be used. Lower end phones have smaller storage and screen sizes. When rendering images, video, and audio the CHT uses the browser's built in rendering tools. This means you can render any media format that is supported by the [minimum version of Chrome](https://github.com/medic/medic-docs/blob/master/installation/supported-software.md#dependencies).
 
  **List of Supported formats** [video/audio](https://developer.mozilla.org/en-US/docs/Web/HTML/Supported_media_formats#Browser_compatibility)
  [images](https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Image_types)
@@ -584,13 +584,13 @@ To play multimedia from forms you need to add elements to your xml and upload th
 ### Form Config
   Add an xml element of text and another element of value. Set form equal to the type of multimedia being used(video, audio, image). The value element must contain `jr://file_name.suffix` where `file_name.suffix` is the name of your multimedia file uploaded to couchdb. 
 
-  EX: 
+  Example: 
   ```
   <text id="somevideo">
 	  <value form="video">jr://video.mp4</value>
 </text>
   ```
-  Display EX:
+  Display Example:
 
   ```
   <input ref="q2">
