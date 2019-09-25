@@ -147,7 +147,7 @@ and `let` when you must. Hardcoded constants should be named in all UPPERCASE.
 *Right:*
 
 ```js
-const DELAY = 10 * 1000; // ten seconds
+const DELAY = 10 * 1000;
 const output = input * 10;
 let temp = 50;
 let unknown;
@@ -165,6 +165,8 @@ Use arrow functions as much as possible for cleaner code and better scoping. Omi
 return keyword when the entire function definition fits on one line. Omit the parens
 when taking a single parameter.
 
+There are exceptions to this rule including when you want to access `arguments` or
+`this`, or when you want to be able to debug browserified code.
 
 *Right:*
 
