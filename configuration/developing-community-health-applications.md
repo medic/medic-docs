@@ -548,7 +548,7 @@ Health workers can easily access and manage the families and people they serve a
 <!-- TODO: Add annotated screenshot of a contact page showing structure -->
 
 ### Context
-This object provides context information to Actions (aka "app forms") which are initiated from the contact's profile page. The app form's `expression` (which determines when to show the form in the "New action" menu) can access this context information via the variable `summary`. When opening the action from the contact's profile, the context data is also available in the app form's XForm via `inputs`.
+This object provides context information to Actions (aka "app forms") which are initiated from the contact's profile page. The app form's `expression` (which determines when to show the form in the "New action" menu) can access this context information via the variable `summary`. When opening the action from the contact's profile, the context data is also available in app forms' XForm calculations as `instance('contact-summary')/context/${variable}`. For instance if `context.is_pregnant` is used in the contact summary, it can be accessed in an XForm field's calculation as `instance('contact-summary')/context/is_pregnant`. Note that these fields are not available when editing a previously completed form.
 
 ### Fields
 An array of fields are defined to show a summary of the contact at the top of their profile page.
