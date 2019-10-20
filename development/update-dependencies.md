@@ -1,8 +1,6 @@
 # Update dependencies
 
-Every minor release we update dependencies to get the latest fixes and improvements. We do this early in the release cycle so that we have some more time to find regressions and issues.
-
-This is done on all directories with a package.json, including:
+Every minor release we update dependencies to get the latest fixes and improvements. We do this early in the release cycle so that we have some more time to find regressions and issues. This is done on all folders with a package.json, including:
 
 - cht-core
   - / (root)
@@ -18,7 +16,7 @@ This is done on all directories with a package.json, including:
 1. `git checkout master && git pull` - get the latest code
 2. `git checkout -b "<issue>-update-dendencies"` - make a branch
 
-Then for each folder I go through these steps.
+Then for each folder go through these steps.
 
 1. `npm ci` - update your local node_modules to match expected
 2. `npm outdated` - report on any dependencies which aren't at the latest
@@ -38,7 +36,11 @@ Then for each folder I go through these steps.
 
 ## Troubleshooting
 
-If npm ci errors with "errno -17" in shared-libs you may need to manually remove the nested dependencies from the package-lock.json. This needs move investigation to work out why this is happening.
+### npm errno -17
+
+If `npm ci` errors with "errno -17" in shared-libs you may need to manually remove the nested dependencies from the package-lock.json. This needs move investigation to work out why this is happening.
+
+### select2 is not a function
 
 If you get `TypeError: "$(...).select2 is not a function"` then either:
 1. You bumped select2. For some reason this breaks it.

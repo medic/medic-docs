@@ -11,7 +11,7 @@
 
 1. When development is ready to begin one of the developers should be nominated as a Release Manager, who will be resonsible for making sure the following tasks are completed though not necessarily completing them.
 2. Set the version number in package.json and package-lock.json.
-3. For major or minor releases raise a new issue called `Update dependencies for <version>` with a description that links to [the documentation](update-dependencies). This should be done early in the release cycle so find a volunteer to take this on and assign it to them.
+3. For major or minor releases raise a new issue called `Update dependencies for <version>` with a description that links to [the documentation](update-dependencies.md). This should be done early in the release cycle so find a volunteer to take this on and assign it to them.
 4. Write an update in the weekly Product Team call agenda summarising development and acceptance testing progress and identifying any blockers.
 
 ### Releasing
