@@ -15,7 +15,7 @@ Mac OSX:
 - [Docker for Mac](https://download.docker.com/mac/stable/Docker.dmg)
 
 Windows:
-- *Note*: If you have Hyper-V Capability, please ensure it is enabled in order to run Linux Containers on Windows. If you are running your Windows Server in cloud services, please ensure it is running on bare-metal. You will not be able to run Linux Containers in Windows if the previous comments are not adhered due to nested virtualization. 
+- *Note*: If you have Hyper-V Capability, please ensure it is enabled in order to run Linux Containers on Windows. If you are running your Windows Server in cloud services, please ensure it is running on [bare-metal](https://en.wikipedia.org/wiki/Bare_machine). You will not be able to run Linux Containers in Windows if the previous comments are not adhered due to nested virtualization. 
 - [Docker for Windows](https://download.docker.com/win/stable/Docker%20for%20Windows%20Installer.exe)
 - *Note*: If you do not have Hyper-V capability, but your server still supports virtualization, ensure that is enabled in your BiOS, and install the following package:
 - [Docker Toolbox using VirtualBox](https://github.com/docker/toolbox/releases)
@@ -38,7 +38,7 @@ version: '3.7'
 services:
   medic-os:
     container_name: medic-os
-    image: medicmobile/medic-os:3.6.1-rc.4
+    image: medicmobile/medic-os:cht-3.7.0-rc.1
     volumes:
       - medic-data:/srv
     ports:
@@ -88,9 +88,12 @@ $ docker-compose -f <project_name>-medic-os-compose.yml up
 
 Once containers are setup, please run the following command from your host terminal:
 ```
-$ docker exec -it medic-os /bin/bash -c "sed -i 's/--install=3.6.1/--complete-install/g' /srv/scripts/horticulturalist/postrun/horticulturalist"
+$ docker exec -it medic-os /bin/bash -c "sed -i 's/--install=3.7.0/--complete-install/g' /srv/scripts/horticulturalist/postrun/horticulturalist"
 $ docker exec -it medic-os /bin/bash -c "/boot/svc-stop medic-core openssh && /boot/svc-stop medic-rdbms && /boot/svc-stop medic-couch2pg"
 ```
+
+The first command fixes a postrun script for horticulturalist to prevent unique scenarios of re-install.
+The second command stops extra services that you will not need.
 
 ### Visit your project
 
@@ -110,6 +113,10 @@ Clean data volume:
 * `docker volume rm medic-data`
 
 After following the above three commands, you can re-run `docker-compose up` and create a fresh install (no previous data present)
+
+## Use Kitematic (GUI for Docker tools)
+
+
 
 ## Port Conflicts
 
@@ -133,7 +140,7 @@ In your compose file, change the ports under medic-os:
 services:
   medic-os:
     container_name: medic-os
-    image: medicmobile/medic-os:3.6.1-rc.4
+    image: medicmobile/medic-os:cht-3.7.0-rc.1
     volumes:
       - medic-data:/srv
     ports:
@@ -143,9 +150,6 @@ services:
 *Note*: You can substitute 8080, 444 with whichever ports are free on your host. You would now visit https://localhost:444 to visit your project.
 
 ## Helpful Docker commands
-
-#### list running containers
-* docker ps
 
 #### ssh into container/application & view specific service logs
 
@@ -165,7 +169,7 @@ services:
 * docker logs haproxy
 
 
-## Clean Up
+#### Clean Up
 
 ```
 # list running containers
@@ -184,3 +188,6 @@ docker start <container_id>
 docker ps -f "status=exited"
 
 ```
+
+#### Prune entire Docker system
+docker system prune
