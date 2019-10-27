@@ -33,7 +33,7 @@ This document is meant to be a introduction and reference for developing forms, 
 ## Prerequisites
 
 ### Test Instance
-To build your own application using the Core Framework you will need an instance set up for testing. You can set up a local instance by [following these instructions](https://github.com/medic/medic#easy-local-deployment).
+To build your own application using the Core Framework you will need an instance set up for testing. You can set up a local instance by [following these instructions](./INSTALL.md)).
 
 ### Build tool
 The build tool for applications using the Core Framework is `medic-conf`. Follow the installation instructions [here](https://github.com/medic/medic-conf/blob/master/README.md). To properly use the tool you will need your application files in set locations within a folder. Once you are set up with the basic file structure you can edit the files, and rebuild the application by compiling or converting components as needed, and uploading them to your test instance.
