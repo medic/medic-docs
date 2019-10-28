@@ -18,6 +18,7 @@ The following guides should help orient developers interested in the Core Framew
 * [DB schema](development/db-schema.md)
 * [Message states](user/message-states.md)
 * [How to migrate dashboard to SSL](development/update-markets.md)
+* [Data flow management for analytics and dashboards](development/data-flows-for-analytics.md)
 
 ## Building community health apps
 An introduction and reference for building community health apps is provided in [Developing Community Health Apps](https://github.com/medic/medic-docs/blob/master/configuration/developing-community-health-applications.md). This overview covers building forms, tasks, targets, and contact profiles.
