@@ -13,9 +13,9 @@ At a high level:
 
 - data is collected from the device of a health worker;
 - this data is pushed to an online instance from where this data is available to other health workers, supervisors and decision makers;
-- the data is transferred to a relational database and presented in forms suitable for analytics and visualizations;
-- more access to the data is given to relevant parties at this level, for example analysts;
-- managers and decision makers access the same from visualizations of the data.
+- the data is transferred to a relational database (PostgreSQL) using [couch2pg](https://github.com/medic/medic-couch2pg) and made available for analytics and visualizations;
+- access to PostreSQL is given to relevant parties at this level, for example analysts;
+- visualization platforms e.g [Klipfolio](https://www.klipfolio.com/) can then be connected to PostgreSQL from where managers and decision makers get access to visualizations of the data.
 
 
 ## Detailed look at what happens at every level
@@ -40,7 +40,7 @@ Ultimately all the data ends up in a CouchDB instance deployed in the cloud whet
 
 #### 2. Data transformation
 
-We use a service called couch2pg to move data from CouchDB to a relational database, PostgreSQL in this case. The choice of PostgreSQL for analytics dashboard data sources is to allow use of the more familiar SQL querying. It is an open source tool that can be [easily deployed](https://github.com/medic/medic-couch2pg#installation-steps-if-applicable). When deployed the service uses [CouchDB's changes feed](https://docs.couchdb.org/en/2.2.0/api/database/changes.html) which allows capturing of everything happening in CouchDB in incremental updates. It is run and monitored by the operating system where it is configured to fetch data at a configurable interval.
+We use [couch2pg](https://github.com/medic/medic-couch2pg) to move data from CouchDB to a relational database, PostgreSQL in this case. The choice of PostgreSQL for analytics dashboard data sources is to allow use of the more familiar SQL querying. It is an open source tool that can be [easily deployed](https://github.com/medic/medic-couch2pg#installation-steps-if-applicable). When deployed the service uses [CouchDB's changes feed](https://docs.couchdb.org/en/2.2.0/api/database/changes.html) which allows capturing of everything happening in CouchDB in incremental updates. It is run and monitored by the operating system where it is configured to fetch data at a configurable interval.
 
 Data copied over to PostgreSQL is first stored as raw json (document) making use of PostgreSQL's jsonb data type to create an exact replica of a CouchDB database. From this, default views are created at deployment of the service and refreshed during every subsequent run. Additional custom materialized views created later are also refreshed at this time.
 
@@ -70,7 +70,7 @@ The objects present here are not limited to views and functions. Additional tabl
 
 ### Beyond current pipeline
 
-[cht-core](https://github.com/medic/cht-core) is mostly data collection tools and is the first in the data management pipeline. It is the core part of a deployment but the rest of the tools can be easily replaced with other preferred options. It also helps that couch2pg is an open source tool which provides the opportunity for collaboration to extend its functionality to support other implementations. Klipfolio, the tool that we currently use for visualizations, is a proprietary tool but there exist open source options such as [Apach Superset](https://superset.incubator.apache.org/) that are worth exploring.
+[cht-core](https://github.com/medic/cht-core) is mostly data collection tools and is the first in the data management pipeline. It is the core part of a deployment but the rest of the tools can be easily replaced with other preferred options. It also helps that couch2pg is an open source tool which provides the opportunity for collaboration to extend its functionality to support other implementations. Klipfolio, the tool that we currently use for visualizations, is a proprietary tool but there exists open source options such as [Apach Superset](https://superset.incubator.apache.org/) that are worth exploring.
 
 ## Backup
 
