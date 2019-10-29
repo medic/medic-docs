@@ -145,6 +145,7 @@ The `medic` database stores a copy of roles and permissions along with:
  - The `type` of `user-settings`
  - They may have a `contact_id` field that is the `_id` of the _person_ that the user is attached to
  - They may also have a `facility_id` field that is the `_id` of the _place_ that the user is attached to
+ - They may also have a `known` field. If this field is `true`, it means the user has logged in once and will no longer be shown the tour by default.
 
 Note that SMS users do not have a users record: their phone number will be attached to a `person` record, but they do not have a user because they do not access the application.
 
