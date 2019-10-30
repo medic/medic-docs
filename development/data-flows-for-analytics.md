@@ -57,7 +57,7 @@ Data in the views and functions mentioned in this section is as accurate as the 
 
 The data in PostgreSQL is mostly either used by direct querying or via dashboard visualizations. Database visualizations are built scoped to the requirements of supporting a successful deployment. In-depth data analysis is supported at the PostgreSQL level through updated contactviews, formviews, useviews and functions with access to these provided to relevant parties as and when needed.
 
-As mentioned previously, formviews are built to present data in a structure similar to the data collection tool (form) used. Useviews are tailored to align with a use case, mostly using the formviews are the data sources. These are fundamentally guided by design of the workflows and should be interpreted in the context of the design materials including a document explaining the definitions of variables used.
+As mentioned previously, formviews are built to present data in a structure similar to the data collection tool (form) used. Useviews are tailored to align with a use case, mostly using the formviews as the data sources. These are fundamentally guided by design of the workflows and should be interpreted in the context of the design materials including a document explaining the definitions of variables used.
 
 The objects present here are not limited to views and functions. Additional tables can be added, for example providing mappings or supporting operations external to the functions available in the toolkit. In short, there is no limitation to the utility that can be added this level to support analytics and dashboards. That said, measures are taken to ensure controlled access, reliability and timely access of the data by the various parties. Some of these measures are:
 
@@ -70,16 +70,10 @@ The objects present here are not limited to views and functions. Additional tabl
 
 ### Beyond current pipeline
 
-[cht-core](https://github.com/medic/cht-core) is mostly data collection tools and is the first in the data management pipeline. It is the core part of a deployment but the rest of the tools can be easily replaced with other preferred options. It also helps that couch2pg is an open source tool which provides the opportunity for collaboration to extend its functionality to support other implementations. Klipfolio, the tool that we currently use for visualizations, is a proprietary tool but there exists open source options such as [Apach Superset](https://superset.incubator.apache.org/) that are worth exploring.
+[cht-core](https://github.com/medic/cht-core) is mostly data collection tools and is the first in the data management pipeline. It is the core part of a deployment but the rest of the tools can be easily replaced with other preferred options. It also helps that couch2pg is an open source tool which provides the opportunity for collaboration to extend its functionality to support other implementations. Klipfolio, the tool that we currently use for visualizations, is a proprietary tool but there exists open source options such as [Apache Superset](https://superset.incubator.apache.org/) that are worth exploring.
 
 ## Backup
 
 The machines running each of CouchDB and PostgreSQL instances are backed up daily.
-
-## Summary
-
-The diagram below summarizes the details in the document.
-
-![summary](img/data_flows_summary.jpg)
 
 
