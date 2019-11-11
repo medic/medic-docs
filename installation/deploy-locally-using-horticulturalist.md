@@ -6,7 +6,7 @@ Horti replaces the Market, Gardener and Dashboard as the standard way to deploy 
 
 To use it locally:
 
-- Install, [configure](#setup-couchdb-on-a-single-node) and [secure](#enabling-a-secure-couchdb) CouchDB
+- Install, [configure](https://github.com/medic/cht-core/blob/master/DEVELOPMENT.md#setup-couchdb-on-a-single-node) and [secure](https://github.com/medic/cht-core/blob/master/DEVELOPMENT.md#enabling-a-secure-couchdb) CouchDB
 - Install [npm](https://npms.io/)
 - Install Horticulturalist with `npm install -g horticulturalist`
 
