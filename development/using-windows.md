@@ -71,6 +71,21 @@ To get multiple linux terminals (so you can run `grunt`, `api` and `sentinel` at
 
 Once you're done with the default instructions and have api running, check it works by going to http://localhost:5988 in Windows.
 
-## Problems?
+## Troubleshooting
+
+### Grunt: "tar EPERM: operation not permitted, futime"
+
+In some installations this may occur if your Windows data is mounted in a certain way that is incompatible with grunt inside WSL. It may help to re-mount your Windows drive with permissions bound to your user instead of root:
+
+```sh
+sudo umount /mnt/c
+sudo mount -t drvfs C: /mnt/c -o metadata,uid=1000,gid=1000,umask=22,fmask=111
+```
+
+This would either have to be run every time the WSL starts, or codified in `/etc/fstab`.
+
+See: https://stackoverflow.com/questions/56457844/tar-eperm-operation-not-permitted-futime
+
+## Other Problems?
 
 As none of our code developers use Windows as a development environment daily this solution may not be as stable as directly using MacOS or Linux. If you encounter issues please let a developer know
