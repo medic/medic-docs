@@ -582,7 +582,7 @@ An array of cards to show below the summary on the profile page. Each card has i
 | property | type | description | required |
 |---|---|---|--|
 | `label` | `translation key` | Label on top of card. | yes |
-| `appliesToType` | `string[]` | A filter, so `appliesIf` is called only if the contact's type matches one or more of the elements. For example, `['person']`. | no |
+| `appliesToType` | `string[]` | A filter, so `appliesIf` is called only if the contact's type matches one or more of the elements. For example, `['person']`. Please, note that `['report']` is also allowed to create a report card. But, you cannot use it in conjunction with a contact's type. | no |
 | `appliesIf` | `function()` or `boolean` | Return true if the field should be shown. | no |
 | `modifyContext` | `function(context)` | Used to modify or add data which is passed as input to forms filled from the contact page. | no |
 | `fields` | `Array[]` of [fields](#fields) | The content of the card. | yes |
