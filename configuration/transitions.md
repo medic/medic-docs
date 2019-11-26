@@ -275,8 +275,8 @@ The selected parent (if found) can be accessed by using the `parent` path in err
 ###### Alternative Name Location
 
 The created place's name is provided in the `place_name` field by default.
-To provide an alternative location for the place name, either provide a `place_name_field` in
- `"params"` or provide it directly into the `"params"` field as a String:
+To provide an alternative location for the place name, provide a `place_name_field` in
+ `"params"`:
 
 ```json
 {
