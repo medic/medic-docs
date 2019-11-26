@@ -27,9 +27,9 @@ The following transitions are available and executed in order.
 |---|---|
 | maintain_info_document | Records metadata about the document such as when it was replicated. Enabled by default. |
 | update_clinics | Adds a contact's info to a new data record. This is used to attribute an incoming SMS message or report to the appropriate contact. The `rc_code` value on the contact is used to match to the value of the form field set as the `facility_reference` in the [JSON form definition](https://github.com/medic/medic-docs/blob/master/configuration/forms.md#json-forms). This matching is useful when reports are sent on behalf of a facility by unknown or various phone numbers. If `facility_reference` is not set for a form, the contact match is attempted using the sender's phone number. |
-| [registration](#registration) | For registering a patient to a schedule. Performs some validation and creates the patient document if the patient does not already exist. |
+| [registration](#registration) | For registering a patient to a schedule. Performs some validation and creates the patient document if the patient does not already exist. Can create places (as of 3.8.0).|
 | accept_patient_reports | Validates reports about a patient and silences relevant reminders. |
-| [generate_patient_id_on_people](#generate-patient-id-on-people) | Automatically generates the `patient_id` on all person documents. |
+| [generate_patient_id_on_people](#generate-patient-id-on-people) | Automatically generates the `patient_id` on all person documents. As of 3.8.0, automatically generates the `place_id` on all place documents. |
 | default_responses | Responds to the message with a confirmation or validation error. |
 | update_sent_by | Sets the sent_by field of the report based on the sender's phone number. |
 | update_sent_forms | **Deprecated in 3.7.x** Update sent_forms property on facilities so we can setup reminders for specific forms. *As of 3.7.x, reminders no longer require this transition*|
@@ -191,6 +191,30 @@ If you have changed from the default contact hierarchy you will need to specify 
 }
 ```
 
+###### Specific Parent *as of 3.8.0*
+
+By default, the newly created person will have the same parent as the report submitter. 
+A different parent may be selected by providing a location for the parent id. This field should
+contain the `place_id` of the place in question. 
+If the selected parent is invalid - does not exist or does not respect the configured hierarchy
+ - the report is rejected as invalid and the person document is not created. As such
+ , `report_accepted` event should check if the report has a `patient` property (or similar).
+
+```json
+ {
+     "params": "{ \"parent_id\": \"parent_id\" }"
+ }
+```
+
+###### Events
+
+* `parent_field_not_provided` - triggered when the report does not have the required parent_id field
+* `parent_invalid` - triggered when selected parent is invalid
+* `parent_not_found` - triggered when selected parent is not found 
+
+The selected parent (if found) can be accessed by using the `parent` path in error messages: 
+```Cannot create a person type "patient" under parent {{parent.place_id}}({{parent.contact_type}})```
+
 ##### `add_patient_id`
 
 **Deprecated in favour of `add_patient`.** Previously this only added a `patient_id` to the root of the registration form. This functionality has been merged into `add_patient`. Now, using this event will result in the same functionality as described in `add_patient` above.
@@ -199,6 +223,66 @@ If you have changed from the default contact hierarchy you will need to specify 
 ##### `add_birth_date`
 ##### `assign_schedule`
 ##### `clear_schedule`
+
+##### `add_place` *as of 3.8.0*
+
+Sets the `place_id` on the root of the registration document and creates the place doc with the
+provided type.
+
+By default, the created place would have the same parent as the submitter. If such a combination is
+invalid - for example a contact under a "clinic" attempts to create a new "health_center" - the
+report will be rejected as errored and the place document will not be created. As such, 
+`report_accepted` event should check if the report has a `place` property (or similar).
+    
+The created place does not have a primary contact.
+The created place can be accessed by the `place` path in messages: 
+```Place {{place.name}}({{place.place_id}}) added to {{place.parent.name}}({{place.parent.place_id}})```
+ 
+###### Contact Type
+ 
+Specifying the contact type is required, even if not using configurable hierarchies.
+The selected contact type must be a configured place type. 
+
+```json
+{
+    "params": "{ \"contact_type\": \"clinic\" }"
+}
+```
+
+###### Specific Parent 
+
+By default, the newly created place will have the same parent as the report submitter. 
+A different parent may be selected by providing a location for the parent id. This field should
+contain the `place_id` of the place in question. 
+If the selected parent is invalid - does not exist or is not an acceptable parent to the
+selected type in the configured hierarchy - the report will be rejected as errored. 
+
+```json
+ {
+     "params": "{ \"parent_id\": \"parent_id\" }"
+ }
+ ```
+
+###### Events
+
+* `parent_field_not_provided` - triggered when the report does not have the required parent_id field
+* `parent_invalid` - triggered when selected parent is invalid
+* `parent_not_found` - triggered when selected parent is not found 
+
+The selected parent (if found) can be accessed by using the `parent` path in error messages: 
+```'Cannot create a place type "health_center" under parent {{parent.place_id}}({{parent.contact_type}})'```
+
+###### Alternative Name Location
+
+The created place's name is provided in the `place_name` field by default.
+To provide an alternative location for the place name, either provide a `place_name_field` in
+ `"params"` or provide it directly into the `"params"` field as a String:
+
+```json
+{
+    "params": "{\"place_name_field\": \"clinic_name\"}",
+}
+```
 
 
 ### Generate Patient ID On People
