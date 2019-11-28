@@ -209,7 +209,9 @@ If the selected parent is invalid - does not exist or does not respect the confi
 ###### Events
 
 * `parent_field_not_provided` - triggered when the report does not have the required parent_id field
-* `parent_invalid` - triggered when selected parent is invalid
+* `parent_invalid` - triggered when selected parent is invalid (parent document is found and
+ either does not have a configured type or its type is not configured to be a parent to the
+  person type to be created)
 * `parent_not_found` - triggered when selected parent is not found 
 
 The selected parent (if found) can be accessed by using the `parent` path in error messages: 
@@ -266,7 +268,9 @@ selected type in the configured hierarchy - the report will be rejected as error
 ###### Events
 
 * `parent_field_not_provided` - triggered when the report does not have the required parent_id field
-* `parent_invalid` - triggered when selected parent is invalid
+* `parent_invalid` - triggered when selected parent is invalid (parent document is found and
+either does not have a configured type or its type is not configured to be a parent to the
+place type to be created)
 * `parent_not_found` - triggered when selected parent is not found 
 
 The selected parent (if found) can be accessed by using the `parent` path in error messages: 
