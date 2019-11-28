@@ -1,23 +1,45 @@
 # Seeding data with medic-conf
 
-You can import user, contact, and report data into your instance using [medic-conf](https://github.com/medic/medic-conf). With the `csv-to-docs` action you can convert CSV to JSON docs, and then use the `upload-docs` action to push the data into your instance.
+Users, contacts, and report data can be specified in comma-separated value (CSV) files, then converted to JSON and uploaded into your instance using [medic-conf](https://github.com/medic/medic-conf). This documentation will cover how to the CSV notation needed, fetching CSV files from Google Sheets, converting the CSV files into JSON docs, and then uploading the data from the JSON files to your instance.
 
-### CSV File Name
+## Creating CSV files for Contacts, Reports
 
-_The name of the file determines the type of doc created for rows contained in the file. The possible types are: `report`, `person`, and `place`. Each of these has a further specifier provided in the filename:_
+A separate CSV file is needed for each type of place, person, or report in your project's local `csv` folder. The name of the file determines the type of doc created for rows contained in the file. The possible types are: `report`, `person`, and `place`. Each of these has a further specifier provided in the filename:
 - `place.{place_type}.csv`:  where `{place_type}` is the type of place specified in the file, one of: `clinic`, `health_center`, `district_hospital`
 - `person.{parent_place_type}.csv`:  where `{parent_place_type}` is the parent for the person, one of: `clinic`, `health_center`, `district_hospital`
 - `report.{form_id}.csv`:  where `{form_id}` is the form ID for all the reports in the file. You will need one file per form ID
 
 Here are some examples:
 
-File named place.district_hospital.csv  adds the property `"type":"district_hospital"`<br/>
-File named person.clinic.csv add the property `"type":"person"`<br/>
-File named report.immunization_visit.csv add the property `"type":"report", "form":"immunization_visit"`<br/>
+File named `place.district_hospital.csv` adds the property `"type":"district_hospital"`<br/>
+File named `person.clinic.csv` add the property `"type":"person"`<br/>
+File named `report.immunization_visit.csv` add the property `"type":"report", "form":"immunization_visit"`<br/>
+
+In each of these files a header row is used to specify the JSON field names, and each subsequent row specifies the corresponding values for a doc. A `_id` field is automatically generated with a universally unique identifier.
+
+Here is an example of a `csv/person.clinic.csv` file for people belonging to clinics:
+
+| name | sex | date_of_birth |
+| --------------------- | --------------------- | --------------------- |
+| Adriana Akiyama | female | 1985-12-31
+| Becky Backlund | female | 1987-10-17
+| Carson Crane | male | 2015-01-23
+
+Three JSON doc files would be generated for that one CSV file. Here is one of the corresponding JSON files, `json_docs/dbfbc0f0-117a-59ec-9542-3313fb10ef25.doc.json`, which was created from the CSV data above:
+
+```json
+{
+  "type": "person",
+  "name": "Adriana Akiyama",
+  "sex": "female",
+  "date_of_birth": "1985-12-31",
+  "_id": "dbfbc0f0-117a-59ec-9542-3313fb10ef25"
+}
+```
 
 ### Property Types
 
-By default, values are parsed as strings.  To parse a CSV column as a JSON type, suffix a data type to the column definition, e.g.
+By default, values are parsed as strings. To parse a CSV column as a JSON type, suffix a data type to the column definition, e.g.
 
 	column_one,column_two:bool,column_three:int,column_four:float,column_five:date,column_six:timestamp
 
@@ -33,24 +55,21 @@ This would create a structure such as:
 		"column_six": 1513255007072
 	}
 
-### Excluded Columns
+#### Excluding Columns
 
-To exclude a column from the final object structure, give it the type `excluded`:
+A special JSON type, `excluded`, is used for excluding a column from the final JSON data:
 
 	my_column_that_will_not_be_a_property:excluded
 
 This can be useful if using a column for doc references.
 
-### Doc References
+#### Including Another Doc
 
-In the reference example below. A property on the JSON doc will be populated with the doc that matches the `WHERE` statement.
-The CSV example below using the reference will find the doc with `district_1` and create a `parent` property with the value of the `district_1` doc
+Often times database documents need to include or refer to other documents in the database. This can be achieved with queries across CSV files, which is done by specifying a query in the column header. The query specifies the doc type (`person` or `place`) and matching condition.
 
-To reference other docs, replace the type suffix with a matching clause:
+For instance, to include the parent district's doc in a health center's doc, the `parent:place WHERE reference_id=COL_VAL` column header is used. The `COL_VAL` is a special notation for that column's value for the row, and it will be used to match against the `reference_id` field in all other places. Given these example CSVs, you can see the corresponding JSON structure:
 
-	parent:place WHERE reference_id=COL_VAL
-
-Refered to CSV Example:
+##### `place.district.csv`
 
 | reference_id:excluded | is_name_generated | name | reported_date:timestamp |
 | --------------------- | ----------------- | ---- | ----------------------- |
@@ -58,7 +77,7 @@ Refered to CSV Example:
 | district_2            | false             | D2   | 1544031155715           |
 | district_3            | false             | D3   | 1544031155715           |
 
-### CSV Using Reference
+##### `place.health_center.csv`
 
 | reference_id:excluded | parent:place WHERE reference_id=COL_VAL | is_name_generated | name | reported_date:timestamp |
 | --------------------- | --------------------------------------- | ----------------- | ---- | ----------------------- |
@@ -66,7 +85,7 @@ Refered to CSV Example:
 | health_center_2       | district_2                              | false             | HC2  |  1544031155715           |
 | health_center_3       | district_3                              | false             | HC3  |  1544031155715           |
 
-This would create a structure such as:
+##### `480d0cd0-c021-5d55-8c63-d86576d592fc.doc.json`
 
 ```
 {
@@ -93,25 +112,9 @@ This would create a structure such as:
 }
 ```
 
-### Doc Property References
+#### Get Value From Another Doc
 
-To reference specific properties of other docs:
-
-	parent:GET _id OF place WHERE reference_id=COL_VAL
-
-In this example the `health_ccenter` doc will have a `property` of `parent` set to the `_id` of the refered to doc `district_1` property of `_id`
-
-NOTE: `_id` is a generated value that is inside the generated docs.
-
-Refered to CSV Example:
-
-| reference_id:excluded | is_name_generated | name | reported_date:timestamp |
-| --------------------- | ----------------- | ---- | ----------------------- |
-| district_1            | false             | D1   | 1544031155715           |
-| district_2            | false             | D2   | 1544031155715           |
-| district_3            | false             | D3   | 1544031155715           |
-
-CSV Using Reference
+Similar to including another doc, it is also possible to get the value of a specific field in another doc. For instance, if `parent:GET _id OF place WHERE reference_id=COL_VAL` were used in the example above, the `parent` field's value would have been set to the `_id` of the refered to doc instead of including the whole doc. Note that `_id` is a generated value included in all generated docs.
 
 | reference_id:excluded | parent:GET _id OF place WHERE reference_id=COL_VAL | is_name_generated | name | reported_date:timestamp |
 | --------------------- | -------------------------------------------------- | ----------------- | ---- | ----------------------- |
@@ -119,8 +122,7 @@ CSV Using Reference
 | health_center_2       | district_2                                         | false             | HC2  | 1544031155715           |
 | health_center_3       | district_3                                         | false             | HC3  | 1544031155715           |
 
-
-This would create a structure such as:
+The resulting doc structure would be:
 
 ```
 {
@@ -136,8 +138,6 @@ This would create a structure such as:
   "_id": "45293356-353c-5eb1-9a41-baa3427b4f69"
 }
 ```
-
-Note the special string `COL_VAL` - this matches the CSV column value for the row being processed.
 
 ## create-users
 
