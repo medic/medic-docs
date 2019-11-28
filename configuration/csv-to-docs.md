@@ -139,7 +139,7 @@ The resulting doc structure would be:
 }
 ```
 
-## create-users
+## Creating CSV files for Users
 
 
 ### Creating a new user with a new place
@@ -158,7 +158,7 @@ To create user accounts for contacts that are created while running csv-to-docs 
 
 1. Create a `users.csv` file in the `csv` folder with the rest of the csvs needed for `csv-to-docs` action.
 1. Add columns for username, password, roles, phone, contact, place, and any other additional fields you want to populate.
-1. Use the following query language as the header names: for contact contact:person WHERE reference_id=COL_VAL and place place:GET _id OF place WHERE reference_id=COL_VAL. This feature is also supported in the csv-to-docs csv files.
+1. Use the following query language as the header names: for contact `contact:person WHERE reference_id=COL_VAL and place place:GET _id OF place WHERE reference_id=COL_VAL`. This feature is also supported in the csv-to-docs csv files.
 1. Run `medic-conf csv-to-docs upload-docs create-users`
 	1. This will generate the contacts, places, and users associated to those contacts. The users are placed into a users.csv file in your working directory. Then upload the json docs creating your data and creating users associated.
 
@@ -254,7 +254,7 @@ p_hc1"username","password","roles","contact","phone","place"
 
 ### Using CSV Files on Google Drive
 
-Create a new directory and add a new json file named `csvs-on-google-drive.json`. 
+In your project home directory create a new json file named `csvs-on-google-drive.json`. 
 
 The keys should be the name of the CSV file stored locally, and for the value use the google id for the document. The name of the file must match what the file is generating a doc for. See the documentation [here](https://github.com/medic/medic-conf#csv-file-name) for naming files. 
 
@@ -264,19 +264,13 @@ The keys should be the name of the CSV file stored locally, and for the value us
 }
 ```
 
-### Commands to Fetch and Upload Docs
+To fetch the files from Google Drive run the command `medic-conf fetch-csvs-from-google-drive`. This will download the CSV files in the json document created above and place them into a folder named `csv`.
 
-Run command `medic-conf fetch-csvs-from-google-drive`. This will download the CSV files in the json document created above and place them into a folder named `csv`.
+#### Google Drive Authentication
 
-Running `medic-conf csv-to-docs` will convert the CSV into json docs for the webapp. They are placed in a `json_docs` folder
+Medic-conf leverages Google authentication to access Google Drive. You will need to create a client_secrets file named `.gdrive.secrets.json` and place it in the same directory where you want the CSVs to be fetched. [Token Creation](https://developers.google.com/identity/protocols/OAuth2InstalledApp)
 
-Lastly run `medic-conf --local upload-docs` to upload the converted docs into your local instance. `--local` can be replaced with an instance or URL. See [medic-conf](https://github.com/medic/medic-conf) for detailed instructions.
-
-### Google Drive Authentication
-
-Medic-conf leverages google authentication to access google drive. You will need to create a client_secrets file named `.gdrive.secrets.json` and place it in the same directory where you want the CSVs to be fetched. [Token Creation](https://developers.google.com/identity/protocols/OAuth2InstalledApp)
-
-Create the `.gdrive.secrets.json` file by downloading the `client_secrets.json` from google. You will need a CLIENT_ID, CLIENT_SECRET and REDIRECT_URL. You can find these pieces of information by going to the Developer Console, clicking your project --> APIs & auth --> credentials --> Download JSON. This will download the credentials but will need modified to be in this structure. 
+Create the `.gdrive.secrets.json` file by downloading the `client_secrets.json` from Google. You will need a CLIENT_ID, CLIENT_SECRET and REDIRECT_URL. You can find these pieces of information by going to the Developer Console, clicking your project --> APIs & auth --> credentials --> Download JSON. This will download the credentials but will need modified to be in this structure. 
 
 ```
 
@@ -292,4 +286,10 @@ Create the `.gdrive.secrets.json` file by downloading the `client_secrets.json` 
 
 ```
 
- See google's docs [here](https://github.com/googleapis/google-api-nodejs-client#oauth2-client) on Oauth2
+ See Google's docs [here](https://github.com/googleapis/google-api-nodejs-client#oauth2-client) on Oauth2
+
+## Converting CSVs and Uploading Docs
+
+Running `medic-conf csv-to-docs` will convert the CSV into json docs for the webapp. They are placed in a `json_docs` folder
+
+Running `medic-conf --local upload-docs` will upload the converted docs into your local instance. `--local` can be replaced with an instance or URL. See [medic-conf](https://github.com/medic/medic-conf) for detailed instructions.
