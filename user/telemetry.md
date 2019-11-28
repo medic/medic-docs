@@ -12,6 +12,8 @@ The aggregate docs' IDs follow the pattern `telemetry-<year>-<month>-<username>-
 
 Each aggregate data point has the following fields.
 
+| Field | Description |
+|----|----|
 | `sum` | A sum of all the recorded times. |
 | `min` | The smallest time recorded. |
 | `max` | The largest time recorded. |
@@ -20,6 +22,8 @@ Each aggregate data point has the following fields.
 
 All times are recorded in milliseconds. The data points collected are.
 
+| Field | Description |
+|----|----|
 | `boot_time` | The overall boot time including loading the code, purging, and accessing the database. |
 | `boot_time:1:to_first_code_execution` | The time between the page loading and the JavaScript starting to run. |
 | `boot_time:2:to_bootstrap` | The time between JavaScript starting and the bootstrapping (purging, initial replication, etc) to complete. |
@@ -38,6 +42,8 @@ All times are recorded in milliseconds. The data points collected are.
 
 When the aggregate doc is created the Telemetry service also includes a snapshot of some metadata.
 
+| Field | Description |
+|----|----|
 | `year` | The year the data was collected. |
 | `month` | The month the data was collected. |
 | `user` | The username of the logged in user. |
