@@ -29,12 +29,7 @@ All times are recorded in milliseconds. The data points collected are.
 | `boot_time:2:to_bootstrap` | The time between JavaScript starting and the bootstrapping (purging, initial replication, etc) to complete. |
 | `boot_time:3:to_angular_bootstrap` | The time between boostrapping completing and the webapp being ready to use. |
 | `boot_time:4:to_db_warmed` | The time between the webapp being ready to use and the database being ready to use. |
-| `enketo:reports:<form>:<action>:<component>` | The time taken to fill in Enketo forms.
-  The `action` can either be "add" or "edit".
-  The component is one of:
-  - `render` covers getting the form and rendering it on screen.
-  - `user_edit_time` is the time the user took to fill in and submit the form.
-  - `save` is about converting the form into a report and saving it. |
+| `enketo:reports:<form>:<action>:<component>` | The time taken to fill in Enketo forms. The `action` can either be "add" or "edit". The `component` is one of: `render` covers getting the form and rendering it on screen; `user_edit_time` is the time the user took to fill in and submit the form; or `save` is about converting the form into a report and saving it. |
 | `enketo:contacts:<form>:add:<"render"\|"user_edit_time"\|"save">` | As above but for Contact creation forms. |
 | `enketo:tasks:<form>:<"edit"\|"add">:<"render"\|"user_edit_time"\|"save">` | As above but for forms on the Tasks tab. |
 | `search:contacts` | The time taken to list all contacts. |
