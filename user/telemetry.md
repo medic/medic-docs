@@ -14,13 +14,13 @@ Each aggregate data point has the following fields.
 
 | Field | Description |
 |----|----|
-| `sum` | A sum of all the recorded times. |
-| `min` | The smallest time recorded. |
-| `max` | The largest time recorded. |
+| `sum` | A sum of all the recorded times in milliseconds. |
+| `min` | The smallest time recorded in milliseconds. |
+| `max` | The largest time recorded in milliseconds. |
 | `count` | The number of times recorded. |
-| `sumsqr` | The sum of squares of the times recorded. |
+| `sumsqr` | The sum of squares of the times recorded in milliseconds. |
 
-All times are recorded in milliseconds. The data points collected are.
+The telemetry data gathered changes with different versions of the framework. Currently, the data points collected are:
 
 | Field | Description |
 |----|----|
