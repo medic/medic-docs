@@ -37,7 +37,7 @@ Three JSON doc files would be generated for that one CSV file. Here is one of th
 }
 ```
 
-### Property Types
+### Property types
 
 By default, values are parsed as strings. To parse a CSV column as a JSON type, suffix a data type to the column definition, e.g.
 
@@ -55,7 +55,7 @@ This would create a structure such as:
 		"column_six": 1513255007072
 	}
 
-#### Excluding Columns
+#### Excluding columns
 
 A special JSON type, `excluded`, is used for excluding a column from the final JSON data:
 
@@ -63,7 +63,7 @@ A special JSON type, `excluded`, is used for excluding a column from the final J
 
 This can be useful if using a column for doc references.
 
-#### Including Another Doc
+#### Including another doc
 
 Often times database documents need to include or refer to other documents in the database. This can be achieved with queries across CSV files, which is done by specifying a query in the column header. The query specifies the doc type (`person` or `place`) and matching condition.
 
@@ -112,7 +112,7 @@ For instance, to include the parent district's doc in a health center's doc, the
 }
 ```
 
-#### Get Value From Another Doc
+#### Get value from another doc
 
 Similar to including another doc, it is also possible to get the value of a specific field in another doc. For instance, if `parent:GET _id OF place WHERE reference_id=COL_VAL` were used in the example above, the `parent` field's value would have been set to the `_id` of the refered to doc instead of including the whole doc. Note that `_id` is a generated value included in all generated docs.
 
@@ -252,7 +252,7 @@ p_hc1"username","password","roles","contact","phone","place"
 ```
 
 
-### Using CSV Files on Google Drive
+### Using CSV files on Google Drive
 
 In your project home directory create a new json file named `csvs-on-google-drive.json`. 
 
@@ -266,7 +266,7 @@ The keys should be the name of the CSV file stored locally, and for the value us
 
 To fetch the files from Google Drive run the command `medic-conf fetch-csvs-from-google-drive`. This will download the CSV files in the json document created above and place them into a folder named `csv`.
 
-#### Google Drive Authentication
+#### Google Drive authentication
 
 Medic-conf leverages Google authentication to access Google Drive. You will need to create a client_secrets file named `.gdrive.secrets.json` and place it in the same directory where you want the CSVs to be fetched. [Token Creation](https://developers.google.com/identity/protocols/OAuth2InstalledApp)
 
@@ -288,7 +288,7 @@ Create the `.gdrive.secrets.json` file by downloading the `client_secrets.json` 
 
  See Google's docs [here](https://github.com/googleapis/google-api-nodejs-client#oauth2-client) on Oauth2
 
-## Converting CSVs and Uploading Docs
+## Converting CSVs and uploading docs
 
 Running `medic-conf csv-to-docs` will convert the CSV into json docs for the webapp. They are placed in a `json_docs` folder
 
