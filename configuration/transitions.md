@@ -343,7 +343,8 @@ Muting action:
 - updates target contact and all its descendants<sup>[1]</sup>, setting the `muted` property equal to the current `date` in ISO format<sup>[2]</sup>
 - adds a `muting_history` entry to Sentinel `info` docs for every updated contact<sup>[7]</sup>
 - updates all connected registrations<sup>[3]</sup>, changing the state of all unsent<sup>[4]</sup> `scheduled_tasks` to `muted`
-nmuting action:
+
+Unmuting action:
 
 - updates target contact's topmost muted ancestor<sup>[1][5]</sup> and all its descendants, removing the `muted` property
 - adds a `muting_history` entry to Sentinel `info` docs for every updated contact<sup>[7]</sup>
