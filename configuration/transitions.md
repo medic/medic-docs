@@ -27,9 +27,10 @@ The following transitions are available and executed in order.
 |---|---|
 | maintain_info_document | Records metadata about the document such as when it was replicated. Enabled by default. |
 | update_clinics | Adds a contact's info to a new data record. This is used to attribute an incoming SMS message or report to the appropriate contact. The `rc_code` value on the contact is used to match to the value of the form field set as the `facility_reference` in the [JSON form definition](https://github.com/medic/medic-docs/blob/master/configuration/forms.md#json-forms). This matching is useful when reports are sent on behalf of a facility by unknown or various phone numbers. If `facility_reference` is not set for a form, the contact match is attempted using the sender's phone number. |
-| [registration](#registration) | For registering a patient to a schedule. Performs some validation and creates the patient document if the patient does not already exist. Can create places (as of 3.8.0).|
+| [registration](#registration) | For registering a patient to a schedule. Performs some validation and creates the patient document if the patient does not already exist. Can create places (as of 3.8.x).|
 | accept_patient_reports | Validates reports about a patient and silences relevant reminders. |
-| [generate_patient_id_on_people](#generate-patient-id-on-people) | Automatically generates the `patient_id` on all person documents. As of 3.8.0, automatically generates the `place_id` on all place documents. |
+| [generate_shortcode_on_contacts](#generate-shortcode-on-contacts) | Automatically generates the `patient_id` on all person documents and the `place_id` on all place documents. Available since 3.8.x. |
+| [generate_patient_id_on_people](#generate-patient-id-on-people) | **Deprecated in 3.8.x** Automatically generates the `patient_id` on all person documents. As of 3.8.x, also generates the `place_id` on all place documents and is an alias for `generate_shortcode_on_contacts`. |
 | default_responses | Responds to the message with a confirmation or validation error. |
 | update_sent_by | Sets the sent_by field of the report based on the sender's phone number. |
 | update_sent_forms | **Deprecated in 3.7.x** Update sent_forms property on facilities so we can setup reminders for specific forms. *As of 3.7.x, reminders no longer require this transition*|
@@ -288,8 +289,13 @@ To provide an alternative location for the place name, provide a `place_name_fie
 }
 ```
 
+### Generate Shortcode on Contacts
+
+No custom configuration for `generate_shortcode_on_contacts`.
 
 ### Generate Patient ID On People
+
+**Deprecated since 3.8.x** in favor of `generate_shortcode_on_contacts`
 
 No custom configuration for `generate_patient_id_on_people`.
 
@@ -337,8 +343,7 @@ Muting action:
 - updates target contact and all its descendants<sup>[1]</sup>, setting the `muted` property equal to the current `date` in ISO format<sup>[2]</sup>
 - adds a `muting_history` entry to Sentinel `info` docs for every updated contact<sup>[7]</sup>
 - updates all connected registrations<sup>[3]</sup>, changing the state of all unsent<sup>[4]</sup> `scheduled_tasks` to `muted`
-
-Unmuting action:
+nmuting action:
 
 - updates target contact's topmost muted ancestor<sup>[1][5]</sup> and all its descendants, removing the `muted` property
 - adds a `muting_history` entry to Sentinel `info` docs for every updated contact<sup>[7]</sup>
