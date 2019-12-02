@@ -17,6 +17,7 @@ The following guides should help orient developers interested in the Core Framew
 * [Architecture](development/architecture.md)
 * [DB schema](development/db-schema.md)
 * [Message states](user/message-states.md)
+* [User telemetry](user/telemetry.md)
 * [How to migrate dashboard to SSL](development/update-markets.md)
 * [Data flow management for analytics and dashboards](development/data-flows-for-analytics.md)
 
