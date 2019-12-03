@@ -5,8 +5,8 @@ Users, contacts, and report data can be specified in comma-separated value (CSV)
 ## Creating CSV files for Contacts, Reports
 
 A separate CSV file is needed for each type of place, person, or report in your project's local `csv` folder. The name of the file determines the type of doc created for rows contained in the file. The possible types are: `report`, `person`, and `place`. Each of these has a further specifier provided in the filename:
-- `place.{place_type}.csv`:  where `{place_type}` is the type of place specified in the file, one of: `clinic`, `health_center`, `district_hospital`
-- `person.{parent_place_type}.csv`:  where `{parent_place_type}` is the parent for the person, one of: `clinic`, `health_center`, `district_hospital`
+- `place.{place_type}.csv`:  where `{place_type}` is the type of place specified in the file. By default, the place types are one of `clinic`, `health_center`, or `district_hospital`. As of 3.7 of the [Core Framework](https://github.com/medic/cht-core), the number of place types and their names can be configured — the `{place_type}` should match with the hierarchy names used.
+- `person.{parent_place_type}.csv`:  where `{parent_place_type}` is the type of place to which the people in the file will belong.
 - `report.{form_id}.csv`:  where `{form_id}` is the form ID for all the reports in the file. You will need one file per form ID
 
 Here are some examples:
