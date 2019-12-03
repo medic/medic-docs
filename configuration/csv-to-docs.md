@@ -265,12 +265,15 @@ p_hc1"username","password","roles","contact","phone","place"
 "ac2","Secret_1","district_admin:supervisor","b7d0dbd5-beeb-52a8-8e4c-513d0baece8e","+123456789","8606a91a-f454-56e3-a089-0b686af3c6b7"
 ```
 
-
 ## Using CSV files on Google Drive
 
-In your project home directory create a new json file named `csvs-on-google-drive.json`. 
+Individual Google Sheets can be used for each CSV file, which can be exported manually to CSV file format, or linked to your project to be downloaded by medic-conf.
 
-The keys must be the filename where the CSV will be stored locally — see the CSV [file documentation](https://github.com/medic/medic-conf#csv-file-name) for the notation. The value of each key must be the ID of the corresponding file in Google Drive — the ID can be obtained from the URL eg `https://docs.google.com/spreadsheets/d/{FILE_ID}/edit`. 
+To fetch the files from Google Drive run the `fetch-csvs-from-google-drive` action in medic-conf. This will download the CSV files specified in the `csvs-on-google-drive.json` file, and place them into the `csv` folder.
+
+#### Linking to Google Drive
+
+The file `csvs-on-google-drive.json` in your project's home directory will consist of a key value pair for each CSV file. The keys must be the filename where the CSV will be stored locally — see the CSV [file documentation](https://github.com/medic/medic-conf#csv-file-name) for the notation. The value of each key must be the ID of the corresponding file in Google Drive — the ID can be obtained from the URL eg `https://docs.google.com/spreadsheets/d/{FILE_ID}/edit`. 
 
 ```json
 {
@@ -278,13 +281,11 @@ The keys must be the filename where the CSV will be stored locally — see the C
 }
 ```
 
-To fetch the files from Google Drive run the command `medic-conf fetch-csvs-from-google-drive`. This will download the CSV files in the json document created above and place them into a folder named `csv`.
-
 ### Google Drive authentication
 
 Medic-conf leverages Google authentication to access Google Drive. You will need to create a client_secrets file named `.gdrive.secrets.json` and place it in your working directory, and [create a token](https://developers.google.com/identity/protocols/OAuth2InstalledApp).
 
-Create the `.gdrive.secrets.json` file by downloading the `client_secrets.json` from Google. You will need a CLIENT_ID, CLIENT_SECRET and REDIRECT_URL. You can find these pieces of information by going to the Developer Console, clicking your project --> APIs & auth --> credentials --> Download JSON. This will download the credentials but will need modified to be in this structure. 
+Create the `.gdrive.secrets.json` file by downloading the `client_secrets.json` from Google. You will need a `CLIENT_ID`, `CLIENT_SECRET` and `REDIRECT_URL`. You can find these pieces of information by going to the Developer Console, clicking your project --> APIs & auth --> credentials --> Download JSON. This will download the credentials but will need modified to be in this structure. 
 
 ```json
 {
