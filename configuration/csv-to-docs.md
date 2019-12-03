@@ -261,7 +261,7 @@ p_hc1"username","password","roles","contact","phone","place"
 
 In your project home directory create a new json file named `csvs-on-google-drive.json`. 
 
-The keys must be the relative path and filename where the CSV will be stored locally — see the CSV [file documentation](https://github.com/medic/medic-conf#csv-file-name) for the notation. The value of each key must be the ID of the corresponding file in Google Drive — the ID can be obtained from the URL eg `https://docs.google.com/spreadsheets/d/{FILE_ID}/edit`. 
+The keys must be the filename where the CSV will be stored locally — see the CSV [file documentation](https://github.com/medic/medic-conf#csv-file-name) for the notation. The value of each key must be the ID of the corresponding file in Google Drive — the ID can be obtained from the URL eg `https://docs.google.com/spreadsheets/d/{FILE_ID}/edit`. 
 
 ```json
 {
