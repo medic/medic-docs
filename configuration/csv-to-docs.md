@@ -1,6 +1,6 @@
 # Seeding data with medic-conf
 
-Users, contacts, and report data can be specified in comma-separated value (CSV) files, then converted to JSON and uploaded into your instance using [medic-conf](https://github.com/medic/medic-conf). This documentation will cover how to the CSV notation needed, fetching CSV files from Google Sheets, converting the CSV files into JSON docs, and then uploading the data from the JSON files to your instance.
+Users, contacts, and report data can be specified in comma-separated value (CSV) files, then converted to JavaScript Object Notation (JSON) files and uploaded into your instance using [medic-conf](https://github.com/medic/medic-conf). This documentation will cover how to the CSV notation needed, fetching CSV files from Google Sheets, converting the CSV files into JSON docs, and then uploading the data from the JSON files to your instance.
 
 ## Converting CSVs
 
