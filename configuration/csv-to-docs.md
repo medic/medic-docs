@@ -27,6 +27,15 @@ In each of these files a header row is used to specify the JSON field names, and
 
 Here is an example of a `csv/person.clinic.csv` file for people belonging to clinics:
 
+```csv
+name,sex,date_of_birth
+Adriana Akiyama,female,1985-12-31
+Becky Backlund,female,1987-10-17
+Carson Crane,male,2015-01-23
+```
+
+Here is the table representation of the CSV:
+
 | name | sex | date_of_birth |
 | --------------------- | --------------------- | --------------------- |
 | Adriana Akiyama | female | 1985-12-31
