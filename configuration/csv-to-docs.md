@@ -139,12 +139,19 @@ The resulting doc structure would be:
 }
 ```
 
-## Creating CSV files for Users
+## Creating CSV files for users
 
+To create user accounts from CSV files, a `users.csv` file will be needed in the `csv` folder. The `users.csv` file requires columns for `username` and `password`. Additional columns can be used for any additional fields needed on the user's doc, for example `roles`, `phone`. Running the `csv-to-docs` `upload-docs` `create-users` actions in that order will generate the necessary JSON docs with a `users.csv` file in your working directory, and then create the people, places, and users.
+
+The following sections describe the different ways to associate the new users to contacts. 
+
+### Creating new users with existing contacts
+
+When creating users that are associated to existing contacts, `contact` and `place` columns should be created. Each row should have the UUID of an existing person for `contact`, and an existing place for `place`.
 
 ### Creating new users with new contacts
 
-To create new users associated to a new place and a new contact, provide values for `contact.name`, `place.name`, and `place.parent` (can be existing place), as seen in this example CSV:
+To create new contacts for each new user provide values for `contact.name`, `place.name`, and `place.parent` (can be existing place), as seen in this example CSV:
 
 ```
 username,password,roles,name,phone,contact.name,place.c_prop,place.type,place.name,place.parent
@@ -156,24 +163,18 @@ The `username`, `password`, `contact.name`, `place.type`, `place.name` columns a
 
 ### Creating new users linked to contacts in CSV files
 
-To create user accounts for contacts that are created while running csv-to-docs action follow these steps.
+To associate the new users to contacts that will also be created with the `csv-to-docs` action, use reference queries to the contacts.
+For instance, the column header for the person would be `contact:person WHERE reference_id=COL_VAL`, and for the place would be `place:GET _id OF place WHERE reference_id=COL_VAL`.
 
-1. Create a `users.csv` file in the `csv` folder with the rest of the csvs needed for `csv-to-docs` action.
-1. Add columns for username, password, roles, phone, contact, place, and any other additional fields you want to populate.
-1. Use the following query language as the header names: for contact `contact:person WHERE reference_id=COL_VAL and place place:GET _id OF place WHERE reference_id=COL_VAL`. This feature is also supported in the csv-to-docs csv files.
-1. Run `medic-conf csv-to-docs upload-docs create-users`
-	1. This will generate the contacts, places, and users associated to those contacts. The users are placed into a users.csv file in your working directory. Then upload the json docs creating your data and creating users associated.
+Here is a example of how the three CSV files need to be configured to setup a user linked to existing place and contact.
 
-
-Here is a example of how the three csvs need to be configured to setup a user linked to existing place and contact.
-
-**csv/place.health_center.csv**
+**`csv/place.health_center.csv`:**
 
 ```
 reference_id:excluded,parent:place WHERE reference_id=COL_VAL,is_name_generated,name,reported_date:timestamp
 health_center_1,district_1,FALSE,HC1,1544031155715
 ```
-Generated json doc for the health center
+Generated JSON doc for the health center:
 ```
 {
   "type": "health_center",
@@ -195,7 +196,7 @@ Generated json doc for the health center
 }
 ```
 
-**csv/person.csv**
+**`csv/person.csv`:**
 
 ```
 reference_id:excluded,parent:place WHERE reference_id=COL_VAL,name,phone,sex,role,reported_date,patient_id
@@ -203,7 +204,7 @@ p_hc1,health_center_1,Bob Johnson 1,+16143291527,male,manager,1552494835669,6095
 p_hc2,health_center_1,Bob Johnson 2,+16143291528,male,manager,1552494835669,60951
 
 ```
-Generated json doc for the person
+Generated JSON doc for the person:
 ```
 {
   "type": "person",
@@ -236,7 +237,7 @@ Generated json doc for the person
 
 ```
 
-**csv/users.csv**
+**`csv/users.csv`**:
 ```
 username,password,roles,phone,contact:person WHERE reference_id=COL_VAL,place:GET _id OF place WHERE reference_id=COL_VAL
 ac1,Secret_1,district_admin:red1,+123456789,p_hc1,health_center_1
@@ -245,6 +246,7 @@ ac3,Secret_1,district_admin,+123456789,p_hc3,health_center_1
 ac4,Secret_1,district_admin,+123456789,p_hc4,health_center_1
 
 ```
+
 This will generate the `users.csv` file in the working directory which is used by the `create-users` action. The contact and place fields should be resolved to the actual UUIDs.
 
 ```
