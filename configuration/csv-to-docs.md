@@ -46,15 +46,17 @@ By default, values are parsed as strings. To parse a CSV column as a JSON type, 
 
 This would create a structure such as:
 
-	{
-		"_id": "09efb53f-9cd8-524c-9dfd-f62c242f1817",
-		"column_one": "some string",
-		"column_two": true,
-		"column_three": 1,
-		"column_four": 2.3,
-		"column_five": "2017-12-31T00:00:00.000Z",
-		"column_six": 1513255007072
-	}
+```json
+{
+	"_id": "09efb53f-9cd8-524c-9dfd-f62c242f1817",
+	"column_one": "some string",
+	"column_two": true,
+	"column_three": 1,
+	"column_four": 2.3,
+	"column_five": "2017-12-31T00:00:00.000Z",
+	"column_six": 1513255007072
+}
+```
 
 #### Excluding column
 
@@ -88,7 +90,7 @@ For instance, to include the parent district's doc in a health center's doc, the
 
 **`480d0cd0-c021-5d55-8c63-d86576d592fc.doc.json`**:
 
-```
+```json
 {
   "type": "health_center",
   "parent": {
@@ -122,12 +124,11 @@ Similar to including another doc, it is also possible to get the value of a spec
 | health_center_2       | district_2                                         | false             | HC2  | 1544031155715           |
 | health_center_3       | district_3                                         | false             | HC3  | 1544031155715           |
 
-The resulting doc structure would be:
+The resulting doc would be as follows, with the `_id` from `district_1` as the `parent` value:
 
-```
+```json
 {
   "type": "health_center",
-  //Parent property with the _id from district_1 as the value.
   "parent": "0c31056a-3a80-54dd-b136-46145d451a66",
   "is_name_generated": "false",
   "name": "HC3",
@@ -153,7 +154,7 @@ When creating users that are associated to existing contacts, `contact` and `pla
 
 To create new contacts for each new user provide values for `contact.name`, `place.name`, and `place.parent` (can be existing place), as seen in this example CSV:
 
-```
+```csv
 username,password,roles,name,phone,contact.name,place.c_prop,place.type,place.name,place.parent
 alice,Secret_1,district-admin,Alice Example,+123456789,Alice,p_val_a,health_center,alice area, district_uuid
 bob,Secret_1,district-admin,bob Example,+123456789,bob,p_val_a,health_center,bob area,disctrict_uuid
@@ -170,12 +171,12 @@ Here is a example of how the three CSV files need to be configured to setup a us
 
 **`csv/place.health_center.csv`:**
 
-```
+```csv
 reference_id:excluded,parent:place WHERE reference_id=COL_VAL,is_name_generated,name,reported_date:timestamp
 health_center_1,district_1,FALSE,HC1,1544031155715
 ```
 Generated JSON doc for the health center:
-```
+```json
 {
   "type": "health_center",
   "parent": {
@@ -198,14 +199,14 @@ Generated JSON doc for the health center:
 
 **`csv/person.csv`:**
 
-```
+```csv
 reference_id:excluded,parent:place WHERE reference_id=COL_VAL,name,phone,sex,role,reported_date,patient_id
 p_hc1,health_center_1,Bob Johnson 1,+16143291527,male,manager,1552494835669,60951
 p_hc2,health_center_1,Bob Johnson 2,+16143291528,male,manager,1552494835669,60951
 
 ```
 Generated JSON doc for the person:
-```
+```json
 {
   "type": "person",
   "parent": {
@@ -238,7 +239,7 @@ Generated JSON doc for the person:
 ```
 
 **`csv/users.csv`**:
-```
+```csv
 username,password,roles,phone,contact:person WHERE reference_id=COL_VAL,place:GET _id OF place WHERE reference_id=COL_VAL
 ac1,Secret_1,district_admin:red1,+123456789,p_hc1,health_center_1
 ac2,Secret_1,district_admin:supervisor,+123456789,p_hc2,health_center_1
@@ -249,7 +250,7 @@ ac4,Secret_1,district_admin,+123456789,p_hc4,health_center_1
 
 This will generate the `users.csv` file in the working directory which is used by the `create-users` action. The contact and place fields should be resolved to the actual UUIDs.
 
-```
+```csv
 p_hc1"username","password","roles","contact","phone","place"
 "ac1","Secret_1","district_admin:red1","65c52076-84c5-53a2-baca-88e6ec6e0875","+123456789","8606a91a-f454-56e3-a089-0b686af3c6b7"
 "ac2","Secret_1","district_admin:supervisor","b7d0dbd5-beeb-52a8-8e4c-513d0baece8e","+123456789","8606a91a-f454-56e3-a089-0b686af3c6b7"
@@ -262,7 +263,7 @@ In your project home directory create a new json file named `csvs-on-google-driv
 
 The keys should be the name of the CSV file stored locally, and for the value use the google id for the document. The name of the file must match what the file is generating a doc for. See the documentation [here](https://github.com/medic/medic-conf#csv-file-name) for naming files. 
 
-```
+```json
 {
     "person.clinic.csv":"google_drive_ID",
 }
@@ -276,8 +277,7 @@ Medic-conf leverages Google authentication to access Google Drive. You will need
 
 Create the `.gdrive.secrets.json` file by downloading the `client_secrets.json` from Google. You will need a CLIENT_ID, CLIENT_SECRET and REDIRECT_URL. You can find these pieces of information by going to the Developer Console, clicking your project --> APIs & auth --> credentials --> Download JSON. This will download the credentials but will need modified to be in this structure. 
 
-```
-
+```json
 {
 		"client_id": "<client_id>.apps.googleusercontent.com",
 		"project_id": "proj_id",
