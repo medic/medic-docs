@@ -68,7 +68,7 @@ Often times database documents need to include or refer to other documents in th
 
 For instance, to include the parent district's doc in a health center's doc, the `parent:place WHERE reference_id=COL_VAL` column header is used. The `COL_VAL` is a special notation for that column's value for the row, and it will be used to match against the `reference_id` field in all other places. Given these example CSVs, you can see the corresponding JSON structure:
 
-##### `place.district.csv`
+**`place.district.csv`:**
 
 | reference_id:excluded | is_name_generated | name | reported_date:timestamp |
 | --------------------- | ----------------- | ---- | ----------------------- |
@@ -76,7 +76,7 @@ For instance, to include the parent district's doc in a health center's doc, the
 | district_2            | false             | D2   | 1544031155715           |
 | district_3            | false             | D3   | 1544031155715           |
 
-##### `place.health_center.csv`
+**`place.health_center.csv`:**
 
 | reference_id:excluded | parent:place WHERE reference_id=COL_VAL | is_name_generated | name | reported_date:timestamp |
 | --------------------- | --------------------------------------- | ----------------- | ---- | ----------------------- |
@@ -84,12 +84,11 @@ For instance, to include the parent district's doc in a health center's doc, the
 | health_center_2       | district_2                              | false             | HC2  |  1544031155715           |
 | health_center_3       | district_3                              | false             | HC3  |  1544031155715           |
 
-##### `480d0cd0-c021-5d55-8c63-d86576d592fc.doc.json`
+**`480d0cd0-c021-5d55-8c63-d86576d592fc.doc.json`**:
 
 ```
 {
   "type": "health_center",
-  //Parent Property with district_1 doc as the value
   "parent": {
     "type": "district_hospital",
     "parent": "",
