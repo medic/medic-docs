@@ -10,10 +10,9 @@ A separate CSV file is needed for each type of place, person, or report in your 
 - `report.{form_id}.csv`:  where `{form_id}` is the form ID for all the reports in the file. You will need one file per form ID
 
 Here are some examples:
-
-File named `place.district_hospital.csv` adds the property `"type":"district_hospital"`<br/>
-File named `person.clinic.csv` add the property `"type":"person"`<br/>
-File named `report.immunization_visit.csv` add the property `"type":"report", "form":"immunization_visit"`<br/>
+- File named `place.district_hospital.csv` adds the property `"type":"district_hospital"`
+- File named `person.clinic.csv` add the property `"type":"person"`
+- File named `report.immunization_visit.csv` add the property `"type":"report", "form":"immunization_visit"`
 
 In each of these files a header row is used to specify the JSON field names, and each subsequent row specifies the corresponding values for a doc. A `_id` field is automatically generated with a universally unique identifier.
 
