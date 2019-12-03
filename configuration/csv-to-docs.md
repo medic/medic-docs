@@ -273,7 +273,7 @@ To fetch the files from Google Drive run the command `medic-conf fetch-csvs-from
 
 #### Google Drive authentication
 
-Medic-conf leverages Google authentication to access Google Drive. You will need to create a client_secrets file named `.gdrive.secrets.json` and place it in the same directory where you want the CSVs to be fetched. [Token Creation](https://developers.google.com/identity/protocols/OAuth2InstalledApp)
+Medic-conf leverages Google authentication to access Google Drive. You will need to create a client_secrets file named `.gdrive.secrets.json` and place it in your working directory, and [create a token](https://developers.google.com/identity/protocols/OAuth2InstalledApp).
 
 Create the `.gdrive.secrets.json` file by downloading the `client_secrets.json` from Google. You will need a CLIENT_ID, CLIENT_SECRET and REDIRECT_URL. You can find these pieces of information by going to the Developer Console, clicking your project --> APIs & auth --> credentials --> Download JSON. This will download the credentials but will need modified to be in this structure. 
 
