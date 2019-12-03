@@ -142,7 +142,7 @@ The resulting doc structure would be:
 ## Creating CSV files for Users
 
 
-### Creating a new user linked to contacts in CSV files
+### Creating new users with new contacts
 
 To create new users associated to a new place and a new contact, provide values for `contact.name`, `place.name`, and `place.parent` (can be existing place), as seen in this example CSV:
 
@@ -154,7 +154,7 @@ bob,Secret_1,district-admin,bob Example,+123456789,bob,p_val_a,health_center,bob
 
 The `username`, `password`, `contact.name`, `place.type`, `place.name` columns are required to have functional users with new places.
 
-### Linking users to contacts created from csv-to-docs
+### Creating new users linked to contacts in CSV files
 
 To create user accounts for contacts that are created while running csv-to-docs action follow these steps.
 
