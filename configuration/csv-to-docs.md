@@ -144,7 +144,7 @@ The resulting doc structure would be:
 
 ### Creating a new user linked to contacts in CSV files
 
-To create new users associated to new place and a new contact. Provide values for contact.name, place.name, and place.parent(can be existing place), as seen in this example CSV:
+To create new users associated to a new place and a new contact, provide values for `contact.name`, `place.name`, and `place.parent` (can be existing place), as seen in this example CSV:
 
 ```
 username,password,roles,name,phone,contact.name,place.c_prop,place.type,place.name,place.parent
