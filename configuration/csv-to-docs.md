@@ -24,7 +24,7 @@ Here is an example of a `csv/person.clinic.csv` file for people belonging to cli
 | Becky Backlund | female | 1987-10-17
 | Carson Crane | male | 2015-01-23
 
-Three JSON doc files would be generated for that one CSV file. Here is one of the corresponding JSON files, `json_docs/dbfbc0f0-117a-59ec-9542-3313fb10ef25.doc.json`, which was created from the CSV data above:
+Converting that CSV file to JSON docs with the `csv-to-docs` action would generate three files, one for each person. Here is one of the corresponding JSON files, `json_docs/dbfbc0f0-117a-59ec-9542-3313fb10ef25.doc.json`, which was created from the CSV data above:
 
 ```json
 {
