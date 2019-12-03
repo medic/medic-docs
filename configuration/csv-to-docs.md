@@ -144,13 +144,15 @@ The resulting doc structure would be:
 
 ### Creating a new user with a new place
 
-To create new users associated to new place and a new contact. Provide values for contact.name, place.name, and place.parent(can be existing place)
+To create new users associated to new place and a new contact. Provide values for contact.name, place.name, and place.parent(can be existing place), as seen in this example CSV:
 
 ```
 username,password,roles,name,phone,contact.name,place.c_prop,place.type,place.name,place.parent
 alice,Secret_1,district-admin,Alice Example,+123456789,Alice,p_val_a,health_center,alice area, district_uuid
 bob,Secret_1,district-admin,bob Example,+123456789,bob,p_val_a,health_center,bob area,disctrict_uuid
 ```
+
+The `username`, `password`, `contact.name`, `place.type`, `place.name` columns are required to have functional users with new places.
 
 ### Linking users to contacts created from csv-to-docs
 
