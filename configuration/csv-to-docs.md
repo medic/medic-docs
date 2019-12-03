@@ -36,7 +36,9 @@ Converting that CSV file to JSON docs with the `csv-to-docs` action would genera
 }
 ```
 
-### Property types
+### Special notations
+
+#### Specifying property type
 
 By default, values are parsed as strings. To parse a CSV column as a JSON type, append a data type to the column definition, e.g.
 
@@ -54,7 +56,7 @@ This would create a structure such as:
 		"column_six": 1513255007072
 	}
 
-#### Excluding columns
+#### Excluding column
 
 A special JSON type, `excluded`, is used for excluding a column from the final JSON data:
 
@@ -110,7 +112,7 @@ For instance, to include the parent district's doc in a health center's doc, the
 }
 ```
 
-#### Get value from another doc
+#### Including value from another doc
 
 Similar to including another doc, it is also possible to get the value of a specific field in another doc. For instance, if `parent:GET _id OF place WHERE reference_id=COL_VAL` were used in the example above, the `parent` field's value would have been set to the `_id` of the refered to doc instead of including the whole doc. Note that `_id` is a generated value included in all generated docs.
 
