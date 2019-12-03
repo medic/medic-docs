@@ -142,7 +142,7 @@ The resulting doc structure would be:
 ## Creating CSV files for Users
 
 
-### Creating a new user with a new place
+### Creating a new user linked to contacts in CSV files
 
 To create new users associated to new place and a new contact. Provide values for contact.name, place.name, and place.parent(can be existing place), as seen in this example CSV:
 
