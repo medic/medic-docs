@@ -404,8 +404,8 @@ Cancelled | false | any
 
 Generally:
 
-* `appliesIf` should contain conditions that are needed for the task to be relevant to the contact. When this returns `true`, a task document will be created for each of the task's events. When this returns `false`, any active events will move to be "Cancelled" in your Postgres impact queries.
-* `resolvedIf` should capture the condition which is required for the task to be successful. When this returns `true`, any active events will move to be "Complete" in your Postgres impact queries.
+* `appliesIf` should capture conditions that are needed for the task be relevant. When this returns `true`, a task document will be created for each of the task's events. When this returns `false`, any task documents in a non-terminal state (Draft/Ready) will show up as being "Cancelled" in your Postgres impact queries.
+* `resolvedIf` should capture conditions which are needed for the task to disappear because it was completed. When this returns `true`, any active events will move to be "Complete" in your Postgres impact queries.
 
 #### Tips & Tricks
 1. There are some use cases where information collected during an action within a task schedule may mean that the task schedule must change. For example, if you register a child for malnutrition follow-ups, you collect the height and weight during registration and tasks for follow-ups are created based on the registration. At the next visit (first follow-up), you collect the height and weight again and you want to update these so that future tasks reference this new height and weight. You can either clear and regenerate the schedule after each follow-up visit is done, or you can create only one follow-up at a time so that height and weight are always referencing the most recent visit.
