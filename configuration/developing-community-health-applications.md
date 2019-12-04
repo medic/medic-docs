@@ -219,16 +219,16 @@ More complex tasks can be written using the full set of properties for tasks, as
 
 | property | type | description | required |
 |---|---|---|---|
-| `name`| `string` | A unique identifier for the task. Not displayed. | no |
+| `name`| `string` | A unique identifier for the task. Used in Postgres queries. | yes, unique |
 | `icon` | `string` | The icon to show alongside the task. Should correspond with a value defined in `resources.json`. | no |
-| `title` | `translation key` or `translation array` | The title of the task (labeled above). | yes |
+| `title` | `translation key` | The title of the task (labeled above). | yes |
 | `appliesTo` | `'contacts'` or `'reports'` | Do you want to emit one task per report, or one task per contact? This attribute controls the behavior of other properties herein. | yes |
 | `appliesIf` | `function(contact, report)` | If `appliesTo: 'contacts'`, this function is invoked once per contact and `report` is undefined. If `appliesTo: 'reports'`, this function is invoked once per report. Return true if the task should appear for the given documents. | no |
 | `appliesToType` | `string[]` | Filters the contacts or reports for which `appliesIf` will be evaluated. If `appliesTo: 'reports'`, this is an array of form codes. If `appliesTo: 'contacts'`, this is an array of contact types. For example, `['person']` or `['clinic', 'health_center']`. For example, `['pregnancy']` or `['P', 'pregnancy']`. | no |
-| `contactLabel` | `string` or `function(contact, report)` | Controls the label describing the subject of the task. Defaults to the name of the contact (`contact.contact.name`). | No |
+| `contactLabel` | `string` or `function(contact, report)` | Controls the label describing the subject of the task. Defaults to the name of the contact (`contact.contact.name`). | no |
 | `resolvedIf` | `function(contact, report, event, dueDate)` | Return true to mark the task as "resolved". A resolved task uses memory on the phone, but is not displayed. | yes |
 | `events` | `object[]` | An event is used to specify the timing of the task. | yes |
-| `events[n].id` | `string` | Can help as a descriptive name (eg `pregnancy-high-risk`). One task will appear per unique id, so re-using ids can be useful to avoid duplicate tasks appearing. | no |
+| `events[n].id` | `string` | A descriptive identifier. Used in Postgres queries. | yes, unique |
 | `events[n].days` | `integer` | Number of days after the doc's `reported_date` that the event is due | yes, if `dueDate` is not set |
 | `events[n].dueDate` | `function(event, contact, report)` | Returns a `Date` object for the day when this event is due. | yes, if `days` is not set |
 | `events[n].start` | `integer` | Number of days to show the task before it is due. | yes |
@@ -236,11 +236,11 @@ More complex tasks can be written using the full set of properties for tasks, as
 | `actions` | `object[]` | The actions (forms) that a user can access after clicking on a task. If you put multiple forms here, the user will see a task summary screen where they can select which action they would like to complete. | yes |
 | `actions[n].type` | `'report'` or `'contact'` | When `'report'`, the action opens the given form. When `'contact'`, the action redirects to a contact's profile page. Defaults to 'report'. | no |
 | `actions[n].form` | `string` | The code of the form that should open when you select the action. | yes |
-| `actions[n].label`| `translation key` or `translation array` | The label that should appear on the task summary screen if multiple actions are present. | no |
+| `actions[n].label`| `translation key` | The label that should appear on the task summary screen if multiple actions are present. | no |
 | `actions[n].modifyContent`| `function (content, contact, report)` | Set the values on the content object to control the data which will be passed as `inputs` to the form which opens when the action is selected. | no |
-| `priority` | `object` | Controls the "high risk" line seen above. | no |
+| `priority` | `object` or `function(contact, report)` returning object of same schema | Controls the "high risk" line seen above. | no |
 | `priority.level` | `high` or `medium` | Tasks that are `high` will display a high risk icon with the task. Default: `medium`. | no |
-| `priority.label` | `translation key` or `translation array` | Text shown with the task associated to the risk level. | no |
+| `priority.label` | `translation key` | Text shown with the task associated to the risk level. | no |
 
 ### Additional code
 Helper variables and functions can be defined in `nools-extras.js` and will be visible through the variable `extras`. This helps to keep the task definitions easy to read and manage. To enable reuse of common code, `nools-extras.js` file is shared by both the Tasks and Targets.
@@ -377,7 +377,10 @@ module.exports = {
 ```
 
 #### What to put in appliesIf vs resolvedIf
-Both functions `appliesIf` and `resolvedIf` capture logic for when your task should appear to the user. So why are there two functions which seemingly result in the same behaviour? The answer is that once a task appears (`appliesIf: true`, `resolvedIf: false`), that task will not disappear until it is explicitly told to resolve (`appliesIf: true`, `resolvedIf: true`). If you're seeing your task linger when you expect it to disappear, but it does disappear when you reload the page (refresh the browser) - you probably need to move logic from `appliesIf` into `resolvedIf`.
+Both functions `appliesIf` and `resolvedIf` capture logic for when your task should appear to the user. So why are there two functions which seemingly result in the same behaviour? 
+
+##### Before Core Framework 3.8
+Once a task appears (`appliesIf: true`, `resolvedIf: false`), that task will not disappear until it is explicitly told to resolve (`appliesIf: true`, `resolvedIf: true`). If you're seeing your task linger when you expect it to disappear, but it does disappear when you reload the page (refresh the browser) - you probably need to move logic from `appliesIf` into `resolvedIf`.
 
 Generally:
 
@@ -387,6 +390,20 @@ Generally:
 So why not put everything in `resolvedIf` and this will always work without thinking? You can. But there are negative performance implications of doing this, and you should endeavour to capture all that you can in `appliesIf` without breaking things. This performance concern is particularly important for tasks with `appliesTo: 'reports'`.
 
 Logic to test if a contact has a form x existing before any form y, or testing if the task's action form is present within the event window - these are examples of bad things to put in `appliesIf` functions.
+
+##### Core Framework 3.8 and After
+In the Core Framework 3.8 release, the task system is powered by task documents which are written to PoucHDB and synced to the CouchDB/Postgres servers. This powers collaborative features, and enables impact queries to understand how tasks behave on phones in the field. The behavior described above (Before Core Framework 3.8) is no longer true, tasks will disappear whenever `appliesIf: false`. Instead `resolvedIf` now controls when task documents move into the "Completed" state vs "Cancelled" state.
+
+Resultant State | appliesIf | resolvedIf
+-- | -- | --
+Draft/Ready/Failed | true | false
+Completed | true | true
+Cancelled | false | any
+
+Generally:
+
+* `appliesIf` should contain conditions that are needed for the task to be relevant to the contact. When this returns `true`, a task document will be created for each of the task's events. When this returns `false`, any active events will move to be "Cancelled" in your impact queries.
+* `resolvedIf` should capture the condition which is required for the task to be successful. When this returns `true`, any active events will move to be "Complete" in your impact queries.
 
 #### Tips & Tricks
 1. There are some use cases where information collected during an action within a task schedule may mean that the task schedule must change. For example, if you register a child for malnutrition follow-ups, you collect the height and weight during registration and tasks for follow-ups are created based on the registration. At the next visit (first follow-up), you collect the height and weight again and you want to update these so that future tasks reference this new height and weight. You can either clear and regenerate the schedule after each follow-up visit is done, or you can create only one follow-up at a time so that height and weight are always referencing the most recent visit.
@@ -455,11 +472,11 @@ More complex targets can be written using the full set of properties for targets
 
 | property | type | description | required |
 |---|---|---|---|
-| `id` | `string` | An identifier for the target. Not functional or displayed. | no |
+| `id` | `string` | An identifier for the target. Used in Postgres impact queries. | yes, unique |
 | `icon` | `string` | The icon to show alongside the task. Should correspond with a value defined in `resources.json`. | no |
 | `translation_key` | `translation key` | Translation key for the title of this target. | no, but recommended |
 | `subtitle_translation_key` | `translation key` | Translation key for the subtitle of this target. If none supplied the subtitle will be blank. | no |
-| `percentage_count_translation_key` | Translation key for the percentage value detail shown at the bottom of the target, eg "(5 of 6 deliveries)". The translation context has `pass` and `total` variables available. If none supplied this defaults to `targets.count.default`. | no |
+| `percentage_count_translation_key` | `translation key` | Translation key for the percentage value detail shown at the bottom of the target, eg "(5 of 6 deliveries)". The translation context has `pass` and `total` variables available. If none supplied this defaults to `targets.count.default`. | no |
 | `context` | `string` | A string containing a JavaScript expression. This widget will only be shown if the expression evaluates to true. Details of the current user is available through the variable `user`. | no |
 | `type` | `'count'` or `'percent'` | The type of the widget. | yes |
 | `goal` | `integer` | For targets with `type: 'percent'`, an integer from 0 to 100. For `type: 'count'`, any positive number. If there is no goal, put -1. | yes |
@@ -467,7 +484,7 @@ More complex targets can be written using the full set of properties for targets
 | `appliesToType` | If `appliesTo: 'reports'`, an array of form codes. If `appliesTo: 'contacts'`, an array of contact types. | Filters the contacts or reports for which `appliesIf` will be evaluated. For example, `['person']` or `['clinic', 'health_center']`. For example, `['pregnancy']` or `['P', 'pregnancy']`. | no |
 | `appliesIf` | `function(contact, report)` | If `appliesTo: 'contacts'`, this function is invoked once per contact and `report` is undefined. If `appliesTo: 'reports'`, this function is invoked once per report. Return true to count this document. For `type: 'percent'`, this controls the denominator. | no |
 | `passesIf` | `function(contact, report)` | For `type: 'percent'`, return true to increment the numerator. | yes, if `type: 'percent'` |
-| `date` | `'reported'` or `'now'` | When `'reported'`, the target will include documents with a `reported_date` within the current month. When `'now'`, target includes all documents. Default is `'reported'`. | no |
+| `date` | `'reported'` or `'now'` or `function(contact, report)` | When `'reported'`, the target will include documents with a `reported_date` within the current month. When `'now'`, target includes all documents. A function can be used to indicate when the contact or report should be scored. Default is `'reported'`. | no |
 | `idType` | `'report'` or `'contact'` or `function(contact, report)` | The target's values are incremented once per unique ID. To count individual contacts that meet the criteria, use `'contact'`. To count multiple reports per contact, use `'report'`. If neither keyword suits your needs you can write your own function to provide the ID. | no |
 
 ### Additional code
