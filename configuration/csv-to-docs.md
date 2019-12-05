@@ -1,14 +1,14 @@
 # Seeding data with medic-conf
 
-Users, contacts, and report data can be specified in comma-separated value (CSV) files, then converted to JavaScript Object Notation (JSON) files and uploaded into your instance using [medic-conf](https://github.com/medic/medic-conf). This documentation will cover how to the CSV notation needed, fetching CSV files from Google Sheets, converting the CSV files into JSON docs, and then uploading the data from the JSON files to your instance.
+Users, contacts, and report data can be specified in comma-separated value (CSV) files, then converted to JavaScript Object Notation (JSON) files and uploaded into your instance using [medic-conf](https://github.com/medic/medic-conf). This documentation will cover the CSV notation used, fetching CSV files from Google Sheets, converting the CSV files into JSON docs, and then uploading the data from the JSON files to your instance.
 
 ## Converting CSVs
 
-Running medic-conf with the `csv-to-docs` action converts CSV files from the `csv` folder into JSON docs for the webapp. The JSON files are stored in the `json_docs` folder. Instructions for creating the CSV files are in sections below.
+Running `medic-conf` with the `csv-to-docs` action converts CSV files from the `csv` folder into JSON docs to be uploaded to your instance. The JSON files are stored in the `json_docs` folder. Instructions for creating the CSV files are in sections below.
 
 ## Uploading CSVs
 
-Running medic-conf with the `upload-docs` action will upload to the webapp the JSON docs that were generated from the CSV files. For example, running `medic-conf --local upload-docs` will upload the converted docs into your local instance. The target location `--local` can be replaced with an instance or URL. See [medic-conf](https://github.com/medic/medic-conf) for detailed instructions.
+Running `medic-conf` with the `upload-docs` action will upload the JSON docs that were generated from the CSV files to your instance. For example, running `medic-conf --local upload-docs` will upload the converted docs into your local instance. The target location `--local` can be replaced with an instance or URL. See [medic-conf](https://github.com/medic/medic-conf) for detailed instructions.
 
 
 ## Creating CSV files for Contacts, Reports
@@ -58,9 +58,10 @@ Converting that CSV file to JSON docs with the `csv-to-docs` action would genera
 
 #### Specifying property type
 
-By default, values are parsed as strings. To parse a CSV column as a JSON type, append a data type to the column definition, e.g.
+By default, values are parsed as strings. To parse a CSV column as a different JSON type, append the JSON type name to the column definition, e.g.
 
 	column_one,column_two:bool,column_three:int,column_four:float,column_five:date,column_six:timestamp
+	some string,true,1,2.3,2017-12-31,1513255007072
 
 This would create a structure such as:
 
@@ -78,7 +79,7 @@ This would create a structure such as:
 
 #### Excluding column
 
-A special JSON type, `excluded`, is used for excluding a column from the final JSON data:
+A special column type, `excluded`, is used for excluding a column from the final JSON data:
 
 	my_column_that_will_not_be_a_property:excluded
 
