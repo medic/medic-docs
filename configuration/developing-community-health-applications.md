@@ -485,9 +485,11 @@ More complex targets can be written using the full set of properties for targets
 | `appliesTo` | `'contacts'` or `'reports'` | Do you want to count reports or contacts? This attribute controls the behavior of other attributes herein. | yes |
 | `appliesToType` | If `appliesTo: 'reports'`, an array of form codes. If `appliesTo: 'contacts'`, an array of contact types. | Filters the contacts or reports for which `appliesIf` will be evaluated. For example, `['person']` or `['clinic', 'health_center']`. For example, `['pregnancy']` or `['P', 'pregnancy']`. | no |
 | `appliesIf` | `function(contact, report)` | If `appliesTo: 'contacts'`, this function is invoked once per contact and `report` is undefined. If `appliesTo: 'reports'`, this function is invoked once per report. Return true to count this document. For `type: 'percent'`, this controls the denominator. | no |
-| `passesIf` | `function(contact, report)` | For `type: 'percent'`, return true to increment the numerator. | yes, if `type: 'percent'` |
+| `passesIf` | `function(contact, report)` | For `type: 'percent'`, return true to increment the numerator. | yes, if `type: 'percent'`. forbidden when `groupBy` is defined |
 | `date` | `'reported'` or `'now'` or `function(contact, report)` | When `'reported'`, the target will include documents with a `reported_date` within the current month. When `'now'`, target includes all documents. A function can be used to indicate when the contact or report should be scored. Default is `'reported'`. | no |
-| `idType` | `'report'` or `'contact'` or `function(contact, report)` | The target's values are incremented once per unique ID. To count individual contacts that meet the criteria, use `'contact'`. To count multiple reports per contact, use `'report'`. If neither keyword suits your needs you can write your own function to provide the ID. | no |
+| `idType` | `'report'` or `'contact'` or `function(contact, report)` | The target's values are incremented once per unique ID. To count individual contacts that meet the criteria, use `'contact'`. To count multiple reports per contact, use `'report'`. If neither keyword suits your needs you can write your own function to provide the ID(s). | no |
+| `groupBy` | `function(contact, report)` returning string | Advanced feature which allows for target ids to be counted and scored in groups | no |
+| `passGroupWithCount` | `integer` | A group (as determined by `groupBy`) is scored as passing if there are `passGroupWithCount` or more unique ids in the same group | yes when `groupBy` is defined |
 
 ### Additional code
 Helper variables and functions can be defined in `nools-extras.js` to keep the target definitions easy to read and manage. To enable reuse of common code, `nools-extras.js` file is shared by both the Tasks and Targets.
@@ -496,6 +498,9 @@ Helper variables and functions can be defined in `nools-extras.js` to keep the t
 
 #### targets.js
 ```js
+const { isHealthyDeliver, countReportsSubmittedInWindow } = require('./targets-extras');
+const getFamilyIdForContact = contact => contact.contact.type === 'clinic' ? contact.contact._id : contact.contact.parent && contact.contact.parent._id;
+
 module.exports = [
   // BIRTHS THIS MONTH
   {
@@ -507,7 +512,7 @@ module.exports = [
     subtitle_translation_key: 'targets.this_month.subtitle',
 
     appliesTo: 'reports',
-    appliesIf: extras.isHealthyDelivery,
+    appliesIf: isHealthyDelivery,
     date: 'reported',
   },
 
@@ -522,17 +527,38 @@ module.exports = [
 
     appliesTo: 'reports',
     idType: 'report',
-    appliesIf: extras.isHealthyDelivery,
+    appliesIf: isHealthyDelivery,
     passesIf: function(c, r) {
-      var visits = extras.countReportsSubmittedInWindow(c.reports, antenatalForms, r.reported_date - MAX_DAYS_IN_PREGNANCY*MS_IN_DAY, r.reported_date);
+      var visits = countReportsSubmittedInWindow(c.reports, antenatalForms, r.reported_date - MAX_DAYS_IN_PREGNANCY*MS_IN_DAY, r.reported_date);
       return visits > 0;
     },
     date: 'now',
   },
+
+  {
+    id: '2-home-visits-per-family',
+    icon: 'home-visit',
+    type: 'percent',
+    goal: 100,
+    translation_key: `target.2-home-visits-per-family`,
+    goal: -1,
+    context: 'user.role === "chw"',
+    date: 'reported',
+
+    appliesTo: 'contacts',
+    appliesToType: ['clinic', 'person'],
+    idType: contact => {
+      const householdVisitDates = new Set(contact.reports.map(report => toDateString(report.reported_date)));
+      const familyId = getFamilyIdForContact(contact);
+      return Array.from(householdVisitDates).map(date => `${familyId}~${date}`);
+    },
+    groupBy: contact => getFamilyIdForContact(contact),
+    passGroupWithCount: 2,
+  }
 ]
 ```
 
-#### nools-extras.js
+#### targets-extras.js
 ```js
 module.exports = {
   isHealthyDelivery(c, r) {
