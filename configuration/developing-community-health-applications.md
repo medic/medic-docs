@@ -242,14 +242,12 @@ More complex tasks can be written using the full set of properties for tasks, as
 | `priority.level` | `high` or `medium` | Tasks that are `high` will display a high risk icon with the task. Default: `medium`. | no |
 | `priority.label` | `translation key` | Text shown with the task associated to the risk level. | no |
 
-### Additional code
-Helper variables and functions can be defined in `nools-extras.js` and will be visible through the variable `extras`. This helps to keep the task definitions easy to read and manage. To enable reuse of common code, `nools-extras.js` file is shared by both the Tasks and Targets.
-
 ### Examples
 
 #### tasks.js
 ```js
-var isFormFromArraySubmittedInWindow = extras.isFormFromArraySubmittedInWindow;
+const extras = require('./nools-extras');
+const { isFormFromArraySubmittedInWindow } = extras;
 
 module.exports = [
   // PNC TASK 1: If a home delivery, needs clinic tasks
@@ -486,13 +484,10 @@ More complex targets can be written using the full set of properties for targets
 | `appliesToType` | If `appliesTo: 'reports'`, an array of form codes. If `appliesTo: 'contacts'`, an array of contact types. | Filters the contacts or reports for which `appliesIf` will be evaluated. For example, `['person']` or `['clinic', 'health_center']`. For example, `['pregnancy']` or `['P', 'pregnancy']`. | no |
 | `appliesIf` | `function(contact, report)` | If `appliesTo: 'contacts'`, this function is invoked once per contact and `report` is undefined. If `appliesTo: 'reports'`, this function is invoked once per report. Return true to count this document. For `type: 'percent'`, this controls the denominator. | no |
 | `passesIf` | `function(contact, report)` | For `type: 'percent'`, return true to increment the numerator. | yes, if `type: 'percent'`. forbidden when `groupBy` is defined |
-| `date` | `'reported'` or `'now'` or `function(contact, report)` | When `'reported'`, the target will include documents with a `reported_date` within the current month. When `'now'`, target includes all documents. A function can be used to indicate when the contact or report should be scored. Default is `'reported'`. | no |
+| `date` | `'reported'` or `'now'` or `function(contact, report)` | When `'reported'`, the target will count documents with a `reported_date` within the current month. When `'now'`, target includes all documents. A function can be used to indicate when the document should be counted. Default is `'reported'`. | no |
 | `idType` | `'report'` or `'contact'` or `function(contact, report)` | The target's values are incremented once per unique ID. To count individual contacts that meet the criteria, use `'contact'`. To count multiple reports per contact, use `'report'`. If neither keyword suits your needs you can write your own function to provide the ID(s). | no |
 | `groupBy` | `function(contact, report)` returning string | Advanced feature which allows for target ids to be counted and scored in groups | no |
-| `passGroupWithCount` | `integer` | A group (as determined by `groupBy`) is scored as passing if there are `passGroupWithCount` or more unique ids in the same group | yes when `groupBy` is defined |
-
-### Additional code
-Helper variables and functions can be defined in `nools-extras.js` to keep the target definitions easy to read and manage. To enable reuse of common code, `nools-extras.js` file is shared by both the Tasks and Targets.
+| `passGroupWithCount` | `integer` | A group (as determined by `groupBy`) is scored as passing if there are `passGroupWithCount` or more unique ids in that group | yes when `groupBy` is defined |
 
 ### Examples
 
