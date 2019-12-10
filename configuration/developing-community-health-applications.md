@@ -219,7 +219,7 @@ More complex tasks can be written using the full set of properties for tasks, as
 
 | property | type | description | required |
 |---|---|---|---|
-| `name`| `string` | A unique identifier for the task. Used in Postgres impact queries. | yes, unique |
+| `name`| `string` | A unique identifier for the task. Used for querying task completeness. | yes, unique |
 | `icon` | `string` | The icon to show alongside the task. Should correspond with a value defined in `resources.json`. | no |
 | `title` | `translation key` | The title of the task (labeled above). | yes |
 | `appliesTo` | `'contacts'` or `'reports'` | Do you want to emit one task per report, or one task per contact? This attribute controls the behavior of other properties herein. | yes |
@@ -228,7 +228,7 @@ More complex tasks can be written using the full set of properties for tasks, as
 | `contactLabel` | `string` or `function(contact, report)` | Controls the label describing the subject of the task. Defaults to the name of the contact (`contact.contact.name`). | no |
 | `resolvedIf` | `function(contact, report, event, dueDate)` | Return true to mark the task as "resolved". A resolved task uses memory on the phone, but is not displayed. | yes |
 | `events` | `object[]` | An event is used to specify the timing of the task. | yes |
-| `events[n].id` | `string` | A descriptive identifier. Used in Postgres impact queries. | yes, unique |
+| `events[n].id` | `string` | A descriptive identifier. Used for querying task completeness. | yes, unique |
 | `events[n].days` | `integer` | Number of days after the doc's `reported_date` that the event is due | yes, if `dueDate` is not set |
 | `events[n].dueDate` | `function(event, contact, report)` | Returns a `Date` object for the day when this event is due. | yes, if `days` is not set |
 | `events[n].start` | `integer` | Number of days to show the task before it is due. | yes |
@@ -394,7 +394,7 @@ Logic to test if a contact has a form x existing before any form y, or testing i
 ##### Core Framework 3.8.0 and Later
 **Declarative configuration projects must deploy their configuration using medic-conf v3.1.0 or later for tasks and targets to function on the Core Framework v3.8.0 or later**
 
-In the Core Framework 3.8.0 release, the task system is powered by task documents which are written to PoucHDB and synced to the CouchDB/Postgres servers. This powers collaborative features, and enables Postgres impact queries to understand how tasks behave on phones in the field. The behavior described above (Before Core Framework 3.8.0) is no longer true, tasks will disappear whenever `appliesIf: false`. Instead `resolvedIf` now controls when task documents move into the "Completed" state vs "Cancelled" state.
+In the Core Framework 3.8.0 release, the task system is powered by task documents which are written to PouchDB and synced to CouchDB/Postgres. This powers collaborative features, and enables server-side queries to understand how tasks behaved for users in the field. The behavior described above (Before Core Framework 3.8.0) is no longer true, tasks will disappear whenever `appliesIf: false`. Instead `resolvedIf` now controls when task documents move into the "Completed" state vs "Cancelled" state.
 
 Resultant State | appliesIf | resolvedIf
 -- | -- | --
@@ -404,8 +404,8 @@ Cancelled | false | any
 
 Generally:
 
-* `appliesIf` should capture conditions that are needed for the task be relevant. When this returns `true`, a task document will be created for each of the task's events. When this returns `false`, any task documents in a non-terminal state (Draft/Ready) will show up as being "Cancelled" in your Postgres impact queries.
-* `resolvedIf` should capture conditions which are needed for the task to disappear because it was completed. When this returns `true`, any active events will move to be "Complete" in your Postgres impact queries.
+* `appliesIf` should capture conditions that are needed for the task be relevant. When this returns `true`, a task document will be created for each of the task's events. When this returns `false`, any task documents in a non-terminal state (Draft/Ready) will show up as being "Cancelled" when querying the state of tasks.
+* `resolvedIf` should capture conditions which are needed for the task to disappear because it was completed. When this returns `true`, any active events will move to be "Complete" when the state of the task is examined.
 
 #### Tips & Tricks
 1. There are some use cases where information collected during an action within a task schedule may mean that the task schedule must change. For example, if you register a child for malnutrition follow-ups, you collect the height and weight during registration and tasks for follow-ups are created based on the registration. At the next visit (first follow-up), you collect the height and weight again and you want to update these so that future tasks reference this new height and weight. You can either clear and regenerate the schedule after each follow-up visit is done, or you can create only one follow-up at a time so that height and weight are always referencing the most recent visit.
@@ -474,7 +474,7 @@ More complex targets can be written using the full set of properties for targets
 
 | property | type | description | required |
 |---|---|---|---|
-| `id` | `string` | An identifier for the target. Used in Postgres impact queries. | yes, unique |
+| `id` | `string` | An identifier for the target. Used for querying task completeness. | yes, unique |
 | `icon` | `string` | The icon to show alongside the task. Should correspond with a value defined in `resources.json`. | no |
 | `translation_key` | `translation key` | Translation key for the title of this target. | no, but recommended |
 | `subtitle_translation_key` | `translation key` | Translation key for the subtitle of this target. If none supplied the subtitle will be blank. | no |
