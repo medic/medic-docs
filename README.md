@@ -4,7 +4,7 @@
 The following guides should help orient developers interested in the Core Framework used to build community health apps. Setting up the Core Framework itself is covered in the [cht-core repo](https://github.com/medic/cht-core#using-the-core-framework).
 
 ### How we work
-* [Developer environment setup](https://github.com/medic/cht-core/blob/master/README.md)
+* [Developer environment setup](https://github.com/medic/cht-core/blob/master/DEVELOPMENT.md)
 * [Using Git](development/using-git.md)
 * [Using npm](development/using-npm.md)
 * [Our workflow](development/workflow.md)
