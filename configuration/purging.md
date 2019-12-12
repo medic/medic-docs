@@ -1,6 +1,7 @@
-# Purging [beta]
+# Local Purging [beta]
 
-*Purging is only available in 3.3.0 and above.*
+*Local purging is only available in 3.3.0 -> 3.6.x: it has been removed in 3.7.0 in favor of Server-side purging*
+
 
 Purging is a tool that allows you to increase performance and available disk space for offline users (eg CHWs) by removing unneeded documents from their device.
 

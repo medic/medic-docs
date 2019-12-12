@@ -32,7 +32,7 @@ The following transitions are available and executed in order.
 | [generate_patient_id_on_people](#generate-patient-id-on-people) | Automatically generates the `patient_id` on all person documents. |
 | default_responses | Responds to the message with a confirmation or validation error. |
 | update_sent_by | Sets the sent_by field of the report based on the sender's phone number. |
-| update_sent_forms | Update sent_forms property on facilities so we can setup reminders for specific forms. |
+| update_sent_forms | **Deprecated in 3.7.x** Update sent_forms property on facilities so we can setup reminders for specific forms. *As of 3.7.x, reminders no longer require this transition*|
 | [death_reporting](#death_reporting) | Updates the deceased status of patients. |
 | conditional_alerts | Executes the configured condition and sends an alert if the condition is met. |
 | [multi_report_alerts](#multi_report_alerts) | Similar to conditional_alerts, with more flexible configuration, including using different form types for the same alert. |
@@ -137,7 +137,7 @@ This is the only supported event.
 
 ##### `add_patient`
 
-Generates a patient id--or if configured to uses a provided one--, sets it onto the root of the registration document, as well as creating (if required) a person document for that patient.
+Sets the `patient_id` on the root of the registration document and creates the person doc if required. Can be configured to either use a provided ID or generate a new unique one.
 
 ###### External Patient ID
 
@@ -179,14 +179,15 @@ To provide an alternative location for the patient name, either provide a `patie
 }
 ```
 
-The first format is required if you wish to also provide an external patient id:
+The first format is required if you wish to also provide other params:
+
+###### Contact Type
+
+If you have changed from the default contact hierarchy you will need to specify which type of contact the registration should create.
 
 ```json
 {
-    "params": "{
-        \"patient_name_field\": \"full_name\",
-        \"patient_id_field\": \"external_id\"
-    }",
+    "params": "{ \"contact_type\": \"patient\" }"
 }
 ```
 

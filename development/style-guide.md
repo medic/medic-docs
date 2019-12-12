@@ -33,18 +33,18 @@ Use single quotes, unless you are writing JSON.
 *Right:*
 
 ```js
-var foo = 'bar';
+const foo = 'bar';
 ```
 
 *Wrong:*
 
 ```js
-var foo = "bar";
+const foo = "bar";
 ```
 
 ## Opening braces go on the same line
 
-Your opening braces go on the same line as the statement.
+Your opening braces go on the same line as the statement, with whitespace before and after the condition, followed by a new line.
 
 *Right:*
 
@@ -61,9 +61,13 @@ if (true)
 {
   console.log('losing');
 }
-```
 
-Also, notice the use of whitespace before and after the condition statement.
+if (true) { console.log('losing'); }
+
+if(true){
+  console.log('winning');
+}
+```
 
 ## Method chaining
 
@@ -77,9 +81,7 @@ You should also indent these methods so it's easier to tell they are part of the
 User
   .findOne({ name: 'foo' })
   .populate('bar')
-  .exec(function(err, user) {
-    return true;
-  });
+  .exec(() => true);
 ````
 
 *Wrong:*
@@ -88,25 +90,17 @@ User
 User
 .findOne({ name: 'foo' })
 .populate('bar')
-.exec(function(err, user) {
-  return true;
-});
+.exec(() => true);
 
 User.findOne({ name: 'foo' })
   .populate('bar')
-  .exec(function(err, user) {
-    return true;
-  });
+  .exec(() => true);
 
 User.findOne({ name: 'foo' }).populate('bar')
-.exec(function(err, user) {
-  return true;
-});
+.exec(() => true);
 
 User.findOne({ name: 'foo' }).populate('bar')
-  .exec(function(err, user) {
-    return true;
-  });
+  .exec(() => true);
 ````
 
 ## Use lowerCamelCase for variables, properties, and function names
@@ -118,13 +112,13 @@ abbreviations should generally be avoided.
 *Right:*
 
 ```js
-var adminUser = db.query('SELECT * FROM users ...');
+const adminUser = db.query();
 ```
 
 *Wrong:*
 
 ```js
-var admin_user = db.query('SELECT * FROM users ...');
+const admin_user = db.query();
 ```
 
 ## Use UpperCamelCase for class names
@@ -145,60 +139,94 @@ function bank_Account() {
 }
 ```
 
-## Use UPPERCASE for Constants
+## Use `const` and `let`
 
-Constants should be declared as regular variables or static class properties,
-using all uppercase letters.
-
-Node.js / V8 actually supports mozilla's [const][const] extension, but
-unfortunately that cannot be applied to class members, nor is it part of any
-ECMA standard.
+There is no longer a good reason to use `var`. Use `const` whenever you can,
+and `let` when you must. Hardcoded constants should be named in all UPPERCASE.
 
 *Right:*
 
 ```js
-var SECOND = 1 * 1000;
-
-function File() {
-}
-File.FULL_PERMISSIONS = 0777;
+const DELAY = 10 * 1000;
+const output = input * 10;
+let temp = 50;
+let unknown;
 ```
 
 *Wrong:*
 
 ```js
-const SECOND = 1 * 1000;
-
-function File() {
-}
-File.fullPermissions = 0777;
+var DELAY = 10 * 1000;
 ```
 
-[const]: https://developer.mozilla.org/en/JavaScript/Reference/Statements/const
+## Use arrow functions
 
-## Object / Array creation
+Use arrow functions as much as possible for cleaner code and better scoping. Omit the
+return keyword when the entire function definition fits on one line. Omit the parens
+when taking a single parameter.
 
-Put *short* declarations on a single line. Only quote keys when your interpreter complains:
+There are exceptions to this rule including when you want to access `arguments` or
+`this`, or when you want to be able to debug browserified code.
 
 *Right:*
 
 ```js
-var a = ['hello', 'world'];
-var b = {
+let result = '';
+
+const append = a => {
+  result += a;
+};
+
+const combine = (a, b) => {
+  result = a + b;
+};
+
+const getResult = () => result;
+```
+
+*Wrong:*
+
+```js
+let result = '';
+
+const append = (a) => {
+  result += a;
+};
+
+const combine = function(a, b) {
+  result = a + b;
+};
+
+const getResult = () =>
+  result;
+```
+
+## Object / Array creation
+
+Put short declarations on a single line. For long declarations put a line
+break after each comma.
+
+*Right:*
+
+```js
+const a = ['hello', 'world'];
+const b = {
   good: 'code',
-  'is generally': 'pretty'
+  'is generally': 'pretty',
 };
 ```
 
 *Wrong:*
 
 ```js
-var a = [
+const a = [
   'hello', 'world'
 ];
-var b = {"good": 'code'
+const b = {"good": 'code'
         , is generally: 'pretty'
         };
+const c = ['one', 'two',
+           'three', 'four'];
 ```
 
 ## Use the === operator
@@ -209,7 +237,6 @@ the triple equality operator as it will work just as expected.
 *Right:*
 
 ```js
-var a = 0;
 if (a !== '') {
   console.log('winning');
 }
@@ -219,7 +246,6 @@ if (a !== '') {
 *Wrong:*
 
 ```js
-var a = 0;
 if (a == '') {
   console.log('losing');
 }
@@ -229,13 +255,12 @@ if (a == '') {
 
 ## Do not extend built-in prototypes
 
-Do not extend the prototype of native JavaScript objects. Your future self will
-be forever grateful.
+Do not extend the prototype of native JavaScript objects. Your future self will be forever grateful.
 
 *Right:*
 
 ```js
-var a = [];
+const a = [];
 if (!a.length) {
   console.log('winning');
 }
@@ -248,7 +273,7 @@ Array.prototype.empty = function() {
   return !this.length;
 }
 
-var a = [];
+const a = [];
 if (a.empty()) {
   console.log('losing');
 }
@@ -261,7 +286,7 @@ Any non-trivial conditions should be assigned to a descriptively named variable 
 *Right:*
 
 ```js
-var isValidPassword = password.length >= 4 && /^(?=.*\d).{4,}$/.test(password);
+const isValidPassword = password.length >= 4 && /^(?=.*\d).{4,}$/.test(password);
 
 if (isValidPassword) {
   console.log('winning');
@@ -332,9 +357,9 @@ function isPercentage(val) {
 ## Adding documentation comments
 
 To add documentation comments that will be built using jsdocs, use
-these the block tags listed [here](https://jsdoc.app/).
-For angular related documentation tags, use [these](https://www.npmjs.com/package/angular-jsdoc#tags-available).
-See examples [here](https://www.npmjs.com/package/angular-jsdoc#example).
+[jsdoc block tags](https://jsdoc.app/). For angular code use the
+[angular tags](https://www.npmjs.com/package/angular-jsdoc#tags-available), see
+[examples](https://www.npmjs.com/package/angular-jsdoc#example).
 
 Try to write comments that explain higher level mechanisms or clarify
 difficult segments of your code. Don't use comments to restate trivial
@@ -347,7 +372,7 @@ things.
  * 'ID_SOMETHING=VALUE' -> ['ID_SOMETHING=VALUE', 'SOMETHING', 'VALUE']
  * @type {boolean}
  */
-var matches = item.match(/ID_([^\n]+)=([^\n]+)/));
+const matches = item.match(/ID_([^\n]+)=([^\n]+)/));
 
 /**
  * Loads a user. This function has a nasty side effect where a failure to increment a
@@ -367,7 +392,7 @@ function loadUser(id, cb) {
 /**
  * Execute a regex
  */
-var matches = item.match(/ID_([^\n]+)=([^\n]+)/);
+const matches = item.match(/ID_([^\n]+)=([^\n]+)/);
 
 /**
  * Usage: loadUser(5, function() { ... })
@@ -379,7 +404,7 @@ function loadUser(id, cb) {
 /**
  * Check if the session is valid
  */
-var isSessionValid = (session.expires < Date.now());
+const isSessionValid = (session.expires < Date.now());
 /** If the session is valid */
 if (isSessionValid) {
   ...

@@ -9,10 +9,10 @@
 
 ### Development
 
-1. When development is ready to begin one of the developers should be nominated as a Release Manager, who will be resonsible for making sure the following tasks are completed though not necessarily completing them.
-2. Set the version number in package.json and package-lock.json.
-3. For new major and minor releases update all dependencies that don't have any breaking changes. If there are dependencies with easy to fix breaking changes feel free to fix those too. Raise issues to fix the hard breaking changes.
-4. Write an update in the weekly Product Team call agenda summarising development and acceptance testing progress and identifying any blockers.
+1. When development is ready to begin one of the engineers should be nominated as a Release Manager. They will be resonsible for making sure the following tasks are completed though not necessarily completing them.
+2. Set the version number in package.json and package-lock.json and submit a PR. The easiest way to do this is to use `npm --no-git-tag-version version <major|minor|patch>`.
+3. For major or minor releases raise a new issue called `Update dependencies for <version>` with a description that links to [the documentation](update-dependencies.md). This should be done early in the release cycle so find a volunteer to take this on and assign it to them.
+4. Write an update in the weekly Product Team call agenda summarising development and acceptance testing progress and identifying any blockers. The release manager is to update this every week until the version is released.
 
 ### Releasing
 

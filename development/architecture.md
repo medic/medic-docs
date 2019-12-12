@@ -30,7 +30,7 @@ nginx proxies all requests to api and adds encryption and compression.
 
 ## Client side
 
-### [medic](https://github.com/medic/medic)
+### [cht-core](https://github.com/medic/cht-core)
 
 This is the application that most users interact with. It's an [AngularJS](https://angularjs.org) single page responsive web application.
 
