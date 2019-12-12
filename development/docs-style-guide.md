@@ -22,7 +22,7 @@ This style guide provides a set of editorial guidelines for anyone writing devel
     - [Bold for user interface elements](#bold-for-user-interface-elements)
     - [Italics to define or introduce new terms](#italics-to-define-or-introduce-new-terms)
     - [Code style For filenames, directories, and paths](#code-style-for-filenames-directories-and-paths)
-    - [International standard for punctuation inside quotes](#international-standard-for-punctuation-inside-quotes)
+    - [British standard for punctuation inside quotes](#international-standard-for-punctuation-inside-quotes)
     - [Inline code formatting](#inline-code-formatting)
     - [Code snippet formatting](#code-snippet-formatting)
     - [Medic Mobile word list](#medic-mobile-word-list)
@@ -162,7 +162,7 @@ represents.
   <tr><td>Create <code>medic/translations/messages-en.properties</code> file.</td><td>Create medic/translations/messages-en.properties file.</td></tr>
 </table>
 
-### International standard for punctuation inside quotes
+### British standard for punctuation inside quotes
 
 <table>
   <tr><th>Do</th><th>Don't</th></tr>
