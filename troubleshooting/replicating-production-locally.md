@@ -3,11 +3,11 @@
 Sometimes there will be a production problem that you need to dig into locally to solve. This guide explains how to:
 
 * Copy the data from an instance to a local CouchDB database
-* Run that data with a local build
+* Run a local webapp instance with that data
 
 ## First, a note about data safety
 
-Our production data is medical data. It's HIV statuses and pregnancies. It's important, and it's not yours. If you're downloading it, do so on an [encrypted drive](../support/securing-computers.md) and delete it once you're done with it.
+Production data is medical data. It's HIV statuses and pregnancies. It's important, and it's not yours. If you're downloading it, do so on an [encrypted drive](../support/securing-computers.md) and delete it once you're done with it.
 
 ## Step 1: Get the data
 
@@ -15,7 +15,7 @@ First thing is to get the data onto your local CouchDB. It's advisable to create
 
 ### Small production instances
 
-If there isn't much data you can replicate the entire DB locally. You can initiate this either from your local Fauxton, or from the command line. You must use an administrator username and password for this for both the source and destination.
+If there isn't much data you can replicate the entire DB locally. You can initiate this either from your local Fauxton, or from the command line. You must use an administrator username and password for this at both the source and destination.
 
 For Fauxton, navigate to http://localhost:5984/_utils/#/replication/_create
 For command line, see: http://docs.couchdb.org/en/2.1.1/api/server/common.html#post--_replicate
