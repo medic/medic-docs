@@ -10,7 +10,7 @@ Installation instructions are mostly the same as they written in [the README](ht
 
 ## Installing Ubuntu in the Windows Subsystem for Linux.
 
-For the rest of this document we're going to presume that you're using Ubuntu. Medic probably works all on all distributions, but Ubuntu is likely the best supported.
+For the rest of this document we're going to presume that you're using Ubuntu (18.04) in WSL. Medic probably works all on all distributions, but Ubuntu is likely the best supported.
 
 First, follow Microsoft's [instructions on enabling and installing linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10). At the end of this process you should have a linux terminal.
 
@@ -18,7 +18,7 @@ Note: for the rest of this tutorial **in linux** means code executing or perform
 
 ## CouchDB
 
-As of writing CouchDB wouldn't autostart due to systemd not existing (I think?), and wasn't manually starting due to erlang errors.
+As of writing CouchDB wouldn't autostart (due to systemd not existing?), and wasn't manually starting due to erlang errors.
 
 Luckily, there is a perfectly working CouchDB installation for Windows:
  - Download from [CouchDB](https://couchdb.apache.org/#download) and install the Windows version. This will create a Windows service.
@@ -27,37 +27,31 @@ Luckily, there is a perfectly working CouchDB installation for Windows:
 Then go to `http://localhost:5984/_utils/#/setup` in Windows and do the single node setup. Once done head back to linux and confirm it works:
 
 ```
-scdf@PC:/mnt/c/Users/stefa/Code/medic$ curl http://localhost:5984/
+yrimal@PC: curl http://localhost:5984/
 {"couchdb":"Welcome","version":"2.3.1","git_sha":"c298091a4","uuid":"5f60350abaaa11c0131a5630e83ae979","features":["pluggable-storage-engines","scheduler"],"vendor":{"name":"The Apache Software Foundation"}}
 ```
 
 ## Installing NPM
+Start your WSL instance (Ubuntu), not WSL as they take you to two different defult path. 
 
 The default `npm` in linux is really old and doesn't have `npm ci`, which we need.
 
 Instead use [nvm](https://github.com/nvm-sh/nvm) to install a later version.
 
-Once you've installed nvm: `nvm install 8` (or a later version).
+Once you've installed nvm: `nvm install 8` (or a later version). We used v11.3.0 for this purpose. 
 
 ## Checking out the code
 
-I used linux's git to check out the code, though presumably git in Windows works just as well.
+We used git that's preinstalled with Ubuntu to check out the code.
 
-You can access you c drive (and other Window's drives) from `/mnt`. To make life easier consider a symlink in your linux home directory to your code in Windows. In your linux home directory:
+You can checkout cht code inside wsl itself. We'll checkout inside /home/username/medic directory. 
 
 ```
-scdf@PC:~$ mkdir /mnt/c/Users/<username>/Code
-scdf@PC:~$ ln -s /mnt/c/Users/<username>/Code
-scdf@PC:~$ cd Code
-scdf@PC:~$ git clone git@github.com:medic/medic.git
-scdf@PC:~$ cd medic
+yrimal@PC:~$ mkdir /home/<<username>>/medic && cd /home/<<username>>/medic
+yrimal@PC:~$ git clone https://github.com/medic/cht-core.git
 ```
 
-## Everything else
-
-`npm ci` should just work once you've installed a later npm via nvm as noted above.
-
-You won't have grunt: `npm i -g grunt-cli`
+## Setup Environment Variables
 
 Using `.bashrc` works as expected, and so is a good place to put exports:
 
@@ -67,9 +61,42 @@ export COUCH_URL=http://admin:pass@localhost:5984/medic
 export COUCH_NODE_NAME=couchdb@localhost
 ```
 
+## Everything else
+
+`npm ci` should just work once you've installed a latest version of node via nvm as noted above.
+
+You won't have grunt already installed, so install it by executing following command: 
+
+```
+yrimal@PC:~$ npm i -g grunt-cli
+```
+
+Also install xstproc in your WSL:
+```
+yrimal@PC:~$ sudo apt-get update
+yrimal@PC:~$ sudo apt-get install xsltproc
+```
+
+Now you can build the web app. 
+
+```
+yrimal@PC:~$ cd /home/<<username>>/medic/cht-core/
+yrimal@PC:~$ npm ci
+```
+
+From this point, follow the setup guide from `Enabling a secure CouchDB` section in [Development Guide](https://github.com/medic/cht-core/blob/master/DEVELOPMENT.md).
+
+
 To get multiple linux terminals (so you can run `grunt`, `api` and `sentinel` at the same time) either install and use something like Tmux, or if you click `Ubuntu` in the Windows start menu again it will open up a new terminal in the same linux instance.
 
-Once you're done with the default instructions and have api running, check it works by going to http://localhost:5988 in Windows.
+Once you're done with the default instructions and have api running, check if it works by going to http://localhost:5988 in Windows.
+
+## Editing Code
+If you want to make changes to your code or contribute to our community health toolkit, you can do so by editing code from your favorite editor. If you editor supports UNC path, you can access and edit files inside WSL from `\\wsl$\Ubuntu\<cht-core-location>`. If you use Visual Studio Code, it's even easier to edit your code. Just navigate to where you have checked out cht-core and type `code .` This will download VS Code Server for Ubuntu and open the project in Visual Studio Code in windows. 
+
+```
+yrimal@PC:~/medic/cht-core$ code .
+```
 
 ## Problems?
 
