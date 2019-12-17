@@ -486,15 +486,15 @@ More complex targets can be written using the full set of properties for targets
 | `passesIf` | `function(contact, report)` | For `type: 'percent'`, return true to increment the numerator. | yes, if `type: 'percent'`. forbidden when `groupBy` is defined |
 | `date` | `'reported'` or `'now'` or `function(contact, report)` | When `'reported'`, the target will count documents with a `reported_date` within the current month. When `'now'`, target includes all documents. A function can be used to indicate when the document should be counted. Default is `'reported'`. | no |
 | `idType` | `'report'` or `'contact'` or `function(contact, report)` | The target's values are incremented once per unique ID. To count individual contacts that meet the criteria, use `'contact'`. To count multiple reports per contact, use `'report'`. If neither keyword suits your needs you can write your own function to provide the ID(s). | no |
-| `groupBy` | `function(contact, report)` returning string | Advanced feature which allows for target ids to be counted and scored in groups | no |
-| `passGroupWithCount` | `integer` | A group (as determined by `groupBy`) is scored as passing if there are `passGroupWithCount` or more unique ids in that group | yes when `groupBy` is defined |
+| `groupBy` | `function(contact, report)` returning string | Advanced feature which allows for target ids to be aggregated and scored in groups. Use together with passesIfGroupCount. | no |
+| `passesIfGroupCount` | `object` | The criteria to determine if the target ids within a group should be counted as passing | yes when `groupBy` is defined |
+| `passesIfGroupCount.gte` | `number` | The group should be counted as passing if the number of target ids in the group is greater-than-or-equal-to this value | yes when `groupBy` is defined |
 
 ### Examples
 
 #### targets.js
 ```js
 const { isHealthyDeliver, countReportsSubmittedInWindow } = require('./targets-extras');
-const getFamilyIdForContact = contact => contact.contact.type === 'clinic' ? contact.contact._id : contact.contact.parent && contact.contact.parent._id;
 
 module.exports = [
   // BIRTHS THIS MONTH
@@ -536,19 +536,20 @@ module.exports = [
     type: 'percent',
     goal: 100,
     translation_key: `target.2-home-visits-per-family`,
-    goal: -1,
     context: 'user.role === "chw"',
     date: 'reported',
 
     appliesTo: 'contacts',
-    appliesToType: ['clinic', 'person'],
+    appliesToType: 'person',
     idType: contact => {
+      // Determines the target ids which will be in the group.
+      // eg. "family1~2000-02-15" and "family1~2000-02-16"
       const householdVisitDates = new Set(contact.reports.map(report => toDateString(report.reported_date)));
-      const familyId = getFamilyIdForContact(contact);
+      const familyId = contact.contact.parent._id;
       return Array.from(householdVisitDates).map(date => `${familyId}~${date}`);
     },
-    groupBy: contact => getFamilyIdForContact(contact),
-    passGroupWithCount: 2,
+    groupBy: contact => contact.contact.parent._id,
+    passesIfGroupCount: { gte: 2 },
   }
 ]
 ```
