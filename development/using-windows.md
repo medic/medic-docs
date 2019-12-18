@@ -2,7 +2,7 @@
 
 We don't actively support development on Windows, instead preferring MacOS or Linux.
 
-However, Microsoft has recently been stabilising their [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/about), which appears to work reasonably well for development.
+However, Microsoft has recently been stabilizing their [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/about), which appears to work reasonably well for development.
 
 Installation instructions are mostly the same as they written in [the README](https://github.com/medic/medic/blob/master/README.md) with a couple of caveats as of time of writing (2019-07-25), noted below.
 
@@ -10,11 +10,11 @@ Installation instructions are mostly the same as they written in [the README](ht
 
 ## Installing Ubuntu in the Windows Subsystem for Linux.
 
-For the rest of this document we're going to presume that you're using Ubuntu (18.04) in WSL. Medic probably works all on all distributions, but Ubuntu is likely the best supported.
+For the rest of this document we're going to presume that you're using Ubuntu (18.04) in WSL. Medic probably works on all distributions, but Ubuntu is likely the best supported.
 
 First, follow Microsoft's [instructions on enabling and installing linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10). At the end of this process you should have a linux terminal.
 
-Note: for the rest of this tutorial **in linux** means code executing or performing actions in the subsystem command prompt, while **in Windows** means code executing or performing actions in Windows natively.
+Note: for the rest of this tutorial **in linux** means code executing or performing actions in the WSL, while **in Windows** means code executing or performing actions in Windows natively.
 
 ## CouchDB
 
@@ -32,13 +32,12 @@ $: curl http://localhost:5984/
 ```
 
 ## Installing NPM
-Start your WSL instance (Ubuntu), not WSL as they take you to two different defult directories. 
+Start your WSL instance (Ubuntu), not WSL as they take you to two different default directories. 
 
 The default `npm` in linux is really old and doesn't have `npm ci`, which we need.
 
-Instead use [nvm](https://github.com/nvm-sh/nvm) to install a later version.
+Instead use [nvm](https://github.com/nvm-sh/nvm) to install  `nvm install 11.3` .
 
-Once you've installed nvm: `nvm install 11.3` (nvm 8 or a later version should work). We used v11.3.0 for this purpose. 
 
 ## Checking out the code
 
@@ -46,7 +45,7 @@ We used git that's preinstalled with Ubuntu to check out the code.
 
 You can checkout cht code inside WSL itself. You can checkout anywhere you have write access. We'll checkout inside /home/username/medic directory. 
 
-```shell
+```bash
 $: mkdir ~/medic && cd ~/medic
 $: git clone https://github.com/medic/cht-core.git
 ```
@@ -67,21 +66,22 @@ export COUCH_NODE_NAME=couchdb@localhost
 
 You won't have grunt already installed, so install it by executing following command: 
 
-```shell
+```bash
 $: npm i -g grunt-cli
 ```
 
 Also install xstproc in your WSL:
-```shell
+```bash
 $: sudo apt-get update
 $: sudo apt-get install xsltproc
 ```
 
 Now you can build the web app. 
 
-```shell
+```bash
 $: cd ~/medic/cht-core/
 $: npm ci
+$: grunt
 ```
 
 From this point, follow the setup guide from `Enabling a secure CouchDB` section in [Development Guide](https://github.com/medic/cht-core/blob/master/DEVELOPMENT.md).
@@ -94,7 +94,7 @@ Once you're done with the default instructions and have api running, check if it
 ## Editing Code
 If you want to make changes to your code or contribute to our community health toolkit, you can do so by editing code from your favorite editor. If you editor supports UNC path, you can access and edit files inside WSL from `\\wsl$\Ubuntu\<cht-core-location>`. If you use Visual Studio Code, it's even easier to edit your code. Just navigate to where you have checked out cht-core and type `code .` This will download VS Code Server for Ubuntu and open the project in Visual Studio Code in windows. 
 
-```
+```bash
 $: cd ~/medic/cht-core
 $: code .
 ```
