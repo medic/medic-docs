@@ -483,10 +483,10 @@ More complex targets can be written using the full set of properties for targets
 | `appliesTo` | `'contacts'` or `'reports'` | Do you want to count reports or contacts? This attribute controls the behavior of other attributes herein. | yes |
 | `appliesToType` | If `appliesTo: 'reports'`, an array of form codes. If `appliesTo: 'contacts'`, an array of contact types. | Filters the contacts or reports for which `appliesIf` will be evaluated. For example, `['person']` or `['clinic', 'health_center']`. For example, `['pregnancy']` or `['P', 'pregnancy']`. | no |
 | `appliesIf` | `function(contact, report)` | If `appliesTo: 'contacts'`, this function is invoked once per contact and `report` is undefined. If `appliesTo: 'reports'`, this function is invoked once per report. Return true to count this document. For `type: 'percent'`, this controls the denominator. | no |
-| `passesIf` | `function(contact, report)` | For `type: 'percent'`, return true to increment the numerator. | yes, if `type: 'percent'`. forbidden when `groupBy` is defined |
+| `passesIf` | `function(contact, report)` | For `type: 'percent'`, return true to increment the numerator. | yes, if `type: 'percent'`. Forbidden when `groupBy` is defined. |
 | `date` | `'reported'` or `'now'` or `function(contact, report)` | When `'reported'`, the target will count documents with a `reported_date` within the current month. When `'now'`, target includes all documents. A function can be used to indicate when the document should be counted. Default is `'reported'`. | no |
-| `idType` | `'report'` or `'contact'` or `function(contact, report)` | The target's values are incremented once per unique ID. To count individual contacts that meet the criteria, use `'contact'`. To count multiple reports per contact, use `'report'`. If neither keyword suits your needs you can write your own function to provide the ID(s). | no |
-| `groupBy` | `function(contact, report)` returning string | Advanced feature which allows for target ids to be aggregated and scored in groups. Use together with passesIfGroupCount. | no |
+| `idType` | `'report'` or `'contact'` or `function(contact, report)` | The target's values are incremented once per unique ID. To count individual contacts that have one or more reports that apply, use `'contact'`. Use `'report'` to count all reports, even if there are multiple that apply for a single contact. If you need more than a single count for each applying contact or report then a custom function can be used returning an array with unique IDs — one element for each count. | no |
+| `groupBy` | `function(contact, report)` returning string | Allows for target ids to be aggregated and scored in groups. Not required for most targets. Use with passesIfGroupCount. | no |
 | `passesIfGroupCount` | `object` | The criteria to determine if the target ids within a group should be counted as passing | yes when `groupBy` is defined |
 | `passesIfGroupCount.gte` | `number` | The group should be counted as passing if the number of target ids in the group is greater-than-or-equal-to this value | yes when `groupBy` is defined |
 
@@ -494,7 +494,7 @@ More complex targets can be written using the full set of properties for targets
 
 #### targets.js
 ```js
-const { isHealthyDeliver, countReportsSubmittedInWindow } = require('./targets-extras');
+const { isHealthyDelivery, countReportsSubmittedInWindow } = require('./targets-extras');
 
 module.exports = [
   // BIRTHS THIS MONTH
