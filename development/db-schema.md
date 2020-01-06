@@ -153,3 +153,80 @@ Users then, can be represented by up to 3 docs:
  - a `person` document that represents a physical human being in our hierarchy of places and people
  - a `users` document that represents authorisation and authentication information for physical people or authenticated external services
  - a `user-settings` document that ties the `user` and `person` documents together
+
+ ## Tasks
+
+[Partner configuration code](https://github.com/medic/medic-docs/blob/master/configuration/developing-community-health-applications.md) running inside the Core Framework can cause tasks to appear within the Tasks tab. Each task in the tab is powered by a task document. Task documents are:
+
+* updated only after the data for their emitting contact changes or every 7 days
+* created in the database for any task due within the last 60 days
+* immutable once their state is "terminal" (Cancelled, Completed, Failed)
+
+State | Description
+-- | --
+Draft | Task has been calculated but it is scheduled in the future
+Ready | Task is currently showing to the user
+Cancelled | Task was not emitted when refreshing the requester's data. Task has invalid partner emission.
+Completed | Task was emitted with { resolved: true }
+Failed | Task was never terminated and the endDate has past
+
+Attribute | Description
+-- | --
+user | The guid of the user who calculated and created the document. Used for controlling replication.
+requester | The guid of the contact whose data brought about the creation of the document. Used for controlling cancellation.
+owner | The guid of the contact whose profile this task will appear on in the contact's tab.
+forId | If completing a task's action opens a form. Completing the form creates a report. `forId` is the guid of the contact information that will be passed into the form. For most forms, the resulting report will be associated with this contact.
+emission | Minified task data emitted from the partner code.
+stateHistory | Each time the state attribute changes, the time of the change is recorded in the state history.
+
+```json
+{
+  "_id": "task~user-contact-guid~pregReport~pregnancy-facility-visit-reminder~2~523435132468",
+  "type": "task",
+  "authoredOn": 523435132468,
+  "user": "user-contact-guid",
+  "requester": "requester-contact-guid",
+  "owner": "owner-contact-guid",
+  "state": "Ready",
+  "emission": {
+    "_id": "pregReport~pregnancy-facility-visit-reminder~2",
+    "forId": "for-contact-guid",
+    "dueDate": "2000-01-01",
+    "startDate": "1999-12-29",
+    "endDate": "2000-01-08",
+    // ... (minified data from the partner code)
+  },
+  "stateHistory": [{
+    "state": "Ready",
+    "timestamp": 523435132468,
+  }],
+}
+```
+
+## Targets
+[Partner configuration code](https://github.com/medic/medic-docs/blob/master/configuration/developing-community-health-applications.md) can configure targets to appear within the Targets/Analytics tab. Target documents are:
+
+* one per analytics reporting period
+* updated when the user loads the application or when they view the targets tab 
+* updated a maximum of once per day
+
+```json
+{
+  "_id": "target-2000-01-user-contact-guid",
+  "type": "target",
+  "user": "user-contact-guid",
+  "updated_date": 523435132468,
+  "targets": [
+    {
+      "id": "deaths-this-month",
+      // ... (target configuration from partner code)
+      "value": {
+        "pass": 0,
+        "total": 15
+      }
+    },
+    // ... (many targets)
+  ]
+}
+
+```
