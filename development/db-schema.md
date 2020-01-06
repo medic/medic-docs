@@ -194,7 +194,7 @@ stateHistory | Each time the state attribute changes, the time of the change is 
     "dueDate": "2000-01-01",
     "startDate": "1999-12-29",
     "endDate": "2000-01-08",
-    // ... (minified data from the partner code)
+    ...
   },
   "stateHistory": [{
     "state": "Ready",
@@ -219,13 +219,13 @@ stateHistory | Each time the state attribute changes, the time of the change is 
   "targets": [
     {
       "id": "deaths-this-month",
-      // ... (target configuration from partner code)
+      ...
       "value": {
         "pass": 0,
         "total": 15
       }
     },
-    // ... (many targets)
+    ...
   ]
 }
 
