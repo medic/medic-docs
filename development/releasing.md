@@ -23,14 +23,14 @@ Once all issues have passed acceptance testing and have been merged into `master
 @core_devs I've just created the `<major>.<minor>.x` release branch. Please be aware that any further changes intended for this release will have to be merged to `master` then backported. Thanks!
   ```
 2. Build a beta named `<major>.<minor>.<patch>-beta.1` by pushing a git tag and when CI completes successfully notify the QA team that it's ready for release testing.
-3. [Import translations keys](translations.md#adding-new-keys) into POE and notify the #translations Slack channel translate new and updated values, for example:
+3. Get any new phrases ready for the translations team. Use [the CLI](https://github.com/medic/cht-core/tree/master/scripts/poe) to upload `messages-en.properties`. Then notify the #translations Slack channel translate new and updated values, for example:
   ```
 @channel I've just updated the translations in POE. These keys have been added: "<added-list>", and these keys have been updated: "<updated-list>"
   ```
 4. Create a new document in the [release-notes folder](https://github.com/medic/medic/tree/master/release-notes) in `master`. Ensure all issues are in the GH Project, that they're correct labelled, and have human readable descriptions. Use [this script](https://github.com/medic/medic/blob/master/scripts/changelog-generator) to export the issues into our changelog format. Manually document any known migration steps and known issues. Provide description, screenshots, videos, and anything else to help communicate particularly important changes.
 5. Create a Google Doc in the [blog posts folder](https://drive.google.com/drive/u/0/folders/0B2PTUNZFwxEvMHRWNTBjY2ZHNHc) with the draft of a blog post promoting the release based on the release notes above. Once it's ready ask Alix to review it.
 6. Until release testing passes, make sure regressions are fixed in `master`, cherry-pick them into the release branch, and release another beta.
-7. [Export the translations](translations.md#exporting-changes-from-poeditor-to-github), delete empty translation files and commit to `master`. Cherry-pick the commit into the release branch. 
+7. Once the translations team have finished translating any new phrases, [export the translations](translations.md#exporting-changes-from-poeditor-to-github), delete empty translation files and commit to `master`. Cherry-pick the commit into the release branch. 
 8. Create a release in GitHub from the release branch so it shows up under the [Releases tab](https://github.com/medic/medic/releases) with the naming convention `<major>.<minor>.<patch>`. This will create the git tag automatically. Link to the release notes in the description of the release.
 9. Confirm the release build completes successfully and the new release is available on the [market](https://staging.dev.medicmobile.org/builds/releases). Make sure that the document has new entry with `id: medic:medic:<major>.<minor>.<patch>`
 10. Add the release to the [Supported versions](../installation/supported-software.md#supported-versions) and update the EOL date and status of previous releases.
