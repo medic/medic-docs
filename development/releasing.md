@@ -25,7 +25,7 @@ Once all issues have passed acceptance testing and have been merged into `master
 2. Build a beta named `<major>.<minor>.<patch>-beta.1` by pushing a git tag and when CI completes successfully notify the QA team that it's ready for release testing.
 3. Get any new phrases ready for the translations team. Use [the CLI](https://github.com/medic/cht-core/tree/master/scripts/poe) to upload `messages-en.properties`. Then notify the #translations Slack channel translate new and updated values, for example:
   ```
-@channel I've just updated the translations in POE. These keys have been added: "<added-list>", and these keys have been updated: "<updated-list>"
+@channel X.Y.Z has entered release testing, and I have updated the POE editor with new and changed translations, ready to be translated!"
   ```
 4. Create a new document in the [release-notes folder](https://github.com/medic/medic/tree/master/release-notes) in `master`. Ensure all issues are in the GH Project, that they're correct labelled, and have human readable descriptions. Use [this script](https://github.com/medic/medic/blob/master/scripts/changelog-generator) to export the issues into our changelog format. Manually document any known migration steps and known issues. Provide description, screenshots, videos, and anything else to help communicate particularly important changes.
 5. Create a Google Doc in the [blog posts folder](https://drive.google.com/drive/u/0/folders/0B2PTUNZFwxEvMHRWNTBjY2ZHNHc) with the draft of a blog post promoting the release based on the release notes above. Once it's ready ask Alix to review it.
