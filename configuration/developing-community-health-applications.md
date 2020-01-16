@@ -449,7 +449,7 @@ Targets can be set to track metrics for an individual CHW or for an entire healt
 
 ![Percentage with goal](img/target_percent_with_goal.png)
 
-The app takes care of showing the targets in the Targets tab, and updating counts and percentages automatically. All targets are defined in the `targets.js` file. In this file we define an array of objects which match the Target schema defined below. Each object corresponds to a target widget that shows in the app. The properties of the object are used to define when the target should appear, what it should look like, and the values it will display. 
+The app takes care of showing the targets in the Targets tab, and updating counts and percentages automatically. All targets are defined in the `targets.js` file. In this file we define an array of objects which match the Target schema defined below. Each object corresponds to a target widget that shows in the app. The properties of the object are used to define when the target should appear, what it should look like, and the values it will display. The order of objects in the array defines the display order of widgets on the Targets tab.
 
 Like `tasks.js`, the Targets file contains JavaScript but its modular and declarative nature makes it easy to manage. Here is a simple example that tracks the number of healthy births per month:
 
