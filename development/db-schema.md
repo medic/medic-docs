@@ -172,7 +172,7 @@ Failed | Task was never terminated and the endDate has past
 
 Attribute | Description
 -- | --
-user | The guid of the user who calculated and created the document. Used for controlling replication.
+user | The user settings id of the user who calculated and created the document. Used for controlling replication. (eg. `org.couchdb.user:agatha`)
 requester | The guid of the contact whose data brought about the creation of the document. Used for controlling cancellation.
 owner | The guid of the contact whose profile this task will appear on in the contact's tab.
 forId | If completing a task's action opens a form. Completing the form creates a report. `forId` is the guid of the contact information that will be passed into the form. For most forms, the resulting report will be associated with this contact.
@@ -181,10 +181,10 @@ stateHistory | Each time the state attribute changes, the time of the change is 
 
 ```json
 {
-  "_id": "task~user-contact-guid~pregReport~pregnancy-facility-visit-reminder~2~523435132468",
+  "_id": "task~org.couchdb.user:agatha~pregReport~pregnancy-facility-visit-reminder~2~523435132468",
   "type": "task",
   "authoredOn": 523435132468,
-  "user": "user-contact-guid",
+  "user": "org.couchdb.user:agatha",
   "requester": "requester-contact-guid",
   "owner": "owner-contact-guid",
   "state": "Ready",
@@ -212,9 +212,10 @@ stateHistory | Each time the state attribute changes, the time of the change is 
 
 ```json
 {
-  "_id": "target-2000-01-user-contact-guid",
+  "_id": "target~2000-01~user-contact-guid~org.couchdb.user:agatha",
   "type": "target",
-  "user": "user-contact-guid",
+  "user": "org.couchdb.user:agatha",
+  "owner": "user-contact-guid",
   "updated_date": 523435132468,
   "targets": [
     {
