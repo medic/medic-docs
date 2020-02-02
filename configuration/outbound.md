@@ -52,9 +52,9 @@ Example: you want to send a referral to a facility's EMR system when a CHW refer
 
 ### destination
 
-A complex property that defines the details of the connection to the external service. It currently supports two authentication types, Basic Auth and a custom authentication mode for Muso SIH.
+A complex property that defines the details of the connection to the external service. It currently supports several authentication types: basic authentication, HTTP authorization request header, and a custom authentication mode for Muso SIH.
 
-Example:
+Basic auth example:
 
 ```json
 {
@@ -73,6 +73,23 @@ Example:
 Here `password_key` is a key used to find the password in CouchDB's node-based configuration. See Credentials section below.
 
 If you don't provide an authentication parameter then the request will be sent without authentication.
+
+As of 3.9, the `header` type is also supported, which sends authentication credentials via a HTTP request header: `Authorization: '<value>'`. The value is set in the CouchDB configuration, and referred to by the `value_key`, similarly to the `password_key`. The value must match the credentials needed for the third party tool, and is generally formatted as `<type> <credentials>`. For instance, to send data to RapidPro, the value in the configuration would be set to the complete RapidPro API Token: eg `Token 123456789abcdef`. 
+
+Header auth example:
+```json
+{
+  "destination": {
+    "base_url": "https://example.com",
+    "auth": {
+      "type": "header",
+      "name": "Authorization",
+      "value_key": "example.com"
+    },
+    "path": "/api/v1/referral"
+  }
+}
+```
 
 ### mapping
 
