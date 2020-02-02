@@ -1,6 +1,6 @@
 # Integrating with DHIS2
 
-The CHT Core Framework version 3.9.0 allows data from configured [Targets]](./developing-community-health-applications.md#targets) to integrate into DHIS2.
+The CHT Core Framework version 3.9.0 allows data from configured [Targets](./developing-community-health-applications.md#targets) to integrate into DHIS2.
 
 ## Prerequisites
 
@@ -12,13 +12,13 @@ The CHT Core Framework version 3.9.0 allows data from configured [Targets]](./de
 
 ### Limitations and Known Issues
 
-* Data for each user is aggregated base on the contents of the user's [target document](../development/db-schema.md). Note that if your users don't login and synchronize their data won't be represented in the exported data.
+* Data for each user is aggregated base on the contents of the user's [target document](../development/db-schema.md#targets). Note that if your users don't login and synchronize their data won't be represented in the exported data.
 * Integrations are limited to _monthly_ DHIS2 data sets.
 * Integrations are limited to numeric data-types. To support other data types, consider making a [DHIS2 App](https://docs.dhis2.org/master/en/developer/html/apps_creating_apps.html) for your project.
 
 ## User Experience
 
-Once your CHT project is [configured to integrate with DHIS2](#Configuration), follow these steps to export the data from CHT and import it into DHIS:
+Once your CHT project is [configured to integrate with DHIS2](#configuration), follow these steps to export the data from CHT and import it into DHIS:
 
 ### Exporting data from CHT instance
 
@@ -40,7 +40,7 @@ Check the UI for any errors. If you get errors you don't understand or are unabl
 ## Configuration
 
 1. In `app_settings.json`, configure one or more [data sets](./app-settings.md#dhis2-data-sets).
-1. In `targets.js` (or the legacy `targets.json`), configure one or more data elements by setting the `dhis` attribute in the [target schema]](./developing-community-health-applications.md#target-schema).
+1. In `targets.js` (or the legacy `targets.json`), configure one or more data elements by setting the `dhis` attribute in the [target schema](./developing-community-health-applications.md#target-schema).
 1. Update the contact document of each `place` you wish to maps to an organisation unit. Add an `dhis.orgUnit` attribute.
 1. Create a new user role and a new user with that role; or update an existing user role. To export DHIS2 metrics, users need to have the following permissions: `can_configure`, `can_export_all`, and `can_export_dhis`.
 
