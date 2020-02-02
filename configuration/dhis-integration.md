@@ -26,7 +26,7 @@ Once your CHT project is [configured to integrate with DHIS2](#configuration), f
 1. Select "Import & export data" from the side
 1. Select "DHIS2" from the header along the top
 1. Select the data set, org unit, and time period that you'd like to send to DHIS2. Click "Export"
-1. A file should download in your browser. This file contains a [davaValueSet](https://docs.dhis2.org/master/en/developer/html/webapi_data_values.html) with aggregated user's data.
+1. A file should download in your browser. This file contains a [dataValueSet](https://docs.dhis2.org/master/en/developer/html/webapi_data_values.html) with aggregated user's data.
 
 ### Importing data in DHIS2
 
