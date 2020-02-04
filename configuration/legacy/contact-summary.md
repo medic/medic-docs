@@ -9,6 +9,7 @@ There are several variables available to you to inspect to generate the summary 
 - `contact` which is the currently selected contact. This has minimal stubs for the `contact.parent`, so if you want to refer to a property on the parent use `lineage` below.
 - `reports` which is an array of reports for the contact.
 - `lineage` which is an array of the contacts parents (added in 2.13.0). `lineage[0]` is the parent, `lineage[1]` is the grandparent, etc. Each lineage entry has full information for the contact, so you can use `lineage[1].contact.phone` for example.
+- `targets` (added in `3.9.0`) which is the current `target`(https://github.com/medic/medic-docs/blob/master/development/db-schema.md#targets) document of the contact, hydrated with the config information of every target it contains a value for. If there is no target document available (for example when viewing a contact that does not upload targets), this value will be `undefined`. This value might also be `undefined` if the contact has not yet synced the current target document. 
 
 ## Outputs
 
@@ -99,6 +100,35 @@ if (contact.type === 'person') {
     { label: 'contact.place.id', value: contact.place_id, width: 12 },
     { label: 'Notes', value: contact.notes, width: 12 }
   ];
+}
+
+if (targets) {
+  var activityCard = {
+    label: 'Activity this month',
+    fields: [{
+      label: 'Targets data last updated',
+      value: targets.updated_date,
+      translate: false,
+      filter: 'relativeDate',
+      width: 12,
+    }]
+  };
+
+  targets.targets.forEach(target => {
+    var value = target.value.total;
+    if (target.type === 'percent') {
+      value = (target.value.total ? target.value.pass * 100 / target.value.total : 0) + '%';
+    }
+    activityCard.fields.push({
+      label: target.translation_key,
+      value: value,
+      width: 12,
+      translate: false,
+      filter: 'number'
+    })
+  });
+
+  cards.push(activityCard);
 }
 
 return {
