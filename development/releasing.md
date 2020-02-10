@@ -32,7 +32,7 @@ Once all issues have passed acceptance testing and have been merged into `master
 6. Until release testing passes, make sure regressions are fixed in `master`, cherry-pick them into the release branch, and release another beta.
 7. Once the translations team have finished translating any new phrases, [export the translations](translations.md#exporting-changes-from-poeditor-to-github), delete empty translation files and commit to `master`. Cherry-pick the commit into the release branch. 
 8. Create a release in GitHub from the release branch so it shows up under the [Releases tab](https://github.com/medic/cht-core/releases) with the naming convention `<major>.<minor>.<patch>`. This will create the git tag automatically. Link to the release notes in the description of the release.
-9. Confirm the release build completes successfully and the new release is available on the [market](https://staging.dev.medicmobile.org/builds/releases). Make sure that the document has new entry with `id: medic:medic:<major>.<minor>.<patch>`
+9. Confirm the release build completes successfully and the new release is available on the [releases server](https://staging.dev.medicmobile.org/builds/releases). Make sure that the document has new entry with `id: medic:medic:<major>.<minor>.<patch>`
 10. Add the release to the [Supported versions](../installation/supported-software.md#supported-versions) and update the EOL date and status of previous releases.
 11. Announce the release in #products and #cht-contributors using this template:
 ```
