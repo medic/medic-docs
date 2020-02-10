@@ -6,9 +6,10 @@ Once a version is no longer supported it will not receive any further releases a
 
 | Version | Status | Release date | End of life |
 |----|----|----|----|
-| 3.7.1 | Current | 13-Nov-2019 | TBA |
+| 3.8.0 | Current | 11-Feb-2020 | TBA |
+| 3.7.1 | Supported | 13-Nov-2019 | 11-Jun-2020 |
 | 3.7.0 | EOL | 22-Oct-2019 | 13-Nov-2019 |
-| 3.6.1 | Supported | 07-Aug-2019 | 22-Jan-2020 |
+| 3.6.1 | EOL | 07-Aug-2019 | 22-Jan-2020 |
 | 3.6.0 | EOL | 17-Jul-2019 | 07-Aug-2019 |
 | 3.5.0 | EOL | 27-Jun-2019 | 17-Oct-2019 |
 | 3.4.1 | EOL | 4-Jun-2019 | 27-Sep-2019 |
@@ -18,7 +19,7 @@ Once a version is no longer supported it will not receive any further releases a
 | 3.2.0 | EOL | 23-Jan-2019 | 23-Jan-2019 |
 | 3.1.0 | EOL | 21-Nov-2018 | 23-Apr-2019 |
 | 3.0.0 | EOL | 15-Nov-2018 | 21-Feb-2019 |
-| 2.18.1 | Supported | 31-Oct-2018 | 15-Nov-2019 |
+| 2.18.1 | EOL | 31-Oct-2018 | 15-Nov-2019 |
 | 2.18.0 | EOL | 30-Aug-2018 | 31-Oct-2018 |
 | earlier | EOL | ... | 30-Nov-2018 |
 
