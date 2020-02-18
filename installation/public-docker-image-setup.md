@@ -191,3 +191,4 @@ docker ps -f "status=exited"
 
 #### Prune entire Docker system
 docker system prune
+docker volume prune
