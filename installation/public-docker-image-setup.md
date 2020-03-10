@@ -190,4 +190,5 @@ docker ps -f "status=exited"
 ```
 
 #### Prune entire Docker system
-docker system prune
+Use this prune command when unable to launch the containers and you'd like to restart from a clean slate. WARNING: This will delete all your unused images, containers, networks and volumes including those not related to CHT.
+```docker system prune -a --volumes```
