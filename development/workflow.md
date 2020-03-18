@@ -80,8 +80,15 @@ Issues in this column are ready to be Acceptance Tested by a Quality Assurance e
 2. Assign it to yourself.
 3. Install the PR branch to test against.
 4. If the issue fails AT then notify the original developer and move the issue back to "In progress".
-5. Once the issue passes AT then "Squash and Merge" the PR and delete the PR branch. If a backport is required cherry-pick the merged commit back to the release branches it's required in.
-6. Close the issue which will move it to Done.
+5. Once the issue passes AT the notify the original developer to merge the PR.
+
+The developer will then
+
+1. Write a useful commit message in the PR.
+2. Click the button to "Squash and Merge" the PR.
+3. Delete the PR branch.
+4. If a backport is required cherry-pick the merged commit back to the release branches it's required in.
+5. Close the issue which will move it to Done.
 
 ### Done
 
