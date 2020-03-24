@@ -9,6 +9,7 @@ Once a version is no longer supported it will not receive any further releases a
 | 3.8.0 | Current | 11-Feb-2020 | TBA |
 | 3.7.1 | Supported | 13-Nov-2019 | 11-Jun-2020 |
 | 3.7.0 | EOL | 22-Oct-2019 | 13-Nov-2019 |
+| 3.6.2 | EOL | 24-Mar-2020 | 24-Mar-2020 |
 | 3.6.1 | EOL | 07-Aug-2019 | 22-Jan-2020 |
 | 3.6.0 | EOL | 17-Jul-2019 | 07-Aug-2019 |
 | 3.5.0 | EOL | 27-Jun-2019 | 17-Oct-2019 |
