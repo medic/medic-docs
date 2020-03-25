@@ -13,7 +13,9 @@ This document covers the configuration best practices of forms, tasks, targets, 
 
 ## Forms
 
-We use forms to build the **Tasks**, **Care Guides**, and **Reports** that take health workers through care protocols and provide decision support for their interactions with patients. In this context, a form is any document with questions and blank spaces or selectable options for answers. Forms can be found in many parts of your app including the **Tasks**, **People**, and **Reports** tabs
+We use forms to build the **Tasks**, **Care Guides**, and **Reports** that take health workers through care protocols and provide decision support for their interactions with patients. 
+
+In this context, a form is any document with questions and blank spaces or selectable options for answers. Forms can be found in many parts of your app including the **Tasks**, **People**, and **Reports** tabs
 
 
 While both Tasks and Reports are built with forms, there are key differences. Tasks are blank forms that need to be completed, while Reports are forms that have already been submitted. When a Task is completed and submitted, it automatically becomes a Report. 
@@ -24,11 +26,11 @@ While both Tasks and Reports are built with forms, there are key differences. Ta
 
 ### Anatomy of a Task
 
-The **Task** tab shows a list of upcoming visits, follow-ups, or other tasks that need to be done. When a Task is finished, it will automatically clear from the **Tasks** list and move to **Reports**.
+The **Task** tab shows a list of upcoming visits, follow-ups, or other tasks that need to be completed. When a task is finished, it will automatically clear from the **Tasks** list and move to **Reports**.
 
-Each Task has an icon on the left side which indicates which type of Task it is. The first bold line of text is the **name** of the person or family that the Task is about. The second line of text is the **title** of the Task. 
+Each Task has an icon on the left side which indicates which type of Task it is. The first line of text is the **name** of the person that the Task is about. The second line of text is the **title** of the Task. 
 
-The **due date** for the Task is located in the upper right hand corner. If a Task is due today or overdue, the due date will be red. Tasks are listed in order of due date, grouped by household.
+If a task is due in 4 days or less, the **days left** for the Task to be completed appears in the upper right hand corner. If a Task is due today or overdue, the due date will be red. Tasks are listed in order of due date.
 
 [INSERT IMAGE]
 
@@ -37,7 +39,7 @@ The **due date** for the Task is located in the upper right hand corner. If a Ta
 
 ### Anatomy of a Report
 
-The first line of bold text is the **name** of the person whom the Report is about. The second line of text is the **title** of the Report, and the third line of text is the hierarchy of **place** to which that person belongs. In the upper right corner, a **timestamp** displays when the Report was submitted. 
+The first line of text is the **name** of the person whom the Report is about. The second line of text is the **title** of the Report. The third line of text is the hierarchy of **place** to which that person belongs. In the upper right corner, a **timestamp** displays when the Report was submitted. 
 
 Reports are sorted by submission date, with the most recently submitted Reports at the top. If a Report is unread, the timestamp will be bold blue and there will be a horizontal blue line above it. 
 
@@ -49,23 +51,35 @@ Reports are sorted by submission date, with the most recently submitted Reports 
 
 The patient’s name should not be included in the form title. 
 
+| ✅ Do this                            	| ❌ Don't do this                                           	 |
+|:--------------------------------------	|:----------------------------------------------------------	|
+| Delivery Follow-Up                  	| Beatrice Bass Delivery Follow-Up                            	|
+
+<br>
+
 Avoid generic words like “Visit” or “Report”. Every form can be a Report and often involves a visit, so including these words in the title doesn’t help differentiate it from other forms.
 
+| ✅ Do this                            	| ❌ Don't do this                                           	 |
+|:--------------------------------------	|:----------------------------------------------------------	|
+| Pregnancy Follow-Up                  	| Pregnancy Follow-Up Visit                                    	|
+
+<br>
+
 Each word in a title should be capitalized (Title Case). 
+
+| ✅ Do this                            	| ❌ Don't do this                                           	 |
+|:--------------------------------------	|:----------------------------------------------------------	|
+| Death Report                          | death report                                                  |
+
+<br>
 
 Keep form titles short and concise. Long titles will sometimes be truncated (cut off with an ellipsis) and the text at the end of the title might be lost. As a rough estimate, strive to keep titles **no longer than 40 characters** in length.
 
 
 | ✅ Do this                            	| ❌ Don't do this                                           	 |
-|:--------------------------------------	|:--------------------------------------------------------------	|
-| Delivery Follow-Up                  	| Beatrice Bass Delivery Follow-Up                            	|
-| Pregnancy Follow-Up                  	| Pregnancy Follow-Up Visit                                    	|
-| Death Report                          | death report                                                  |
+|:--------------------------------------	|:----------------------------------------------------------	|
 | Title Is Less Than Forty Characters 	| This Title Has Way More Than Forty Characters And Is Too Long |
 
-The screenshots below represent some of the smallest phones our users have. On both the Tasks and Reports tabs, titles less than forty characters will fit in the space. Titles longer than about forty characters will be cut off with an ellipsis (...).
-
-[INSERT SMALL SCREENSHOTS]
 
 <br>
 
