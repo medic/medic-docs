@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="414px" height="87px" viewBox="0 0 414 87" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 64 (93537) - https://sketch.com -->
+    <title>anatomy-task</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="390" height="75"></rect>
+        <filter x="-0.1%" y="-0.7%" width="100.3%" height="101.3%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="-1" in="SourceAlpha" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0.878431373   0 0 0 0 0.878431373   0 0 0 0 0.878431373  0 0 0 1 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+        <path d="M15.4217,6.5759 C15.8127,6.1849 16.4467,6.1849 16.8377,6.5759 C17.2277,6.9659 17.2277,7.5989 16.8377,7.9899 L16.8377,7.9899 L15.5247,9.3009 L24.3257,18.1019 C25.2527,19.0289 25.3127,20.4809 24.5297,21.4899 L24.5297,21.4899 L25.1037,22.0639 C25.5417,22.5009 25.5417,23.2089 25.1037,23.6469 L25.1037,23.6469 L24.9057,23.8449 L27.7937,26.7329 C28.0867,27.0259 28.0867,27.4999 27.7937,27.7929 C27.5007,28.0859 27.0257,28.0859 26.7327,27.7929 L26.7327,27.7929 L23.8447,24.9059 L23.6467,25.1039 C23.2107,25.5409 22.5017,25.5409 22.0637,25.1039 L22.0637,25.1039 L21.4897,24.5299 C20.4807,25.3129 19.0287,25.2519 18.1017,24.3259 L18.1017,24.3259 L9.3017,15.5249 L7.9897,16.8369 C7.5987,17.2269 6.9657,17.2269 6.5757,16.8369 C6.1847,16.4469 6.1847,15.8129 6.5757,15.4219 L6.5757,15.4219 Z M22.2797,17.4179 C21.9877,17.1259 21.5117,17.1259 21.2187,17.4179 L21.2187,17.4179 L19.8977,18.7409 C19.6047,19.0339 19.6047,19.5079 19.8977,19.8009 C20.1907,20.0939 20.6657,20.0939 20.9587,19.8009 L20.9587,19.8009 L22.2797,18.4789 C22.5727,18.1869 22.5727,17.7109 22.2797,17.4179 Z M20.4307,15.5699 C20.1377,15.2769 19.6637,15.2769 19.3707,15.5699 L19.3707,15.5699 L18.0487,16.8909 C17.7557,17.1839 17.7557,17.6599 18.0487,17.9529 C18.3407,18.2449 18.8167,18.2449 19.1097,17.9529 L19.1097,17.9529 L20.4307,16.6299 C20.7237,16.3369 20.7237,15.8629 20.4307,15.5699 Z M18.5827,13.7209 C18.2897,13.4279 17.8147,13.4279 17.5217,13.7209 L17.5217,13.7209 L16.1997,15.0419 C15.9077,15.3349 15.9077,15.8099 16.1997,16.1029 C16.4927,16.3959 16.9677,16.3959 17.2597,16.1029 L17.2597,16.1029 L18.5827,14.7819 C18.8757,14.4889 18.8757,14.0139 18.5827,13.7209 Z M16.7337,11.8719 C16.4407,11.5789 15.9647,11.5789 15.6717,11.8719 L15.6717,11.8719 L14.3507,13.1939 C14.0577,13.4869 14.0577,13.9609 14.3507,14.2539 C14.6437,14.5469 15.1187,14.5469 15.4117,14.2539 L15.4117,14.2539 L16.7337,12.9329 C17.0257,12.6399 17.0257,12.1639 16.7337,11.8719 Z M7.1374,2.2931 C7.5274,1.9031 8.1604,1.9031 8.5514,2.2931 C8.9414,2.6831 8.9414,3.3171 8.5514,3.7071 L8.5514,3.7071 L7.5434,4.7151 L11.2694,8.4411 L8.4404,11.2701 L4.7154,7.5431 L3.7074,8.5511 C3.3164,8.9421 2.6834,8.9421 2.2934,8.5511 C1.9024,8.1601 1.9024,7.5281 2.2934,7.1371 L2.2934,7.1371 Z" id="path-3"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="anatomy-task">
+            <g id="row/report/read" transform="translate(12.000000, 12.000000)">
+                <g id="person-row">
+                    <g id="Rectangle-10">
+                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                        <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                        <rect stroke="#979797" stroke-width="1" stroke-linejoin="square" x="0.5" y="0.5" width="389" height="74"></rect>
+                    </g>
+                    <text id="Title" font-family="NotoSans, Noto Sans" font-size="16" font-weight="normal" line-spacing="22" fill="#333333">
+                        <tspan x="50" y="54">Immunization Visit</tspan>
+                    </text>
+                    <text id="Name" font-family="NotoSans-Bold, Noto Sans" font-size="16" font-weight="bold" line-spacing="22" fill="#333333">
+                        <tspan x="50" y="30">Amanda Allen</tspan>
+                    </text>
+                    <g id="icon/03-forms/healthcare-immunization" transform="translate(10.000000, 21.000000)">
+                        <mask id="mask-4" fill="white">
+                            <use xlink:href="#path-3"></use>
+                        </mask>
+                        <use id="syringe" fill="#64A3C8" fill-rule="evenodd" xlink:href="#path-3"></use>
+                        <g id="color/42-blue---main" mask="url(#mask-4)"></g>
+                    </g>
+                </g>
+                <g id="right-side" transform="translate(302.967213, 15.000000)" fill="#777777" font-family="NotoSans, Noto Sans" font-size="14" font-weight="normal" line-spacing="20">
+                    <text id="Time">
+                        <tspan x="0.329101562" y="15">3 days left</tspan>
+                    </text>
+                </g>
+            </g>
+            <circle id="Oval" fill="#333333" cx="12.5" cy="71.5" r="12.5"></circle>
+            <circle id="Oval-Copy" fill="#333333" cx="192.5" cy="12.5" r="12.5"></circle>
+            <circle id="Oval-Copy-2" fill="#333333" cx="225" cy="40.5" r="12.5"></circle>
+            <circle id="Oval-Copy-5" fill="#333333" cx="401" cy="12.5" r="12.5"></circle>
+            <line x1="193" y1="13" x2="175" y2="31" id="Line-2-Copy" stroke="#333333" stroke-width="2" stroke-linecap="round"></line>
+            <line x1="225.5" y1="41" x2="207.5" y2="59" id="Line-2-Copy-3" stroke="#333333" stroke-width="2" stroke-linecap="round"></line>
+            <line x1="401.5" y1="13" x2="383.5" y2="31" id="Line-2-Copy-4" stroke="#333333" stroke-width="2" stroke-linecap="round"></line>
+            <line x1="31" y1="54" x2="13" y2="72" id="Line-2-Copy-2" stroke="#333333" stroke-width="2" stroke-linecap="round"></line>
+            <text id="1" font-family="NotoSans-Bold, Noto Sans" font-size="12" font-weight="bold" fill="#FFFFFF">
+                <tspan x="9" y="75">1</tspan>
+            </text>
+            <text id="2" font-family="NotoSans-Bold, Noto Sans" font-size="12" font-weight="bold" fill="#FFFFFF">
+                <tspan x="189" y="16">2</tspan>
+            </text>
+            <text id="3" font-family="NotoSans-Bold, Noto Sans" font-size="12" font-weight="bold" fill="#FFFFFF">
+                <tspan x="221.5" y="45">3</tspan>
+            </text>
+            <text id="4" font-family="NotoSans-Bold, Noto Sans" font-size="12" font-weight="bold" fill="#FFFFFF">
+                <tspan x="397.5" y="17">4</tspan>
+            </text>
+        </g>
+    </g>
+</svg>
