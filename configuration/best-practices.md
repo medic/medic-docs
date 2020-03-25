@@ -2,7 +2,6 @@
 
 This document covers the configuration best practices of forms, tasks, targets, and contact profiles when building your own community health app. 
 
-<br>
 
 ## Contents
 - [Forms](#forms)
@@ -31,30 +30,42 @@ In this context, a form is any document with questions and blank spaces or selec
 
 While both Tasks and Reports are built with forms, there are key differences. Tasks are blank forms that need to be completed, while Reports are forms that have already been submitted. When a Task is completed and submitted, it automatically becomes a Report. 
 
-*Note: The icons and titles that we choose for Tasks remain the same when they become Reports.*
-
 <br>
 
 ### Anatomy of a Task
 
 The **Task** tab shows a list of upcoming visits, follow-ups, or other tasks that need to be completed. When a task is finished, it will automatically clear from the **Tasks** list and move to **Reports**.
 
-Each Task has an icon on the left side which indicates which type of Task it is. The first line of text is the **name** of the person that the Task is about. The second line of text is the **title** of the Task. 
+![Anatomy of a Task](https://github.com/medic/medic-docs/blob/master/configuration/img/anatomy-task.svg)
 
-If a task is due in 4 days or less, the **days left** for the Task to be completed appears in the upper right hand corner. If a Task is due today or overdue, the due date will be red. Tasks are listed in order of due date.
+1. The icon indicates the Task type.
 
-[INSERT IMAGE]
+2. The first line of text is the **name** of the person whom the Task is about.
+
+3. The second line of text is the **title** of the Task. 
+
+4. If a task is due in 4 days or less, the **number of days left** for the Task to be completed appears here. If a Task is due today or is overdue, the due date will appear in red. Tasks are listed in order of due date.
+
+*Note: The icons and titles that we choose for Tasks remain the same when they become Reports.*
 
 <br>
 
 
 ### Anatomy of a Report
 
-The first line of text is the **name** of the person whom the Report is about. The second line of text is the **title** of the Report. The third line of text is the hierarchy of **place** to which that person belongs. In the upper right corner, a **timestamp** displays when the Report was submitted. 
+![Anatomy of a Report](https://github.com/medic/medic-docs/blob/master/configuration/img/anatomy-report.svg)
 
-Reports are sorted by submission date, with the most recently submitted Reports at the top. If a Report is unread, the timestamp will be bold blue and there will be a horizontal blue line above it. 
+1. The icon indicates the Report type.
 
-[INSERT IMAGE]
+2. The first line of text is the **name** of ther person whom the Report is about.
+
+3. The second line of text is the **title** of the Report.
+
+4. The **timestamp** displays when the Report was submitted. 
+
+5. The bottom text is the hierarchy of **place** to which that person belongs. 
+
+Reports are listed by submission date. If a Report is unread, the timestamp will be bold blue and there will be a horizontal blue line above it. 
 
 <br>
 
@@ -62,27 +73,27 @@ Reports are sorted by submission date, with the most recently submitted Reports 
 
 The patient’s name should not be included in the form title. 
 
-> ❌**Don't do this:** "Beatrice Bass Delivery Follow-Up" <br>
-> ✅**Do this instead:** "Delivery Follow-Up"
+❌**Don't do this:** "Beatrice Bass Delivery Follow-Up" <br>
+✅**Do this instead:** "Delivery Follow-Up"
 <br>
 
 Avoid generic words like “Visit” or “Report”. Every form can be a Report and often involves a visit, so including these words in the title doesn’t help differentiate it from other forms.
 
-> ❌**Don't do this:** "Delivery Follow-up Visit" <br>
-> ✅**Do this instead:** "Delivery Follow-Up" 
+❌**Don't do this:** "Delivery Follow-up Visit" <br>
+✅**Do this instead:** "Delivery Follow-Up" 
 <br>
 
 Each word in a title should be capitalized (Title Case). 
 
-> ❌**Don't do this:** "Delivery follow-up" <br>
-> ✅**Do this instead:** "Delivery Follow-Up" 
+❌**Don't do this:** "Delivery follow-up" <br>
+✅**Do this instead:** "Delivery Follow-Up" 
 <br>
 
 
 Keep form titles short and concise. Long titles will sometimes be truncated (cut off with an ellipsis) and the text at the end of the title might be lost. As a rough estimate, strive to keep titles **no longer than 40 characters** in length.
 
-> ❌**Don't do this:** "This Title Has Way More Than Forty Characters And Is Too Long" <br>
-> ✅**Do this instead:** "Title Is Less Than Forty Characters" 
+❌**Don't do this:** "This Title Has Way More Than Forty Characters And Is Too Long" <br>
+✅**Do this instead:** "Title Is Less Than Forty Characters" 
 <br>
 
 
