@@ -6,12 +6,23 @@ This document covers the configuration best practices of forms, tasks, targets, 
 
 ## Contents
 - [Forms](#forms)
+    - [Anatony of a Task](#anatomy-of-a-task)
+    - [Anatony of a Report](#anatomy-of-a-report)
+    - [Titles](#titles)
+    - [Icons](#icons)
+    - [Content and Layout](#content-and-layout)
+    - [Summary Page](#summary-page)
 - [Condition Cards](#condition-cards)
+    - [Guidelines](#guidelines)
+    - [Design Considerations](#design-considerations)
 - [Targets](#targets)
+    - [Guidelines](#guidelines)
 
 <br>
 
 ## Forms
+
+### Overview
 
 We use forms to build the **Tasks**, **Care Guides**, and **Reports** that take health workers through care protocols and provide decision support for their interactions with patients. 
 
@@ -47,36 +58,36 @@ Reports are sorted by submission date, with the most recently submitted Reports 
 
 <br>
 
-### Form Titles
+### Titles
 
 The patient’s name should not be included in the form title. 
 
-> **Don't do this:** "Beatrice Bass Delivery Follow-Up" <br>
-> **Do this instead:** "Delivery Follow-Up"
+> ❌**Don't do this:** "Beatrice Bass Delivery Follow-Up" <br>
+> ✅**Do this instead:** "Delivery Follow-Up"
 <br>
 
 Avoid generic words like “Visit” or “Report”. Every form can be a Report and often involves a visit, so including these words in the title doesn’t help differentiate it from other forms.
 
-> **Don't do this:** "Delivery Follow-up Visit" <br>
-> **Do this instead:** "Delivery Follow-Up" 
+> ❌**Don't do this:** "Delivery Follow-up Visit" <br>
+> ✅**Do this instead:** "Delivery Follow-Up" 
 <br>
 
 Each word in a title should be capitalized (Title Case). 
 
-> **Don't do this:** "Delivery follow-up" <br>
-> **Do this instead:** "Delivery Follow-Up" 
+> ❌**Don't do this:** "Delivery follow-up" <br>
+> ✅**Do this instead:** "Delivery Follow-Up" 
 <br>
 
 
 Keep form titles short and concise. Long titles will sometimes be truncated (cut off with an ellipsis) and the text at the end of the title might be lost. As a rough estimate, strive to keep titles **no longer than 40 characters** in length.
 
-> **Don't do this:** "This Title Has Way More Than Forty Characters And Is Too Long" <br>
-> **Do this instead:** "Title Is Less Than Forty Characters" 
+> ❌**Don't do this:** "This Title Has Way More Than Forty Characters And Is Too Long" <br>
+> ✅**Do this instead:** "Title Is Less Than Forty Characters" 
 <br>
 
 
 
-### Form Icons
+### Icons
 
 The Community Health Toolkit includes a collection of [60+ free icons](https://github.com/medic/icon-library) that represent key elements of different community health workflows and protocols. Please review the recommended usages that follow. 
 
@@ -148,7 +159,7 @@ The Community Health Toolkit includes a collection of [60+ free icons](https://g
 
 <br>
 
-### Form Content and Layout
+### Content and Layout
 
 **Group Related Information** <br>
 Users think in batches, and long forms can feel overwhelming. By creating logical groups the user will make sense of the form much faster.
@@ -180,7 +191,7 @@ Where it makes sense, use images to aid in the understanding of a question
 
 <br>
 
-### Form Summary Page
+### Summary Page
 
 After all of the required questions in a form are answered, a summary page is displayed. Here, health workers can review the information they entered into the form, receive instructions for treatment, care, and referrals, and relay detailed educational information to the patient. 
 
@@ -299,12 +310,10 @@ Use short bulleted lists whenever possible to aid in scanning
 
 ## Condition Cards
 
-A condition card is a configurable card that can be displayed on a profile that shows information that was submitted in or calculated from reports. Their purpose is to reveal important information in an easily viewable location. This information can be organized into cards specific to a condition (e.g. pregnancy, malnutrition) as well as past conditions, and set to display for any length of the time.
+A condition card is a configurable card that can be displayed on a profile that shows information that was submitted in or calculated from reports. Their purpose is to reveal important information in an easily viewable location. 
 
-### Fields
+This information can be organized into cards specific to a condition (e.g. pregnancy, malnutrition) as well as past conditions, and set to display for any length of the time.
 
-> are there guidelines for fields?
-https://github.com/medic/medic-docs/blob/master/configuration/developing-community-health-applications.md#fields
 
 ### Configurable Elements
 
@@ -313,7 +322,7 @@ https://github.com/medic/medic-docs/blob/master/configuration/developing-communi
 - Data point for the field 
 - Icon for the field, if desired
 
-Guidelines
+### Guidelines
 
 What should go in the card title
 
@@ -351,7 +360,7 @@ Displaying Cards
 - Can be added to a person or place profile 
     - Examples: equity scorecard on household profile; CHW performance scorecard on CHW profile
     
-Design Considerations
+## Design Considerations
 
 - Group information related to the same condition so that the user can easily understand the relevance of the data and find what they are looking for. 
     - Examples: pregnancy card
@@ -399,7 +408,7 @@ Configurable elements
 - Value of the goal (per widget, not per user)
 - Number and placement of widgets of either type.
 
-Guidelines
+### Guidelines
 
 What goes in the Title
 
