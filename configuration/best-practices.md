@@ -57,7 +57,7 @@ Keep form titles short and concise. Long titles will sometimes be truncated (cut
 
 
 | ✅ Do this                            	| ❌ Don't do this                                           	 |
-|--------------------------------------	|--------------------------------------------------------------	|
+|:--------------------------------------	|:--------------------------------------------------------------	|
 | Delivery Follow-Up                  	| Beatrice Bass Delivery Follow-Up                            	|
 | Pregnancy Follow-Up                  	| Pregnancy Follow-Up Visit                                    	|
 | Death Report                          | death report                                                  |
@@ -75,7 +75,7 @@ The Community Health Toolkit includes a collection of [60+ free icons](https://g
 
 
 |Icon | People and Places Hierarchies |
-|-|-|
+|-|:-|
 | ![Hospital](https://github.com/medic/icon-library/blob/master/people_and_places/SVGs/hierarchies-district-hospital.svg)| Hospital or District |
 | ![CHW Area](https://github.com/medic/icon-library/blob/master/people_and_places/SVGs/hierarchies-chw-area.svg) | CHW Area |
 | ![Facility](https://github.com/medic/icon-library/blob/master/people_and_places/SVGs/hierarchies-health-center.svg) | Branch or Health Facility |
@@ -83,52 +83,52 @@ The Community Health Toolkit includes a collection of [60+ free icons](https://g
 | ![Person](https://github.com/medic/icon-library/blob/master/people_and_places/SVGs/hierarchies-person.svg) | Person
 
 
-|  	| Family Planning                                 	|
+| Icon 	| Family Planning                                 	|
 |------	|:--------------------------------------	|
 | ![Family Planning](https://github.com/medic/icon-library/blob/master/forms_tasks_targets/SVGs/icon-family-planning.svg)	| - Family Planning Screening<br>- Family Planning Referral or Follow-Up 	|
 
 
 
-| 	| ANC                                         	|
+| Icon 	| ANC                                         	|
 |------	|:-----------------------------------------------	|
 | ![ANC](https://github.com/medic/icon-library/blob/master/forms_tasks_targets/SVGs/icon-people-woman-pregnant.svg) | - ANC Registration<br>- ANC Visit or Missed Visit<br>- ANCE Follow-Up 	|
 | ![ANC Danger](https://github.com/medic/icon-library/blob/master/forms_tasks_targets/SVGs/icon-ANC-danger-sign.svg) | - ANC Danger Sign<br>- ANC Danger Sign Follow-Up|
 
 
 
-|  	| PNC                                         	|
+| Icon  	| PNC                                         	|
 |------	|:-----------------------------------------------	|
 | ![PNC](https://github.com/medic/icon-library/blob/master/forms_tasks_targets/SVGs/icon-people-woman-baby.svg) | - PNC Registration<br>- PNC Visit or Missed Visit<br>- PNC Follow-Up|
 | ![PNC Danger](https://github.com/medic/icon-library/blob/master/forms_tasks_targets/SVGs/icon-PNC-danger-sign.svg) | - PNC Danger Sign<br>- PNC Danger Sign Follow-Up|
 
 
 
-|  	| ICCM and Child Health                         	|
+| Icon  	| ICCM and Child Health                         	|
 |------	|:-----------------------------------------------	|
 | ![ICCM](https://github.com/medic/icon-library/blob/master/forms_tasks_targets/SVGs/icon-people-child.svg) | - ICCM Assessment<br>- ICCM Treatment<br>- ICCM Referral or Follow-Up|
 | ![ICCM Danger](https://github.com/medic/icon-library/blob/master/forms_tasks_targets/SVGs/icon-ICCM-danger-sign.svg) | - ICCM Danger Sign<br>- ICCM Danger Sign Follow-Up|
 
 
 
-| 	| Immunization                                	|
+| Icon 	| Immunization                                	|
 |------	|:-----------------------------------------------	|
 | ![Immunization](https://github.com/medic/icon-library/blob/master/forms_tasks_targets/SVGs/icon-healthcare-immunization.svg) | - Immunization Visit<br>- Immunization Follow-Up|
 
 
 
-| 	| Visits                                      	|
+| Icon 	| Visits                                      	|
 |------	|:-----------------------------------------------	|
 | ![Visits](https://github.com/medic/icon-library/blob/master/forms_tasks_targets/SVGs/icon-followup-general.svg) | - General Follow-Up<br>- Proactive Visit<br>- Educational Visit|
 
 
 
-|  	|Community                                       	|
+| Icon  	|Community                                       	|
 |------	|:-----------------------------------------------	|
 | ![Community](https://github.com/medic/icon-library/blob/master/forms_tasks_targets/SVGs/icon-community.svg) | - Community Event<br>- Community Meeting|
 
 
 
-|  | Various |
+| Icon  | Various |
 |-|:-|
 | ![Delivery](https://github.com/medic/icon-library/blob/master/forms_tasks_targets/SVGs/icon-delivery.svg) | Delivery |
 | ![Malnutrition](https://github.com/medic/icon-library/blob/master/forms_tasks_targets/SVGs/icon-child-nutrition.svg) | Malnutrition |
