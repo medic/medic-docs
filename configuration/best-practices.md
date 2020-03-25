@@ -51,37 +51,30 @@ Reports are sorted by submission date, with the most recently submitted Reports 
 
 The patient’s name should not be included in the form title. 
 
-| ✅ Do this                            	| ❌ Don't do this                                           	 |
-|:--------------------------------------	|:----------------------------------------------------------	|
-| Delivery Follow-Up                  	| Beatrice Bass Delivery Follow-Up                            	|
-
+> **Don't do this:** "Beatrice Bass Delivery Follow-Up" <br>
+> **Do this instead:** "Delivery Follow-Up"
 <br>
 
 Avoid generic words like “Visit” or “Report”. Every form can be a Report and often involves a visit, so including these words in the title doesn’t help differentiate it from other forms.
 
-| ✅ Do this                            	| ❌ Don't do this                                           	 |
-|:--------------------------------------	|:----------------------------------------------------------	|
-| Pregnancy Follow-Up                  	| Pregnancy Follow-Up Visit                                    	|
-
+> **Don't do this:** "Delivery Follow-up Visit" <br>
+> **Do this instead:** "Delivery Follow-Up" 
 <br>
 
 Each word in a title should be capitalized (Title Case). 
 
-| ✅ Do this                            	| ❌ Don't do this                                           	 |
-|:--------------------------------------	|:----------------------------------------------------------	|
-| Death Report                          | death report                                                  |
-
+> **Don't do this:** "Delivery follow-up" <br>
+> **Do this instead:** "Delivery Follow-Up" 
 <br>
+
 
 Keep form titles short and concise. Long titles will sometimes be truncated (cut off with an ellipsis) and the text at the end of the title might be lost. As a rough estimate, strive to keep titles **no longer than 40 characters** in length.
 
-
-| ✅ Do this                            	| ❌ Don't do this                                           	 |
-|:--------------------------------------	|:----------------------------------------------------------	|
-| Title Is Less Than Forty Characters 	| This Title Has Way More Than Forty Characters And Is Too Long |
-
-
+> **Don't do this:** "This Title Has Way More Than Forty Characters And Is Too Long" <br>
+> **Do this instead:** "Title Is Less Than Forty Characters" 
 <br>
+
+
 
 ### Form Icons
 
