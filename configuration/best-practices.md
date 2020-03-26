@@ -21,8 +21,6 @@ This document covers the configuration best practices of forms, tasks, targets, 
 
 ## Forms
 
-### Overview
-
 We use forms to build the **Tasks**, **Care Guides**, and **Reports** that take health workers through care protocols and provide decision support for their interactions with patients. 
 
 In this context, a form is any document with questions and blank spaces or selectable options for answers. Forms can be found in many parts of your app including the **Tasks**, **People**, and **Reports** tabs
@@ -38,13 +36,13 @@ The **Task** tab shows a list of upcoming visits, follow-ups, or other tasks tha
 
 ![Anatomy of a Task](https://github.com/medic/medic-docs/blob/master/configuration/img/anatomy-task.svg)
 
-1. The icon indicates the Task type.
+**1.** The icon indicates the Task type.
 
-2. The first line of text is the **name** of the person whom the Task is about.
+**2.** The first line of text is the **name** of the person whom the Task is about.
 
-3. The second line of text is the **title** of the Task. 
+**3.** The second line of text is the **title** of the Task. 
 
-4. If a task is due in 4 days or less, the **number of days left** for the Task to be completed appears here. If a Task is due today or is overdue, the due date will appear in red. Tasks are listed in order of due date.
+**4.** If a task is due in 4 days or less, the **number of days left** for the Task to be completed appears here. If a Task is due today or is overdue, the due date will appear in red. Tasks are listed in order of due date.
 
 *Note: The icons and titles that we choose for Tasks remain the same when they become Reports.*
 
@@ -55,15 +53,15 @@ The **Task** tab shows a list of upcoming visits, follow-ups, or other tasks tha
 
 ![Anatomy of a Report](https://github.com/medic/medic-docs/blob/master/configuration/img/anatomy-report.svg)
 
-1. The icon indicates the Report type.
+**1.** The icon indicates the Report type.
 
-2. The first line of text is the **name** of ther person whom the Report is about.
+**2.** The first line of text is the **name** of ther person whom the Report is about.
 
-3. The second line of text is the **title** of the Report.
+**3.** The second line of text is the **title** of the Report.
 
-4. The **timestamp** displays when the Report was submitted. 
+**4.** The **timestamp** displays when the Report was submitted. 
 
-5. The bottom text is the hierarchy of **place** to which that person belongs. 
+**5.** The bottom text is the hierarchy of **place** to which that person belongs. 
 
 Reports are listed by submission date. If a Report is unread, the timestamp will be bold blue and there will be a horizontal blue line above it. 
 
@@ -73,27 +71,27 @@ Reports are listed by submission date. If a Report is unread, the timestamp will
 
 The patient’s name should not be included in the form title. 
 
-❌**Don't do this:** "Beatrice Bass Delivery Follow-Up" <br>
-✅**Do this instead:** "Delivery Follow-Up"
+> ❌**Don't do this:** "Beatrice Bass Delivery Follow-Up" <br>
+> ✅**Do this instead:** "Delivery Follow-Up"
 <br>
 
 Avoid generic words like “Visit” or “Report”. Every form can be a Report and often involves a visit, so including these words in the title doesn’t help differentiate it from other forms.
 
-❌**Don't do this:** "Delivery Follow-up Visit" <br>
-✅**Do this instead:** "Delivery Follow-Up" 
+> ❌**Don't do this:** "Delivery Follow-up Visit" <br>
+> ✅**Do this instead:** "Delivery Follow-Up" 
 <br>
 
 Each word in a title should be capitalized (Title Case). 
 
-❌**Don't do this:** "Delivery follow-up" <br>
-✅**Do this instead:** "Delivery Follow-Up" 
+> ❌**Don't do this:** "Delivery follow-up" <br>
+> ✅**Do this instead:** "Delivery Follow-Up" 
 <br>
 
 
 Keep form titles short and concise. Long titles will sometimes be truncated (cut off with an ellipsis) and the text at the end of the title might be lost. As a rough estimate, strive to keep titles **no longer than 40 characters** in length.
 
-❌**Don't do this:** "This Title Has Way More Than Forty Characters And Is Too Long" <br>
-✅**Do this instead:** "Title Is Less Than Forty Characters" 
+> ❌**Don't do this:** "This Title Has Way More Than Forty Characters And Is Too Long" <br>
+> ✅**Do this instead:** "Title Is Less Than Forty Characters" 
 <br>
 
 
@@ -175,8 +173,15 @@ The Community Health Toolkit includes a collection of [60+ free icons](https://g
 **Group Related Information** <br>
 Users think in batches, and long forms can feel overwhelming. By creating logical groups the user will make sense of the form much faster.
 
+> Ex. Visit Details, Danger Signs
+
+**Form Length**<br>
+Try to keep form sections concise to reduce cognitive load. More short sections are preferred to fewer long ones.
+
 **Reflect Input Length in Field** <br>
-Employ this for fields that have a defined character count like phone numbers, zip codes, etc. Ex: Field boxes for something like zip code should be shorter than field boxes for street address.
+Employ this for fields that have a defined character count like phone numbers, zip codes, etc. 
+
+> Ex. Field boxes for zip codes should be shorter than field boxes for street addresses
 
 **Don’t Put Placeholder Or Helper Text Inside The Form Fields**
 People go through forms quickly and if a field looks like it already has an answer they may accidentally miss it. Research shows that empty fields draw more attention than those with placeholder text.
@@ -187,10 +192,7 @@ Users don’t always know what is implied by the required field marker ( * ). In
 **Always Stack Radio Buttons And Checkboxes In A Single Vertical Column** <br>
 Placing the options underneath each other allows for easy scanning and makes it less likely that a user will completely overlook one of the options.
 
-**Form Length**<br>
-??
-
-[INSERT IMAGE]
+![Radio Buttons](https://github.com/medic/medic-docs/blob/master/configuration/img/radio-buttons-stacked.svg)
 
 **Don’t Use Dropdowns If There Are Less Than Seven Options** <br>
 For smaller lists, use radio buttons instead of drop-down menus. Radio buttons have lower cognitive load because they make all options visible for easy comparison.
@@ -208,11 +210,11 @@ After all of the required questions in a form are answered, a summary page is di
 
 *Note: The form is not submitted until the user scrolls to the end of the page and clicks “Submit”.*
 
-All care guides are defined using [ODK XForms](https://opendatakit.github.io/xforms-spec/), an XML definition of the structure and format for a set of questions. Since writing raw XML can be tedious, we suggest creating the forms using the [XLSForm standard](http://xlsform.org/), and using the [medic-conf](https://github.com/medic/medic-conf) command line configurer tool to convert them to XForm format. Because the XLSForms are converted directly to XForms, they essentially are the form, and so it’s important that the XLS be set up properly and consistently. Read more about configuring forms [here](https://github.com/medic/medic-docs/blob/master/configuration/forms.md#xforms).
+> All care guides are defined using [ODK XForms](https://opendatakit.github.io/xforms-spec/), an XML definition of the structure and format for a set of questions. Since writing raw XML can be tedious, we suggest creating the forms using the [XLSForm standard](http://xlsform.org/), and using the [medic-conf](https://github.com/medic/medic-conf) command line configurer tool to convert them to XForm format. Because the XLSForms are converted directly to XForms, they essentially are the form, and so it’s important that the XLS be set up properly and consistently. Read more about configuring forms [here](https://github.com/medic/medic-docs/blob/master/configuration/forms.md#xforms).
 
 #### Page Sections
 
-##### General Section Order
+**General Section Order**
 
 Not all forms will have all summary sections, but the sections that appear should be in this order:
 
@@ -226,30 +228,29 @@ Not all forms will have all summary sections, but the sections that appear shoul
 - Follow-ups scheduled (if applicable)
 - Submit button
 
-> Specific recommendatiosn by form type
+>Specific recommendatiosn by form type
 To be added as the reference app is finalized
 
 > From Ranju: I think it would be good to have a separate section for each form type. To include: how you title things and suggested order. We could bring screenshots of what we build for the ref app in here as recommendations.
 
-##### Section Headers
+**Section Headers**
 
 Section headers are used to separate content sections of the summary page. They make the page easier to scan and they make it easier to find a specific section.
 
-- There is a specific suggested order for these header sections (see below)
-- There are also suggested colors and icons for each section header (see below)
-- Each section header should have an icon (see below)
-- A section header should only be visible if there is content for that section. In other words, headers should never be stacked directly on top of each other.
-    - To ensure that headers only show when they have content the relevant condition for the section
+There are suggested orders, colors and icons for section headers. A section should only be visible if it contains content (ie. headers should never be stacked directly on top of each other).
+
+> To ensure that headers only show when they have content the relevant condition for the section
 header should join the conditions of all the subfields. Eg {condition_a} OR {condition_b} OR
 {condition_c}
 
-Header Text
 
-The text inside of the colored section headers should be designated “H1”, Noto Sans 18px bold
+**Header Text**
+
+- The text inside of the section headers should be “H1”: Noto Sans 18px bold
 - The text should be centered vertically & horizontally in the bar
 - Each section header title should be Title Case, meaning each word is capitalized e.g. “Patient Details”
 
-Header Color
+**Header Color**
 
 Though it may be tempting to give each section has a unique color (e.g. “Patient Details” is yellow,
 “Healthy Tips” is blue etc), sometimes there are too many sections for each one to have its own color,
@@ -269,7 +270,7 @@ decorative manner.
 single color (with the exception of warnings or referral messages, which should remain red). In this
 case, blue is a good default color to fall back on.
 
-Header Icons
+**Header Icons**
 
 Each section header should have an icon on the far left side
 The icons should all be colored white, and should all be the same size
@@ -284,9 +285,8 @@ Diagnosis and treatment - med kit
 Healthy tips/educational info - heart
 Follow Up - same as Task page icon
 
-Text styling
+**Text styling**
 
-Text hierarchy and style guide 
 H1: colored horizontal bars for section headers
 H2: text with a colored line under it, centered
 H3: left aligned text, simple grey line under it
@@ -294,30 +294,31 @@ H4: normal body text
 
 [[Amanda to insert screenshot examples]]
 
-Other body text styling
-Bold text is indicated by ** or “bold” or <strong>
-Italic text is indicated by * or “italic” or _
-List item is indicated by either specifying li in the appearance column or formating the label text using html tag li
-Numbers: needs to be hard coded
-H1, h2, h3 ..., em, i, ul, li, p, span html tags work as expected including use of the style attribute within the tages e.g <i style=”color: red”></i> 
-Explicit new line space translates to a new line (\n translates to a hard break)
-You could potentially specify an inline list using standard html
-<ol><li>Blah</li></ol> (ordered list)
-<ul><li>Blah</li></u> (unordered list)
+**Other body text styling**
+
+- Bold text is indicated by ** or “bold” or `<strong>`
+- Italic text is indicated by * or “italic” or _
+- List item is indicated by either specifying li in the appearance column or formating the label text using html tag li
+- Numbers: needs to be hard coded
+- H1, h2, h3 ..., em, i, ul, li, p, span html tags work as expected including use of the style attribute within the tages e.g `<i style=”color: red”></i>`
+- Explicit new line space translates to a new line (`\n` translates to a hard break)
+- You could potentially specify an inline list using standard html
+`<ol><li>Blah</li></ol> (ordered list)`
+`<ul><li>Blah</li></u> (unordered list)`
 
 *Note:  You’ll need to compensate for the extra padding left margin by moving the list to the
-Left generally by  <ol style=”margin-left:1em”></ol>
-You can also customise the bullet style and position using what’s specified in the [HTML spec](https://www.w3schools.com/CSS/css_list.asp)
-E.g by  <ol style="list-style: decimal inside;"></ol>*
+left generally by `<ol style=”margin-left:1em”></ol>`. You can also customise the bullet style and position using what’s specified in the [HTML spec](https://www.w3schools.com/CSS/css_list.asp)
+E.g by `<ol style="list-style: decimal inside;"></ol>`*
 
 
 
-Other text suggestions
+**Other text suggestions**
 
 Try to keep text on this page concise and split text into small readable paragraphs
 Use short bulleted lists whenever possible to aid in scanning
 …??
 
+------------
 
 ## Condition Cards
 
@@ -392,25 +393,27 @@ Limitations and Possible Future Directions
 - Information about a person cannot appear on a card on the household profile
 - Z-score has to be done in forms right now
 
-Use Case Specific Guidelines
+>Use Case Specific Guidelines
+
+------------
 
 ## Targets 
 
 The Targets tab shows key performance indicators. Progress numbers are calculated automatically by the app, and goals are set by the organization. We currently support two types of widgets: Counts and Percentage-based bars. 
 
-Counts
+**Counts**
 
 - Counts show current totals and will update as reports are created
 - If there is a goal, it will be displayed to the right of the count. If the count is green, the goal has been met. If the count is red, the goal has not yet been met
 - Goals can only be met by exceeding them, you cannot set a goal which is met by being under the goal
 
-Percentages
+**Percentages**
 
 - Percentage bars show progress towards completing certain reports. The colored part of the bar will update as reports are created.
 - If there is a goal, a line will be on the bar to mark the goal. If the bar is green, the goal has been met. If the bar is red, the goal has not yet been met. 
 - The text below the bar shows how the percentage is calculated, displaying the number of Reports that met the requirement out of the total number of Reports. 
 
-Configurable elements
+**Configurable elements**
 
 - Title text (free text)
 - Subtitle text (two options: all-time or this month) 
@@ -421,7 +424,7 @@ Configurable elements
 
 ### Guidelines
 
-What goes in the Title
+**What goes in the Title**
 
 - The data point being measured. No need to include “%”, the word “percent”, or the word “count” (these are stated elsewhere) or any information on timeframe.
 - Titles should ideally be between 1 or 2 lines long. This is the equivalent of about 40-50 characters max.
@@ -437,7 +440,7 @@ Specific examples:
 - Births This Month → New births
 - Deliveries at Facility All Time → Deliveries at facility
 
-What goes in the Subtitle
+**What goes in the Subtitle**
 
 - The subtitle is where timeframe information lives, expressed as either “This month” or “All-time”. For now, these are the only two options. All text should be set in sentence case.
 
@@ -457,7 +460,7 @@ Rules for bars
 - Denominator must be the same for both sides (e.g. kids in our immunization program). Can’t split it into kids <2 yrs on one side and kids <5 years on the other side.
 Bars must progress positively (ex. Visits completed, not visits missed) 
 
-Unique Considerations for Personas
+**Unique Considerations for Personas**
 
 CHWs:
 
