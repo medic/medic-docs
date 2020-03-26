@@ -175,18 +175,20 @@ Users think in batches, and long forms can feel overwhelming. By creating logica
 
 > Ex. Visit Details, Danger Signs
 
-**Form Length**<br>
-Try to keep form sections concise to reduce cognitive load. More short sections are preferred to fewer long ones.
+**Order the Form Logically and Only Ask What's Required**<br>
+Keep questions concise and in an intuitive sequence — they should be asked logically from a user’s perspective. This makes the flow from one set of questions to the next better resemble a conversation.
+
+> Ex. Is your patient still pregnant? :arrow_right: Did she attend the ANC visit? :arrow_right: Does she have danger signs?
 
 **Reflect Input Length in Field** <br>
 Employ this for fields that have a defined character count like phone numbers, zip codes, etc. 
 
 > Ex. Field boxes for zip codes should be shorter than field boxes for street addresses
 
-**Don’t Put Placeholder Or Helper Text Inside The Form Fields**
+**Don’t Put Placeholder Or Helper Text Inside The Form Fields** <br>
 People go through forms quickly and if a field looks like it already has an answer they may accidentally miss it. Research shows that empty fields draw more attention than those with placeholder text.
 
-**Make Required Fields Very Clear** <br>
+**Distinguish Optional And Required Fields** <br>
 Users don’t always know what is implied by the required field marker ( * ). Instead, denoting what is optional is a preferred method, especially for forms with many required fields. If you do use asterisks, make the meaning of the symbol clear by stating “Fields with an asterisk ( * ) are mandatory.”
 
 **Always Stack Radio Buttons And Checkboxes In A Single Vertical Column** <br>
