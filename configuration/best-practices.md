@@ -42,7 +42,7 @@ The **Task** tab shows a list of upcoming visits, follow-ups, or other tasks tha
 
 **3.** The second line of text is the **title** of the Task. 
 
-**4.** If a task is due in 4 days or less, the **number of days left** for the Task to be completed appears here. If a Task is due today or is overdue, the due date will appear in red. Tasks are listed in order of due date.
+**4.** If a task is due soon, the **number of days left** for the Task to be completed appears here. Tasks due today and overdue tasks that can still be done are defaulted to "Due today". These labels are configurable to make sure it is clear to CHWs that all visible tasks can be done at any time. 
 
 *Note: The icons and titles that we choose for Tasks remain the same when they become Reports.*
 
@@ -272,18 +272,26 @@ case, blue is a good default color to fall back on.
 
 **Header Icons**
 
-Each section header should have an icon on the far left side
-The icons should all be colored white, and should all be the same size
-For the most part, these icons should be unique for each section (no repeat icons)
+Each section header should have an icon on the far left side.
+The icons should all be colored white, and should all be the same size.
+These icons should be unique for each section (no repeat icons)
 
 Suggested icons for each section:
-Patient details - person 
-Visit information - info icon
-Signs and symptoms - warning triangle
-Warnings, facility referrals - warning triangle
-Diagnosis and treatment - med kit
-Healthy tips/educational info - heart
-Follow Up - same as Task page icon
+
+| Icon 	| Section                                         	|
+|------	|:-----------------------------------------------	|
+| ![Patient Details](https://github.com/medic/icon-library/blob/master/forms_tasks_targets/SVGs/icon-people-person-general.svg) | Patient Details	|
+| ![Visit Information](https://github.com/medic/icon-library/blob/master/forms_tasks_targets/SVGs/icon-ANC-danger-sign.svg) | Visit Information|
+| ![Pregnancy Specific](https://github.com/medic/icon-library/blob/master/forms_tasks_targets/SVGs/icon-people-woman-pregnant.svg) | Pregnancy Specific|
+| ![Child Health Specific](https://github.com/medic/icon-library/blob/master/forms_tasks_targets/SVGs/icon-people-child.svg) | Child Helath Specific|
+| ![Signs and Symptoms](https://github.com/medic/icon-library/blob/master/forms_tasks_targets/SVGs/icon-healthcare-warning.svg) | Signs and Symptoms	|
+| ![Warnings and Referrals](https://github.com/medic/icon-library/blob/master/forms_tasks_targets/SVGs/icon-healthcare-warning.svg) | Warnings and Referrals|
+| ![Diagnosis and Treatment](https://github.com/medic/icon-library/blob/master/forms_tasks_targets/SVGs/icon-healthcare-diagnosis.svg) | Diagnosis and Treatment	|
+| ![Education Info and Tips](https://github.com/medic/icon-library/blob/master/forms_tasks_targets/SVGs/icon-ANC-danger-sign.svg) | Visit Information|
+| ![Follow Ups](https://github.com/medic/icon-library/blob/master/forms_tasks_targets/SVGs/icon-followup-general.svg) | Follow-Ups	|
+| ![General/Misc](https://github.com/medic/icon-library/blob/master/forms_tasks_targets/SVGs/icon-healthcare-generic.svg) | Misc/General|
+
+<br>
 
 **Text styling**
 
@@ -292,7 +300,7 @@ H2: text with a colored line under it, centered
 H3: left aligned text, simple grey line under it
 H4: normal body text
 
-[[Amanda to insert screenshot examples]]
+[INSERT IMAGE]
 
 **Other body text styling**
 
@@ -311,13 +319,6 @@ left generally by `<ol style=”margin-left:1em”></ol>`. You can also customis
 E.g by `<ol style="list-style: decimal inside;"></ol>`*
 
 
-
-**Other text suggestions**
-
-Try to keep text on this page concise and split text into small readable paragraphs
-Use short bulleted lists whenever possible to aid in scanning
-…??
-
 ------------
 
 ## Condition Cards
@@ -334,24 +335,24 @@ This information can be organized into cards specific to a condition (e.g. pregn
 - Data point for the field 
 - Icon for the field, if desired
 
+[INSERT IMAGE]
+
 ### Guidelines
 
-What should go in the card title
+**Card Title**
 
 - Name of the condition, e.g. Pregnancy, Malnutrition, Malaria
 - Define if condition is past, e.g. Past Pregnancies
 
-What should go in the field label
+**Field Label**
 
-- Label for each data point displayed
+- Label each data point displayed
 - One line 
 
-What kind of field can be displayed
-
+**Field Content**
 - Can include any information that was collected in a form or multiple forms about the person
     - Examples: LMP, EDD, most recent case of malaria, past pregnancies and their delivery dates
-    - Can display Notes
-    
+- Can display Notes
 - Data can be displayed in the following formats:
     - Number 
     - Count towards a goal
@@ -364,7 +365,7 @@ What kind of field can be displayed
     - Examples: High risk status on an Active Pregnancy card
     - Icons should be selected from Medic’s icon library and should be displayed at our standard 30 x 30 px size
 
-Displaying Cards
+**Displaying Cards**
 
 - Can be configured to show and hide at the appropriate time
     - Examples: show the EDD of the current pregnancy until a delivery Report is received, show that a child is being treated for malnutrition until the treatment is complete, show that a child had malaria until 2 weeks after diagnosis
@@ -375,23 +376,13 @@ Displaying Cards
 ## Design Considerations
 
 - Group information related to the same condition so that the user can easily understand the relevance of the data and find what they are looking for. 
-    - Examples: pregnancy card
-    - Bad example: mix of info 
+    - Example: Pregnancy Card, Immunization Card
 
-- Consider how many cards may potentially appear on a person’s profile, particularly if you have included past conditions 
-    - Example: child with immunization schedule, current malaria treatment, past treatments summary, and malnutrition 
-
-- As with designing dashboards, consider what a user will do with the information before deciding to display it. 
-    - Example: more info isn’t necessarily better; what does a CHW need to know and how will they change their actions as a result? 
+- Consider what a user will do with the information before deciding to display it. More info isn’t necessarily better; what does a CHW need to know and how will they change their actions as a result? 
 
 - Past condition cards may be best displayed as a summary of multiple past conditions rather than individual conditions
-    - Examples: summary of past pregnancies rather than card for each past pregnancy
+    - Example: Summary of past pregnancies rather than card for each past pregnancy
 
-Limitations and Possible Future Directions
-
-- Card fields are currently not “clickable”
-- Information about a person cannot appear on a card on the household profile
-- Z-score has to be done in forms right now
 
 >Use Case Specific Guidelines
 
@@ -407,11 +398,15 @@ The Targets tab shows key performance indicators. Progress numbers are calculate
 - If there is a goal, it will be displayed to the right of the count. If the count is green, the goal has been met. If the count is red, the goal has not yet been met
 - Goals can only be met by exceeding them, you cannot set a goal which is met by being under the goal
 
+[Image]
+
 **Percentages**
 
 - Percentage bars show progress towards completing certain reports. The colored part of the bar will update as reports are created.
 - If there is a goal, a line will be on the bar to mark the goal. If the bar is green, the goal has been met. If the bar is red, the goal has not yet been met. 
 - The text below the bar shows how the percentage is calculated, displaying the number of Reports that met the requirement out of the total number of Reports. 
+
+[Image] 
 
 **Configurable elements**
 
@@ -424,10 +419,10 @@ The Targets tab shows key performance indicators. Progress numbers are calculate
 
 ### Guidelines
 
-**What goes in the Title**
+**Title**
 
 - The data point being measured. No need to include “%”, the word “percent”, or the word “count” (these are stated elsewhere) or any information on timeframe.
-- Titles should ideally be between 1 or 2 lines long. This is the equivalent of about 40-50 characters max.
+- Titles should be 40-50 characters max.
 - All text should be set in sentence case (meaning the first letter of first word is capitalized, all other words lowercase, except for acronyms)
 - If hyphenation is needed, words should only be broken at syllables
 
@@ -440,11 +435,11 @@ Specific examples:
 - Births This Month → New births
 - Deliveries at Facility All Time → Deliveries at facility
 
-**What goes in the Subtitle**
+**Subtitle**
 
 - The subtitle is where timeframe information lives, expressed as either “This month” or “All-time”. For now, these are the only two options. All text should be set in sentence case.
 
-Rules for bars
+**Bars**
 
 - Has to have a numerator and a denominator -- comparing two things, and not more than two at this time (can’t do: % of deliveries at (1) home unskilled vs. (2) home skilled vs. (3) facility. Any two of these would work though, including (1) all home deliveries vs. (2) facility deliveries).
 - It is possible to account for things that haven’t happened. For example, if you are measuring PNC visits that happened within 1 week of delivery, you can determine whether a particular woman should have had a PNC visit based on her EDD. 
