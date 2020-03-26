@@ -239,9 +239,9 @@ Section headers are used to separate content sections of the summary page. They 
 
 There are suggested orders, colors and icons for section headers. A section should only be visible if it contains content (ie. headers should never be stacked directly on top of each other).
 
-> To ensure that headers only show when they have content the relevant condition for the section
-header should join the conditions of all the subfields. Eg {condition_a} OR {condition_b} OR
-{condition_c}
+To ensure that headers only show when they have content the relevant condition for the section
+header should join the conditions of all the subfields.
+> Ex. {condition_a} OR {condition_b} OR {condition_c}
 
 
 **Header Text**
@@ -315,8 +315,9 @@ H4: normal body text
 `<ul><li>Blah</li></u> (unordered list)`
 
 *Note:  You’ll need to compensate for the extra padding left margin by moving the list to the
-left generally by `<ol style=”margin-left:1em”></ol>`. You can also customise the bullet style and position using what’s specified in the [HTML spec](https://www.w3schools.com/CSS/css_list.asp)
-E.g by `<ol style="list-style: decimal inside;"></ol>`*
+left generally by `<ol style=”margin-left:1em”></ol>`. You can also customise the bullet style and position using what’s specified in the [HTML spec](https://www.w3schools.com/CSS/css_list.asp)*
+
+> Ex. `<ol style="list-style: decimal inside;"></ol>`
 
 
 ------------
@@ -350,8 +351,9 @@ This information can be organized into cards specific to a condition (e.g. pregn
 - One line 
 
 **Field Content**
+
 - Can include any information that was collected in a form or multiple forms about the person
-    - Examples: LMP, EDD, most recent case of malaria, past pregnancies and their delivery dates
+    > Ex. LMP, EDD, most recent case of malaria, past pregnancies and their delivery dates
 - Can display Notes
 - Data can be displayed in the following formats:
     - Number 
@@ -360,28 +362,31 @@ This information can be organized into cards specific to a condition (e.g. pregn
     - Date 
     - Text field 
 - Fields in cards are dynamic and will update as new information is submitted
-    - Examples: # of ANC visits so far, change in risk status
+    > Ex. # of ANC visits so far, change in risk status
 - Fields can include icons
-    - Examples: High risk status on an Active Pregnancy card
-    - Icons should be selected from Medic’s icon library and should be displayed at our standard 30 x 30 px size
+    > Ex. High risk status on an Active Pregnancy card
+
+- Icons should be selected from Medic’s icon library and should be displayed at our standard 30 x 30 px size
 
 **Displaying Cards**
 
 - Can be configured to show and hide at the appropriate time
-    - Examples: show the EDD of the current pregnancy until a delivery Report is received, show that a child is being treated for malnutrition until the treatment is complete, show that a child had malaria until 2 weeks after diagnosis
-    - Condition cards can be configured to disappear at the end of the condition or persist for any length of time
+    > Ex. Show the EDD of the current pregnancy until a delivery Report is received, show that a child is being treated for malnutrition until the treatment is complete, show that a child had malaria until 2 weeks after diagnosis
+
+- Condition cards can be configured to disappear at the end of the condition or persist for any length of time
+    
 - Can be added to a person or place profile 
-    - Examples: equity scorecard on household profile; CHW performance scorecard on CHW profile
+    > Ex. Equity scorecard on household profile; CHW performance scorecard on CHW profile
     
 ## Design Considerations
 
 - Group information related to the same condition so that the user can easily understand the relevance of the data and find what they are looking for. 
-    - Example: Pregnancy Card, Immunization Card
+    > Ex.  Pregnancy Card, Immunization Card
 
 - Consider what a user will do with the information before deciding to display it. More info isn’t necessarily better; what does a CHW need to know and how will they change their actions as a result? 
 
 - Past condition cards may be best displayed as a summary of multiple past conditions rather than individual conditions
-    - Example: Summary of past pregnancies rather than card for each past pregnancy
+    > Ex.  Summary of past pregnancies rather than card for each past pregnancy
 
 
 >Use Case Specific Guidelines
@@ -426,14 +431,13 @@ The Targets tab shows key performance indicators. Progress numbers are calculate
 - All text should be set in sentence case (meaning the first letter of first word is capitalized, all other words lowercase, except for acronyms)
 - If hyphenation is needed, words should only be broken at syllables
 
-Specific examples:
-
-- % Newborn Care Visit Within 72 hours → Newborn visits within 3 days
-- % of Under-5 Referrals Followed-up within 24 hours → U5 referral follow-ups within 1 day
-- % of Fever Tested with mRDT → Fever tested with mRDT
-- Pregnancies Registered This Month → Pregnancies registered
-- Births This Month → New births
-- Deliveries at Facility All Time → Deliveries at facility
+> Ex. 
+    - % Newborn Care Visit Within 72 hours → Newborn visits within 3 days
+    - % of Under-5 Referrals Followed-up within 24 hours → U5 referral follow-ups within 1 day
+    - % of Fever Tested with mRDT → Fever tested with mRDT
+    - Pregnancies Registered This Month → Pregnancies registered
+    - Births This Month → New births
+    - Deliveries at Facility All Time → Deliveries at facility
 
 **Subtitle**
 
@@ -444,12 +448,12 @@ Specific examples:
 - Has to have a numerator and a denominator -- comparing two things, and not more than two at this time (can’t do: % of deliveries at (1) home unskilled vs. (2) home skilled vs. (3) facility. Any two of these would work though, including (1) all home deliveries vs. (2) facility deliveries).
 - It is possible to account for things that haven’t happened. For example, if you are measuring PNC visits that happened within 1 week of delivery, you can determine whether a particular woman should have had a PNC visit based on her EDD. 
 - There are several ways to account for things that have and haven’t happened, and happened late, depending on what you are trying to show.
-    - Example configurations for visit attendance:
-      - Of all the visits that happened, how many were on-time? (doesn’t look for visits that didn’t happen)
-        - On-time = true, Late = false 
-      - Of all the visits that were supposed to happen, how many were on-time? 
-        - On-time = true, Late + didn’t happen = false
-      - Of all the visits that were supposed to happen, how many actually occurred? (includes on-time and late as having happened)
+> Ex. Configurations for visit attendance:
+      - Of all the visits that happened, how many were on-time? (doesn’t look for visits that didn’t happen)<br>
+        - On-time = true, Late = false <br>
+      - Of all the visits that were supposed to happen, how many were on-time? <br>
+        - On-time = true, Late + didn’t happen = false <br>
+      - Of all the visits that were supposed to happen, how many actually occurred? (includes on-time and late as having happened)<br>
         - On-time + Late = true, Didn’t happen = false
 - It’s not possible to total up forms from all household members or check to see if any family member had a form submitted this week and count that as the household being visited. If you want to count the households visited this month, you need a form submitted at the household level like a household visit form or a household survey form.
 - Denominator must be the same for both sides (e.g. kids in our immunization program). Can’t split it into kids <2 yrs on one side and kids <5 years on the other side.
