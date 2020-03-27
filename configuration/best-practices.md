@@ -183,10 +183,14 @@ Keep questions concise and in an intuitive sequence — they should be asked log
 **Reflect Input Length in Field** <br>
 Employ this for fields that have a defined character count like phone numbers, zip codes, etc. 
 
+![Input Length](https://github.com/medic/medic-docs/blob/master/configuration/img/input-length.svg)
+
 > Ex. Field boxes for zip codes should be shorter than field boxes for street addresses
 
 **Don’t Put Placeholder Or Helper Text Inside The Form Fields** <br>
 People go through forms quickly and if a field looks like it already has an answer they may accidentally miss it. Research shows that empty fields draw more attention than those with placeholder text.
+
+![Placeholder Text](https://github.com/medic/medic-docs/blob/master/configuration/img/no-placeholder-text.svg)
 
 **Distinguish Optional And Required Fields** <br>
 Users don’t always know what is implied by the required field marker ( * ). Instead, denoting what is optional is a preferred method, especially for forms with many required fields. If you do use asterisks, make the meaning of the symbol clear by stating “Fields with an asterisk ( * ) are mandatory.”
