@@ -178,37 +178,37 @@ Users think in batches, and long forms can feel overwhelming. By creating logica
 **Order the Form Logically and Only Ask What's Required**<br>
 Keep questions concise and in an intuitive sequence — they should be asked logically from a user’s perspective. This makes the flow from one set of questions to the next better resemble a conversation.
 
-> Ex. Is your patient still pregnant? :arrow_right: Did she attend the ANC visit? :arrow_right: Does she have danger signs?
+> Ex. Is your patient still pregnant? :arrow_right: Did she attend the ANC visit? :arrow_right: Does she have danger signs? <br>
 
 **Reflect Input Length in Field** <br>
 Employ this for fields that have a defined character count like phone numbers, zip codes, etc. 
 
-![Input Length](https://github.com/medic/medic-docs/blob/master/configuration/img/input-length.svg)
+![Input Length](https://github.com/medic/medic-docs/blob/master/configuration/img/input-length.svg) <br>
 
-> Ex. Field boxes for zip codes should be shorter than field boxes for street addresses
 
 **Don’t Put Placeholder Or Helper Text Inside The Form Fields** <br>
 People go through forms quickly and if a field looks like it already has an answer they may accidentally miss it. Research shows that empty fields draw more attention than those with placeholder text.
 
-![Placeholder Text](https://github.com/medic/medic-docs/blob/master/configuration/img/no-placeholder-text.svg)
+![Placeholder Text](https://github.com/medic/medic-docs/blob/master/configuration/img/no-placeholder-text.svg) <br>
 
 **Distinguish Optional And Required Fields** <br>
-Users don’t always know what is implied by the required field marker ( * ). Instead, denoting what is optional is a preferred method, especially for forms with many required fields. If you do use asterisks, make the meaning of the symbol clear by stating “Fields with an asterisk ( * ) are mandatory.”
+Users don’t always know what is implied by the required field marker ( * ). Instead, denoting what is optional is a preferred method, especially for forms with many required fields. If you do use asterisks, make the meaning of the symbol clear by stating “Fields with an asterisk ( * ) are mandatory.” <br>
 
 **Always Stack Radio Buttons And Checkboxes In A Single Vertical Column** <br>
 Placing the options underneath each other allows for easy scanning and makes it less likely that a user will completely overlook one of the options.
 
-![Radio Buttons](https://github.com/medic/medic-docs/blob/master/configuration/img/radio-buttons-stacked.svg)
+![Radio Buttons](https://github.com/medic/medic-docs/blob/master/configuration/img/radio-buttons-stacked.svg) <br>
 
 **Don’t Use Dropdowns If There Are Less Than Seven Options** <br>
 For smaller lists, use radio buttons instead of drop-down menus. Radio buttons have lower cognitive load because they make all options visible for easy comparison.
 
+![Radio vs Dropdown](https://github.com/medic/medic-docs/blob/master/configuration/img/radio-dropdown.svg) <br>
+
 **Make Use Of Images** <br>
 Where it makes sense, use images to aid in the understanding of a question
 
-[INSERT IMAGE]
+![Form Images](https://github.com/medic/medic-docs/blob/master/configuration/img/form-images.svg) <br>
 
-<br>
 
 ### Summary Page
 
@@ -234,7 +234,7 @@ Not all forms will have all summary sections, but the sections that appear shoul
 - Follow-ups scheduled (if applicable)
 - Submit button
 
->Specific recommendatiosn by form type
+>Specific recommendations by form type
 To be added as the reference app is finalized
 
 > From Ranju: I think it would be good to have a separate section for each form type. To include: how you title things and suggested order. We could bring screenshots of what we build for the ref app in here as recommendations.
@@ -301,9 +301,9 @@ Suggested icons for each section:
 
 **Text styling**
 
-H1: colored horizontal bars for section headers
-H2: text with a colored line under it, centered
-H3: left aligned text, simple grey line under it
+H1: colored horizontal bars for section headers <br>
+H2: text with a colored line under it, centered <br>
+H3: left aligned text, simple grey line under it <br>
 H4: normal body text
 
 [INSERT IMAGE]
@@ -342,7 +342,7 @@ This information can be organized into cards specific to a condition (e.g. pregn
 - Data point for the field 
 - Icon for the field, if desired
 
-[INSERT IMAGE]
+![Condition Card](https://github.com/medic/medic-docs/blob/master/configuration/img/condition-card.svg)
 
 ### Guidelines
 
