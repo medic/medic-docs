@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="351px" height="411px" viewBox="0 0 351 411" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 64 (93537) - https://sketch.com -->
+    <title>condition-card</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <polygon id="path-1" points="0 0 320 0 320 70 0 70"></polygon>
+        <filter x="-0.2%" y="-0.7%" width="100.3%" height="101.4%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="-1" in="SourceAlpha" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0.878431373   0 0 0 0 0.878431373   0 0 0 0 0.878431373  0 0 0 1 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+        <path d="M16.3791179,22.7957734 C16.0317736,23.1472324 15.5445314,23.3509072 15.0470026,23.3509072 C14.5487881,23.3509072 14.0618888,23.1472324 13.7111155,22.7957734 C13.3599994,22.4450002 13.1600964,21.9587867 13.1600964,21.4598863 C13.1600964,20.9651006 13.3599994,20.4782013 13.7111155,20.127771 C14.0618888,19.7766549 14.5487881,19.5770947 15.0470026,19.5770947 C15.5452172,19.5770947 16.0317736,19.7766549 16.3791179,20.127771 C16.7340058,20.4785442 16.9339088,20.9657864 16.9339088,21.4598863 C16.9339088,21.9587867 16.7340058,22.4453431 16.3791179,22.7957734 M15.0470026,8.68666614 C16.5882789,8.68666614 16.9644258,9.84528074 16.869789,10.5091096 L15.9450232,17.7015038 C15.9141634,18.3516172 15.4080624,18.5984957 15.0470026,18.5984957 C14.6423962,18.5984957 14.1849851,18.3859059 14.1493249,17.7015038 L13.2245591,10.5091096 C13.1295795,9.82607908 13.5149843,8.68666614 15.0470026,8.68666614 M26.2364285,19.5239473 L18.4237521,5.99191855 C17.7290634,4.78838577 16.433637,4.04020671 15.0439166,4.04020671 C13.6548821,4.04020671 12.3601414,4.7877 11.6647669,5.99123277 L3.76225416,19.6785892 C3.06756545,20.8814362 3.06825122,22.3774515 3.76225416,23.5796127 C4.45728577,24.7828026 5.75202644,25.5313245 7.14208964,25.5313245 L22.9502012,25.5313245 L22.9834612,25.5313245 C25.1206748,25.5141802 26.8529395,23.7699149 26.8529395,21.6303011 C26.8532819,20.8783503 26.6396634,20.1528017 26.2364285,19.5239473" id="path-3"></path>
+        <polygon id="path-5" points="0 0 320 0 320 70 0 70"></polygon>
+        <filter x="-0.2%" y="-0.7%" width="100.3%" height="101.4%" filterUnits="objectBoundingBox" id="filter-6">
+            <feOffset dx="0" dy="-1" in="SourceAlpha" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0.878431373   0 0 0 0 0.878431373   0 0 0 0 0.878431373  0 0 0 1 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+        <polygon id="path-7" points="0 0 320 0 320 70 0 70"></polygon>
+        <filter x="-0.2%" y="-0.7%" width="100.3%" height="101.4%" filterUnits="objectBoundingBox" id="filter-8">
+            <feOffset dx="0" dy="-1" in="SourceAlpha" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0.878431373   0 0 0 0 0.878431373   0 0 0 0 0.878431373  0 0 0 1 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+        <polygon id="path-9" points="0 0 320 0 320 70 0 70"></polygon>
+        <filter x="-0.2%" y="-0.7%" width="100.3%" height="101.4%" filterUnits="objectBoundingBox" id="filter-10">
+            <feOffset dx="0" dy="-1" in="SourceAlpha" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0.878431373   0 0 0 0 0.878431373   0 0 0 0 0.878431373  0 0 0 1 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+        <polygon id="path-11" points="0 0 320 0 320 70 0 70"></polygon>
+        <filter x="-0.2%" y="-0.7%" width="100.3%" height="101.4%" filterUnits="objectBoundingBox" id="filter-12">
+            <feOffset dx="0" dy="-1" in="SourceAlpha" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0.878431373   0 0 0 0 0.878431373   0 0 0 0 0.878431373  0 0 0 1 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+        <polygon id="path-13" points="320 45 0 45 0 0 320 0"></polygon>
+        <filter x="-0.5%" y="-3.3%" width="100.9%" height="106.7%" filterUnits="objectBoundingBox" id="filter-14">
+            <feOffset dx="0" dy="-3" in="SourceAlpha" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0.737254902   0 0 0 0 0.745098039   0 0 0 0 0.752941176  0 0 0 1 0" type="matrix" in="shadowInnerInner1" result="shadowMatrixInner1"></feColorMatrix>
+            <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetInner2"></feOffset>
+            <feComposite in="shadowOffsetInner2" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner2"></feComposite>
+            <feColorMatrix values="0 0 0 0 0.878431373   0 0 0 0 0.878431373   0 0 0 0 0.878431373  0 0 0 1 0" type="matrix" in="shadowInnerInner2" result="shadowMatrixInner2"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixInner1"></feMergeNode>
+                <feMergeNode in="shadowMatrixInner2"></feMergeNode>
+            </feMerge>
+        </filter>
+        <rect id="path-15" x="15" y="16" width="320" height="395"></rect>
+        <filter x="-0.2%" y="-0.1%" width="100.3%" height="100.3%" filterUnits="objectBoundingBox" id="filter-16">
+            <feOffset dx="0" dy="-1" in="SourceAlpha" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0.878431373   0 0 0 0 0.878431373   0 0 0 0 0.878431373  0 0 0 1 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="condition-card">
+            <g id="row/profile/form-fields-+-icon" transform="translate(15.000000, 340.253266)">
+                <g id="person-row" stroke-width="1" fill-rule="evenodd">
+                    <g id="Rectangle-10">
+                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                        <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    </g>
+                    <g id="icon/03-forms/healthcare-warning" transform="translate(280.000000, 20.000000)">
+                        <mask id="mask-4" fill="white">
+                            <use xlink:href="#path-3"></use>
+                        </mask>
+                        <use id="Fill-1" fill="#DE3A26" fill-rule="evenodd" xlink:href="#path-3"></use>
+                        <g id="color/53-bright-red-(bad)" mask="url(#mask-4)"></g>
+                    </g>
+                </g>
+                <text id="Field-answer" font-family="NotoSans, Noto Sans" font-size="16" font-weight="normal" line-spacing="22" fill="#333333">
+                    <tspan x="20" y="53">Date</tspan>
+                </text>
+                <text id="Field-label" font-family="NotoSans-Bold, Noto Sans" font-size="16" font-weight="bold" line-spacing="22" fill="#333333">
+                    <tspan x="20" y="29">Form name</tspan>
+                </text>
+            </g>
+            <g id="row/profile/form-fields" transform="translate(15.000000, 270.198548)">
+                <g id="person-row">
+                    <g id="Rectangle-10">
+                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-5"></use>
+                        <use fill="black" fill-opacity="1" filter="url(#filter-6)" xlink:href="#path-5"></use>
+                    </g>
+                    <text id="Field-answer" font-family="NotoSans, Noto Sans" font-size="16" font-weight="normal" line-spacing="22" fill="#333333">
+                        <tspan x="20" y="53">1 of 4</tspan>
+                    </text>
+                    <text id="Field-label" font-family="NotoSans-Bold, Noto Sans" font-size="16" font-weight="bold" line-spacing="22" fill="#333333">
+                        <tspan x="20" y="29">Completed ANC visits</tspan>
+                    </text>
+                </g>
+            </g>
+            <g id="row/profile/form-fields" transform="translate(15.000000, 201.144612)">
+                <g id="person-row">
+                    <g id="Rectangle-10">
+                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-7"></use>
+                        <use fill="black" fill-opacity="1" filter="url(#filter-8)" xlink:href="#path-7"></use>
+                    </g>
+                    <text id="Field-answer" font-family="NotoSans, Noto Sans" font-size="16" font-weight="normal" line-spacing="22" fill="#333333">
+                        <tspan x="20" y="53">11 December</tspan>
+                    </text>
+                    <text id="Field-label" font-family="NotoSans-Bold, Noto Sans" font-size="16" font-weight="bold" line-spacing="22" fill="#333333">
+                        <tspan x="20" y="29">Estimated delivery date</tspan>
+                    </text>
+                </g>
+            </g>
+            <g id="row/profile/form-fields" transform="translate(15.000000, 131.089894)">
+                <g id="person-row">
+                    <g id="Rectangle-10">
+                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-9"></use>
+                        <use fill="black" fill-opacity="1" filter="url(#filter-10)" xlink:href="#path-9"></use>
+                    </g>
+                    <text id="Field-answer" font-family="NotoSans, Noto Sans" font-size="16" font-weight="normal" line-spacing="22" fill="#333333">
+                        <tspan x="20" y="53">15</tspan>
+                    </text>
+                    <text id="Field-label" font-family="NotoSans-Bold, Noto Sans" font-size="16" font-weight="bold" line-spacing="22" fill="#333333">
+                        <tspan x="20" y="29">Weeks pregnant</tspan>
+                    </text>
+                </g>
+            </g>
+            <g id="row/profile/form-fields" transform="translate(15.000000, 61.035176)">
+                <g id="person-row">
+                    <g id="Rectangle-10">
+                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-11"></use>
+                        <use fill="black" fill-opacity="1" filter="url(#filter-12)" xlink:href="#path-11"></use>
+                    </g>
+                    <text id="Field-answer" font-family="NotoSans, Noto Sans" font-size="16" font-weight="normal" line-spacing="22" fill="#333333">
+                        <tspan x="20" y="53">30 April</tspan>
+                    </text>
+                    <text id="Field-label" font-family="NotoSans-Bold, Noto Sans" font-size="16" font-weight="bold" line-spacing="22" fill="#333333">
+                        <tspan x="20" y="29">Date recorded</tspan>
+                    </text>
+                </g>
+            </g>
+            <g id="row/profile/header-no-filters" transform="translate(15.000000, 16.000000)">
+                <g id="header">
+                    <g id="Fill-2">
+                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-13"></use>
+                        <use fill="black" fill-opacity="1" filter="url(#filter-14)" xlink:href="#path-13"></use>
+                    </g>
+                    <text id="Title" font-family="NotoSans, Noto Sans" font-size="18" font-weight="normal" line-spacing="26" fill="#333333">
+                        <tspan x="20" y="28">Active Pregnancy</tspan>
+                    </text>
+                </g>
+            </g>
+            <g id="Rectangle-10">
+                <use fill="black" fill-opacity="1" filter="url(#filter-16)" xlink:href="#path-15"></use>
+                <rect stroke="#979797" stroke-width="1" stroke-linejoin="square" x="15.5" y="16.5" width="319" height="394"></rect>
+            </g>
+            <g id="4" transform="translate(320.000000, 337.000000)">
+                <circle id="Oval-Copy-5" fill="#333333" cx="18" cy="12.5" r="12.5"></circle>
+                <line x1="18.5" y1="13" x2="0.5" y2="31" id="Line-2-Copy-4" stroke="#333333" stroke-width="2" stroke-linecap="round"></line>
+                <text font-family="NotoSans-Bold, Noto Sans" font-size="12" font-weight="bold" fill="#FFFFFF">
+                    <tspan x="14.5" y="17">4</tspan>
+                </text>
+            </g>
+            <g id="1" transform="translate(183.000000, 0.000000)">
+                <circle id="Oval" fill="#333333" cx="18.5" cy="13" r="12.5"></circle>
+                <line x1="19" y1="13" x2="1" y2="31" id="Line-2-Copy-2" stroke="#333333" stroke-width="2" stroke-linecap="round"></line>
+                <text font-family="NotoSans-Bold, Noto Sans" font-size="12" font-weight="bold" fill="#FFFFFF">
+                    <tspan x="15" y="16.5">1</tspan>
+                </text>
+            </g>
+            <g id="3" transform="translate(0.000000, 78.000000)">
+                <circle id="Oval-Copy" fill="#333333" cx="13" cy="12.5" r="12.5"></circle>
+                <line x1="31" y1="31" x2="13" y2="13" id="Line-2-Copy" stroke="#333333" stroke-width="2" stroke-linecap="round"></line>
+                <text font-family="NotoSans-Bold, Noto Sans" font-size="12" font-weight="bold" fill="#FFFFFF">
+                    <tspan x="9.5" y="16">3</tspan>
+                </text>
+            </g>
+            <g id="2" transform="translate(0.000000, 48.000000)">
+                <circle id="Oval-Copy" fill="#333333" cx="13" cy="12.5" r="12.5"></circle>
+                <line x1="31" y1="31" x2="13" y2="13" id="Line-2-Copy" stroke="#333333" stroke-width="2" stroke-linecap="round"></line>
+                <text font-family="NotoSans-Bold, Noto Sans" font-size="12" font-weight="bold" fill="#FFFFFF">
+                    <tspan x="9.5" y="16">2</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>

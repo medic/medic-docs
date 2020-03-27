@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="667px" height="263px" viewBox="0 0 667 263" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 64 (93537) - https://sketch.com -->
+    <title>radio-dropdown</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M12,21 C16.9705627,21 21,16.9705627 21,12 C21,7.02943725 16.9705627,3 12,3 C7.02943725,3 3,7.02943725 3,12 C3,16.9705627 7.02943725,21 12,21 Z M12,24 C5.372583,24 0,18.627417 0,12 C0,5.372583 5.372583,0 12,0 C18.627417,0 24,5.372583 24,12 C24,18.627417 18.627417,24 12,24 Z" id="path-1"></path>
+        <path d="M12,21 C16.9705627,21 21,16.9705627 21,12 C21,7.02943725 16.9705627,3 12,3 C7.02943725,3 3,7.02943725 3,12 C3,16.9705627 7.02943725,21 12,21 Z M12,24 C5.372583,24 0,18.627417 0,12 C0,5.372583 5.372583,0 12,0 C18.627417,0 24,5.372583 24,12 C24,18.627417 18.627417,24 12,24 Z" id="path-3"></path>
+        <path d="M12,21 C16.9705627,21 21,16.9705627 21,12 C21,7.02943725 16.9705627,3 12,3 C7.02943725,3 3,7.02943725 3,12 C3,16.9705627 7.02943725,21 12,21 Z M12,24 C5.372583,24 0,18.627417 0,12 C0,5.372583 5.372583,0 12,0 C18.627417,0 24,5.372583 24,12 C24,18.627417 18.627417,24 12,24 Z" id="path-5"></path>
+        <path d="M12,21 C16.9705627,21 21,16.9705627 21,12 C21,7.02943725 16.9705627,3 12,3 C7.02943725,3 3,7.02943725 3,12 C3,16.9705627 7.02943725,21 12,21 Z M12,24 C5.372583,24 0,18.627417 0,12 C0,5.372583 5.372583,0 12,0 C18.627417,0 24,5.372583 24,12 C24,18.627417 18.627417,24 12,24 Z" id="path-7"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="radio-dropdown" transform="translate(1.000000, 1.000000)">
+            <g id="radio-buttons" transform="translate(0.000000, 0.000000)">
+                <rect id="card" stroke="#218E7F" fill="#FFFFFF" x="-0.5" y="-0.5" width="321" height="233"></rect>
+                <text id="Option-A" font-family="NotoSans, Noto Sans" font-size="16" font-weight="normal" fill="#333333">
+                    <tspan x="65" y="78">Option A</tspan>
+                </text>
+                <text id="Option-C" font-family="NotoSans, Noto Sans" font-size="16" font-weight="normal" fill="#333333">
+                    <tspan x="65" y="158">Option C</tspan>
+                </text>
+                <text id="Option-B" font-family="NotoSans, Noto Sans" font-size="16" font-weight="normal" fill="#333333">
+                    <tspan x="65" y="117">Option B</tspan>
+                </text>
+                <text id="Option-D" font-family="NotoSans, Noto Sans" font-size="16" font-weight="normal" fill="#333333">
+                    <tspan x="65" y="197">Option D</tspan>
+                </text>
+                <g id="navicon/zother/radio-unselected" transform="translate(26.000000, 60.000000)">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <use id="radio-open" fill="#BCBEC0" fill-rule="nonzero" xlink:href="#path-1"></use>
+                    <g id="color/04-medium-grey" mask="url(#mask-2)"></g>
+                </g>
+                <g id="navicon/zother/radio-unselected" transform="translate(26.000000, 140.000000)">
+                    <mask id="mask-4" fill="white">
+                        <use xlink:href="#path-3"></use>
+                    </mask>
+                    <use id="radio-open" fill="#BCBEC0" fill-rule="nonzero" xlink:href="#path-3"></use>
+                    <g id="color/04-medium-grey" mask="url(#mask-4)"></g>
+                </g>
+                <g id="navicon/zother/radio-unselected" transform="translate(26.000000, 100.000000)">
+                    <mask id="mask-6" fill="white">
+                        <use xlink:href="#path-5"></use>
+                    </mask>
+                    <use id="radio-open" fill="#BCBEC0" fill-rule="nonzero" xlink:href="#path-5"></use>
+                    <g id="color/04-medium-grey" mask="url(#mask-6)"></g>
+                </g>
+                <g id="navicon/zother/radio-unselected" transform="translate(26.000000, 180.000000)">
+                    <mask id="mask-8" fill="white">
+                        <use xlink:href="#path-7"></use>
+                    </mask>
+                    <use id="radio-open" fill="#BCBEC0" fill-rule="nonzero" xlink:href="#path-7"></use>
+                    <g id="color/04-medium-grey" mask="url(#mask-8)"></g>
+                </g>
+                <text id="Question-title" font-family="NotoSans-Bold, Noto Sans" font-size="16" font-weight="bold" fill="#333333">
+                    <tspan x="26" y="40">Question title</tspan>
+                </text>
+            </g>
+            <g id="no-dropdown" transform="translate(344.000000, 0.000000)">
+                <rect id="card" stroke="#E33030" fill="#FFFFFF" x="-0.5" y="0" width="321" height="261"></rect>
+                <text id="Question-title" font-family="NotoSans-Bold, Noto Sans" font-size="16" font-weight="bold" fill="#333333">
+                    <tspan x="26" y="40">Question title</tspan>
+                </text>
+                <line x1="0.5" y1="0.5" x2="321.5" y2="260.5" id="Line" stroke="#E33030" stroke-linecap="square"></line>
+                <g id="Dropdown" transform="translate(26.000000, 60.000000)">
+                    <text id="Option-A" font-family="NotoSans, Noto Sans" font-size="16" font-weight="normal" fill="#333333">
+                        <tspan x="21" y="68">Option A</tspan>
+                    </text>
+                    <text id="Option-C" font-family="NotoSans, Noto Sans" font-size="16" font-weight="normal" fill="#333333">
+                        <tspan x="21" y="126">Option C</tspan>
+                    </text>
+                    <text id="Option-B" font-family="NotoSans, Noto Sans" font-size="16" font-weight="normal" fill="#333333">
+                        <tspan x="21" y="97">Option B</tspan>
+                    </text>
+                    <text id="Option-D" font-family="NotoSans, Noto Sans" font-size="16" font-weight="normal" fill="#333333">
+                        <tspan x="21" y="155">Option D</tspan>
+                    </text>
+                    <rect id="Rectangle-Copy-2" stroke="#333333" opacity="0.300000012" transform="translate(128.500000, 106.500000) scale(1, -1) translate(-128.500000, -106.500000) " x="0" y="39" width="257" height="135" rx="4"></rect>
+                    <rect id="Rectangle-Copy-2" stroke="#333333" fill="#D1D1D1" opacity="0.300000012" x="0" y="0" width="118" height="36" rx="4"></rect>
+                    <text font-family="NotoSans, Noto Sans" font-size="16" font-weight="normal" fill="#333333">
+                        <tspan x="13" y="24">Dropdown</tspan>
+                    </text>
+                    <polygon id="Path" fill="#333333" points="97.263311 18 104.739856 18 101.001583 22.3624255"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
