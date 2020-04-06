@@ -6,7 +6,8 @@ Once a version is no longer supported it will not receive any further releases a
 
 | Version | Status | Release date | End of life |
 |----|----|----|----|
-| 3.8.0 | Current | 11-Feb-2020 | TBA |
+| 3.8.1 | Current | 6-Apr-2020 | TBA |
+| 3.8.0 | EOL | 11-Feb-2020 | 6-Apr-2020 |
 | 3.7.1 | Supported | 13-Nov-2019 | 11-Jun-2020 |
 | 3.7.0 | EOL | 22-Oct-2019 | 13-Nov-2019 |
 | 3.6.2 | EOL | 24-Mar-2020 | 24-Mar-2020 |
@@ -30,7 +31,7 @@ Once a version is no longer supported it will not receive any further releases a
 |----|----|----|----|----|----|----|---|
 | **0.4** | 0.12+ | 1.6+ | Chrome 30+, Firefox latest | SMSSync | N/A | N/A | N/A |
 | **2.x** | 6+ | 1.6+ | Chrome 30+, Firefox latest | medic-gateway | 4.4+ | Any | 2.0 < 3.0 |
-| **3.x** | 8.11+ | 2.1+ | Chrome 53+, Firefox latest | medic-gateway | 4.4+ | 0.4.5+ | 3.0+
+| **3.x** | 8.11+ | 2.1+ | Chrome 53+, Firefox latest | medic-gateway | 4.4+ | 0.4.5+ | 3.0+ |
 
 # Hardware requirements
 
