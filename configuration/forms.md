@@ -465,7 +465,7 @@ To get forms sent in this format, follow the [ODK documentation](https://opendat
 
 ### Medic Custom SMS representation
 
-To configure a form to send using Medic's custom SMS definition, the value of `xml2sms` from the form's CouchDB doc should be an string containing an Boolean[Angular expression](https://docs.angularjs.org/guide/expression).
+To configure a form to send using Medic's custom SMS definition, the value of `xml2sms` from the form's CouchDB doc should be an string containing an [Angular expression](https://docs.angularjs.org/guide/expression).
 This allows access to the `fields` property of the `data_record` doc created when saving the form submission to the database.  Extra functions are also provided to make compiling a form submission more simple.
 
 #### Special Functions
