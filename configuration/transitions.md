@@ -42,6 +42,7 @@ The following transitions are available and executed in order.
 | resolve_pending | Sets the state of pending messages to sent. It is useful during builds where we don't want any outgoing messages queued for sending. |
 | [muting](#muting) | Implements muting/unmuting actions of people and places. Available since 3.2.x. |
 | [mark_for_outbound](./outbound.md) | Enables outbound pushes. Available since 3.5.x |
+| [update_patient](#update_patient) | Maps patient to sender. Available since 3.9.x |
 
 ## Transition Configuration Guide
 
@@ -426,4 +427,25 @@ Supported `events_types` are:
       }
     ]
   }
+```
+
+### update_patient
+
+Updates a `data_record` to set its patient to its sender, the resulting doc will have `fields.patient_uuid` and `fields.patient_id` filled with the sender's information. Provides hydrated patient information to subsequent transitions. 
+If a doc already contains a `patient` field, does not have a sender (`from` field) or does not have a configured `form` field, it will be ignored by this transition.
+
+#### Configuration
+Configuration is stored in the `update_patient` field of `app_settings.json`.
+
+| Property | Description |
+|---|---|
+| `forms` | An array of form codes which will trigger the transition. **Required** |
+
+
+##### Example
+
+```json
+"update_patient": {
+  "forms": ["one", "two"]  
+}
 ```
