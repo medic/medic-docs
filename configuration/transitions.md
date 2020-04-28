@@ -290,6 +290,10 @@ To provide an alternative location for the place name, provide a `place_name_fie
 }
 ```
 
+##### `add_case` *as of 3.9.0*
+
+Sets the `case_id` on the root of the registration document.
+
 ### Generate Shortcode on Contacts
 
 No custom configuration for `generate_shortcode_on_contacts`.
