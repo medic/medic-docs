@@ -537,7 +537,7 @@ This allows access to the `fields` property of the `data_record` doc created whe
 
 ## Configuring report list titles
 
-The CHT shows the name of the subject of the report in the reports list by default. This can be overridden by configuring the `subject_key` property with a translation key in the form documentent, for example:
+The CHT shows the name of the subject of the report in the reports list by default. This can be overridden by configuring the `subject_key` property with a translation key in the form document, for example:
 
 ```json
   "internalId": "signal",
