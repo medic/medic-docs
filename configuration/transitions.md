@@ -433,7 +433,7 @@ Supported `events_types` are:
 
 Updates a `data_record` to set its patient to its sender. The resulting doc will have `fields.patient_uuid` and `fields.patient_id` filled with the sender's information. Provides hydrated patient information to subsequent transitions.
 The `sender` is the contact associated with the phone number that sent the original SMS.  
-If a doc already contains a `patient` field, does not have a sender or does not have a configured `form` field, it will be ignored by this transition.
+If a doc already contains a `patient` field, does not have a sender or its `form` is not configured to be enabled for this transition, it will be ignored.
 
 #### Configuration
 Configuration is stored in the `self_report` field of `app_settings.json` as a list of objects connecting forms to messages.
