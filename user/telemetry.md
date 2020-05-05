@@ -45,11 +45,12 @@ The telemetry data gathered changes with different versions of the framework. Cu
 | `rules-engine:tasks:all-contacts` | The time taken to fetch tasks for all contacts in rules-engine. Added in 3.9 | 
 | `rules-engine:tasks:some-contacts` | The time taken to fetch tasks for some specific contacts in rules-engine. Added in 3.9 |
 | `rules-engine:targets` | Time taken for the rules-engine to fetch targets. Added in 3.9 | 
-| `rules-engine:targets:dirty-contacts` | Number of "dirty" contacts when fetching targets in the rules-engine. Added in 3.9 | 
-| `rules-engine:tasks:dirty-contacts` | Number of "dirty" contacts when fetching tasks in the rules-engine. Added in 3.9 | 
+| `rules-engine:targets:dirty-contacts` | Number of "dirty" contacts[1] when fetching targets in the rules-engine. Added in 3.9 | 
+| `rules-engine:tasks:dirty-contacts` | Number of "dirty" contacts[1] when fetching tasks in the rules-engine. Added in 3.9 | 
 | `rules-engine:ensureTaskFreshness:cancel` | The time taken to cancel the automated task freshness thread in the rules-engine. This event is only recorded when the thread is cancelled before executing the refresh. Added in 3.9 | 
 | `rules-engine:ensureTargetFreshness:cancel` | The time taken to cancel the automated target freshness thread in the rules-engine. This event is only recorded when the thread is cancelled before executing the refresh. Added in 3.9 |
     
+[1] "Dirty" indicates that the contact's task documents are not up to date. They will be refreshed before being used.
 
 ## Metadata
 
