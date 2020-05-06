@@ -493,6 +493,7 @@ More complex targets can be written using the full set of properties for targets
 | `dhis[n].dataElement` | `string` | The hash id of a data element configured in the DHIS2 data set you're integrating with | yes
 | `dhis[n].dataSet` | `string` | The hash id of the data set that contains the data element you're integrating with. If this is left undefined, the data element will appear in all data sets. | no
 | `visible` | `boolean` | Whether the target is visible in the targets page. **Default: true** | no | 
+| `aggregate` | `boolean` | As of 3.9, defines whether the target will be displayed on the TargetAggregates page | no |
 
 ### Examples
 
