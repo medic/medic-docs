@@ -514,7 +514,7 @@ Allow reporting about case centric workflows by
     "event_type": "report_accepted",
     "bool_expr": "some expression",
     "message": "some message",
-    "recipients": "some recipients"
+    "recipient": "some recipients"
   }]
 }]
 ```
