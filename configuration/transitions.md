@@ -29,7 +29,7 @@ The following transitions are available and executed in order.
 | update_clinics | Adds a contact's info to a new data record. This is used to attribute an incoming SMS message or report to the appropriate contact. The `rc_code` value on the contact is used to match to the value of the form field set as the `facility_reference` in the [JSON form definition](https://github.com/medic/medic-docs/blob/master/configuration/forms.md#json-forms). This matching is useful when reports are sent on behalf of a facility by unknown or various phone numbers. If `facility_reference` is not set for a form, the contact match is attempted using the sender's phone number. |
 | [registration](#registration) | For registering a patient to a schedule. Performs some validation and creates the patient document if the patient does not already exist. Can create places (as of 3.8.x).|
 | accept_patient_reports | Validates reports about a patient and silences relevant reminders. |
-| [case_reports](#case-reports) | Validates reports about a case, assigns the associated place_uuid, and silences relevant reminders. Available since 3.9.0 |
+| [accept_case_reports](#accept-case-reports) | Validates reports about a case, assigns the associated place_uuid, and silences relevant reminders. Available since 3.9.0 |
 | [generate_shortcode_on_contacts](#generate-shortcode-on-contacts) | Automatically generates the `patient_id` on all person documents and the `place_id` on all place documents. Available since 3.8.x. |
 | [generate_patient_id_on_people](#generate-patient-id-on-people) | **Deprecated in 3.8.x** Automatically generates the `patient_id` on all person documents. As of 3.8.x, also generates the `place_id` on all place documents and is an alias for `generate_shortcode_on_contacts`. |
 | default_responses | Responds to the message with a confirmation or validation error. |
@@ -493,7 +493,7 @@ Supported `events_types` are:
 ]
 ```
 
-### Case reports
+### Accept case reports
 
 Allow reporting about case centric workflows by
 - validating the report ([configuration documentation](app-settings-validations.md)),
@@ -507,7 +507,7 @@ Allow reporting about case centric workflows by
 "registrations": [{
   "form": "8"
 }],
-"case_reports": [{
+"accept_case_reports": [{
   "form": "SIGNOFF",
   "validations": {},
   "messages": [{
