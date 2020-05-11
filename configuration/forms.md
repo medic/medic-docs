@@ -337,26 +337,29 @@ First, the relevant section of the delivery report XLSForm file:
 Here is the corresponding portion of XML generated after converting the form:
 
 ```xml
-<child_doc db-doc-ref=" /postnatal_care/child "/>
-<child db-doc="true">
-  <created_by_doc db-doc-ref="/postnatal_care"/>
-  <name/>
-  <sex/>
-  <date_of_birth/>
-  <parent>
-    <_id/>
+<repeat>
+  <child_repeat db-doc="true" jr:template="">
+    <child_name/>
+    <child_gender/>
+    <created_by_doc db-docs-ref="/delivery"/>
+    <name/>
+    <sex/>
+    <date_of_birth/>
     <parent>
       <_id/>
       <parent>
         <_id/>
+        <parent>
+          <_id/>
+        </parent>
       </parent>
     </parent>
-  </parent>
-  <type>person</type>
-</child>
+    <type>person</type>
+  </child_repeat>
+</repeat>
 ```
 
-If you've done your configuration correctly, all you should see when you click on the submitted report from the Reports tab is the `child_doc` field with an `_id` that corresponds to the first doc that was created. The other docs will have a link to the report that created them but the report will not link directly to them. Again, you could look for that `_id` on the People tab or in the DB itself to confirm that the resulting docs look correct.
+If you've done your configuration correctly, all you should see when you click on the submitted report from the Reports tab is that there will be no information on the children created. You will find the created docs as siblings to the subject of the previously submitted report. Each of these child docs will have a field `created_by_doc` whose value is the `_id` of the report that created them. You can also look in the DB itself to confirm that the resulting docs look correct.
 
 ## Uploading Binary Attachments
 
