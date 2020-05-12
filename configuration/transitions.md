@@ -42,6 +42,7 @@ The following transitions are available and executed in order.
 | resolve_pending | Sets the state of pending messages to sent. It is useful during builds where we don't want any outgoing messages queued for sending. |
 | [muting](#muting) | Implements muting/unmuting actions of people and places. Available since 3.2.x. |
 | [mark_for_outbound](./outbound.md) | Enables outbound pushes. Available since 3.5.x |
+| [self_report](#self_report) | Maps patient to sender. Available since 3.9.x |
 
 ## Transition Configuration Guide
 
@@ -426,4 +427,63 @@ Supported `events_types` are:
       }
     ]
   }
+```
+
+### self_report
+
+Updates a `data_record` to set its patient to its sender. The resulting doc will have `fields.patient_uuid` and `fields.patient_id` filled with the sender's information. Provides hydrated patient information to subsequent transitions.
+The `sender` is the contact associated with the phone number that sent the original SMS.  
+If a doc already contains a `patient` field, does not have a sender or its `form` is not configured to be enabled for this transition, it will be ignored.
+
+#### Configuration
+Configuration is stored in the `self_report` field of `app_settings.json` as a list of objects connecting forms to messages.
+Every object should have this structure:
+
+| Property | Description |
+|---|---|
+| `form` | Form code. **Required** |
+| `messages` | List of tasks/errors that will be created, determined by `event_type`. Optional. | 
+
+Supported `events_types` are:
+
+| Event Type | Trigger |
+|---|---|
+| `report_accepted` | On successful sender updating |
+| `sender_not_found` | Sender not found |
+
+##### Example
+
+```json
+"self_report": [
+  {
+    "form": "FORM",
+    "messages": [
+      {
+        "event_type": "report_accepted",
+        "recipient": "reporting_unit",
+        "translation_key": "messages.form.report_accepted"
+      },
+      {
+        "event_type": "sender_not_found",
+        "recipient": "reporting_unit",
+        "translation_key": "messages.form.sender_not_found"
+      }
+    ]
+  },
+  {
+    "form": "OTHER",
+    "messages": [
+      {
+        "event_type": "report_accepted",
+        "recipient": "reporting_unit",
+        "translation_key": "messages.other.report_accepted"
+      },
+      {
+        "event_type": "sender_not_found",
+        "recipient": "reporting_unit",
+        "translation_key": "messages.other.sender_not_found"
+      }
+    ]
+  }
+]
 ```
