@@ -109,7 +109,7 @@ Each form can have the following files:
 - A XLSForm form definition, converted to the XForm (optional) 
 - A XML form definition using the ODK XForm format
 - Meta information in the `{form_name}.properties.json` file (optional)
-- Media files in the `{form_name}-media` directory (optional)
+- Media files in the `{form_name}-media` directory (optional; users of this feature must update to v3.8.1 or later) 
 
 A typical form starts with an `inputs` group which contains prepopulated fields that may be needed during the completion of the form (eg patient's name, prior information), and ends with a summary group (eg `group_summary`, or `group_review`) where important information is shown to the user before they submit the form. In between these two is the form flow, usually a collection of questions grouped into pages. All data fields submitted with a form are stored, but often important information that will need to be accessed from the form is brought to the top level. To make sure forms are properly associated to a contact, make sure at least one of `place_id`, `patient_id`, and `patient_uuid` is stored at the top level of the form.
 
