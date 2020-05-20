@@ -244,3 +244,18 @@ You can change any contact type configuration easily except for the IDs. To chan
 #### Migration
 
 If you already have person and place documents, switching from using the fixed hierarchy requires that you also update all the exisitng docs. Each contact and report holds the IDs of ancestors in their hierarchy so they will all need to be updated to be consistent with the changes you've made. You can use the medic-conf `move-contacts` command to help with this migration.
+
+### SMS
+
+Configures outgoing SMS settings.
+
+| Property         | Default value | Description                                                                                                                                                                              |
+|------------------|---------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| outgoing_service | medic-gateway | Defines the service to use to send SMS messages. Currently supports "medic-gateway" and "africas-talking". Read more about "africas-talking" configuration [here](./africas-talking.md). |
+| duplicate_limit  | 5             | The number of identical sms message allowed to be sent to the same recipient.
+
+#### Duplicate SMS messages handling
+
+Every time a service (API or Sentinel) creates an SMS, we keep track of the recipient, and the message content, along with the current timestamp.
+When more than `duplicate_limit` messages have been created for the same pair of recipient+content, within a time limit, we mark the new message with a "duplicate" status. Such messages are never sent.
+The cache is cleared 30 minutes after the last SMS message for a specific pair was generated.
