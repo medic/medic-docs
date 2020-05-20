@@ -37,6 +37,20 @@ The telemetry data gathered changes with different versions of the framework. Cu
 | `search:reports` | The time taken to list all reports. |
 | `search:reports:<filter[:filter]>` | The time taken to search all reports using the given filters. |
 | `client-date-offset` | The difference between the client datetime and the server datetime. Only recorded if the difference is large enough that it may cause issues. |
+| `analytics:targets:load` | The time taken to load the targets page. Added in 3.9 | 
+| `tasks:load` | The time taken to load the tasks page. Added in 3.9 | 
+| `tasks:refresh` | The time taken to refresh tasks on the tasks page. Added in 3.9 | 
+| `rules-engine:initialize` | The time taken to initialize the rules-engine . Added in 3.9 | 
+| `rules-engine:update-emissions` | The time taken to update emissions in the rules-engine, when receiving a change. Added in 3.9 | 
+| `rules-engine:tasks:all-contacts` | The time taken to fetch tasks for all contacts in rules-engine. Added in 3.9 | 
+| `rules-engine:tasks:some-contacts` | The time taken to fetch tasks for some specific contacts in rules-engine. Added in 3.9 |
+| `rules-engine:targets` | Time taken for the rules-engine to fetch targets. Added in 3.9 | 
+| `rules-engine:targets:dirty-contacts` | Number of "dirty" contacts[1] when fetching targets in the rules-engine. Added in 3.9 | 
+| `rules-engine:tasks:dirty-contacts` | Number of "dirty" contacts[1] when fetching tasks in the rules-engine. Added in 3.9 | 
+| `rules-engine:ensureTaskFreshness:cancel` | The time taken to cancel the automated task freshness thread in the rules-engine. This event is only recorded when the thread is cancelled before executing the refresh. Added in 3.9 | 
+| `rules-engine:ensureTargetFreshness:cancel` | The time taken to cancel the automated target freshness thread in the rules-engine. This event is only recorded when the thread is cancelled before executing the refresh. Added in 3.9 |
+    
+[1] "Dirty" indicates that the contact's task documents are not up to date. They will be refreshed before being used.
 
 ## Metadata
 
