@@ -53,6 +53,7 @@ Used for SMS interfaces such as formatted SMS, SIM applications, and Medic Colle
 | `meta.code` | string | The unique form identifier, which will be sent with all reports of this form. Must be the same as the form's key. | yes |
 | `meta.icon` | string | Name of the icon resource shown in the app. | no |
 | `meta.translation_key` | string | Name of the form shown in the app. | no |
+| `meta.subject_key` | string | A translation key to display in the report list instead of the subject name (default). The translation is provided with a summary of the report which can be used for evaluation, eg: `Case registration {{case_id}}`. Useful properties available in the summary include: `from` (the phone number of the sender), `phone` (the phone number of the report contact), `form` (the form code), `subject.name` (the name of the subject), and `case_id` (the generated case id). Added in 3.9.0 | no |
 | `fields`| object | Collection of field objects included in the form. | yes |
 | `fields.${field}` | object | Field that is part of the form. | yes |
 | `fields.${field}.type` | string | Data type of field. See [supported data types](#supported-data-types). | yes |
@@ -533,6 +534,20 @@ This allows access to the `fields` property of the `data_record` doc created whe
 ##### SMS content
 
 	U5 DANGER LCIB
+
+## Configuring report list titles
+
+_Added in 3.9.0_
+
+The CHT shows the name of the subject of the report in the reports list by default. This can be overridden by configuring the `subject_key` property with a translation key in the form document, for example:
+
+```json
+  "internalId": "signal",
+  "title": "Signal signoff",
+  "subject_key": "signal.list.subject",
+```
+
+The translation uses a summary of the report as the evaluation context so you can include report fields in your value, for example: `Case registration {{case_id}}`. Useful properties available in the summary include: `from` (the phone number of the sender), `phone` (the phone number of the report contact), `form` (the form code), `subject.name` (the name of the subject), and `case_id` (the generated case id).
 
 ## XForms for Medic Collect
 
