@@ -29,7 +29,7 @@ This style guide provides a set of editorial guidelines for anyone writing devel
 
 ## Language
 
-Documentation for Medic Mobile and Community Health Toolkit projects is written is American English.
+Documentation for Medic Mobile and Community Health Toolkit projects is written in American English.
 
 ## General guidelines and best practices
 
