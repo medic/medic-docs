@@ -39,10 +39,17 @@ Check the UI for any errors. If you get errors you don't understand or are unabl
 
 ## Configuration
 
-1. In `app_settings.json`, configure one or more [data sets](./app-settings.md#dhis2-data-sets).
+1. In `app_settings.json`, configure one or more data sets.
 1. In `targets.js` (or the legacy `targets.json`), configure one or more data elements by setting the `dhis` attribute in the [target schema](./developing-community-health-applications.md#target-schema).
 1. Update the contact document of each `place` you wish to maps to an organisation unit. Add an `dhis.orgUnit` attribute.
 1. Create a new user role and a new user with that role; or update an existing user role. To export DHIS2 metrics, users need to have the following permissions: `can_configure`, `can_export_all`, and `can_export_dhis`.
+
+### App settings schema
+
+Property | Description | Required
+-- | -- | --
+id | The data set ID from DHIS2 with which to integrate | Yes
+translation_key | Translation key to resolve a human readable name to be displayed in the App Management app | Yes
 
 ### Example Configuration
 
