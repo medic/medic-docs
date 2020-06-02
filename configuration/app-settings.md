@@ -219,20 +219,6 @@ From 3.7.0 it is possible to configure what types of places and people are avail
 
 From 3.9.0 it is possible to integrate with DHIS2 by modifying the `dhisDataSets` property. This is part of a broader [DHIS2 Integration](./dhis-integration.md).
 
-Property | Description | Required
--- | -- | --
-guid | The data set guid from DHIS2 with which to integrate | Yes
-label | Friendly name to be displayed as the name of the DHIS2 data set | Yes
-
-```json
-"dhisDataSets": [
-  {
-    "guid": "VMuFODsyWaO",
-    "label": "MoH Monthly Report"
-  }
-],
-```
-
 #### Forms
 
 When creating contacts the type will be automatically assigned based on the button the user clicked. However if the form also creates sibling or child contacts these nested sections must specify a `type` field with a hardcoded value of "contact" and a `contact_type` field with the ID of the desired contact type.
