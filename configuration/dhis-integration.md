@@ -52,8 +52,8 @@ Check the UI for any errors. If you get errors you don't understand or are unabl
 {
   "dhisDataSets": [
     {
-      "guid": "VMuFODsyWaO",
-      "label": "MoH Monthly Report"
+      "id": "VMuFODsyWaO",
+      "translation_key": "dhis.dataset.name"
     }
   ],
 }
