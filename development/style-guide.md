@@ -139,6 +139,32 @@ function bank_Account() {
 }
 ```
 
+## Use snake_case for CouchDB document property names
+
+All property names in CouchDB documents use lowercase underscore-separated formatting.
+
+*Right:*
+
+```json
+{
+  "word": "values can have spaces and CAPS",
+  "multiple_words": true
+}
+```
+
+*Wrong:*
+
+```js
+{
+  "UPPER_CASE_NAME": false,
+  "lowercasename": false,
+  "camelCaseName": false,
+  "kebab-case-name": false,
+  "Title_case_name": false,
+  "sTuDlYcAsEnAmE": false
+}
+```
+
 ## Use `const` and `let`
 
 There is no longer a good reason to use `var`. Use `const` whenever you can,
