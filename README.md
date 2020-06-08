@@ -1,4 +1,8 @@
-## This documentation repo has been replaced by https://github.com/medic/cht-docs
+### This documentation repo has been replaced by [`cht-docs`](https://github.com/medic/cht-docs)
+
+### Check out the new documentation site: [docs.communityhealthtoolkit.org](https://docs.communityhealthtoolkit.org)
+
+---
 
 # Documentation
 
