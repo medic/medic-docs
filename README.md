@@ -1,3 +1,5 @@
+## This documentation repo has been replaced by https://github.com/medic/cht-docs
+
 # Documentation
 
 ## Core Framework Development
